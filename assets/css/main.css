@@ -1109,11 +1109,10 @@ body{
 
 @media only screen and (max-width:770px) {
     .date {
-        padding: 8rem 0rem 0rem 0rem;
-        width: 60%;
-        transform:none;
-        left: 30%;
-        opacity: 0;
-
+@media only screen and (max-width:770px) {
+    .date {
+        display: none; 
+      }
+}
       }
 }
