@@ -1168,3 +1168,10 @@ body{
 .card .social-links a:hover {
     color: #fff;
 }
+
+@media only screen and (max-width:768px) {
+    .card h1 {
+        font-size: 4rem;
+      }
+
+}
