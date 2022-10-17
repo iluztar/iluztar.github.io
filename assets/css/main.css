@@ -8,11 +8,12 @@
     --main2-bg-color: rgba(139,0,10,0.9);
 
     -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
 
-
+  
 /*---------------------------------------------------------------------------------------------------*/
 /*===================================================================================================*/
 /*---------------------------------------------------------------------------------------------------*/
@@ -206,13 +207,13 @@ td,th{
 
 
 ::-moz-selection{
-    background:#FFF498
+    background:transparent
 }
 ::selection{
-    background:#FFF498
+    background:transparent
 }
 ::-moz-selection{
-    background:#FFF498
+    background:transparent
 }
 
 img::-moz-selection{
@@ -225,7 +226,7 @@ img::-moz-selection{
     background:transparent
 }
 body{
-    -webkit-tap-highlight-color:#FFF498
+    -webkit-tap-highlight-color:transparent
 }
 
 
