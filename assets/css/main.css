@@ -207,13 +207,13 @@ td,th{
 
 
 ::-moz-selection{
-    background:transparent
+    background:#0084ff5e
 }
 ::selection{
-    background:transparent
+    background:#0084ff5e
 }
 ::-moz-selection{
-    background:transparent
+    background:#0084ff5e
 }
 
 img::-moz-selection{
@@ -226,7 +226,7 @@ img::-moz-selection{
     background:transparent
 }
 body{
-    -webkit-tap-highlight-color:transparent
+    -webkit-tap-highlight-color:#0084ff5e
 }
 
 
