@@ -1,415 +1,384 @@
 <!DOCTYPE html>
 
     <!--
-    #=======================================================================================================#
-    # Thank you for visiting and pressing the inspect element, or maybe you cloned this code via my GitHub  #
-    #                                                                                                       #
-    # Source code : https://github.com/qozylus/qozylus.github.io                                            #
-    #                                                                                                       #                                                                         
-    #=======================================================================================================#
-    # LIBRARY AND SCRIPT USED                                                                               #
-    #                                                                                                       #                                                                         
-    # Global: HTML5 website template                  : https://github.com/BuckyMaler                       #
-    #                                                 :                                                     # 
-    #                                                 :                                                     # 
-    #                                                 :                                                     # 
-    #                                                 :                                                     # 
-    #                                                                                                       #    
-    #=======================================================================================================#                                                                                        #
-    # Developer/Artist note:                                                                                #
-    #                                                                                                       #                                                                   
-    # At first, i was planned to be built a website using carrd.co / WIX / Wordpress. But I realized there  #  
-    # were so many limitations, locked by paywalls. The next option was to use a framework which involves   #
-    # coding. Luckily, I understand the basics enough to be able to combine various source code into a new  #
-    # website.                                                                                              #
-    #                                                                                                       #
-    #=======================================================================================================#
-    # Sincerely, QOZYLUS                                                                                    #
-    #                                                                                                       # 
-    #=======================================================================================================#  
+    #==============================================================================================================#
+    # Thank you for visiting and pressing the inspect element, or maybe you cloned this code via my GitHub         # 
+    #                                                                                                              # 
+    # Source code : https://github.com/qozylus/qozylus.github.io                                                   # 
+    #                                                                                                              #                                                                          
+    #==============================================================================================================# 
+    # LIBRARY AND SCRIPT USED -------------------------------------------------------------------------------------# 
+    #                                                                                                              #                                                                         
+    # Exploring UI Animation #2                          : https://codepen.io/mariosmaselli/pen/WGwKVg             # 
+    # Vue dark mode toggle                               : https://codepen.io/moso/pen/MxLwbE
+      very easy full page popup using jQuery             : https://codepen.io/arpitdalal/pen/vYKrWXx
+
+    #                                                                                                              #
+    #==============================================================================================================#                                                                                        #
+    # Developer/Artist note: --------------------------------------------------------------------------------------#
+    #                                                                                                              #                                                                   
+    # At first, i was planned to be built a website using carrd.co / WIX / Wordpress. But I realized there         #  
+    # were so many limitations, locked by paywalls. The next option was to use a framework which involves          # 
+    # coding. Luckily, I understand the basics enough to be able to combine various source code into a new         # 
+    # website.                                                                                                     # 
+    #                                                                                                              # 
+    #==============================================================================================================#
+    # Sincerely, QOZYLUS ------------------------------------------------------------------------------------------#
+    #                                                                                                              #  
+    #==============================================================================================================#  
     -->
 
-<html lang="en">
+
+<html lang="en" >
 <head>
-
-  <title>QOZYLUS | Portfolio</title>
-
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <title>QOZYLUS</title>
   
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="HTML5 website template">
-  <meta name="keywords" content="QOZYLUS, template, html, css, jquery">
-  <meta name="author" content="QOZYLUS">
-
-
-
-  <!--====================================================================================================#
-  #=====================================================================================================-->
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Style CSS Files -->
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
-  <!-- ====== Card Slider JS ====== -->
-  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./commission-info.css">
 
-  <!-- Other CSS/JS-->
-  <link rel="stylesheet" href="assets/css/header-glitch.css">
-
-  <!--====================================================================================================#
-  #=====================================================================================================-->
-
-  
 </head>
-
-
-
 <body>
+<!-- partial:index.partial.html -->
+<svg id="icons" xmlns="http://www.w3.org/2000/svg">  
+<symbol id="icon-arrow" viewBox="0 0 476.213 476.213" >
+<polygon fill="inherit" points="347.5,324.393 253.353,418.541 253.353,0 223.353,0 223.353,419.033 128.713,324.393 107.5,345.607 
+	238.107,476.213 368.713,345.606 "/>
+</symbol>
+</svg>
 
-<div class="perspective effect-rotate-left ">
-  <div class="container"><div class="outer-nav--return"></div>
-    <div id="viewport" class="l-viewport">
-      <div class="l-wrapper">
+<div class="absolute-center">
+  <div class="slider-content">
 
-        <header class="header">
-          <a class="header--logo" href="#0">
-            <img src="assets/img/logo.png" alt="QOZYLUS">
-            <p>QOZYLUS</p>
-          </a>
+    <!-- Modal : Commission Info -->
+    <div id="test-modal" class="popup d-none">
+      <div class="popup-content">
+        <span class="close">
+          <i class="material-icons">west</i>
+          <p>BACK</p>
+        </span>
+        
+        <div class='screen'>
 
-          <button class="header--cta cta">CONTACT</button>
+          <div class='nav'>
 
-          <div class="header--nav-toggle">
-            <span></span>
+            <nav>
+              <button onclick="jump('sec-features');" class='button-nav'>Features</button>
+              <button onclick="jump('sec-coments');" class='button-nav'>Coments</button>
+              <button onclick="jump('sec-contact');" class='button-nav-cta'>Hire Now</button>
+            </nav>
           </div>
-        </header>
 
-        <nav class="l-side-nav ">
-          <ul class="side-nav">
-            <li class="is-active"><span>/ HOME</span></li>
-            <li><span>/ WORKS</span></li>
-            <li><span>/ PRICE</span></li>
-            <li><span>/ T&C</span></li>
-            <li><span>/ CONTACT</span></li>
-          </ul>
-        </nav>
-        
-        <!-- 
-        <div class="floating-text">
-          Copyright © <a href="https://github.com/qozylus" target="_blank">QOZYLUS</a> 
-          ©2022 https://github.com/qozylus. All Rights Reserved.
-        </div>
-        <!-- end of floating text-->
+          <div class='page'>
 
-        
-        <ul class="l-main-content main-content">
-          
-  <!--====================================================================================================#
-  #=====================================================================================================-->
- 
-<!--  Section 1 --> 
-<li class="l-section section section--is-active" id="home">
-  <div class="layout__1">
-    <div class="layout__1--lockup">
-      <div class="layout__2">
-        <div class="layout__2-intro">
+            <section class='hero'>
+              <div class='cta'>2023 :</br><span>The year you'll launch your own business</span></div>
+              <button onclick="jump('sec-contact');" class='button-cta'>HIRE NOW</button>
+            </section>
 
-
-              <!-- REMOVE _ FOR TURNING ON EFFECT-->
-              <h1 class="hero _glitch _layers" data-text="コジルス"><span>コジルス</span></h1>
-
-              <h2 class="animation-typing">
-                  <p>/ I'm Indonesian <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
-              </h2>
+            <section class='features'>
+              <div class='section-name' id='sec-features'>FEATURES</div>
+              <div class='section-title'>15 steps to consider</div>
+              <div class='section-subtitle'><a href='https://medium.com/@christianreber/15-steps-to-launch-your-own-startup-74e945869ca4#.vn1j6yaa5' target='_blank'>Based on the article '15 steps to launch your own startup' by Christian Reber</a></div>
               
-              <div class="layout__2-intro">   
-                
-                <div class="social-links">
-                
-                  <a href="https://www.twitter.com/qozylus" class="twitter"><i class="fab fa-twitter"></i></a>
-                  <a href="https://www.facebook.com/qozylus" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                  <a href="https://www.instagram.com/qozylus" class="instagram"><i class="fab fa-instagram"></i></a>
-                  <a href="https://www.deviantart.com/qozylus" class="deviantart"><i class="fab fa-deviantart"></i></a>
-                  <a href="https://artstation.com/qozylus/" class="artstation"><i class="fab fa-artstation"></i></a>
-  
-                </div>
+              <div class='features-container'>
+                <div class='features-item'><div class='item-number'>01</div><div class='item-text'>Dream big and start small</div></div>
 
-                <span>
-                    <button class="layout__2-intro--button layout__2-intro--info">Commission Status :</button>
-                </span>
+                <div class='features-item'><div class='item-number'>02</div><div class='item-text'>Work to learn, not to earn</div></div>
 
-                <span>
+                <div class='features-item'><div class='item-number'>03</div><div class='item-text'>Join the community</div></div>
 
-                    <button class="layout__2-intro--button layout__2-intro--status price">OPEN</button>
-                    <!--<button class="layout__2-intro--button layout__2-intro--status2">CLOSED</button>-->
+                <div class='features-item'><div class='item-number'>04</div><div class='item-text'>Find the right location</div></div>
 
-                  
-                </span>
+                <div class='features-item'><div class='item-number'>05</div><div class='item-text'>Identify good and bad ideas, early</div></div>
+
+                <div class='features-item'><div class='item-number'>06</div><div class='item-text'>Understand trends & markets</div></div>
+
+                <div class='features-item'><div class='item-number'>07</div><div class='item-text'>Define your mission</div></div>
+
+                <div class='features-item'><div class='item-number'>08</div><div class='item-text'>Prepare to fail, 95% do</div></div>
+
+                <div class='features-item'><div class='item-number'>09</div><div class='item-text'>Find the right co-founders</div></div>
+
+                <div class='features-item'><div class='item-number'>10</div><div class='item-text'>Raise your first round of money</div></div>
+
+                <div class='features-item'><div class='item-number'>11</div><div class='item-text'>Learn about hiring & company culture</div></div>
+
+                <div class='features-item'><div class='item-number'>12</div><div class='item-text'>Prepare yourself to become a manager</div></div>
+
+                <div class='features-item'><div class='item-number'>13</div><div class='item-text'>Find advisors and mentors to build your business</div></div>
+
+                <div class='features-item'><div class='item-number'>14</div><div class='item-text'>Be ready for constant change</div></div>
+
+                <div class='features-item'><div class='item-number'>15</div><div class='item-text'>Work hard and be nice to people</div></div>
+
               </div>
+            </section>
 
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-</li>
-<!--  End of section 1  --> 
-
-  <!--====================================================================================================#
-  #=====================================================================================================-->
-
-<!--  Section 2  -->
-<li class="l-section section" id="works">
-  <div class="layout__1">
-    <div class="layout__1--lockup">
-      <div class="layout__2">
-
-
-
-
-
-      </div>
-    </div>
-  </div>
-</li>
-<!--  End of section 2  -->
-
-  <!--====================================================================================================#
-  #=====================================================================================================-->
-
-<!--  section 3  --> 
-<li class="l-section section" id="price">
-  <div class="layout__1">
-    <div class="layout__1--lockup">
-      <div class="layout__2">
-
-
-
-
-      </div>
-    </div>
-  </div>
-</li>
-<!--  End of section 3  --> 
-
-  <!--====================================================================================================#
-  #=====================================================================================================-->
-
-<!--  section 4  --> 
-<li class="l-section section" id="tos">
-  <div class="layout__1">
-    <div class="layout__1--lockup">
-      <div class="layout__2">
-
-
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper content">
-                    
-                  
-                <div class="swiper-slide card__swiper">
-                   <div class="card__swiper-content">
-
-
-                    
-
-
-
+            <section class='coments'>
+              <div class='section-name' id='sec-coments'>COMENTS</div>
+              <div class='hcarousel'>
+                        <ul class='hpanes'>
+                            <li><div class='box-clients'>
+                                      <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                      <div class='id-client'>John Doe</br>Foo Startup</div>
+                                  </div>
+                           </li>
+                           <li><div class='box-clients'>
+                                    <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <div class='id-client'>John Doe</br>Foo Startup</div>
+                                </div>
+                           </li>
+                           <li><div class='box-clients'>
+                                    <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <div class='id-client'>John Doe</br>Foo Startup</div>
+                                 </div>
+                           </li>
+                      </ul>
                     </div>
-                </div>
+            </section>
 
-                <div class="swiper-slide card__swiper">
-                    <div class="card__swiper-content">
+            <section class='second-cta'>
+              <div class='section-name' id='sec-contact'></div>
+              <div class='section-title negative'>Let's get started</div>
+              <button class='button-sec-cta'>GO!</button>
+            </section>
 
+            <section class='footer'>
+              <svg id='scrollup' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 200.387 200.387" style="enable-background:new 0 0 200.387 200.387;" xml:space="preserve" width="28px" height="28px"><g><g><g><polygon points="5.504,154.449 0,149.102 100.197,45.938 200.387,149.102 194.893,154.449 100.197,56.947         " fill="#f3bf02"/></g></g><polygon points="100.197,45.938 0,149.102 5.504,154.449 100.197,56.947 194.893,154.449 200.387,149.102     " fill="#f3bf02"/></g>
+              </svg>
+              <div class='copy'>&copy;2022. All rights reserved.</div>
+            </section>
 
-    
-
-
-
-                    </div>
-                </div>
-                    
-                    
-                <div class="swiper-slide card__swiper">
-                    <div class="card__swiper-content">
-
-
-    
-
-
-
-                    </div>
-                </div>
-
-                  
-            </div>
-            <div class="swiper-pagination"></div>
           </div>
-            
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-
+        </div>
+        
+        <div class='icon-credits'>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
       </div>
     </div>
-  </div>
-</li>
-<!--  End of section 4  --> 
+    
+    <div class="header-wrapper">
+      <div class="header">
 
-  <!--====================================================================================================#
-  #=====================================================================================================-->
+        <div class="menu-wrapper">
+          <div class="menu-hamburger"></div>
+          <div class="menu-txt">QOZYLUS</div>
+        </div>
 
-<!--  Section 5  --> 
-<li class="l-section section" id="contact">
-  <div class="layout__1">
-    <div class="layout__1--lockup">
-      <div class="layout__2">
-        <div class="layout__2-contact">
+        <div class="dropdown-wrapper">
+          <div class="dropdown" onclick="toggleDrawer()" data-toggle="modal" data-target="#test-modal">
+            <span>
+              COMMISSION INFO
+            </span>
+            <i class="material-icons animated-arrow">expand_more</i>
+          </div>
+        </div>
 
+        
 
-            <img src="assets/img/favicon.png" alt="User image" class="layout__2-contact__image" />
-
-            <div class="layout__2-contact__text">
-              <p>- Created by QOZYLUS with love and passion -</p>
-            </div>
-
-            <ul class="layout__2-contact__info">
-              <li>
-                <div class="social-links">
-                  <a href="https://www.twitter.com/qozylus" class="twitter"><i class="fab fa-twitter"></i></a>
-                  <a href="https://www.facebook.com/qozylus" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                  <a href="https://www.instagram.com/qozylus" class="instagram"><i class="fab fa-instagram"></i></a>
-                  <a href="https://www.deviantart.com/qozylus" class="deviantart"><i class="fab fa-deviantart"></i></a>
-                  <a href="https://artstation.com/qozylus/" class="artstation"><i class="fab fa-artstation"></i></a>
-                </div>
-              </li>
-            </ul>
-
-            <div class="layout__2-contact__action">
-
-              <span>
-                <button style="background-color: #00000000; border:none;">
-                  <script type='text/javascript' src='assets/js/support.js'></script>
-                  <script type='text/javascript' class='troverlay'>(function() {var trbtnId = trbtnOverlay.init('Trakteer','#008ae6','https://trakteer.id/qozylus/tip/embed/modal','https://cdn.trakteer.id/images/embed/trbtn-icon.png','40','inline');trbtnOverlay.draw(trbtnId);})();</script></button>
-              </span>
-
-              <span >
-                <a href="https://ko-fi.com/qozylus">
-                  <button style="background-color: #00000000; border:none;">
-
-                  <script type='text/javascript' class='troverlay'>(function() {var trbtnId = trbtnOverlay.init('Ko-fi','#008ae6','QOZYLUS','https://cdn.trakteer.id/images/embed/trbtn-icon.png','40','inline');trbtnOverlay.draw(trbtnId);})();</script>
-                </button></a>
-              </span>
-              
-            </div>
-
-
-          
-          
-          
-          
+        <div class="toggle-wrapper">
+          <div class="theme-switch-wrapper dark-mode">
+            <label class="theme-switch mode-toggle" for="checkbox">
+              <div class="toggle">
+                <input type="checkbox" id="checkbox">
+                <div id="dark-mode" type="checkbox"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="number-wrapper">
+      <div class="number-count">
+        <div class="number">01</div>
+      </div>
+    </div>
+    
+    <div class="nav-wrapper">
+      <div class="nav-arrows">
+        <div class="nav-up">
+            <svg id="arrow-up">
+              <use xlink:href="#icon-arrow"></use>
+            </svg>
+        </div>
+        <div class="nav-line"></div>
+        <div class="nav-down">
+          <svg id="arrow-down">
+              <use xlink:href="#icon-arrow"></use>
+            </svg>
         </div>
       </div>
     </div>
-  </div>
-</li>
-<!--  End of section 5  --> 
+    
+    <div class="slider-wrapper">
+      <div class="slider-container"> 
+        
+        
+        <div class="slide active" data-order="1">
+            <div class="slide-content txt">
+              <div class="txt-wrapper">
+                <span class="copy">Intro about me</span>
+                <h2><span>Hello!</span> I’m QOZYLUS</h2>
+                <span class="subtitle">Freelance Artist</span>
+                <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
+              </div>
+            </div>
+            <div class="slide-content img">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slider1.jpg" alt="" />
+            </div>
+          </div>  
 
-  <!--====================================================================================================#
-  #=====================================================================================================-->
 
-    <span class="date" id='date'>
-      <span class="date__time" id="time"></span>
-    </span>
+        <div class="slide" data-order="2">
+            <div class="slide-content txt">
+              <div class="txt-wrapper">
+                <span class="copy">Show with me</span>
+                <h2><span>Love Simple</span>Design</h2>
+                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                <button>HIRE NOW</button>
+              </div>
+            </div>
+            <div class="slide-content img">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide2.jpg" alt="" />
+            </div>
+          </div>  
 
-  <!--====================================================================================================#
-  #=====================================================================================================-->
 
+        <div class="slide " data-order="3">
+            <div class="slide-content txt">
+              <div class="txt-wrapper">
+                <span class="copy">Design around me</span>
+                <ul>
+                  <li>
+                    <div class="date-wrapper">
+                      <div class="date">25</div>
+                      <div class="month">April</div>
+                    </div>
+                    <div class="post-wrapper">
+                      <div class="post-title"><a href="">Top colour pantone for Design 2016</a></div>
+                      <div class="post-info"> 
+                        <ul>
+                          <li>Admin /</li>
+                          <li>Discovery /</li>
+                          <li>15 comments</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="date-wrapper">
+                      <div class="date">18</div>
+                      <div class="month">April</div>
+                    </div>
+                    <div class="post-wrapper">
+                      <div class="post-title"><a href="">Inspiration for Design for Logan's designer</a></div>
+                      <div class="post-info"> 
+                        <ul>
+                          <li>Admin /</li>
+                          <li>Inspirations /</li>
+                          <li>08 comments</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="date-wrapper">
+                      <div class="date">06</div>
+                      <div class="month">April</div>
+                    </div>
+                    <div class="post-wrapper">
+                      <div class="post-title"><a href="">Hipster -Design trand this summer</a></div>
+                      <div class="post-info"> 
+                        <ul>
+                          <li>Admin /</li>
+                          <li>Discovery /</li>
+                          <li>22 comments</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <span class="view-all">View all articles</span> 
+              
+              </div>
+            </div>
+            <div class="slide-content img">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide3.jpg" alt="" />
+            </div>
+          </div>
+
+
+        <div class="slide " data-order="4">
+            <div class="slide-content txt">
+              <div class="txt-wrapper">
+                <span class="copy">What clients say</span>
+                <h2><span>QOZYLUS</span> Best Choice </h2>
+                <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
+              </div>
+            </div>
+            <div class="slide-content img">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide4.jpg" alt="" />
+            </div>
+          </div>
+
+
+        <div class="slide " data-order="5">
+            <div class="slide-content txt">
+              <div class="txt-wrapper">
+                <span class="copy">Keep in touch</span>
+                <h3>Bandar Lampung, <span>Indonesia</span></h3>
+                <p class="excerpt">Jl. Cengkeh Tengah II No. 79 Perumnas Way Halim, Bandar Lampung. 35141. Indonesia</p>
+                <p><strong>Email :</strong> <a href="mailto:qozylus@gmail.com">qozylus@gmail.com</a></p>
+                <p>Call directly / Whatsapp : <span class="phone">(+62) 896 3383 1770</span></p>
+              </div>
+            </div>
+            <div class="slide-content img">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide5.jpg" alt="" />
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+
+    <div class="main-footer">
+      <div class="social-wrapper">
+        <ul>
+          <li><a href="">Github</a></li>
+          <li><a href="https://www.facebook.com/qozylus">Facebook</a></li>
+          <li><a href="https://www.instagram.com/qozylus">Instagram</a></li>
+          <!--
+          <li><a href="https://www.twitter.com/qozylus" class="twitter"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="https://www.facebook.com/qozylus" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="https://www.instagram.com/qozylus" class="instagram"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="https://www.deviantart.com/qozylus" class="deviantart"><i class="fab fa-deviantart"></i></a></li>
+          <li><a href="https://artstation.com/qozylus/" class="artstation"><i class="fab fa-artstation"></i></a></li>
+          -->
+        </ul>
+      </div>
+      <div class="language-wrapper">
+        <ul>
+          <li><a href="">EN</a></li>
+          <li><a href="">ID</a></li>
         </ul>
       </div>
     </div>
+
+
   </div>
-
-  <ul class="outer-nav">
-    <li class="is-active">HOME</li>
-    <li>WORKS</li>
-    <li>PRICE</li>
-    <li>T&C</li>
-    <li>CONTACT</li>
-  </ul>
-
 </div>
-
-
-<!--====================================================================================================#
-#=====================================================================================================-->
-
-<!-- Main JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-<script type='text/javascript' src="assets/js/functions-min.js"></script>
-<script type='text/javascript' src="assets/js/typing.js"></script>
-<!-- End of Main JS -->
-
-<!--====================================================================================================#
-#=====================================================================================================-->
-
-<!-- LIVE DATE & TIME -->
-<script>
-
-  function display_date() {
-  var x = new Date()
-  var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
-  
-  var x1=x.getMonth() + 1+ "/" + x.getDate() + "/" + x.getFullYear(); 
-  x1 = x1 + " - " +  x.getHours( )+ ":" +  x.getMinutes() + ":" +  x.getSeconds() + "" + ampm;
-  document.getElementById('date').innerHTML = x1;
-  
-  display_c5();
-   }
-   function display_c5(){
-  var refresh=1000; // Refresh rate in milli seconds
-  mytime=setTimeout('display_date()',refresh)
-  }
-  display_c5()
-  
-  </script>
-<!-- END OF LIVE DATE & TIME -->
-
-<!--====================================================================================================#
-#=====================================================================================================-->
-
-<!-- Initialize Swiper -->
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 1,
-    slidesPerGroup: 1,
-    loop: true,
-    loopFillGroupWithBlank: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
-</script>
-<!-- End of Initialize Swiper -->
-
-<!--====================================================================================================#
-#=====================================================================================================-->
-
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script><script  src="./script.js"></script>
 
 </body>
 </html>
