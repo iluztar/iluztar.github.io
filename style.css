@@ -92,26 +92,15 @@ body, html {
   background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
   background-color: var(--background);
   background-position: center;
-  font-size: 6px;
-  padding: 4rem 2rem;
+
+  font-size: 10px;
+  padding: 2rem 3rem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Poppins", sans-serif;
 }
 
-@media (min-width: 860px) {
-  body, html {
-    font-size: 8px;
-    padding: 3rem 5rem;
-  }
-}
-@media (min-width: 1200px) {
-  body, html {
-    font-size: 10px;
-    padding: 2rem 3rem;
-  }
-}
 
 #icons {
   display: none;
@@ -440,24 +429,37 @@ body, html {
     0 7px 5.4px rgba(0, 0, 0, 0.028), 0 12.1px 10.1px rgba(0, 0, 0, 0.035),
     0 19.8px 18.1px rgba(0, 0, 0, 0.042), 0 34.7px 33.8px rgba(0, 0, 0, 0.05),
     0 81px 81px rgba(0, 0, 0, 0.07);
-  scale: 1;
+}
+
+
+
+@media (min-height: 581px){
+  .slider-content {
+    scale: 1;
+  }
 }
 
 @media (max-height: 580px){
   .slider-content {
-  scale: 0.8;
+    scale: 0.7;
   }
 }
 
 @media (max-height: 480px){
   .slider-content {
-  scale: 0.7;
+    scale: 0.6;
   }
 }
 
 @media (max-height: 380px){
   .slider-content {
-  scale: 0.6;
+    scale: 0.5;
+  }
+}
+
+@media (max-height: 280px){
+  .slider-content {
+    scale: 0.4;
   }
 }
 
