@@ -247,28 +247,19 @@ body, html {
 /*---------------------------------------------------------------------------------------------------*/
 /*===================================================================================================*/
 /*---------------------------------------------------------------------------------------------------*/
-/* Toggle Switch */
 
-.header-wrapper .toggle-wrapper {
+.theme-switch-wrapper {
   position: relative;
   float: right;
   display: block;
   cursor: pointer;
   width: 2.5rem;
   height: 3rem;
-  right: 0;
+  top: 5px;
+  right: 19px;
   margin: 0;
   text-align: right;
   font-size: 1.2rem;
-}
-
-.theme-switch-wrapper {
-  align-items: right;
-  text-align: right;
-  width: 160px;
-  position: absolute;
-  top: 5px;
-  right: 0;
 }
 
 .theme-switch {

@@ -156,8 +156,6 @@ jQuery(".close").on('click', function () {
 });
 
 
-
-
 $(document).ready( function() {
   $('.page').scroll( function (){
     if ($(this).scrollTop() > 70) {
@@ -189,3 +187,4 @@ function jump(h){
   var container = $('.page'), scrollTo = $('#'+h);
   container.animate({ scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop() - 70 }, 800);
 }
+
