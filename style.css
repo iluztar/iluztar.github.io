@@ -97,7 +97,6 @@ body, html {
   font-family: "Poppins", sans-serif;
 }
 
-
 #icons {
   display: none;
 }
@@ -255,7 +254,7 @@ body, html {
   cursor: pointer;
   width: 2.5rem;
   height: 3rem;
-  top: 5px;
+  top: 5.7px;
   right: 19px;
   margin: 0;
   text-align: right;
@@ -433,8 +432,10 @@ body, html {
 
 .slider-content {
   position: relative;
-  max-height: 580px;
-  width: 900px;
+  height: 580px;
+  max-height: 1200px;
+  min-width: 900px;
+  max-width: 1115px;;
   background: var(--cardbackground);
   margin: 0 auto;
   overflow: hidden;
@@ -445,17 +446,22 @@ body, html {
 }
 
 
+@media (min-height: 1000px) and (min-width: 1000px){
+
+}
 
 @media (min-height: 581px){
   .slider-content {
     scale: 1;
   }
+
 }
 
 @media (max-height: 580px){
   .slider-content {
     scale: 0.7;
   }
+
 }
 
 @media (max-height: 480px){
@@ -538,6 +544,7 @@ body, html {
   position: relative;
   display: table-cell;
   vertical-align: middle;
+  scale: 1.05;
 }
 
 .slider-container .slide-content .txt-wrapper p{
@@ -587,7 +594,7 @@ body, html {
 .slider-container .slide-content .txt-wrapper button {
   position: relative;
   padding: 1rem 3.5rem;
-  color: var(--color);
+  color: white;
   text-align: center;
   display: block;
   background-color: var(--accent);
