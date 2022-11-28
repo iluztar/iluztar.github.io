@@ -60,10 +60,6 @@
 /*===================================================================================================*/
 /*---------------------------------------------------------------------------------------------------*/
 
-/*-----------------------------------------------------------------------------------------------------
-General Style
-------------------------------------------------------------------------------------------------------*/
-
 .hide {
   display: none;
 }
@@ -124,31 +120,56 @@ body, html {
   width: 100%;
   height: 6rem;
 }
+
+.header-wrapper .menu-wrapper {
+  position: relative;
+  float: left;
+  display: block;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 3rem;
+  left: 4px;
+  margin: 0;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.header-wrapper .menu-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .header-wrapper .menu-hamburger {
   position: relative;
-  width: 1.3rem;
+  width: 1.4rem;
   display: inline-block;
   vertical-align: middle;
   background: var(--color);
-  height: 0.2rem;
+  height: 1px;
   cursor: pointer;
+  right: 0;
+  top: 1rem;
 }
 .header-wrapper .menu-hamburger::before {
   content: "";
-  width: 1.3rem;
-  height: 0.2rem;
+  width: 2.5rem;
+  height: 1px;
   background: var(--color);
   position: absolute;
-  top: -0.4rem;
+  top: -0.8rem;
+  left: 0;
 }
 .header-wrapper .menu-hamburger::after {
   content: "";
-  width: 1.3rem;
-  height: 0.2rem;
+  width: 2rem;
+  height: 1px;
   background: var(--color);
   position: absolute;
-  top: 0.4rem;
+  top: 0.8rem;
+  left: 0;
 }
+
 .header-wrapper .menu-txt {
   position: relative;
   display: inline-block;
@@ -159,10 +180,9 @@ body, html {
   color: var(--color);
 }
 
-.header-wrapper .menu-wrapper {
-  font-size: 1.2rem;
-  text-align: left;
-}
+/*---------------------------------------------------------------------------------------------------*/
+/*===================================================================================================*/
+/*---------------------------------------------------------------------------------------------------*/
 
 .header-wrapper .dropdown-wrapper {
   position: absolute;
@@ -173,28 +193,19 @@ body, html {
 
 .header-wrapper .dropdown {
   display: block;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 24px;
-  line-height: 1;
-  font-weight: 600;
+  margin-top: 53px;
+
 }
 
 .header-wrapper .dropdown span,
 .header-wrapper .dropdown i {
+  line-height: 1;
+  font-weight: 600;
   display: block;
-  font-size: 1.2rem;
+  font-size: 18px;
   text-align: center;
   cursor: pointer;
   color: var(--color);
-}
-
-.header-wrapper .toggle-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: -6px;
-  margin-right: -25px;
 }
 
 .animated-arrow {
@@ -236,17 +247,28 @@ body, html {
 /*---------------------------------------------------------------------------------------------------*/
 /*===================================================================================================*/
 /*---------------------------------------------------------------------------------------------------*/
-
 /* Toggle Switch */
+
+.header-wrapper .toggle-wrapper {
+  position: relative;
+  float: right;
+  display: block;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 3rem;
+  right: 0;
+  margin: 0;
+  text-align: right;
+  font-size: 1.2rem;
+}
 
 .theme-switch-wrapper {
   align-items: right;
   text-align: right;
   width: 160px;
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 0;
-  scale: 0.7;
 }
 
 .theme-switch {
@@ -359,10 +381,11 @@ body, html {
   width: 12rem;
   padding: 0 4rem;
   top: 0;
-  right: 0;
+  right: 2px;
   text-align: center;
   z-index: 10;
 }
+
 .nav-wrapper .nav-arrows {
   position: relative;
   display: inline-block;
@@ -370,6 +393,7 @@ body, html {
   transform: translateY(-50%);
   opacity: 0.7;
 }
+
 .nav-wrapper .nav-up {
   opacity: 0;
 }
@@ -382,11 +406,9 @@ body, html {
   fill: var(--color);
   width: 100%;
   max-height: 100%;
-  transition: 0.4s ease;
 }
 .nav-wrapper .nav-up svg:hover, .nav-wrapper .nav-down svg:hover {
   fill: var(--accent);
-  transition: 0.4s ease;
 }
 .nav-wrapper .nav-up {
   transform: rotate(180deg);
@@ -542,6 +564,7 @@ body, html {
   font-weight: 500;
   opacity: 0;
   color: var(--color);
+  text-align: left;
 }
 .slider-container .slide-content .txt-wrapper h2 {
   margin: 0;
@@ -573,7 +596,7 @@ body, html {
 .slider-container .slide-content .txt-wrapper button {
   position: relative;
   padding: 1rem 3.5rem;
-  color: white;
+  color: var(--color);
   text-align: center;
   display: block;
   background-color: var(--accent);
@@ -595,10 +618,10 @@ body, html {
 }
 
 .slider-container .slide-content .txt-wrapper .phone {
-  margin-top: 10px;
+  margin-top: 11px;
   display: block;
   color: var(--color);
-  font-size: 1.6rem;
+  font-size: 17.1px;
 }
 .slider-container .slide-content .txt-wrapper .subtitle {
   display: block;
@@ -614,6 +637,7 @@ body, html {
   color: var(--cardtext3);
   font-size: 1.2rem;
   line-height: 1.5;
+  text-align: justify;
 }
 .slider-container .slide-content .txt-wrapper span.view-all {
   color: var(--cardtext3);
@@ -725,12 +749,10 @@ body, html {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0.5rem;
-  transition: 0.4s ease;
 }
 .social-wrapper a, .language-wrapper a {
   text-decoration: none;
   color: var(--color);
-  transition: 0.4s ease;
 }
 
 .social-wrapper a::before {
@@ -741,10 +763,6 @@ body, html {
 
 .social-wrapper a:hover, .language-wrapper a:hover {
   color: var(--accent);
-}
-
-.social-wrapper li:hover  {
-  transform: translateY(-2px);
 }
 
 .social-wrapper {
@@ -854,7 +872,6 @@ li:nth-child(10) {
 
 .popup {
   position: fixed;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -868,14 +885,14 @@ li:nth-child(10) {
 .popup-content {
   background-color: #fefefe00;
   margin: auto;
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   animation-name: popup_dropdown;
   animation-duration: 0.4s;
   position: relative;
   overflow: hidden;
   max-height: 1200px;
-  height: 90%;
+  height: 100%;
 }
 
 .close {
