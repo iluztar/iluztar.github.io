@@ -1,381 +1,405 @@
-<!DOCTYPE html>
+<div class="formbold-main-wrapper">
+  <!-- Author: FormBold Team -->
+  <!-- Learn More: https://formbold.com -->
+  <div class="formbold-form-wrapper">
+    <img src="your-image-url-here.jpg">
+    <form action="https://formbold.com/s/FORM_ID" method="POST">
+      <div class="formbold-input-group">
+        <label for="name" class="formbold-form-label"> Name </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Enter your name"
+          class="formbold-form-input"
+        />
+      </div>
 
-    <!--
-    #==============================================================================================================#
-    # Thank you for visiting and pressing the inspect element, or maybe you cloned this code via my GitHub         # 
-    #                                                                                                              # 
-    # Source code : https://github.com/qozylus/qozylus.github.io                                                   # 
-    #                                                                                                              #                                                                          
-    #==============================================================================================================# 
-    # LIBRARY AND SCRIPT USED -------------------------------------------------------------------------------------# 
-    #                                                                                                              #                                                                         
-    # Exploring UI Animation #2                          : https://codepen.io/mariosmaselli/pen/WGwKVg             # 
-    # Vue dark mode toggle                               : https://codepen.io/moso/pen/MxLwbE
-      very easy full page popup using jQuery             : https://codepen.io/arpitdalal/pen/vYKrWXx
+      <div class="formbold-input-group">
+        <label for="email" class="formbold-form-label"> Email </label>
+        <input
+          type="email"
+          name="lastname"
+          id="email"
+          placeholder="Enter your email"
+          class="formbold-form-input"
+        />
+      </div>
 
-    #                                                                                                              #
-    #==============================================================================================================#                                                                                        #
-    # Developer/Artist note: --------------------------------------------------------------------------------------#
-    #                                                                                                              #                                                                   
-    # At first, i was planned to be built a website using carrd.co / WIX / Wordpress. But I realized there         #  
-    # were so many limitations, locked by paywalls. The next option was to use a framework which involves          # 
-    # coding. Luckily, I understand the basics enough to be able to combine various source code into a new         # 
-    # website.                                                                                                     # 
-    #                                                                                                              # 
-    #==============================================================================================================#
-    # Sincerely, QOZYLUS ------------------------------------------------------------------------------------------#
-    #                                                                                                              #  
-    #==============================================================================================================#  
-    -->
+      <div class="formbold-input-group">
+        <label for="age" class="formbold-form-label"> Age </label>
+        <input
+          type="text"
+          name="age"
+          id="age"
+          placeholder="Enter your age"
+          class="formbold-form-input"
+        />
+      </div>
 
+      <div class="formbold-input-group">
+        <label class="formbold-form-label">
+          Which option best describes you?
+        </label>
 
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>QOZYLUS</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <select class="formbold-form-select" name="occupation" id="occupation">
+          <option value="Student">Student</option>
+          <option value="designer">UX/UI Designer</option>
+          <option value="fullstack">Full Stack Developer</option>
+          <option value="frontend">Front End Developer</option>
+        </select>
+      </div>
 
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+      <div class="formbold-input-radio-wrapper">
+        <label for="ans" class="formbold-form-label">
+          Would you recomend our site to a friend?
+        </label>
 
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./commission-info.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<svg id="icons" xmlns="http://www.w3.org/2000/svg">  
-<symbol id="icon-arrow" viewBox="0 0 476.213 476.213" >
-<polygon fill="inherit" points="347.5,324.393 253.353,418.541 253.353,0 223.353,0 223.353,419.033 128.713,324.393 107.5,345.607 
-	238.107,476.213 368.713,345.606 "/>
-</symbol>
-</svg>
-
-
-<div class="absolute-center">
-  <div class="slider-content">
-
-    <!-- Modal : Commission Info -->
-    <div id="test-modal" class="popup d-none">
-      <div class="popup-content">
-        <span class="close">
-          <i class="material-icons">west</i>
-          <p>BACK</p>
-        </span>
-        
-        <div class='screen'>
-
-          <div class='nav'>
-
-            <nav>
-              <button onclick="jump('sec-features');" class='button-nav'>Features</button>
-              <button onclick="jump('sec-coments');" class='button-nav'>Coments</button>
-              <button onclick="jump('sec-contact');" class='button-nav-cta'>Hire Now</button>
-            </nav>
+        <div class="formbold-radio-flex">
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="ans"
+                id="ans"
+              />
+              Yes
+              <span class="formbold-radio-checkmark"></span>
+            </label>
           </div>
 
-          <div class='page'>
-
-            <section class='hero'>
-              <div class='cta'>2023 :</br><span>The year you'll launch your own business</span></div>
-              <button onclick="jump('sec-contact');" class='button-cta'>HIRE NOW</button>
-            </section>
-
-            <section class='features'>
-              <div class='section-name' id='sec-features'>FEATURES</div>
-              <div class='section-title'>15 steps to consider</div>
-              <div class='section-subtitle'><a href='https://medium.com/@christianreber/15-steps-to-launch-your-own-startup-74e945869ca4#.vn1j6yaa5' target='_blank'>Based on the article '15 steps to launch your own startup' by Christian Reber</a></div>
-              
-              <div class='features-container'>
-                <div class='features-item'><div class='item-number'>01</div><div class='item-text'>Dream big and start small</div></div>
-
-                <div class='features-item'><div class='item-number'>02</div><div class='item-text'>Work to learn, not to earn</div></div>
-
-                <div class='features-item'><div class='item-number'>03</div><div class='item-text'>Join the community</div></div>
-
-                <div class='features-item'><div class='item-number'>04</div><div class='item-text'>Find the right location</div></div>
-
-                <div class='features-item'><div class='item-number'>05</div><div class='item-text'>Identify good and bad ideas, early</div></div>
-
-                <div class='features-item'><div class='item-number'>06</div><div class='item-text'>Understand trends & markets</div></div>
-
-                <div class='features-item'><div class='item-number'>07</div><div class='item-text'>Define your mission</div></div>
-
-                <div class='features-item'><div class='item-number'>08</div><div class='item-text'>Prepare to fail, 95% do</div></div>
-
-                <div class='features-item'><div class='item-number'>09</div><div class='item-text'>Find the right co-founders</div></div>
-
-                <div class='features-item'><div class='item-number'>10</div><div class='item-text'>Raise your first round of money</div></div>
-
-                <div class='features-item'><div class='item-number'>11</div><div class='item-text'>Learn about hiring & company culture</div></div>
-
-                <div class='features-item'><div class='item-number'>12</div><div class='item-text'>Prepare yourself to become a manager</div></div>
-
-                <div class='features-item'><div class='item-number'>13</div><div class='item-text'>Find advisors and mentors to build your business</div></div>
-
-                <div class='features-item'><div class='item-number'>14</div><div class='item-text'>Be ready for constant change</div></div>
-
-                <div class='features-item'><div class='item-number'>15</div><div class='item-text'>Work hard and be nice to people</div></div>
-
-              </div>
-            </section>
-
-            <section class='coments'>
-              <div class='section-name' id='sec-coments'>COMENTS</div>
-              <div class='hcarousel'>
-                        <ul class='hpanes'>
-                            <li><div class='box-clients'>
-                                      <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                      <div class='id-client'>John Doe</br>Foo Startup</div>
-                                  </div>
-                           </li>
-                           <li><div class='box-clients'>
-                                    <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class='id-client'>John Doe</br>Foo Startup</div>
-                                </div>
-                           </li>
-                           <li><div class='box-clients'>
-                                    <p class='speech'><span></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <div class='id-client'>John Doe</br>Foo Startup</div>
-                                 </div>
-                           </li>
-                      </ul>
-                    </div>
-            </section>
-
-            <section class='second-cta'>
-              <div class='section-name' id='sec-contact'></div>
-              <div class='section-title negative'>Let's get started</div>
-              <button class='button-sec-cta'>GO!</button>
-            </section>
-
-            <section class='footer'>
-              <svg id='scrollup' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 200.387 200.387" style="enable-background:new 0 0 200.387 200.387;" xml:space="preserve" width="28px" height="28px"><g><g><g><polygon points="5.504,154.449 0,149.102 100.197,45.938 200.387,149.102 194.893,154.449 100.197,56.947         " fill="#f3bf02"/></g></g><polygon points="100.197,45.938 0,149.102 5.504,154.449 100.197,56.947 194.893,154.449 200.387,149.102     " fill="#f3bf02"/></g>
-              </svg>
-              <div class='copy'>&copy;2022. All rights reserved.</div>
-            </section>
-
-          </div>
-        </div>
-        
-        <div class='icon-credits'>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
-      </div>
-    </div>
-    
-    <div class="header-wrapper">
-      <div class="header">
-
-        <div class="menu-wrapper">
-            <div class="menu-hamburger"></div>
-        </div>
-
-        <div class="dropdown-wrapper">
-          <div class="dropdown" onclick="toggleDrawer()" data-toggle="modal" data-target="#test-modal">
-            <span>
-              COMMISSION INFO
-            </span>
-            <i class="material-icons animated-arrow">expand_more</i>
-          </div>
-        </div>
-
-        <div class="theme-switch-wrapper dark-mode">
-          <label class="theme-switch mode-toggle" for="checkbox">
-            <div class="toggle">
-              <input type="checkbox" id="checkbox">
-              <div id="dark-mode" type="checkbox"></div>
-            </div>
-          </label>
-        </div>
-        
-      </div>
-    </div>
-    
-    <div class="number-wrapper">
-      <div class="number-count">
-        <div class="number">01</div>
-      </div>
-    </div>
-    
-    <div class="nav-wrapper">
-      <div class="nav-arrows">
-        <div class="nav-up">
-            <svg id="arrow-up">
-              <use xlink:href="#icon-arrow"></use>
-            </svg>
-        </div>
-        <div class="nav-line"></div>
-        <div class="nav-down">
-          <svg id="arrow-down">
-              <use xlink:href="#icon-arrow"></use>
-            </svg>
-        </div>
-      </div>
-    </div>
-    
-    <div class="slider-wrapper">
-      <div class="slider-container"> 
-
-        <div class="slide active" data-order="1">
-            <div class="slide-content txt">
-              <div class="txt-wrapper">
-                <span class="copy">Intro about me</span>
-                <h2><span>Hello!</span> I’m Qo</h2>
-                <span class="subtitle">Freelance Artist</span>
-                <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
-              </div>
-            </div>
-            <div class="slide-content img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slider1.jpg" alt="" />
-            </div>
-          </div>  
-
-
-        <div class="slide" data-order="2">
-            <div class="slide-content txt">
-              <div class="txt-wrapper">
-                <span class="copy">Show with me</span>
-                <h2><span>Love Simple</span>Design</h2>
-                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                <button>HIRE NOW</button>
-              </div>
-            </div>
-            <div class="slide-content img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide2.jpg" alt="" />
-            </div>
-          </div>  
-
-
-        <div class="slide " data-order="3">
-            <div class="slide-content txt">
-              <div class="txt-wrapper">
-                <span class="copy">Design around me</span>
-                <ul>
-                  <li>
-                    <div class="date-wrapper">
-                      <div class="date">25</div>
-                      <div class="month">April</div>
-                    </div>
-                    <div class="post-wrapper">
-                      <div class="post-title"><a href="">Top colour pantone for Design 2016</a></div>
-                      <div class="post-info"> 
-                        <ul>
-                          <li>Admin /</li>
-                          <li>Discovery /</li>
-                          <li>15 comments</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="date-wrapper">
-                      <div class="date">18</div>
-                      <div class="month">April</div>
-                    </div>
-                    <div class="post-wrapper">
-                      <div class="post-title"><a href="">Inspiration for Design for Logan's designer</a></div>
-                      <div class="post-info"> 
-                        <ul>
-                          <li>Admin /</li>
-                          <li>Inspirations /</li>
-                          <li>08 comments</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="date-wrapper">
-                      <div class="date">06</div>
-                      <div class="month">April</div>
-                    </div>
-                    <div class="post-wrapper">
-                      <div class="post-title"><a href="">Hipster -Design trand this summer</a></div>
-                      <div class="post-info"> 
-                        <ul>
-                          <li>Admin /</li>
-                          <li>Discovery /</li>
-                          <li>22 comments</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-                <span class="view-all">View all articles</span> 
-              
-              </div>
-            </div>
-            <div class="slide-content img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide3.jpg" alt="" />
-            </div>
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="ans"
+                id="ans"
+              />
+              No
+              <span class="formbold-radio-checkmark"></span>
+            </label>
           </div>
 
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="ans"
+                id="ans"
+              />
+              Maybe
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
 
-        <div class="slide " data-order="4">
-            <div class="slide-content txt">
-              <div class="txt-wrapper">
-                <span class="copy">What clients say</span>
-                <h2><span>QOZYLUS</span> Best Choice </h2>
-                <p class="excerpt">I combine the best of our skills and ideas to present you products really worth your attention that will change the way you think about design, structure, color and website itself. </p>
-              </div>
-            </div>
-            <div class="slide-content img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide4.jpg" alt="" />
-            </div>
+      <div class="formbold-input-radio-wrapper">
+        <label class="formbold-form-label">
+          Which languages & freameworks you know?
+        </label>
+
+        <div class="formbold-radio-flex">
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="c">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="c"
+                id="c"
+              />
+              C
+              <span class="formbold-radio-checkmark"></span>
+            </label>
           </div>
 
-
-        <div class="slide " data-order="5">
-            <div class="slide-content txt">
-              <div class="txt-wrapper">
-                <span class="copy">Keep in touch</span>
-                <h3>Bandar Lampung, <span>Indonesia</span></h3>
-                <p class="excerpt">Jl. Cengkeh Tengah II No. 79 Perumnas Way Halim, Bandar Lampung. 35141. Indonesia</p>
-                <p><strong>Email :</strong> <a href="mailto:qozylus@gmail.com">qozylus@gmail.com</a></p>
-                <p>Call directly / Whatsapp : <span class="phone">(+62) 896 3383 1770</span></p>
-              </div>
-            </div>
-            <div class="slide-content img">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/slide5.jpg" alt="" />
-            </div>
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="c++">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="c++"
+                id="c++"
+              />
+              c++
+              <span class="formbold-radio-checkmark"></span>
+            </label>
           </div>
 
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="java">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="java"
+                id="java"
+              />
+              Java
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
 
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="python">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="python"
+                id="python"
+              />
+              Python
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="javaScript">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="javaScript"
+                id="javaScript"
+              />
+              JavaScript
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="react">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="react"
+                id="react"
+              />
+              React
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="angular">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="angular"
+                id="angular"
+              />
+              Angular
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="django">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="django"
+                id="django"
+              />
+              Django
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="tailwind">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="tailwind"
+                id="tailwind"
+              />
+              Tailwind CSS
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label" for="bootstrap">
+              <input
+                class="formbold-input-radio"
+                type="radio"
+                name="bootstrap"
+                id="bootstrap"
+              />
+              Bootstrap
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
 
-
-    <div class="main-footer">
-      <div class="social-wrapper">
-        <ul>
-          <li><a href="">Github</a></li>
-          <li><a href="https://www.facebook.com/qozylus">Facebook</a></li>
-          <li><a href="https://www.instagram.com/qozylus">Instagram</a></li>
-          <li><a href="https://www.twitter.com/qozylus">Twitter</a></li>
-
-          <!--
-          <li><a href="https://www.twitter.com/qozylus" class="twitter"><i class="fab fa-twitter"></i></a></li>
-          <li><a href="https://www.facebook.com/qozylus" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
-          <li><a href="https://www.instagram.com/qozylus" class="instagram"><i class="fab fa-instagram"></i></a></li>
-          <li><a href="https://www.deviantart.com/qozylus" class="deviantart"><i class="fab fa-deviantart"></i></a></li>
-          <li><a href="https://artstation.com/qozylus/" class="artstation"><i class="fab fa-artstation"></i></a></li>
-          -->
-        </ul>
+      <div>
+        <label for="message" class="formbold-form-label">
+          Any comments or suggestions
+        </label>
+        <textarea
+          rows="6"
+          name="message"
+          id="message"
+          placeholder="Type here..."
+          class="formbold-form-input"
+        ></textarea>
       </div>
-      <div class="language-wrapper">
-        <ul>
-          <li><a href="">EN</a></li>
-          <li><a href="">ID</a></li>
-        </ul>
-      </div>
-    </div>
 
-
+      <button class="formbold-btn">Submit</button>
+    </form>
   </div>
 </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script><script  src="./script.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  .formbold-main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
 
-</body>
-</html>
+  .formbold-form-wrapper {
+    margin: 0 auto;
+    max-width: 570px;
+    width: 100%;
+    background: white;
+    padding: 40px;
+  }
+
+  .formbold-form-img {
+    margin-bottom: 45px;
+  }
+
+  .formbold-input-group {
+    margin-bottom: 18px;
+  }
+
+  .formbold-form-select {
+    width: 100%;
+    padding: 12px 22px;
+    border-radius: 5px;
+    border: 1px solid #dde3ec;
+    background: #ffffff;
+    font-size: 16px;
+    color: #536387;
+    outline: none;
+    resize: none;
+  }
+
+  .formbold-input-radio-wrapper {
+    margin-bottom: 25px;
+  }
+  .formbold-radio-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .formbold-radio-label {
+    font-size: 14px;
+    line-height: 24px;
+    color: #07074d;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .formbold-input-radio {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .formbold-radio-checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #ffffff;
+    border: 1px solid #dde3ec;
+    border-radius: 50%;
+  }
+  .formbold-radio-label
+    .formbold-input-radio:checked
+    ~ .formbold-radio-checkmark {
+    background-color: #6a64f1;
+  }
+  .formbold-radio-checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+
+  .formbold-radio-label
+    .formbold-input-radio:checked
+    ~ .formbold-radio-checkmark:after {
+    display: block;
+  }
+
+  .formbold-radio-label .formbold-radio-checkmark:after {
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    transform: translate(-50%, -50%);
+  }
+
+  .formbold-form-input {
+    width: 100%;
+    padding: 13px 22px;
+    border-radius: 5px;
+    border: 1px solid #dde3ec;
+    background: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    color: #07074d;
+    outline: none;
+    resize: none;
+  }
+  .formbold-form-input::placeholder {
+    color: #536387;
+  }
+  .formbold-form-input:focus {
+    border-color: #6a64f1;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+  .formbold-form-label {
+    color: #07074d;
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .formbold-btn {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 14px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #6a64f1;
+    color: white;
+    cursor: pointer;
+    margin-top: 25px;
+  }
+  .formbold-btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+</style>
