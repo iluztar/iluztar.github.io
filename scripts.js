@@ -1,29 +1,9 @@
-var step1 = document.getElementById("step1");
-    var step2 = document.getElementById("step2");
-    var step3 = document.getElementById("step3");
- 
-    var Next1 = document.getElementById("Next1");
-    var Next2 = document.getElementById("Next2");
-    var Previous1 = document.getElementById("Previous1");
-    var Previous2 = document.getElementById("Previous2");
- 
-    Next1.onclick = function(){
-       step1.style.top = "-450px";
-       step2.style.top = "100px";
-       progress.style.width = "240px";
-    }
-    Previous1.onclick = function(){
-       step1.style.top = "100px";
-       step2.style.top = "450px";
-       progress.style.width = "120px";
-    }
-    Next2.onclick = function(){
-       step2.style.top = "-450px";
-       step3.style.top = "100px";
-       progress.style.width = "360px";
-    }
-    Previous2.onclick = function(){
-       step2.style.top = "100px";
-       step3.style.top = "450px";
-       progress.style.width = "240px";
-    }
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzgxACGQ5dCKWGVMSb9OYTwaxXfen954-ywk6YWsNzucK0gBw20yxl-ooOxRFtbiW3pfQ/exec'
+const form = document.forms['google-sheet']
+
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+    .catch(error => console.error('Error!', error.message))
+})
