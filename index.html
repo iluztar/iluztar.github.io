@@ -267,152 +267,23 @@
       transform: translateX(20px);
     }
 
-    /* Hamburger Menu - Mobile Only */
-    .hamburger {
-      display: none;
-      position: relative;
-      width: 24px;
-      height: 18px;
-      z-index: 9999;
-      background: transparent;
-      border: none;
-      margin-left: 20px;
-    }
-
-    .hamburger span,
-    .hamburger span:before,
-    .hamburger span:after {
-      content: '';
-      position: absolute;
-      width: 24px;
-      height: 2px;
-      background-color: var(--text);
-      border-radius: 99px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger span {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .hamburger span:before {
-      top: -6px;
-    }
-
-    .hamburger span:after {
-      top: 6px;
-    }
-
-    .hamburger.is-open span {
-      background-color: transparent;
-    }
-
-    .hamburger.is-open span:before {
-      top: 0;
-      transform: rotate(45deg);
-    }
-
-    .hamburger.is-open span:after {
-      top: 0;
-      transform: rotate(-45deg);
-    }
-
     .header-actions {
       display: flex;
       align-items: center;
       gap: 15px;
     }
 
-    /* Main Navigation - Mobile Only - Updated to match codepen example */
-    nav.main {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 9998;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    nav.main ul {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      padding: 20px;
-      background-color: var(--primary);
-      list-style-type: none;
-      transition: all 0.4s ease;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(-100%);
-    }
-
-    nav.main ul.is-open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: all;
-      transform: translateY(0);
-    }
-
-    nav.main ul li {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 15px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-    }
-
-    nav.main ul.is-open li {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    nav.main ul li a {
-      position: relative;
-      width: 100%;
-      font-family: 'Clash Grotesk', sans-serif;
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-align: center;
-      color: var(--text);
-      transition: color 0.25s;
-      padding: 15px 0;
-      display: block;
-    }
-
-    nav.main ul li a::after {
-      content: '';
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav.main ul li a:hover::after {
-      width: 100%;
-    }
-
     @media (max-width: 768px) {
-      nav.main ul li a {
-        font-size: 2rem;
+      nav.header-nav ul {
+      display: none;
+      }
+
+      nav.dots a.scroll {
+      display: none;
+      }
+      
+      .theme-switch-wrapper .theme-switch {
+      right: -1rem;
       }
     }
 
@@ -602,36 +473,55 @@
       transform: translateY(-3px);
     }
     
-    /* Portfolio Section - Updated layout */
+    /* Portfolio Slider Styles */
+    .portfolio-slider {
+      width: 100%;
+      padding: 20px 0 40px;
+      overflow: hidden;
+    }
+
+    .swiper-wrapper {
+      align-items: center;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      width: auto;
+      height: auto;
+    }
+
     .portfolio-categories {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 0.8rem; /* Reduced gap */
       margin: 2rem 0;
       flex-wrap: wrap;
     }
-    
+
     .category-btn {
       position: relative;
       width: 300px;
-      height: 300px; /* Changed to square ratio */
+      height: 300px;
       overflow: hidden;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
       border: 1px solid var(--border);
     }
-    
+
     .category-btn:hover {
       transform: translateY(-5px);
     }
-    
+
     .category-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(1.05);
+      background-color: #888; /* Gray placeholder */
     }
-    
+
     .category-overlay {
       position: absolute;
       bottom: 0;
@@ -641,26 +531,72 @@
       padding: 1.5rem;
       text-align: center;
     }
-    
+
     .category-title {
       font-family: 'Clash Grotesk', sans-serif;
       font-size: 1.5rem;
       color: white;
       margin-bottom: 0.5rem;
     }
-    
+
     .category-description {
       font-family: 'Satoshi', sans-serif;
       font-size: 0.9rem;
       color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .category-btn {
-      height: 100px; /* Reduced height to 1/3 of the original */
-      }
+    /* Custom Swiper Pagination */
+    .swiper-pagination {
+      position: relative;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
     }
+    
+    .swiper-pagination-bullet {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      opacity: 0.3;
+      background: none;
+      font-size: 1.2rem;
+    }
+    
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      color: var(--accent);
+      transform: scale(1.2);
+    }
+
+    /* Swiper Navigation */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--accent);
+      background: var(--primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      opacity: 0.7;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      opacity: 1;
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 1rem;
+    }
+
     /* Portfolio Modal */
     .portfolio-modal {
       position: fixed;
@@ -672,7 +608,7 @@
       height: auto;
       max-height: 90vh;
       background: var(--primary);
-      z-index: 10000;
+      z-index: 100;
       overflow-y: auto;
       display: none;
       padding: 40px 20px;
@@ -687,6 +623,7 @@
       margin-bottom: 2rem;
       padding-bottom: 1rem;
       border-bottom: 1px solid var(--border);
+      gap: 1rem; /* Added gap for spacing between header and close */
     }
     
     .modal-close {
@@ -698,10 +635,9 @@
     .modal-close:hover {
       color: var(--accent);
     }
-    
     .modal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr); /* Set to 3 columns */
       gap: 20px;
       justify-content: center;
       margin-top: 2rem;
@@ -713,16 +649,18 @@
       border-radius: 8px;
       border: 1px solid var(--border);
       width: 100%;
-      aspect-ratio: 1 / 1; /* Ensures a square ratio */
+      aspect-ratio: 1 / 1;
     }
     
     .modal-item img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Ensures the image fills the square without distortion */
+      object-fit: cover;
       display: block;
       transition: transform 0.3s;
       cursor: pointer;
+      background-color: #888; /* Gray placeholder */
+      transform: scale(1.05);
     }
 
     .modal-description {
@@ -730,22 +668,25 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 0.8rem;
-      color: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 1rem;
       font-size: 0.9rem;
       text-align: center;
       font-family: 'Satoshi', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-    
-    .modal-item:hover img {
-      transform: scale(1.05);
+      transform: translateY(100%);
+      transition: transform 0.3s ease, background 0.3s;
+      backdrop-filter: blur(4px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .modal-item:hover .modal-description {
+      transform: translateY(0);
       background: rgba(0, 0, 0, 0.9);
-      color: rgba(255, 255, 255, 1);
+    }
+    
+    .modal-item:hover img {
+      transform: scale(1.1);
     }
 
     /* Lightbox */
@@ -774,6 +715,7 @@
       max-width: 100%;
       max-height: 80vh;
       border-radius: 4px;
+      background-color: #888; /* Gray placeholder */
     }
 
     .lightbox-close {
@@ -855,8 +797,8 @@
       border: 1px solid var(--border);
       transition: all 0.3s;
       cursor: pointer;
-      width: 240px; /* Set a fixed width for uniform size */
-      text-align: center; /* Ensure text is centered */
+      width: 240px;
+      text-align: center;
     }
     
     .tos-btn:hover {
@@ -923,8 +865,7 @@
     }
 
     /* Contact Section */
-       /* Contact Section */
-   .contact-form {
+    .contact-form {
       max-width: 500px;
       width: 100%;
       margin-top: 0;
@@ -974,58 +915,96 @@
       color: var(--primary);
     }
     
+    /* Mobile Footer Navigation */
+    .mobile-footer-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--primary);
+      border-top: 1px solid var(--border);
+      display: none;
+      z-index: 9998;
+      padding: 10px 0;
+      transition: transform 0.3s ease;
+    }
     
-    /* Responsive Adjustments */
+    .mobile-footer-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .mobile-footer-nav li {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .mobile-footer-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text);
+      font-size: 0.8rem;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+    
+    .mobile-footer-nav a i {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      transition: transform 0.3s;
+    }
+    
+    .mobile-footer-nav a:hover {
+      color: var(--accent);
+    }
+    
+    .mobile-footer-nav a:hover i {
+      transform: translateY(-3px);
+    }
+    
+    .mobile-footer-nav a.active {
+      color: var(--accent);
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 992px) {
-      .hero-text {
-        font-size: 3.5rem;
-      }
-      
-      .hero-subtext {
-        font-size: 1.5rem;
-      }
-      
-      nav.dots {
-        display: none;
-      }
-      
       .portfolio-categories {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
       }
       
       .category-btn {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .swiper-slide {
         width: 100%;
-        max-width: 400px;
+        padding: 0 10px;
       }
     }
-    
+
     @media (max-width: 768px) {
-      .hero-text {
-        font-size: 3rem;
+      .category-btn {
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
       }
       
-      .hero-subtext {
-        font-size: 1.3rem;
-      }
-      
-      nav.header-nav {
+      .swiper-button-next,
+      .swiper-button-prev {
         display: none;
       }
       
-      .hamburger {
+      /* Show mobile footer nav */
+      .mobile-footer-nav {
         display: block;
       }
-      
-      .section-content {
-        padding: 100px 20px;
-      }
-      
-      .modal-grid {
-        grid-template-columns: 1fr;
-      }
     }
-    
+
     @media (max-width: 576px) {
       .hero-text {
         font-size: 2.5rem;
@@ -1038,6 +1017,14 @@
       .modal-grid {
         grid-template-columns: 1fr;
       }
+      
+      .mobile-footer-nav a {
+        font-size: 0.7rem;
+      }
+      
+      .mobile-footer-nav a i {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -1046,7 +1033,7 @@
   <header>
     <div class="header-container">
       <div class="logo">
-        <span class="logo-text">ILUZTAR</span>
+        <span><a href="#home" class="logo-text">ILUZTAR</a></span>
       </div>
       <nav class="header-nav">
         <ul>
@@ -1068,13 +1055,13 @@
     </div>
   </header>
 
-<!-- Mobile Navigation -->
-<nav class="main">
+<!-- Mobile Footer Navigation -->
+<nav class="mobile-footer-nav">
   <ul>
-    <li><a class="scroll scroll-1" href="#home">Home</a></li>
-    <li><a class="scroll scroll-2" href="#portfolio">Portfolio</a></li>
-    <li><a class="scroll scroll-3" href="#tos">TOS</a></li>
-    <li><a class="scroll scroll-4" href="#contact">Contact</a></li>
+    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="#portfolio"><i class="fas fa-images"></i> Portfolio</a></li>
+    <li><a href="#tos"><i class="fas fa-file-alt"></i> Terms</a></li>
+    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
   </ul>
 </nav>
 
@@ -1095,27 +1082,27 @@
     </div>
     <div class="modal-grid">
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Landscape Illustration">
+        <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
         <p class="modal-description">Landscape Illustration</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Abstract Art">
+        <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
         <p class="modal-description">Abstract Art</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nature Concept">
+        <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
         <p class="modal-description">Nature Concept</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fantasy World">
+        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
         <p class="modal-description">Fantasy World</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="New Artwork">
+        <img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
         <p class="modal-description">New Artwork</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Urban Sketch">
+        <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
         <p class="modal-description">Urban Sketch</p>
       </div>
     </div>
@@ -1130,27 +1117,27 @@
     </div>
     <div class="modal-grid">
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sci-Fi Character">
+        <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
         <p class="modal-description">Sci-Fi Character</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game Character">
+        <img src="https://placeholder.pics/svg/300x300" alt="Game Character">
         <p class="modal-description">Game Character</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Anime Character">
+        <img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
         <p class="modal-description">Anime Character</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fantasy Character">
+        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
         <p class="modal-description">Fantasy Character</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Concept Art">
+        <img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
         <p class="modal-description">Concept Art</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Character Sheet">
+        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
         <p class="modal-description">Character Sheet</p>
       </div>
     </div>
@@ -1165,27 +1152,27 @@
     </div>
     <div class="modal-grid">
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Modern Logo Design">
+        <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
         <p class="modal-description">Modern Logo Design</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Creative Branding">
+        <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
         <p class="modal-description">Creative Branding</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Minimalist Design">
+        <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
         <p class="modal-description">Minimalist Design</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Corporate Identity">
+        <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
         <p class="modal-description">Corporate Identity</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product Packaging">
+        <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
         <p class="modal-description">Product Packaging</p>
       </div>
       <div class="modal-item">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Custom Merchandise">
+        <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
         <p class="modal-description">Custom Merchandise</p>
       </div>
     </div>
@@ -1299,30 +1286,42 @@
     <h2 data-animate>Portfolio</h2>
     <p data-animate data-animate-delay="100">Click on an image below to explore more.</p>
     
-    <div class="portfolio-categories" data-animate data-animate-delay="200">
-      <button class="category-btn" data-modal="illustration-modal">
-        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Illustration" class="category-image">
-        <div class="category-overlay">
-          <h3 class="category-title">Illustration</h3>
-          <p class="category-description">Digital paintings and concept art</p>
+    <div class="swiper portfolio-slider" data-animate data-animate-delay="200">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <button class="category-btn" data-modal="illustration-modal">
+            <img src="https://placeholder.pics/svg/300x300" alt="Illustration" class="category-image">
+            <div class="category-overlay">
+              <h3 class="category-title">Illustration</h3>
+              <p class="category-description">Digital paintings and concept art</p>
+            </div>
+          </button>
         </div>
-      </button>
-      
-      <button class="category-btn" data-modal="character-modal">
-        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Character Design" class="category-image">
-        <div class="category-overlay">
-          <h3 class="category-title">Character Design</h3>
-          <p class="category-description">Original characters and concepts</p>
+        
+        <div class="swiper-slide">
+          <button class="category-btn" data-modal="character-modal">
+            <img src="https://placeholder.pics/svg/300x300" alt="Character Design" class="category-image">
+            <div class="category-overlay">
+              <h3 class="category-title">Character Design</h3>
+              <p class="category-description">Original characters and concepts</p>
+            </div>
+          </button>
         </div>
-      </button>
-      
-      <button class="category-btn" data-modal="branding-modal">
-        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Branding" class="category-image">
-        <div class="category-overlay">
-          <h3 class="category-title">Branding</h3>
-          <p class="category-description">Visual identity and logos</p>
+        
+        <div class="swiper-slide">
+          <button class="category-btn" data-modal="branding-modal">
+            <img src="https://placeholder.pics/svg/300x300" alt="Branding" class="category-image">
+            <div class="category-overlay">
+              <h3 class="category-title">Branding</h3>
+              <p class="category-description">Visual identity and logos</p>
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
+      <!-- Add navigation buttons only when needed -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
     </div>
   </div>
 </section>
@@ -1370,24 +1369,83 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
-  /* Scroll to top on page refresh */
-  window.onload = function() {
+  // Reset URL and redirect to home section on page refresh
+  if (window.location.hash) {
+    window.history.replaceState(null, null, ' ');
     window.scrollTo(0, 0);
-  };
+  }
 
   $(document).ready(function() {
     let isScrolling = false;
+    let isModalOpen = false;
+
+    // Initialize portfolio slider with responsive settings
+    const portfolioSlider = new Swiper('.portfolio-slider', {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">✦</span>';
+        },
+      },
+      breakpoints: {
+        // When window width is >= 320px
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+        // When window width is >= 768px
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30
+        },
+        // When window width is >= 1200px
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+          centeredSlides: false
+        }
+      },
+      // Only show navigation when more than 3 slides
+      on: {
+        init: function () {
+          if (this.slides.length <= 3) {
+            this.navigation.destroy();
+            this.pagination.destroy();
+          }
+        }
+      }
+    });
+
+    // Reinit slider when window is resized
+    $(window).on('resize', function() {
+      portfolioSlider.update();
+    });
 
     // Portfolio modal functionality
     $('.category-btn').click(function() {
       const modalId = $(this).data('modal');
       $('#' + modalId).fadeIn();
       $('body').css('overflow', 'hidden');
+      isModalOpen = true;
     });
     
     $('.modal-close').click(function() {
       $(this).closest('.portfolio-modal').fadeOut();
       $('body').css('overflow', 'hidden');
+      isModalOpen = false;
     });
     
     // Close modal when clicking outside content
@@ -1395,6 +1453,7 @@
       if ($(e.target).hasClass('portfolio-modal')) {
         $('.portfolio-modal').fadeOut();
         $('body').css('overflow', 'hidden');
+        isModalOpen = false;
       }
     });
     
@@ -1403,6 +1462,7 @@
       if (e.key === 'Escape') {
         $('.portfolio-modal').fadeOut();
         $('body').css('overflow', 'hidden');
+        isModalOpen = false;
       }
     });
 
@@ -1411,11 +1471,13 @@
       const modalId = $(this).data('modal');
       $('#' + modalId).fadeIn();
       $('body').css('overflow', 'hidden');
+      isModalOpen = true;
     });
     
     $('.tos-modal-close').click(function() {
       $(this).closest('.tos-modal').fadeOut();
       $('body').css('overflow', 'hidden');
+      isModalOpen = false;
     });
     
     // Close TOS modal when clicking outside content
@@ -1423,6 +1485,7 @@
       if ($(e.target).hasClass('tos-modal')) {
         $('.tos-modal').fadeOut();
         $('body').css('overflow', 'hidden');
+        isModalOpen = false;
       }
     });
 
@@ -1473,6 +1536,7 @@
         lightbox.style.display = 'flex';
         document.body.style.overflow = 'hidden';
         createLightboxPagination();
+        isModalOpen = true;
       });
     });
 
@@ -1480,6 +1544,7 @@
     lightboxClose.addEventListener('click', () => {
       lightbox.style.display = 'none';
       document.body.style.overflow = 'hidden';
+      isModalOpen = false;
     });
 
     // Close when clicking outside image
@@ -1487,6 +1552,7 @@
       if (e.target === lightbox) {
         lightbox.style.display = 'none';
         document.body.style.overflow = 'hidden';
+        isModalOpen = false;
       }
     });
 
@@ -1524,6 +1590,7 @@
         if (e.key === 'Escape') {
           lightbox.style.display = 'none';
           document.body.style.overflow = 'hidden';
+          isModalOpen = false;
         } else if (e.key === 'ArrowLeft') {
           currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
           updateLightboxImage();
@@ -1551,10 +1618,7 @@
       }, 500);
 
       updateActiveDot(urlHash);
-      
-      // Close mobile menu if open
-      $('.hamburger').removeClass('is-open');
-      $('nav.main ul').removeClass('is-open');
+      updateMobileNav(urlHash);
     });
 
     // Update active dot
@@ -1575,6 +1639,23 @@
         $('nav.dots a.scroll-4').addClass('active');
       }
     }
+    
+    // Update mobile footer nav active state
+    function updateMobileNav(hash) {
+      $('.mobile-footer-nav a').removeClass('active');
+      if (hash == '#home') {
+        $('.mobile-footer-nav a[href="#home"]').addClass('active');
+      }
+      if (hash == '#portfolio') {
+        $('.mobile-footer-nav a[href="#portfolio"]').addClass('active');
+      }
+      if (hash == '#tos') {
+        $('.mobile-footer-nav a[href="#tos"]').addClass('active');
+      }
+      if (hash == '#contact') {
+        $('.mobile-footer-nav a[href="#contact"]').addClass('active');
+      }
+    }
 
     // Click on dots
     $('nav.dots a').click(function() {
@@ -1584,25 +1665,9 @@
       $(this).addClass('active');
     });
 
-    // Hamburger menu toggle
-    $('.hamburger').on('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      $(this).toggleClass('is-open');
-      $('nav.main ul').toggleClass('is-open');
-    });
-
-    // Close menu when clicking outside
-    $(document).click(function(e) {
-      if (!$(e.target).closest('.hamburger, nav.main ul').length) {
-        $('.hamburger').removeClass('is-open');
-        $('nav.main ul').removeClass('is-open');
-      }
-    });
-
-    // Mouse wheel scrolling
+    // Mouse wheel scrolling - only when modal is not open
     $(window).on('wheel', { passive: false }, function(e) {
-      if (isScrolling) return;
+      if (isScrolling || isModalOpen) return;
       isScrolling = true;
 
       var currentSection = $('section.active');
@@ -1622,6 +1687,7 @@
         }, 800, function() {
           isScrolling = false;
           updateActiveDot('#' + nextSection.attr('id'));
+          updateMobileNav('#' + nextSection.attr('id'));
         });
       } else {
         isScrolling = false;
@@ -1630,9 +1696,9 @@
       e.preventDefault();
     });
 
-    // Keyboard arrow navigation
+    // Keyboard arrow navigation - only when modal is not open
     $(document).keydown(function(e) {
-      if (isScrolling) return;
+      if (isScrolling || isModalOpen) return;
 
       var currentSection = $('section.active');
       var nextSection;
@@ -1659,6 +1725,7 @@
         }, 800, function() {
           isScrolling = false;
           updateActiveDot('#' + nextSection.attr('id'));
+          updateMobileNav('#' + nextSection.attr('id'));
         });
         e.preventDefault();
       }
@@ -1666,9 +1733,12 @@
 
     // Set first section as active initially
     $('section').first().addClass('active');
+    updateMobileNav('#home');
 
     // Update active section on scroll
     $(window).scroll(function() {
+      if (isModalOpen) return;
+      
       var scrollPosition = $(window).scrollTop();
 
       $('section').each(function() {
@@ -1679,6 +1749,7 @@
           $('section').removeClass('active');
           $(this).addClass('active');
           updateActiveDot('#' + $(this).attr('id'));
+          updateMobileNav('#' + $(this).attr('id'));
         }
       });
     });
@@ -1690,12 +1761,13 @@
     const swipeTimeThreshold = 300;
 
     document.addEventListener('touchstart', function(e) {
+      if (isModalOpen) return;
       touchStartY = e.touches[0].clientY;
       touchStartTime = new Date().getTime();
     }, { passive: true });
     
     document.addEventListener('touchend', function(e) {
-      if (isScrolling) return;
+      if (isScrolling || isModalOpen) return;
     
       const touchEndY = e.changedTouches[0].clientY;
       const deltaY = touchEndY - touchStartY;
@@ -1714,7 +1786,7 @@
           navigateSection('next');
         }
       }
-    }, { passive: true });
+    }, { passive: false });
 
     function navigateSection(direction) {
       const currentSection = $('section.active');
@@ -1730,6 +1802,9 @@
       $('html, body').animate({
         scrollTop: nextSection.offset().top
       }, 800);
+      
+      updateActiveDot('#' + nextSection.attr('id'));
+      updateMobileNav('#' + nextSection.attr('id'));
     }
 
     // Scroll animation functionality
