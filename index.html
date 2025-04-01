@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ILUZTAR - Portfolio</title>
+  <title>ILUZTAR - Digital Illustrator & Graphic Designer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
   <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
   <style>
     /* ===== Theme Variables ===== */
     :root {
@@ -42,6 +43,24 @@
       font-family: 'Satoshi', sans-serif;
     }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text);
+    }
+
+
     html {
       font-smooth: auto;
       font-weight: 300;
@@ -50,7 +69,6 @@
 
     body {
       position: relative;
-      overflow-x: hidden;
       background: var(--primary);
       color: var(--text);
       overflow: hidden;
@@ -80,6 +98,47 @@
       border: none;
       background: none;
       cursor: pointer;
+    }
+
+    /* Scroll Animation Styles */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
+    }
+
+    [data-animate].animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animation delays */
+    [data-animate-delay="100"] { transition-delay: 0.1s; }
+    [data-animate-delay="200"] { transition-delay: 0.2s; }
+    [data-animate-delay="300"] { transition-delay: 0.3s; }
+    [data-animate-delay="400"] { transition-delay: 0.4s; }
+    [data-animate-delay="500"] { transition-delay: 0.5s; }
+
+    /* Animation variations */
+    [data-animate="left"] {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    [data-animate="right"] {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    [data-animate="scale"] {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    [data-animate].animated {
+      opacity: 1;
+      transform: translate(0) scale(1);
     }
 
     /* Header Styles */
@@ -162,6 +221,52 @@
       color: var(--accent);
     }
 
+     /* Theme Switcher */
+     .theme-switch-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .theme-switch {
+      display: inline-block;
+      height: 24px;
+      position: relative;
+      width: 44px;
+    }
+
+    .theme-switch input {
+      display: none;
+    }
+
+    .slider {
+      background-color: var(--switch-bg);
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 2px;
+      bottom: 2px;
+      background-color: var(--switch-knob);
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
     /* Hamburger Menu - Mobile Only */
     .hamburger {
       display: none;
@@ -171,6 +276,7 @@
       z-index: 9999;
       background: transparent;
       border: none;
+      margin-left: 20px;
     }
 
     .hamburger span,
@@ -218,53 +324,7 @@
       gap: 15px;
     }
 
-    /* Theme Switcher */
-    .theme-switch-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .theme-switch {
-      display: inline-block;
-      height: 24px;
-      position: relative;
-      width: 44px;
-    }
-
-    .theme-switch input {
-      display: none;
-    }
-
-    .slider {
-      background-color: var(--switch-bg);
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: .4s;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 2px;
-      bottom: 2px;
-      background-color: var(--switch-knob);
-      transition: .4s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(20px);
-    }
-
-    /* Main Navigation - Mobile Only */
+    /* Main Navigation - Mobile Only - Updated to match codepen example */
     nav.main {
       position: fixed;
       top: 0;
@@ -273,6 +333,7 @@
       height: 100vh;
       z-index: 9998;
       pointer-events: none;
+      overflow: hidden;
     }
 
     nav.main ul {
@@ -293,12 +354,14 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      transform: translateY(-100%);
     }
 
     nav.main ul.is-open {
       opacity: 1;
       visibility: visible;
       pointer-events: all;
+      transform: translateY(0);
     }
 
     nav.main ul li {
@@ -307,7 +370,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      margin-bottom: 2px;
+      margin-bottom: 15px;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.4s ease;
@@ -328,6 +391,23 @@
       color: var(--text);
       transition: color 0.25s;
       padding: 15px 0;
+      display: block;
+    }
+
+    nav.main ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    nav.main ul li a:hover::after {
+      width: 100%;
     }
 
     @media (max-width: 768px) {
@@ -472,26 +552,26 @@
       padding: 80px 20px;
     }
     
-    /* Home Section */
+    /* Home Section - Adjusted spacing */
     .hero-text {
       font-family: 'Clash Grotesk', sans-serif;
       font-size: 4rem;
       color: var(--text);
-      margin-bottom: 1rem;
+      margin-bottom: 0;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
     
     .hero-subtext {
       font-family: 'Clash Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       color: var(--accent);
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
     
     .hero-description {
       max-width: 600px;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       font-size: 1.1rem;
       line-height: 1.6;
     }
@@ -500,7 +580,7 @@
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
     
     .social-link {
@@ -522,145 +602,324 @@
       transform: translateY(-3px);
     }
     
-    /* About Section */
-    .about-content {
-      max-width: 800px;
-      width: 100%;
-    }
-    
-    .about-text {
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    
-    /* Portfolio Section */
-    .portfolio-filters {
+    /* Portfolio Section - Updated layout */
+    .portfolio-categories {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 1.5rem;
+      margin: 2rem 0;
       flex-wrap: wrap;
     }
     
-    .filter-btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text);
-      border: 1px solid var(--border);
-      transition: all 0.3s;
-    }
-    
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--accent);
-      color: var(--primary);
-      border-color: var(--accent);
-    }
-
-    /* Portfolio Slider */
-    .portfolio-slider {
-      width: 100%;
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 20px;
-    }
-
-    .swiper-slide {
-      width: 320px;
-      height: 420px;
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-item {
+    .category-btn {
       position: relative;
+      width: 300px;
+      height: 300px; /* Changed to square ratio */
       overflow: hidden;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.3s ease;
       border: 1px solid var(--border);
-      height: 100%;
     }
-
-    .portfolio-item:hover {
-      transform: translateY(-8px);
-      border-color: var(--accent);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    .category-btn:hover {
+      transform: translateY(-5px);
     }
-
-    .portfolio-image {
+    
+    .category-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
     }
-
-    .portfolio-item:hover .portfolio-image {
-      transform: scale(1.05);
-    }
-
-    .portfolio-overlay {
+    
+    .category-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(47, 47, 47, 0.9);
+      background: rgba(0, 0, 0, 0.7);
       padding: 1.5rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
+      text-align: center;
     }
-
-    [data-theme="dark"] .portfolio-overlay {
-      background: rgba(246, 246, 220, 0.9);
-    }
-
-    .portfolio-item:hover .portfolio-overlay {
-      transform: translateY(0);
-    }
-
-    .portfolio-title {
+    
+    .category-title {
       font-family: 'Clash Grotesk', sans-serif;
       font-size: 1.5rem;
-      color: var(--primary);
+      color: white;
       margin-bottom: 0.5rem;
     }
+    
+    .category-description {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Portfolio Modal */
+    .portfolio-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      max-height: 90vh;
+      background: var(--primary);
+      z-index: 10000;
+      overflow-y: auto;
+      display: none;
+      padding: 40px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .modal-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .modal-close:hover {
+      color: var(--accent);
+    }
+    
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    .modal-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      width: 100%;
+      aspect-ratio: 1 / 1; /* Ensures a square ratio */
+    }
+    
+    .modal-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the image fills the square without distortion */
+      display: block;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
 
-    .portfolio-category {
-      font-family: 'Clash Grotesk', sans-serif;
+    .modal-description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 0.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      text-align: center;
+      font-family: 'Satoshi', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    .modal-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .modal-item:hover .modal-description {
+      background: rgba(0, 0, 0, 0.9);
+      color: rgba(255, 255, 255, 1);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10001;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-content {
+      max-width: 80%;
+      max-height: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .lightbox-close:hover {
+      color: #ffffff;
+    }
+
+    /* Lightbox Navigation */
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-prev, .lightbox-next {
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .lightbox-prev:hover, .lightbox-next:hover {
+      color: #ffffff;
+    }
+
+    /* Lightbox Pagination */
+    .lightbox-pagination {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .lightbox-dot {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .lightbox-dot:hover {
+      color: #ffffff;
+    }
+
+    .lightbox-dot.active {
+      color: #ffffff;
+    }
+
+    /* TOS Section */
+    .tos-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .tos-btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
       font-size: 1rem;
-      color: var(--primary);
-      opacity: 0.9;
-    }
-
-    /* Swiper Navigation */
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--bg-light);
+      font-weight: 500;
       color: var(--text);
+      border: 1px solid var(--border);
       transition: all 0.3s;
+      cursor: pointer;
     }
-
-    .swiper-button-prev:hover,
-    .swiper-button-next:hover {
+    
+    .tos-btn:hover {
       background: var(--accent);
       color: var(--primary);
+      border-color: var(--accent);
     }
 
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-      font-size: 1.2rem;
-      font-weight: bold;
+    /* TOS Modal */
+    .tos-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary);
+      z-index: 10000;
+      overflow-y: auto;
+      display: none;
+      padding: 80px 20px;
+    }
+    
+    .tos-modal-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    
+    .tos-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .tos-modal-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .tos-modal-close:hover {
+      color: var(--accent);
+    }
+    
+    .tos-content {
+      line-height: 1.6;
+    }
+    
+    .tos-content h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tos-content p {
+      margin-bottom: 1rem;
+    }
+    
+    .tos-content ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
     }
 
     /* Contact Section */
-    .contact-form {
+       /* Contact Section */
+   .contact-form {
       max-width: 500px;
       width: 100%;
-      margin-top: 2rem;
+      margin-top: 0;
     }
     
     .form-group {
@@ -699,7 +958,7 @@
       cursor: pointer;
       transition: all 0.3s;
       border-radius: 30px;
-      margin-top: 1rem;
+      margin-top: 0;
     }
     
     .submit-btn:hover {
@@ -707,87 +966,7 @@
       color: var(--primary);
     }
     
-    /* Lightbox */
-    .lightbox {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      background: rgba(47, 47, 47, 0.95);
-      z-index: 10000;
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-
-    [data-theme="dark"] .lightbox {
-      background: rgba(246, 246, 220, 0.95);
-    }
-
-    .lightbox-content {
-      max-width: 80%;
-      max-height: 80%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lightbox-content img {
-      max-width: 100%;
-      max-height: 80vh;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(47, 47, 47, 0.2);
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: var(--text);
-      font-size: 2rem;
-      cursor: pointer;
-      transition: color 0.3s, background 0.3s;
-      z-index: 10001;
-      background: var(--bg-light);
-      padding: 0.5rem;
-      border-radius: 50%;
-    }
-
-    .lightbox-close:hover {
-      color: var(--accent);
-      background: var(--secondary);
-    }
-
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 1rem;
-      transform: translateY(-50%);
-      z-index: 10001;
-    }
-
-    .lightbox-prev, .lightbox-next {
-      color: var(--text);
-      font-size: 2rem;
-      cursor: pointer;
-      background: var(--bg-light);
-      padding: 0.5rem 1rem;
-      border-radius: 50%;
-      transition: all 0.3s;
-    }
-
-    .lightbox-prev:hover, .lightbox-next:hover {
-      color: var(--accent);
-      background: var(--secondary);
-    }
-
+    
     /* Responsive Adjustments */
     @media (max-width: 992px) {
       .hero-text {
@@ -800,6 +979,16 @@
       
       nav.dots {
         display: none;
+      }
+      
+      .portfolio-categories {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .category-btn {
+        width: 100%;
+        max-width: 400px;
       }
     }
     
@@ -823,14 +1012,9 @@
       .section-content {
         padding: 100px 20px;
       }
-
-      .portfolio-filters {
-        gap: 0.5rem;
-      }
-
-      .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+      
+      .modal-grid {
+        grid-template-columns: 1fr;
       }
     }
     
@@ -843,18 +1027,8 @@
         font-size: 1.1rem;
       }
       
-      .portfolio-filters {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .swiper-slide {
-        width: 280px;
-        height: 380px;
-      }
-
-      .portfolio-title {
-        font-size: 1.2rem;
+      .modal-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -869,8 +1043,8 @@
       <nav class="header-nav">
         <ul>
           <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#tos">Terms</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -890,39 +1064,219 @@
 <nav class="main">
   <ul>
     <li><a class="scroll scroll-1" href="#home">Home</a></li>
-    <li><a class="scroll scroll-2" href="#about">About</a></li>
-    <li><a class="scroll scroll-3" href="#portfolio">Portfolio</a></li>
+    <li><a class="scroll scroll-2" href="#portfolio">Portfolio</a></li>
+    <li><a class="scroll scroll-3" href="#tos">TOS</a></li>
     <li><a class="scroll scroll-4" href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- Dot Navigation -->
 <nav class="dots">
-  <a class="scroll scroll-1 tooltip tooltip-left active" href="#home" data-tooltip="home">✦</a>
-  <a class="scroll scroll-2 tooltip tooltip-left" href="#about" data-tooltip="about">✦</a>
-  <a class="scroll scroll-3 tooltip tooltip-left" href="#portfolio" data-tooltip="portfolio">✦</a>
-  <a class="scroll scroll-4 tooltip tooltip-left" href="#contact" data-tooltip="contact">✦</a>
+  <a class="scroll scroll-1 tooltip tooltip-left active" href="#home" data-tooltip="Home">✦</a>
+  <a class="scroll scroll-2 tooltip tooltip-left" href="#portfolio" data-tooltip="Portfolio">✦</a>
+  <a class="scroll scroll-3 tooltip tooltip-left" href="#tos" data-tooltip="Terms">✦</a>
+  <a class="scroll scroll-4 tooltip tooltip-left" href="#contact" data-tooltip="Contact">✦</a>
 </nav>
+
+<!-- Portfolio Modals -->
+<div class="portfolio-modal" id="illustration-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Illustration Works</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fantasy Landscape Illustration">
+        <p class="modal-description">Fantasy Landscape Illustration</p>
+      </div>
+      <div class="modal-item"></div>
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Book Cover Illustration">
+        <p class="modal-description">Book Cover Illustration</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Digital Painting">
+        <p class="modal-description">Digital Painting</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Concept Art">
+        <p class="modal-description">Concept Art</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Character Design">
+        <p class="modal-description">Character Design</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Environment Art">
+        <p class="modal-description">Environment Art</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="portfolio-modal" id="character-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Character Designs</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sci-Fi Character">
+        <p class="modal-description">Sci-Fi Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game Character">
+        <p class="modal-description">Game Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Anime Character">
+        <p class="modal-description">Anime Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fantasy Character">
+        <p class="modal-description">Fantasy Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Concept Art">
+        <p class="modal-description">Concept Art</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Character Sheet">
+        <p class="modal-description">Character Sheet</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="portfolio-modal" id="branding-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Branding Projects</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cosmic Brew Branding">
+        <p class="modal-description">Cosmic Brew Branding</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Apparel Designs">
+        <p class="modal-description">Apparel Designs</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Logo Design">
+        <p class="modal-description">Logo Design</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Brand Identity">
+        <p class="modal-description">Brand Identity</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Packaging Design">
+        <p class="modal-description">Packaging Design</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Merchandise">
+        <p class="modal-description">Merchandise</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOS Modals -->
+<div class="tos-modal" id="commission-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Commission Terms of Service</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. General Terms</h3>
+        <p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
+        
+        <h3>2. Payment</h3>
+        <p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
+        
+        <h3>3. Process</h3>
+        <p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
+        
+        <h3>4. Delivery</h3>
+        <p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tos-modal" id="usage-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Usage Rights</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. Personal Use</h3>
+        <p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
+        
+        <h3>2. Commercial Use</h3>
+        <p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
+        
+        <h3>3. Artist Rights</h3>
+        <p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
+        
+        <h3>4. Restrictions</h3>
+        <p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tos-modal" id="privacy-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Privacy Policy</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. Information Collection</h3>
+        <p>I collect only necessary information for commission processing (name, email, payment details).</p>
+        
+        <h3>2. Data Usage</h3>
+        <p>Your information will only be used for communication and transaction purposes.</p>
+        
+        <h3>3. Data Protection</h3>
+        <p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
+        
+        <h3>4. Third Parties</h3>
+        <p>Payment processors may collect additional data as per their own privacy policies.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close">&times;</span>
   <div class="lightbox-nav">
-    <span class="lightbox-prev">&#10094;</span>
-    <span class="lightbox-next">&#10095;</span>
+    <span class="lightbox-prev">❮</span>
+    <span class="lightbox-next">❯</span>
   </div>
   <div class="lightbox-content">
     <img src="" alt="Portfolio Image">
   </div>
+  <div class="lightbox-pagination"></div>
 </div>
 
 <!-- Sections -->
 <section class="section-1" id="home">
   <div class="section-content">
-    <div class="hero-text">ILUZTAR</div>
-    <div class="hero-subtext">Digital Designer & Developer</div>
-    <p class="hero-description">Creating elegant digital experiences with a focus on minimal design and seamless functionality.</p>
-    <div class="social-links">
+    <div class="hero-text" data-animate="left"><h2>ILUZTAR</h2></div>
+    <div class="hero-subtext" data-animate="right" data-animate-delay="100">Digital Illustrator & Graphic Designer</div>
+    <p class="hero-description" data-animate data-animate-delay="200">Creating captivating illustrations and innovative designs since 2015. Specializing in digital art, character design, and brand visuals that tell compelling stories and create lasting impressions.</p>
+    <div class="social-links" data-animate data-animate-delay="300">
       <a href="https://t.me/iluztar/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
       <a href="https://github.com/iluztar/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
       <a href="https://facebook.com/iluztar/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
@@ -932,108 +1286,74 @@
   </div>
 </section>
 
-<section class="section-2" id="about">
+<section class="section-2" id="portfolio">
   <div class="section-content">
-    <h2>About Me</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>I'm a digital designer and developer with a passion for creating clean, functional interfaces. With over 7 years of experience, I specialize in bridging the gap between design and technology to deliver exceptional user experiences.</p>
-        <p>My approach combines aesthetic sensibility with technical precision, resulting in digital products that are as beautiful as they are functional.</p>
-      </div>
+    <h2 data-animate>Portfolio</h2>
+    <p data-animate data-animate-delay="100">Click on an image below to explore more.</p>
+    
+    <div class="portfolio-categories" data-animate data-animate-delay="200">
+      <button class="category-btn" data-modal="illustration-modal">
+        <img src="https://images.unsplash.com/photo-1603468620905-8de7d86b781e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Illustration" class="category-image">
+        <div class="category-overlay">
+          <h3 class="category-title">Illustration</h3>
+          <p class="category-description">Digital paintings and concept art</p>
+        </div>
+      </button>
+      
+      <button class="category-btn" data-modal="character-modal">
+        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Character Design" class="category-image">
+        <div class="category-overlay">
+          <h3 class="category-title">Character Design</h3>
+          <p class="category-description">Original characters and concepts</p>
+        </div>
+      </button>
+      
+      <button class="category-btn" data-modal="branding-modal">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Branding" class="category-image">
+        <div class="category-overlay">
+          <h3 class="category-title">Branding</h3>
+          <p class="category-description">Visual identity and logos</p>
+        </div>
+      </button>
     </div>
   </div>
 </section>
 
-<section class="section-3" id="portfolio">
+<section class="section-3" id="tos">
   <div class="section-content">
-    <h2>Portfolio</h2>
-    <p>Selected works from recent projects</p>
-    <div class="portfolio-filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="web">Web Design</button>
-      <button class="filter-btn" data-filter="app">App UI</button>
-      <button class="filter-btn" data-filter="branding">Branding</button>
-    </div>
-    <div class="portfolio-slider swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-category="web">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Project 1" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">E-commerce Platform</div>
-              <div class="portfolio-category">Web Design</div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-category="app">
-            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Project 2" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">Mobile App UI</div>
-              <div class="portfolio-category">App UI</div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" data-category="branding">
-            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Project 3" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">Brand Identity</div>
-              <div class="portfolio-category">Branding</div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" data-category="web">
-            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Project 4" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">Corporate Website</div>
-              <div class="portfolio-category">Web Design</div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" data-category="app">
-            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Project 5" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">Travel App</div>
-              <div class="portfolio-category">App UI</div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="portfolio-item" data-image="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" data-category="branding">
-            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Project 6" class="portfolio-image">
-            <div class="portfolio-overlay">
-              <div class="portfolio-title">Logo Design</div>
-              <div class="portfolio-category">Branding</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+    <h2 data-animate>Terms of Service</h2>
+    <p data-animate data-animate-delay="100">Please review my terms before commissioning work</p>
+    
+    <div class="tos-categories" data-animate data-animate-delay="200">
+      <button class="tos-btn" data-modal="commission-tos-modal">
+        <i class="fas fa-file-signature"></i> Commission Terms
+      </button>
+      <button class="tos-btn" data-modal="usage-tos-modal">
+        <i class="fas fa-user-shield"></i> Usage Rights
+      </button>
+      <button class="tos-btn" data-modal="privacy-tos-modal">
+        <i class="fas fa-user-secret"></i> Privacy Policy
+      </button>
     </div>
   </div>
 </section>
 
 <section class="section-4" id="contact">
   <div class="section-content">
-    <h2>Get In Touch</h2>
-    <p>Have a project in mind or want to collaborate?</p>
-    <form class="contact-form">
+    <h2 data-animate>Get In Touch</h2>
+    <p data-animate data-animate-delay="100" style="margin-bottom: 2rem;">Interested in working together or have a project in mind?</p>
+    <form class="contact-form" data-animate data-animate-delay="200">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Your Name" required>
+      <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" autocomplete="name" required>
       </div>
       <div class="form-group">
-        <input type="email" class="form-control" placeholder="Your Email" required>
+      <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" autocomplete="email" required>
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="Your Message" required></textarea>
+      <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." autocomplete="off" required></textarea>
       </div>
       <div style="text-align: center;">
-        <button type="submit" class="submit-btn">Send Message</button>
+      <button type="submit" class="submit-btn">Send Message</button>
       </div>
     </form>
   </div>
@@ -1042,50 +1362,169 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
-  $(document).ready(function() {
-    let isScrolling = false; // Define isScrolling to avoid ReferenceError
+  /* Scroll to top on page refresh */
+  window.onload = function() {
+    window.scrollTo(0, 0);
+  };
 
-    // Initialize Swiper
-    const portfolioSwiper = new Swiper('.portfolio-slider', {
-      slidesPerView: 'auto',
-      spaceBetween: 30,
-      centeredSlides: true,
-      loop: true,
-      grabCursor: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        dynamicBullets: true,
-      },
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-          spaceBetween: 20
-        },
-        576: {
-          slidesPerView: 1,
-          spaceBetween: 20
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 25
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 30
-        },
-        1200: {
-          slidesPerView: 3,
-          spaceBetween: 40
+  $(document).ready(function() {
+    let isScrolling = false;
+
+    // Portfolio modal functionality
+    $('.category-btn').click(function() {
+      const modalId = $(this).data('modal');
+      $('#' + modalId).fadeIn();
+      $('body').css('overflow', 'hidden');
+    });
+    
+    $('.modal-close').click(function() {
+      $(this).closest('.portfolio-modal').fadeOut();
+      $('body').css('overflow', 'hidden');
+    });
+    
+    // Close modal when clicking outside content
+    $(document).click(function(e) {
+      if ($(e.target).hasClass('portfolio-modal')) {
+        $('.portfolio-modal').fadeOut();
+        $('body').css('overflow', 'hidden');
+      }
+    });
+    
+    // Close modal with ESC key
+    $(document).keydown(function(e) {
+      if (e.key === 'Escape') {
+        $('.portfolio-modal').fadeOut();
+        $('body').css('overflow', 'hidden');
+      }
+    });
+
+    // TOS modal functionality
+    $('.tos-btn').click(function() {
+      const modalId = $(this).data('modal');
+      $('#' + modalId).fadeIn();
+      $('body').css('overflow', 'hidden');
+    });
+    
+    $('.tos-modal-close').click(function() {
+      $(this).closest('.tos-modal').fadeOut();
+      $('body').css('overflow', 'hidden');
+    });
+    
+    // Close TOS modal when clicking outside content
+    $(document).click(function(e) {
+      if ($(e.target).hasClass('tos-modal')) {
+        $('.tos-modal').fadeOut();
+        $('body').css('overflow', 'hidden');
+      }
+    });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+    const lightboxNext = lightbox.querySelector('.lightbox-next');
+    const lightboxPagination = lightbox.querySelector('.lightbox-pagination');
+    
+    // Get all portfolio images
+    const portfolioImages = document.querySelectorAll('.modal-item img');
+    let currentImageIndex = 0;
+    const images = Array.from(portfolioImages).map(img => ({
+      src: img.src,
+      alt: img.alt
+    }));
+
+    // Create lightbox pagination dots
+    function createLightboxPagination() {
+      lightboxPagination.innerHTML = '';
+      images.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = 'lightbox-dot';
+        dot.innerHTML = '✦';
+        dot.addEventListener('click', () => {
+          goToLightboxImage(index);
+        });
+        lightboxPagination.appendChild(dot);
+      });
+      updateLightboxPagination();
+    }
+
+    // Update lightbox pagination active state
+    function updateLightboxPagination() {
+      const dots = lightboxPagination.querySelectorAll('.lightbox-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentImageIndex);
+      });
+    }
+
+    // Open lightbox when portfolio image is clicked
+    portfolioImages.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentImageIndex = index;
+        updateLightboxImage();
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        createLightboxPagination();
+      });
+    });
+
+    // Close lightbox
+    lightboxClose.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close when clicking outside image
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Navigation
+    lightboxPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      updateLightboxImage();
+      updateLightboxPagination();
+    });
+
+    lightboxNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      updateLightboxImage();
+      updateLightboxPagination();
+    });
+
+    // Go to specific image in lightbox
+    function goToLightboxImage(index) {
+      currentImageIndex = index;
+      updateLightboxImage();
+      updateLightboxPagination();
+    }
+
+    // Update lightbox image
+    function updateLightboxImage() {
+      lightboxImg.src = images[currentImageIndex].src;
+      lightboxImg.alt = images[currentImageIndex].alt;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display === 'flex') {
+        if (e.key === 'Escape') {
+          lightbox.style.display = 'none';
+          document.body.style.overflow = 'hidden';
+        } else if (e.key === 'ArrowLeft') {
+          currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+          updateLightboxImage();
+          updateLightboxPagination();
+        } else if (e.key === 'ArrowRight') {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          updateLightboxImage();
+          updateLightboxPagination();
         }
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
       }
     });
 
@@ -1104,6 +1543,10 @@
       }, 500);
 
       updateActiveDot(urlHash);
+      
+      // Close mobile menu if open
+      $('.hamburger').removeClass('is-open');
+      $('nav.main ul').removeClass('is-open');
     });
 
     // Update active dot
@@ -1114,10 +1557,10 @@
       if (hash == '#home') {
         $('nav.dots a.scroll-1').addClass('active');
       }
-      if (hash == '#about') {
+      if (hash == '#portfolio') {
         $('nav.dots a.scroll-2').addClass('active');
       }
-      if (hash == '#portfolio') {
+      if (hash == '#tos') {
         $('nav.dots a.scroll-3').addClass('active');
       }
       if (hash == '#contact') {
@@ -1134,10 +1577,19 @@
     });
 
     // Hamburger menu toggle
-    $('.hamburger, nav.main ul li a').on('click', function(e) {
+    $('.hamburger').on('click', function(e) {
       e.preventDefault();
-      $('.hamburger').toggleClass('is-open');
+      e.stopPropagation();
+      $(this).toggleClass('is-open');
       $('nav.main ul').toggleClass('is-open');
+    });
+
+    // Close menu when clicking outside
+    $(document).click(function(e) {
+      if (!$(e.target).closest('.hamburger, nav.main ul').length) {
+        $('.hamburger').removeClass('is-open');
+        $('nav.main ul').removeClass('is-open');
+      }
     });
 
     // Mouse wheel scrolling
@@ -1271,6 +1723,52 @@
         scrollTop: nextSection.offset().top
       }, 800);
     }
+
+    // Scroll animation functionality
+    function debounce(func, wait = 10, immediate = true) {
+      let timeout;
+      return function() {
+        const context = this, args = arguments;
+        const later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('[data-animate]');
+      const windowHeight = window.innerHeight;
+      const triggerOffset = windowHeight * 0.8;
+
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        
+        if (elementPosition < triggerOffset) {
+          element.classList.add('animated');
+        }
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      animateOnScroll();
+      
+      // Add animation to initial visible elements
+      document.querySelectorAll('[data-animate]').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('animated');
+        }
+      });
+    });
+
+    // Run on scroll
+    window.addEventListener('scroll', debounce(animateOnScroll));
   });
 
   // ===== Theme Switcher =====
