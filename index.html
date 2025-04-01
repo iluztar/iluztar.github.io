@@ -5,6 +5,7 @@
   <title>ILUZTAR - Digital Illustrator & Graphic Designer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+  <link rel='stylesheet' href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
@@ -391,7 +392,7 @@
       min-height: 100vh;
       background: var(--primary);
       border-bottom: 1px solid var(--border);
-      padding: 2rem;
+      padding: 0;
       box-sizing: border-box;
       text-align: center;
     }
@@ -420,7 +421,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 80px 20px;
+      padding: 20px;
+      margin: 0 auto;
     }
     
     /* Home Section - Adjusted spacing */
@@ -953,7 +955,7 @@
     }
     
     .mobile-footer-nav a i {
-      font-size: 1.2rem;
+      font-size: 1.8rem;
       margin-bottom: 5px;
       transition: transform 0.3s;
     }
@@ -1058,10 +1060,10 @@
 <!-- Mobile Footer Navigation -->
 <nav class="mobile-footer-nav">
   <ul>
-    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="#portfolio"><i class="fas fa-images"></i> Portfolio</a></li>
-    <li><a href="#tos"><i class="fas fa-file-alt"></i> Terms</a></li>
-    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    <li><a href="#home" class="active"><i class="material-icons-sharp">home</i> Home</a></li>
+    <li><a href="#portfolio"><i class="material-icons-sharp">collections</i> Portfolio</a></li>
+    <li><a href="#tos"><i class="material-icons-sharp">description</i> Terms</a></li>
+    <li><a href="#contact"><i class="material-icons-sharp">email</i> Contact</a></li>
   </ul>
 </nav>
 
@@ -1369,6 +1371,85 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script>
+  // ===== Theme Switcher =====
+  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+  const currentTheme = localStorage.getItem('theme');
+
+  if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'dark') toggleSwitch.checked = true;
+  }
+
+  function switchTheme(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+  toggleSwitch.addEventListener('change', switchTheme);
+
+  // Scroll animation functionality
+  function debounce(func, wait = 10, immediate = true) {
+    let timeout;
+    return function() {
+      const context = this, args = arguments;
+      const later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  function animateOnScroll() {
+    const elements = document.querySelectorAll('[data-animate]');
+    const windowHeight = window.innerHeight;
+    const triggerOffset = windowHeight * 0.8;
+
+    elements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      
+      if (elementPosition < triggerOffset) {
+        element.classList.add('animated');
+      }
+    });
+  }
+
+  // Initialize on load
+  window.addEventListener('load', () => {
+    // Immediately show all elements in the active section
+    const activeSection = document.querySelector('section.active');
+    if (activeSection) {
+      const elements = activeSection.querySelectorAll('[data-animate]');
+      elements.forEach(el => {
+        el.classList.add('animated');
+      });
+    }
+    
+    // Then set up the scroll animation
+    animateOnScroll();
+  });
+
+  // Run on scroll
+  window.addEventListener('scroll', debounce(animateOnScroll));
+
+  // Set first section as active initially and force show its content
+  document.addEventListener('DOMContentLoaded', function() {
+    const firstSection = document.querySelector('section');
+    if (firstSection) {
+      firstSection.classList.add('active');
+      const elements = firstSection.querySelectorAll('[data-animate]');
+      elements.forEach(el => {
+        el.classList.add('animated');
+      });
+    }
+    
+    // Update mobile nav
+    updateMobileNav('#home');
+  });
+
   $(document).ready(function() {
     let isScrolling = false;
     let isModalOpen = false;
@@ -1725,10 +1806,6 @@
       }
     });
 
-    // Set first section as active initially
-    $('section').first().addClass('active');
-    updateMobileNav('#home');
-
     // Update active section on scroll
     $(window).scroll(function() {
       if (isModalOpen) return;
@@ -1801,82 +1878,20 @@
       updateMobileNav('#' + nextSection.attr('id'));
     }
 
-    // Scroll animation functionality
-    function debounce(func, wait = 10, immediate = true) {
-      let timeout;
-      return function() {
-        const context = this, args = arguments;
-        const later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    }
+    // Update active navigation based on current section
+    $(window).scroll(function() {
+      var scrollPosition = $(window).scrollTop();
 
-    function animateOnScroll() {
-      const elements = document.querySelectorAll('[data-animate]');
-      const windowHeight = window.innerHeight;
-      const triggerOffset = windowHeight * 0.8;
+      $('section').each(function() {
+        var top = $(this).offset().top - 100;
+        var bottom = top + $(this).outerHeight();
 
-      elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        
-        if (elementPosition < triggerOffset) {
-          element.classList.add('animated');
+        if (scrollPosition >= top && scrollPosition < bottom) {
+          var sectionId = $(this).attr('id');
+          $('nav.header-nav ul li a').removeClass('active');
+          $('nav.header-nav ul li a[href="#' + sectionId + '"]').addClass('active');
         }
       });
-    }
-
-    // Initialize on load
-    window.addEventListener('load', () => {
-      animateOnScroll();
-      
-      // Add animation to initial visible elements
-      document.querySelectorAll('[data-animate]').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          el.classList.add('animated');
-        }
-      });
-    });
-
-    // Run on scroll
-    window.addEventListener('scroll', debounce(animateOnScroll));
-  });
-
-  // ===== Theme Switcher =====
-  const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-  const currentTheme = localStorage.getItem('theme');
-
-  if (currentTheme) {
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') toggleSwitch.checked = true;
-  }
-
-  function switchTheme(e) {
-    const theme = e.target.checked ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }
-  toggleSwitch.addEventListener('change', switchTheme);
-
-  // Update active navigation based on current section
-  $(window).scroll(function() {
-    var scrollPosition = $(window).scrollTop();
-
-    $('section').each(function() {
-      var top = $(this).offset().top - 100;
-      var bottom = top + $(this).outerHeight();
-
-      if (scrollPosition >= top && scrollPosition < bottom) {
-        var sectionId = $(this).attr('id');
-        $('nav.header-nav ul li a').removeClass('active');
-        $('nav.header-nav ul li a[href="#' + sectionId + '"]').addClass('active');
-      }
     });
   });
 </script>
