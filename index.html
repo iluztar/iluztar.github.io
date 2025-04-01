@@ -1415,6 +1415,17 @@
     });
   }
 
+  // Function to update mobile navigation active state
+  function updateMobileNav(hash) {
+    const mobileNavLinks = document.querySelectorAll('.mobile-footer-nav a');
+    mobileNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === hash) {
+        link.classList.add('active');
+      }
+    });
+  }
+
   // Initialize on load
   window.addEventListener('load', () => {
     // Immediately show all elements in the active section
