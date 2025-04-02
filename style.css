@@ -1,25 +1,26 @@
     /* ===== CYBR Styles ===== */
     .cybr-btn {
+      --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%));
+      --shadow-primary: hsl(var(--shadow-primary-hue), 100%, 55%); /* Brighter yellow */
+      --shadow-secondary: hsl(var(--shadow-secondary-hue), 100%, 65%); /* Even brighter yellow */
+      --color: hsl(0, 0%, 100%);
+      --primary-hue: 50; /* Adjusted for a brighter yellow */
+      --primary-lightness: 75; /* Increased lightness for a brighter yellow */
+      --shadow-primary-hue: 50; /* Adjusted for a brighter yellow */
+      --shadow-secondary-hue: 45; /* Slightly darker but still bright yellow */
+      --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+      --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
+      --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
+      --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
+      --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+      --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+      --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
+      --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
       --shimmy-distance: 5;
-        --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
-        --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
-        --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
-        --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
-        --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
-        --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
-        --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
-        --shadow-secondary-hue: 60;
-        --shadow-secondary: rgba(234, 234, 234, 0.05);
-        --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
-        --border: 4px;
-        --shadow-primary-hue: 180;
-        --primary-hue: 0;
-        --primary-lightness: 50;  
-      --primary: #1a1a1a;
-      --shadow-primary: rgba(234, 234, 234, 0.1);
-      --color: #eaeaea;
+      --border: 4px;
       --font-size: 16px;
       --label-size: 8px;
+      
       font-family: "Blender Pro Bold";
       color: var(--color);
       cursor: pointer;
@@ -27,17 +28,20 @@
       text-transform: uppercase;
       font-size: var(--font-size);
       outline: transparent;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       position: relative;
       font-weight: 700;
       border: 0;
       min-width: 180px;
       height: 50px;
       line-height: 50px;
-      transition: all 0.3s;
+      transition: background 0.2s;
       margin: 0.5rem;
-    }
+      }
 
+    [data-theme="dark"] .cybr-btn {
+      --color: hsl(0, 0%, 0%);
+    }
     .cybr-btn:after,
     .cybr-btn:before {
       content: '';
@@ -51,10 +55,6 @@
       z-index: -1;
     }
 
-    .cybr-btn:active {
-      --primary: #1a1a1a;
-    }
-
     .cybr-btn:before {
       background: var(--shadow-primary);
       transform: translate(var(--border), 0);
@@ -62,6 +62,18 @@
 
     .cybr-btn:after {
       background: var(--primary);
+    }
+
+    .cybr-btn:hover {
+      --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+    }
+
+    .cybr-btn:active {
+      --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+    }
+
+    [data-theme="dark"] .cybr-btn:active {
+      --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
     }
 
     .cybr-btn__tag {
@@ -72,12 +84,16 @@
       bottom: -5%;
       right: 5%;
       font-weight: normal;
-      color: #eaeaea;
+      color: hsl(0, 0%, 0%);
       font-size: var(--label-size);
-      background: #1a1a1a;
+      background: var(--cybr-dark-tag-bg);
     }
 
- /* Glitch Effect - Only on Hover */
+    [data-theme="dark"] .cybr-btn__tag {
+      background: var(--cybr-light-tag-bg);
+    }
+
+    /* Glitch Effect - Only on Hover */
     .cybr-btn__glitch {
       position: absolute;
       top: calc(var(--border) * -1);
@@ -109,6 +125,65 @@
               clip-path: var(--clip);
       background: var(--primary);
       z-index: -1;
+    }
+
+    /* Social Media Button Variant */
+    .cybr-btn.social {
+      --primary: var(--cybr-dark-primary);
+      min-width: calc(120px * 0.75);
+      height: calc(40px * 0.85);
+      line-height: calc(40px * 0.85);
+      --font-size: 18px;
+    }
+
+    [data-theme="dark"] .cybr-btn.social {
+      --primary: var(--cybr-light-primary);
+    }
+
+    /* Portfolio Button Variant */
+    .cybr-btn.portfolio {
+      --primary: var(--cybr-dark-primary);
+      min-width: 200px;
+      height: 60px;
+      line-height: 60px;
+    }
+
+    [data-theme="dark"] .cybr-btn.portfolio {
+      --primary: var(--cybr-light-primary);
+    }
+
+    /* Contact Form Button Variant */
+    .cybr-btn.contact {
+      --primary: var(--cybr-dark-primary);
+      min-width: 180px;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    [data-theme="dark"] .cybr-btn.contact {
+      --primary: var(--cybr-light-primary);
+    }
+
+    /* TOS Button Variant */
+    .cybr-btn.tos {
+      --primary: var(--cybr-dark-primary);
+      min-width: 160px;
+      height: 45px;
+      line-height: 45px;
+      --font-size: 14px;
+    }
+
+    [data-theme="dark"] .cybr-btn.tos {
+      --primary: var(--cybr-light-primary);
+    }
+
+    /* Hover Effects */
+    .cybr-btn:hover {
+      --primary: var(--cybr-dark-hover);
+    }
+
+    [data-theme="dark"] .cybr-btn:hover {
+      --primary: var(--cybr-light-hover);
     }
 
     @-webkit-keyframes glitch {
@@ -263,47 +338,6 @@
       }
     }
 
-    
-    /* Social Media Button Variant */
-    .cybr-btn.social {
-      --primary: #2a2a2a;
-      min-width: calc(120px * 0.75);
-      height: calc(40px * 0.85);
-      line-height: calc(40px * 0.85);
-      --font-size: 18px;
-    }
-
-
-    /* Portfolio Button Variant */
-    .cybr-btn.portfolio {
-      --primary: #333;
-      min-width: 200px;
-      height: 60px;
-      line-height: 60px;
-    }
-
-    /* Contact Form Button Variant */
-    .cybr-btn.contact {
-      --primary: #333;
-      min-width: 180px;
-      height: 50px;
-      line-height: 50px;
-    }
-
-    /* TOS Button Variant */
-    .cybr-btn.tos {
-      --primary: #2a2a2a;
-      min-width: 160px;
-      height: 45px;
-      line-height: 45px;
-      --font-size: 14px;
-    }
-
-    /* Hover Effects */
-    .cybr-btn:hover {
-      --primary: #333;
-    }
-
     /* ===== Theme Variables ===== */
     :root {
       --primary: #ffffff;
@@ -314,6 +348,12 @@
       --border: #dcdcdc;
       --switch-bg: #dcdcdc;
       --switch-knob: #1a1a1a;
+
+      --cybr-dark-primary: #1a1a1a;
+      --cybr-dark-shadow-primary: rgba(234, 234, 234, 0.1);
+      --cybr-dark-color: #eaeaea;
+      --cybr-dark-tag-bg: #ffd91a;
+      --cybr-dark-hover: #333;
     }
 
     /* Dark mode colors */
@@ -326,6 +366,12 @@
       --border: rgba(234, 234, 234, 0.1);
       --switch-bg: #333;
       --switch-knob: #eaeaea;
+
+      --cybr-light-primary: #eaeaea;
+      --cybr-light-shadow-primary: rgba(26, 26, 26, 0.1);
+      --cybr-light-color: #1a1a1a;
+      --cybr-light-tag-bg: #ffd91a;
+      --cybr-light-hover: #dedada;
     }
 
     /* Global Styles */
