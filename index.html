@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8">
+  <title>ILUZTAR - Digital Illustrator & Graphic Designer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+  <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
+  
+  <link href="https://db.onlinewebfonts.com/c/a082fd3df68a0b54e0d4d794bc38d268?family=Blender+Pro+Bold" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/685030e1abf58bd087a4ee725d9dea6a?family=Blender+Pro+Medium" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/31b8101b7be4ea7380dd68f7ae18231d?family=Blender+Pro+Thin" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <span><a href="#home" class="logo-text">ILUZTAR</a></span>
+      </div>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#tos">Terms</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div class="theme-switch-wrapper">
+          <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+          </label>
+        </div>
+        <button class="hamburger"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+<!-- Mobile Footer Navigation -->
+<nav class="mobile-footer-nav">
+  <ul>
+    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="#portfolio"><i class="fas fa-images"></i> Portfolio</a></li>
+    <li><a href="#tos"><i class="fas fa-file-alt"></i> Terms</a></li>
+    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dot Navigation -->
+<nav class="dots">
+  <a class="scroll scroll-1 tooltip tooltip-left active" href="#home" data-tooltip="Home">✦</a>
+  <a class="scroll scroll-2 tooltip tooltip-left" href="#portfolio" data-tooltip="Portfolio">✦</a>
+  <a class="scroll scroll-3 tooltip tooltip-left" href="#tos" data-tooltip="Terms">✦</a>
+  <a class="scroll scroll-4 tooltip tooltip-left" href="#contact" data-tooltip="Contact">✦</a>
+</nav>
+
+<!-- Portfolio Modals -->
+<div class="portfolio-modal" id="illustration-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Illustration Works</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
+        <p class="modal-description">Landscape Illustration</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
+        <p class="modal-description">Abstract Art</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
+        <p class="modal-description">Nature Concept</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
+        <p class="modal-description">Fantasy World</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
+        <p class="modal-description">New Artwork</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
+        <p class="modal-description">Urban Sketch</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="portfolio-modal" id="character-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Character Designs</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
+        <p class="modal-description">Sci-Fi Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Game Character">
+        <p class="modal-description">Game Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
+        <p class="modal-description">Anime Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
+        <p class="modal-description">Fantasy Character</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
+        <p class="modal-description">Concept Art</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+        <p class="modal-description">Character Sheet</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="portfolio-modal" id="branding-modal">
+  <div class="section-content">
+    <div class="modal-header">
+      <h2>Branding Projects</h2>
+      <span class="modal-close">&times;</span>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
+        <p class="modal-description">Modern Logo Design</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
+        <p class="modal-description">Creative Branding</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
+        <p class="modal-description">Minimalist Design</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
+        <p class="modal-description">Corporate Identity</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
+        <p class="modal-description">Product Packaging</p>
+      </div>
+      <div class="modal-item">
+        <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
+        <p class="modal-description">Custom Merchandise</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOS Modals -->
+<div class="tos-modal" id="commission-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Commission Terms of Service</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. General Terms</h3>
+        <p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
+        
+        <h3>2. Payment</h3>
+        <p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
+        
+        <h3>3. Process</h3>
+        <p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
+        
+        <h3>4. Delivery</h3>
+        <p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tos-modal" id="usage-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Usage Rights</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. Personal Use</h3>
+        <p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
+        
+        <h3>2. Commercial Use</h3>
+        <p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
+        
+        <h3>3. Artist Rights</h3>
+        <p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
+        
+        <h3>4. Restrictions</h3>
+        <p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tos-modal" id="privacy-tos-modal">
+  <div class="section-content">
+    <div class="tos-modal-content">
+      <div class="tos-modal-header">
+        <h2>Privacy Policy</h2>
+        <span class="tos-modal-close">&times;</span>
+      </div>
+      <div class="tos-content">
+        <h3>1. Information Collection</h3>
+        <p>I collect only necessary information for commission processing (name, email, payment details).</p>
+        
+        <h3>2. Data Usage</h3>
+        <p>Your information will only be used for communication and transaction purposes.</p>
+        
+        <h3>3. Data Protection</h3>
+        <p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
+        
+        <h3>4. Third Parties</h3>
+        <p>Payment processors may collect additional data as per their own privacy policies.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <div class="lightbox-nav">
+    <span class="lightbox-prev">❮</span>
+    <span class="lightbox-next">❯</span>
+  </div>
+  <div class="lightbox-content">
+    <img src="" alt="Portfolio Image">
+  </div>
+  <div class="lightbox-pagination"></div>
+</div>
+
+<!-- Sections -->
+<section class="section-1" id="home">
+  <div class="section-content">
+    <div class="hero-text" data-animate="left"><h2>ILUZTAR</h2></div>
+    <div class="hero-subtext" data-animate="right" data-animate-delay="100">Digital Illustrator & Graphic Designer</div>
+    <p class="hero-description" data-animate data-animate-delay="200">Creating captivating illustrations and innovative designs since 2015. Specializing in digital art, character design, and brand visuals.</p>
+    <div class="social-links" data-animate data-animate-delay="300">
+      <a href="https://t.me/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-telegram-plane"></i><span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-telegram-plane"></i></span>
+        <span aria-hidden class="cybr-btn__tag">TG</span>
+      </a>
+      <a href="https://github.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i><span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-github"></i></span>
+        <span aria-hidden class="cybr-btn__tag">GH</span>
+      </a>
+      <a href="https://facebook.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook-f"></i><span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-facebook-f"></i></span>
+        <span aria-hidden class="cybr-btn__tag">FB</span>
+      </a>
+      <a href="https://instagram.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i><span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-instagram"></i></span>
+        <span aria-hidden class="cybr-btn__tag">IG</span>
+      </a>
+      <a href="https://tiktok.com/@iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-tiktok"></i><span aria-hidden></span>
+        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-tiktok"></i></span>
+        <span aria-hidden class="cybr-btn__tag">TT</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section-2" id="portfolio">
+  <div class="section-content">
+    <h2 data-animate>Portfolio</h2>
+    <p data-animate data-animate-delay="100">Explore my work categories</p>
+    
+    <div class="portfolio-categories" data-animate data-animate-delay="200">
+      <button class="cybr-btn portfolio" data-modal="illustration-modal">
+        Illustration<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Illustration_</span>
+        <span aria-hidden class="cybr-btn__tag">ART</span>
+      </button>
+      <button class="cybr-btn portfolio" data-modal="character-modal">
+        Characters<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Characters_</span>
+        <span aria-hidden class="cybr-btn__tag">CHAR</span>
+      </button>
+      <button class="cybr-btn portfolio" data-modal="branding-modal">
+        Branding<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Branding_</span>
+        <span aria-hidden class="cybr-btn__tag">BRND</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section-3" id="tos">
+  <div class="section-content">
+    <h2 data-animate>Terms of Service</h2>
+    <p data-animate data-animate-delay="100">Please review before commissioning</p>
+    
+    <div class="tos-categories" data-animate data-animate-delay="200">
+      <button class="cybr-btn tos" data-modal="commission-tos-modal">
+        Commissions<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Commissions_</span>
+        <span aria-hidden class="cybr-btn__tag">TOS</span>
+      </button>
+      <button class="cybr-btn tos" data-modal="usage-tos-modal">
+        Usage<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Usage_</span>
+        <span aria-hidden class="cybr-btn__tag">USE</span>
+      </button>
+      <button class="cybr-btn tos" data-modal="privacy-tos-modal">
+        Privacy<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">Privacy_</span>
+        <span aria-hidden class="cybr-btn__tag">PRIV</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section-4" id="contact">
+  <div class="section-content">
+    <h2 data-animate>Get In Touch</h2>
+    <p data-animate data-animate-delay="100" style="margin-bottom: 2rem;">Interested in working together?</p>
+    <form class="contact-form" data-animate data-animate-delay="200">
+      <div class="form-group">
+        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+      </div>
+      <div class="form-group">
+        <textarea id="message" name="message" class="form-control" placeholder="Project details" required></textarea>
+      </div>
+      <div style="text-align: center;">
+        <button type="submit" class="cybr-btn contact">
+          Send<span aria-hidden>_</span>
+          <span aria-hidden class="cybr-btn__glitch">Send_</span>
+          <span aria-hidden class="cybr-btn__tag">SEND</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
