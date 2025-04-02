@@ -1,3 +1,5 @@
+// ===== HANDLER TOMBOL MODAL =====
+// Menangani klik pada tombol dengan class 'cybr-btn' untuk membuka modal
 document.querySelectorAll('.cybr-btn').forEach(button => {
   button.addEventListener('click', function(e) {
     if (this.hasAttribute('data-modal')) {
@@ -9,10 +11,12 @@ document.querySelectorAll('.cybr-btn').forEach(button => {
   });
 });
 
-// ===== Theme Switcher =====
+// ===== THEME SWITCHER =====
+// Fungsi untuk mengganti tema light/dark
 const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 const currentTheme = localStorage.getItem('theme');
 
+// Mengatur tema awal berdasarkan localStorage
 if (currentTheme) {
   document.documentElement.setAttribute('data-theme', currentTheme);
   if (currentTheme === 'dark') toggleSwitch.checked = true;
@@ -25,7 +29,8 @@ function switchTheme(e) {
 }
 toggleSwitch.addEventListener('change', switchTheme);
 
-// Scroll animation functionality
+// ===== ANIMASI SCROLL =====
+// Fungsi debounce untuk optimasi event scroll
 function debounce(func, wait = 10, immediate = true) {
   let timeout;
   return function() {
@@ -41,6 +46,7 @@ function debounce(func, wait = 10, immediate = true) {
   };
 }
 
+// Animasi elemen saat scrolling
 function animateOnScroll() {
   const elements = document.querySelectorAll('[data-animate]');
   const windowHeight = window.innerHeight;
@@ -55,7 +61,8 @@ function animateOnScroll() {
   });
 }
 
-// Function to update mobile navigation active state
+// ===== UPDATE NAVIGASI AKTIF =====
+// Update status aktif pada navigasi mobile
 function updateMobileNav(hash) {
   const mobileNavLinks = document.querySelectorAll('.mobile-footer-nav a');
   mobileNavLinks.forEach(link => {
@@ -66,7 +73,7 @@ function updateMobileNav(hash) {
   });
 }
 
-// Function to update active dot navigation
+// Update dot navigasi yang aktif
 function updateActiveDot(hash) {
   $('nav.dots a').removeClass('active');
   if (hash == '#home') {
@@ -80,9 +87,28 @@ function updateActiveDot(hash) {
   }
 }
 
-// Initialize on load
+// ===== FUNGSI SCROLL KE SECTION =====
+// Fungsi untuk scroll ke section dengan animasi
+function scrollToSection(hash) {
+  const targetSection = document.querySelector(hash);
+  if (targetSection) {
+    $('html, body').animate({
+      scrollTop: targetSection.offsetTop
+    }, 500, function() {
+      // Update status aktif setelah animasi selesai
+      $('section').removeClass('active');
+      targetSection.classList.add('active');
+      updateActiveDot(hash);
+      updateMobileNav(hash);
+      $('nav.header-nav ul li a').removeClass('active');
+      $(`nav.header-nav ul li a[href="${hash}"]`).addClass('active');
+    });
+  }
+}
+
+// ===== INISIALISASI SAAT LOAD =====
 window.addEventListener('load', () => {
-  // Set home section as active
+  // Set section home sebagai aktif
   const homeSection = document.querySelector('#home');
   if (homeSection) {
     document.querySelectorAll('section').forEach(section => {
@@ -90,53 +116,38 @@ window.addEventListener('load', () => {
     });
     homeSection.classList.add('active');
     
-    // Trigger animations for home section
+    // Trigger animasi untuk elemen di section home
     const elements = homeSection.querySelectorAll('[data-animate]');
     elements.forEach(el => {
       el.classList.add('animated');
     });
   }
   
-  // Update all navigation to point to home
+  // Update semua navigasi ke home
   updateActiveDot('#home');
   updateMobileNav('#home');
   $('nav.header-nav ul li a').removeClass('active');
   $('nav.header-nav ul li a[href="#home"]').addClass('active');
   
-  // Then set up the scroll animation
+  // Jalankan animasi scroll
   animateOnScroll();
   
-  // Handle hash URL on load
+  // Handle hash URL saat load
   if (window.location.hash) {
-    const targetSection = document.querySelector(window.location.hash);
-    if (targetSection) {
-      // Use setTimeout to ensure all elements are loaded
-      setTimeout(() => {
-        window.scrollTo({
-          top: targetSection.offsetTop,
-          behavior: 'instant'
-        });
-        
-        // Update active states
-        $('section').removeClass('active');
-        targetSection.classList.add('active');
-        updateActiveDot(window.location.hash);
-        updateMobileNav(window.location.hash);
-        $('nav.header-nav ul li a').removeClass('active');
-        $(`nav.header-nav ul li a[href="${window.location.hash}"]`).addClass('active');
-      }, 100);
-    }
+    scrollToSection(window.location.hash);
   }
 });
 
-// Run on scroll
+// Event listener untuk scroll
 window.addEventListener('scroll', debounce(animateOnScroll));
 
+// ===== DOCUMENT READY =====
 $(document).ready(function() {
   let isScrolling = false;
   let isModalOpen = false;
 
-  // Initialize portfolio slider with responsive settings
+  // ===== PORTFOLIO SLIDER =====
+  // Inisialisasi portfolio slider dengan Swiper
   const portfolioSlider = new Swiper('.portfolio-slider', {
     slidesPerView: 'auto',
     centeredSlides: true,
@@ -182,11 +193,12 @@ $(document).ready(function() {
     }
   });
 
-  // Reinit slider when window is resized
+  // Update slider saat window diresize
   $(window).on('resize', function() {
     portfolioSlider.update();
   });
 
+  // ===== MODAL FUNCTIONS =====
   // Portfolio modal functionality
   $('.category-btn').click(function() {
     const modalId = $(this).data('modal');
@@ -242,7 +254,7 @@ $(document).ready(function() {
     }
   });
 
-  // Lightbox functionality
+  // ===== LIGHTBOX FUNCTIONALITY =====
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');
   const lightboxClose = lightbox.querySelector('.lightbox-close');
@@ -356,30 +368,29 @@ $(document).ready(function() {
     }
   });
 
-  // Smooth scroll to section
-  $('.scroll').click(function(e) {
+  // ===== NAVIGASI DENGAN ANIMASI SCROLL =====
+  // Event listener untuk navigasi header
+  $('nav.header-nav ul li a').click(function(e) {
     e.preventDefault();
-    var url = this.href;
-    var urlHash = this.hash;
-    var parts = url.split('#');
-    var trgt = parts[1];
-    var target_offset = $('#' + trgt).offset();
-    var target_top = target_offset.top;
-
-    $('html, body').animate({
-      scrollTop: target_top
-    }, 500);
-
-    updateActiveDot(urlHash);
-    updateMobileNav(urlHash);
+    const hash = this.hash;
+    scrollToSection(hash);
   });
 
-  // Click on dots
-  $('nav.dots a').click(function() {
-    $('nav.dots a').removeClass('active');
-    $(this).addClass('active');
+  // Event listener untuk navigasi mobile
+  $('.mobile-footer-nav a').click(function(e) {
+    e.preventDefault();
+    const hash = this.hash;
+    scrollToSection(hash);
   });
 
+  // Event listener untuk dots navigation
+  $('nav.dots a').click(function(e) {
+    e.preventDefault();
+    const hash = this.hash;
+    scrollToSection(hash);
+  });
+
+  // ===== SCROLLING FUNCTIONALITY =====
   // Mouse wheel scrolling - only when modal is not open
   $(window).on('wheel', { passive: false }, function(e) {
     if (isScrolling || isModalOpen) return;
@@ -455,7 +466,7 @@ $(document).ready(function() {
       window.requestAnimationFrame(function() {
         if (isModalOpen) return;
         
-        // If at the very top, ensure home section is active
+        // Jika di paling atas, pastikan section home aktif
         if (lastScrollPosition <= 10) {
           $('section').removeClass('active');
           $('#home').addClass('active');
