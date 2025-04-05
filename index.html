@@ -1933,6 +1933,12 @@
         function setActiveNavItem(clickedItem) {
           navItems.forEach(item => item.classList.remove('active'));
           clickedItem.classList.add('active');
+          
+          // Close mobile menu after selection
+          if (window.innerWidth <= 991) {
+            navList.style.display = 'none';
+            mobileNavToggle.classList.remove('nav-open');
+          }
         }
 
         function handleResize() {
@@ -1942,6 +1948,34 @@
           } else {
             navList.style.display = 'flex';
             mobileNavToggle.style.display = 'none';
+          }
+        }
+
+        function scrollToSection(targetId) {
+          if (isModalOpen) return;
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            isScrolling = true;
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+              if (link.getAttribute('href') === targetId) {
+                link.parentElement.classList.add('active');
+              }
+            });
+
+            // Use native smooth scroll instead of jQuery
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+              isScrolling = false;
+              updateActiveNav();
+              
+              if (window.innerWidth <= 991) {
+                navList.style.display = 'none';
+                mobileNavToggle.classList.remove('nav-open');
+              }
+            }, 1000); // Adjust timeout to match scroll duration
           }
         }
 
