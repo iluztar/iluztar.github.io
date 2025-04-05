@@ -1,373 +1,2358 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head>
-  <meta charset="UTF-8">
-  <title>ILUZTAR - Digital Illustrator & Graphic Designer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
-  <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
-  
-  <link href="https://db.onlinewebfonts.com/c/a082fd3df68a0b54e0d4d794bc38d268?family=Blender+Pro+Bold" rel="stylesheet">
-  <link href="https://db.onlinewebfonts.com/c/685030e1abf58bd087a4ee725d9dea6a?family=Blender+Pro+Medium" rel="stylesheet">
-  <link href="https://db.onlinewebfonts.com/c/31b8101b7be4ea7380dd68f7ae18231d?family=Blender+Pro+Thin" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8">
+    <title>ILUZTAR ✦</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+    <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="icon" href="data:image/svg+xml,
+                <svg
+                    xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+                    <rect width='100' height='100' rx='15' fill='black'/>
+                    <text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text>
+                </svg>" type="image/svg+xml">
+    <link href="https://db.onlinewebfonts.com/c/a082fd3df68a0b54e0d4d794bc38d268?family=Blender+Pro+Bold" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/685030e1abf58bd087a4ee725d9dea6a?family=Blender+Pro+Medium" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/31b8101b7be4ea7380dd68f7ae18231d?family=Blender+Pro+Thin" rel="stylesheet">
+    <style>
+      /* ===== GLOBAL VARIABLES & RESETS ===== */
+      :root {
+        --primary: #ffffff;
+        --secondary: #f0f0f0;
+        --accent: #1a1a1a;
+        --text: #1a1a1a;
+        --bg-light: rgba(26, 26, 26, 0.05);
+        --border: #dcdcdc;
+        --switch-bg: #dcdcdc;
+        --switch-knob: #1a1a1a;
+        --cybr-dark-primary: #1a1a1a;
+        --cybr-dark-shadow-primary: rgba(234, 234, 234, 0.1);
+        --cybr-dark-color: #eaeaea;
+        --cybr-dark-tag-bg: #ffd91a;
+        --cybr-dark-hover: #333;
+        --dot-inactive: rgba(26, 26, 26, 0.4);
+        --nav-height: 70px;
+      }
 
-  <link rel="stylesheet" href="style.css">
-</head>
+      [data-theme="dark"] {
+        --primary: #1a1a1a;
+        --secondary: #2a2a2a;
+        --accent: #eaeaea;
+        --text: #eaeaea;
+        --bg-light: rgba(234, 234, 234, 0.05);
+        --border: rgba(234, 234, 234, 0.1);
+        --switch-bg: #333;
+        --switch-knob: #eaeaea;
+        --cybr-light-primary: #eaeaea;
+        --cybr-light-shadow-primary: rgba(26, 26, 26, 0.1);
+        --cybr-light-color: #1a1a1a;
+        --cybr-light-tag-bg: #ffd91a;
+        --cybr-light-hover: #dedada;
+        --dot-inactive: rgba(234, 234, 234, 0.4);
+      }
 
-<body>
-<!-- Header -->
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <span><a href="#home" class="logo-text">ILUZTAR</a></span>
-      </div>
-      <nav class="header-nav">
-        <ul>
-          <li><a href="#home" class="scroll scroll-1 active">Home</a></li>
-          <li><a href="#portfolio" class="scroll scroll-2">Portfolio</a></li>
-          <li><a href="#tos" class="scroll scroll-3">Terms</a></li>
-          <li><a href="#contact" class="scroll scroll-4">Contact</a></li>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.1s ease, color 0s ease, border-color 0.1s ease;
+        font-family: "Satoshi", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-smooth: auto;
+        font-weight: 300;
+        line-height: 1.5;
+        height: 100%;
+      }
+
+      body {
+        position: relative;
+        background: var(--primary);
+        color: var(--text);
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Clash Grotesk", sans-serif;
+      }
+
+      h2 {
+        margin: 0;
+        padding: 0;
+        color: var(--text);
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      a {
+        color: var(--text);
+        text-decoration: none;
+        transition: 0.1s;
+      }
+
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+
+      /* ===== CUSTOM SCROLLBAR ===== */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--dot-inactive);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text);
+      }
+
+      /* ===== LAYOUT STRUCTURE ===== */
+      .section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+        padding: 2rem;
+        box-sizing: border-box;
+        text-align: center;
+        margin: 0;
+      }
+
+      .section-content {
+        max-width: 1200px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+        box-sizing: border-box;
+      }
+
+      .home-section {
+        background: var(--primary);
+      }
+
+      .portfolio-section {
+        background: var(--secondary);
+      }
+
+      .tos-section {
+        background: var(--primary);
+      }
+
+      .contact-section {
+        background: var(--secondary);
+        margin-bottom: 0;
+        /* Ensure no extra margin */
+        padding-bottom: 0;
+      }
+
+      /* ===== HEADER & NAVIGATION ===== */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 20px;
+        z-index: 1000;
+        height: var(--nav-height);
+      }
+
+      .header-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-icon {
+        color: var(--accent);
+        font-size: 28px;
+      }
+
+      .main-nav {
+        position: relative;
+        margin: 0 auto;
+      }
+
+      .nav-list {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        background: var(--accent);
+        color: var(--primary);
+        border: 1px solid #ffd91a;
+        height: 36px;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        clip-path: polygon(12px 0, 100% 0, 100% 24px, calc(100% - 12px) 36px, 0 100%, 0 12px);
+      }
+
+      .nav-list:before {
+        border-right: 12px solid transparent;
+        border-top: 12px solid #ffd91a;
+        content: "";
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+
+      .nav-list:after {
+        border-bottom: 12px solid #ffd91a;
+        border-left: 12px solid transparent;
+        bottom: 0;
+        content: "";
+        position: absolute;
+        right: 0;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0;
+        font-family: "Blender Pro Medium", sans-serif;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+        position: relative;
+      }
+
+      .nav-link {
+        color: inherit;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: "Blender Pro Medium", sans-serif;
+        display: block;
+        padding: 0 15px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-item.active,
+      .nav-item:hover {
+        background-color: #ffd91a;
+        color: #1a1a1a;
+      }
+
+      .mobile-nav-toggle {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent);
+        color: var(--primary);
+        height: 36px;
+        padding: 0 20px;
+        font-family: "Blender Pro Medium", sans-serif;
+        font-size: 14px;
+        text-transform: uppercase;
+        cursor: pointer;
+        clip-path: polygon(100% 0, 100% 100%, 12px 100%, 0 calc(100% - 12px), 0 0);
+      }
+
+      .mobile-nav-toggle:after {
+        content: "▼";
+        margin-left: 8px;
+        font-size: 10px;
+        transition: transform 0.1s ease;
+      }
+
+      .mobile-nav-toggle.nav-open:after {
+        transform: rotate(180deg);
+      }
+
+      .utility-nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .utility-list {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        background: var(--accent);
+        color: var(--primary);
+        border: 1px solid #ffd91a;
+        height: 36px;
+        padding: 0 0 0 16px;
+        margin: 0;
+        position: relative;
+        clip-path: polygon(12px 0, 100% 0, 100% 24px, calc(100% - 14px) 36px, calc(100% - 14px) 2000%, 0 2000%, 0 12px);
+      }
+
+      .utility-list:before {
+        border-right: 14px solid transparent;
+        border-top: 14px solid #ffd91a;
+        content: "";
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+
+      .utility-item {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 10px;
+        font-family: "Blender Pro Thin", sans-serif;
+        font-size: 12px;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .utility-item.logo {
+        margin-left: -16px;
+        background-color: #ffd91a !important;
+        outline: none !important;
+        /* Add this to prevent outline */
+        border: none !important;
+        /* Add this to prevent border */
+      }
+
+      .utility-item.logo .logo-icon {
+        color: #1a1a1a;
+      }
+
+      .utility-item.cta-button {
+        background: #ffd91a;
+        color: #1a1a1a;
+        font-family: "Blender Pro Medium", sans-serif;
+        font-weight: 700;
+        min-width: 100px;
+        text-align: center;
+      }
+
+      .utility-item>span {
+        font-family: "Blender Pro Medium", sans-serif;
+      }
+
+      .language-selector {
+        background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0.25) 2px, transparent 0, transparent);
+      }
+
+      .language-current {
+        display: flex;
+        align-items: center;
+        font-family: "Blender Pro Medium", sans-serif;
+      }
+
+      .language-current:after {
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-top: 4px solid var(--primary);
+        content: "";
+        display: inline-block;
+        margin-left: 6px;
+        margin-top: 2px;
+        transition: border-top-color 0.1s ease;
+      }
+
+      .language-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--accent);
+        border: 1px solid #ffd91a;
+        border-top: 6px solid #ffd91a;
+        min-width: 100%;
+        list-style: none;
+        padding: 8px 0;
+        z-index: 1000;
+      }
+
+      .language-dropdown li a {
+        padding: 8px 16px;
+        font-size: 12px;
+        color: var(--primary);
+        font-family: "Blender Pro Medium", sans-serif;
+      }
+
+      .language-dropdown li a:hover {
+        background-color: #ffd91a;
+        color: #1a1a1a;
+      }
+
+      .language-selector:hover .language-dropdown {
+        display: block;
+      }
+
+      .language-selector:hover .language-current:after {
+        border-top-color: #1a1a1a;
+      }
+
+      .utility-item:hover {
+        background: #ffd91a;
+        color: #1a1a1a;
+      }
+
+      /* ===== DOT NAVIGATION ===== */
+      .dot-nav {
+        position: fixed;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+      }
+
+      .dot-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        margin: 10px 0;
+        color: var(--dot-inactive);
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: all 0.1s;
+      }
+
+      .dot-link::before {
+        content: "◇";
+      }
+
+      .dot-link.active::before {
+    content: "◈";
+    color: var(--accent);
+  }
+
+  .dot-link.active::after {
+    content: "✦";
+    position: absolute;
+    font-size: 0.6em;
+    color: #ffd91a;
+  }
+
+  /* Decorative dashed lines between dots */
+  .dot-link:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 10px;
+    width: 1px;
+    background-image: linear-gradient(to bottom, 
+      var(--dot-inactive) 50%, 
+      transparent 50%);
+    background-size: 1px 4px;
+    pointer-events: none;
+  }
+
+    .dot-link:hover,
+    .dot-link.active {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+      .lightbox-nav {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+      }
+
+      .lightbox-counter {
+        margin: 0 5px;
+        font-size: 12px;
+      }
+
+      .dot-nav {
+        right: 0.5rem;
+      }
+
+      .dot-link {
+        width: 18px;
+        height: 18px;
+        margin: 8px 0;
+        font-size: 1rem;
+      }
+    }
+      /* ===== TOOLTIP ===== */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+      }
+
+      .tooltip:before,
+      .tooltip:after {
+        position: absolute;
+        line-height: 1;
+        opacity: 0;
+        transition: all 0.1s ease;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .tooltip:before {
+        content: attr(data-tooltip);
+        white-space: nowrap;
+        padding: 6px 12px;
+        background-color: var(--accent);
+        border-radius: 4px;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 100;
+      }
+
+      .tooltip-left:before {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%) translateX(-10px);
+        margin-right: 8px;
+      }
+
+      .tooltip-left:after {
+        content: "";
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%) translateX(-10px);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid var(--accent);
+        margin-right: 3px;
+      }
+
+      .tooltip:hover:before,
+      .tooltip:hover:after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-50%) translateX(0);
+      }
+
+      /* ===== THEME SWITCHER ===== */
+      .theme-switch-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-right: 5px;
+      }
+
+      .theme-switch {
+        display: inline-block;
+        height: 24px;
+        position: relative;
+        width: 44px;
+      }
+
+      .theme-switch input {
+        display: none;
+      }
+
+      .slider {
+        background-color: var(--switch-bg);
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 2px;
+        bottom: 2px;
+        background-color: var(--switch-knob);
+        transition: 0.4s;
+      }
+
+      input:checked+.slider:before {
+        transform: translateX(20px);
+      }
+
+      /* ===== CYBER BUTTON STYLES ===== */
+      .cybr-btn {
+        --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%));
+        --shadow-primary: hsl(var(--shadow-primary-hue), 100%, 55%);
+        --shadow-secondary: hsl(var(--shadow-secondary-hue), 100%, 65%);
+        --color: hsl(0, 0%, 100%);
+        --primary-hue: 50;
+        --primary-lightness: 75;
+        --shadow-primary-hue: 50;
+        --shadow-secondary-hue: 45;
+        --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+        --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
+        --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
+        --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
+        --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+        --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+        --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
+        --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
+        --shimmy-distance: 5;
+        --border: 4px;
+        --font-size: 16px;
+        --label-size: 8px;
+        font-family: "Blender Pro Bold";
+        color: var(--color);
+        cursor: pointer;
+        background: transparent;
+        text-transform: uppercase;
+        font-size: var(--font-size);
+        outline: transparent;
+        letter-spacing: 2px;
+        position: relative;
+        font-weight: 700;
+        border: 0;
+        min-width: 180px;
+        height: 50px;
+        line-height: 50px;
+        transition: background 0.2s;
+        margin: 0.5rem;
+      }
+
+      [data-theme="dark"] .cybr-btn {
+        --color: hsl(0, 0%, 0%);
+      }
+
+      .cybr-btn:after,
+      .cybr-btn:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -webkit-clip-path: var(--clip);
+        clip-path: var(--clip);
+        z-index: -1;
+      }
+
+      .cybr-btn:before {
+        background: var(--shadow-primary);
+        transform: translate(var(--border), 0);
+      }
+
+      .cybr-btn:after {
+        background: var(--primary);
+      }
+
+      .cybr-btn:hover {
+        --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+      }
+
+      .cybr-btn:active {
+        --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+      }
+
+      [data-theme="dark"] .cybr-btn:active {
+        --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+      }
+
+      .cybr-btn__tag {
+        position: absolute;
+        padding: 1px 4px;
+        letter-spacing: 1px;
+        line-height: 1;
+        bottom: -5%;
+        right: 5%;
+        font-weight: normal;
+        color: hsl(0, 0%, 0%);
+        font-size: var(--label-size);
+        background: var(--cybr-dark-tag-bg);
+      }
+
+      [data-theme="dark"] .cybr-btn__tag {
+        background: var(--cybr-light-tag-bg);
+      }
+
+      /* Glitch Effect - Only on Hover */
+      .cybr-btn__glitch {
+        position: absolute;
+        top: calc(var(--border) * -1);
+        left: calc(var(--border) * -1);
+        right: calc(var(--border) * -1);
+        bottom: calc(var(--border) * -1);
+        background: var(--shadow-primary);
+        text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
+        -webkit-clip-path: var(--clip);
+        clip-path: var(--clip);
+        -webkit-animation: glitch 2s infinite;
+        animation: glitch 2s infinite;
+        display: none;
+      }
+
+      .cybr-btn:hover .cybr-btn__glitch {
+        display: block;
+        animation: glitch 1s infinite;
+      }
+
+      .cybr-btn__glitch:before {
+        content: "";
+        position: absolute;
+        top: calc(var(--border) * 1);
+        right: calc(var(--border) * 1);
+        bottom: calc(var(--border) * 1);
+        left: calc(var(--border) * 1);
+        -webkit-clip-path: var(--clip);
+        clip-path: var(--clip);
+        background: var(--primary);
+        z-index: -1;
+      }
+
+      /* Button Variants */
+      .cybr-btn.social {
+        --primary: var(--cybr-dark-primary);
+        width: 54px;
+        height: 48px;
+        line-height: 48px;
+        --font-size: 16px;
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        margin: 0.5rem;
+        min-width: auto;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 8.98571px 100%, 0 38.9333px);
+        background: var(--primary);
+        border-right: 2px solid #ffd91a;
+      }
+
+      .cybr-btn.social::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        z-index: -1;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 8.98571px 100%, 0 38.9333px);
+      }
+
+      .cybr-btn.social::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--shadow-primary);
+        transform: translate(4px, 0);
+        z-index: -2;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 8.98571px 100%, 0 38.9333px);
+      }
+
+      /* Adjust icon size and position */
+      .cybr-btn.social i {
+        font-size: 1.2rem;
+        line-height: 48px;
+        position: relative;
+        z-index: 3;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding-left: 3px;
+        /* Untuk menggeser icon sedikit ke kanan */
+      }
+
+      /* Dark mode adjustments */
+      [data-theme="dark"] .cybr-btn.social {
+        --primary: var(--cybr-light-primary);
+      }
+
+      .cybr-btn.social .cybr-btn__glitch {
+        text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
+        animation: glitch 2s infinite;
+        display: none;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .cybr-btn:hover .cybr-btn__glitch {
+        display: block;
+        animation: glitch 1s infinite;
+      }
+
+      .cybr-btn__glitch i {
+        position: relative;
+        z-index: 3;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        line-height: 48px;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      .cybr-btn.portfolio {
+        --primary: var(--cybr-dark-primary);
+        min-width: 200px;
+        height: 60px;
+        line-height: 60px;
+      }
+
+      [data-theme="dark"] .cybr-btn.portfolio {
+        --primary: var(--cybr-light-primary);
+      }
+
+      .cybr-btn.contact {
+        --primary: var(--cybr-dark-primary);
+        min-width: 180px;
+        height: 50px;
+        line-height: 50px;
+      }
+
+      [data-theme="dark"] .cybr-btn.contact {
+        --primary: var(--cybr-light-primary);
+      }
+
+      .cybr-btn.tos {
+        --primary: var(--cybr-dark-primary);
+        min-width: 160px;
+        height: 45px;
+        line-height: 45px;
+        --font-size: 14px;
+      }
+
+      [data-theme="dark"] .cybr-btn.tos {
+        --primary: var(--cybr-light-primary);
+      }
+
+      .cybr-btn:hover {
+        --primary: var(--cybr-dark-hover);
+      }
+
+      [data-theme="dark"] .cybr-btn:hover {
+        --primary: var(--cybr-light-hover);
+      }
+
+      @keyframes glitch {
+        0% {
+          -webkit-clip-path: var(--clip-one);
+          clip-path: var(--clip-one);
+        }
+
+        2%,
+        8% {
+          -webkit-clip-path: var(--clip-two);
+          clip-path: var(--clip-two);
+          transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+        }
+
+        6% {
+          -webkit-clip-path: var(--clip-two);
+          clip-path: var(--clip-two);
+          transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+        }
+
+        9% {
+          -webkit-clip-path: var(--clip-two);
+          clip-path: var(--clip-two);
+          transform: translate(0, 0);
+        }
+
+        10% {
+          -webkit-clip-path: var(--clip-three);
+          clip-path: var(--clip-three);
+          transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+        }
+
+        13% {
+          -webkit-clip-path: var(--clip-three);
+          clip-path: var(--clip-three);
+          transform: translate(0, 0);
+        }
+
+        14%,
+        21% {
+          -webkit-clip-path: var(--clip-four);
+          clip-path: var(--clip-four);
+          transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+        }
+
+        25% {
+          -webkit-clip-path: var(--clip-five);
+          clip-path: var(--clip-five);
+          transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+        }
+
+        30% {
+          -webkit-clip-path: var(--clip-five);
+          clip-path: var(--clip-five);
+          transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+        }
+
+        35%,
+        45% {
+          -webkit-clip-path: var(--clip-six);
+          clip-path: var(--clip-six);
+          transform: translate(calc(var(--shimmy-distance) * -1%));
+        }
+
+        40% {
+          -webkit-clip-path: var(--clip-six);
+          clip-path: var(--clip-six);
+          transform: translate(calc(var(--shimmy-distance) * 1%));
+        }
+
+        50% {
+          -webkit-clip-path: var(--clip-six);
+          clip-path: var(--clip-six);
+          transform: translate(0, 0);
+        }
+
+        55% {
+          -webkit-clip-path: var(--clip-seven);
+          clip-path: var(--clip-seven);
+          transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+        }
+
+        60% {
+          -webkit-clip-path: var(--clip-seven);
+          clip-path: var(--clip-seven);
+          transform: translate(0, 0);
+        }
+
+        31%,
+        61%,
+        100% {
+          -webkit-clip-path: var(--clip-four);
+          clip-path: var(--clip-four);
+        }
+      }
+
+      /* ===== HOME SECTION ===== */
+      .hero-text {
+        font-family: "Clash Grotesk", sans-serif;
+        font-size: 4rem;
+        color: var(--text);
+        margin-bottom: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .hero-subtext {
+        font-family: "Clash Grotesk", sans-serif;
+        font-size: 1.4rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .hero-description {
+        max-width: 600px;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+      }
+
+      /* ===== PORTFOLIO SECTION ===== */
+      .portfolio-categories {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      /* ===== TOS SECTION ===== */
+      .tos-categories {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      /* ===== CONTACT SECTION ===== */
+      .contact-form {
+        max-width: 500px;
+        width: 100%;
+        margin-top: 0;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 1rem;
+        background: var(--bg-light);
+        border: none;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
+        font-size: 1rem;
+        transition: all 0.1s;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-bottom-color: var(--accent);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      /* ===== MODALS ===== */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        display: none;
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        position: relative;
+        max-width: 1200px;
+        width: 90%;
+        margin: 40px auto;
+        background: var(--primary);
+        padding: 40px;
+        border-radius: 8px;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .modal-close {
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.1s;
+      }
+
+      .modal-close:hover {
+        color: var(--accent);
+      }
+
+      .modal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .modal-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        aspect-ratio: 1 / 1;
+      }
+
+      .modal-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.1s;
+        cursor: pointer;
+      }
+
+      .modal-description {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+        transform: translateY(100%);
+        transition: transform 0.1s ease;
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-item:hover .modal-description {
+        transform: translateY(0);
+      }
+
+      .modal-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .tos-modal-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .tos-content {
+        text-align: left;
+      }
+
+      .tos-content h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      .tos-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      /* ===== LIGHTBOX ===== */
+      .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10001;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .lightbox-content img {
+        max-width: 100%;
+        max-height: 70vh;
+        border-radius: 4px;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      .lightbox-nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        position: relative;
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        background: url("data:image/svg+xml,%3Csvg width='64' height='40' viewBox='0 0 64 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40V0H64V30L54 40H0Z' fill='black'/%3E%3Cpath d='M0.5 39.5V0.5H63.5V29.7929L53.7929 39.5H0.5Z' stroke='%23A7A7A7' stroke-opacity='0.8'/%3E%3C/svg%3E") no-repeat;
+        cursor: pointer;
+        height: 40px;
+        width: 64px;
+        position: relative;
+        border: none;
+        background-color: transparent;
+        color: transparent;
+        z-index: 10002;
+      }
+
+      .lightbox-prev {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+      }
+
+      .lightbox-next:after,
+      .lightbox-prev:after {
+        color: #fff;
+        content: ">";
+        display: block;
+        font-family: "Blender Pro Bold", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .lightbox-prev.swiper-button-disabled,
+      .lightbox-next.swiper-button-disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      .lightbox-pagination {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 15px;
+      }
+
+      .lightbox-counter {
+        font-family: "Blender Pro Bold", sans-serif;
+        color: white;
+        font-size: 14px;
+        margin: 0 10px;
+      }
+
+
+
+      /* ===== SCROLL ANIMATIONS ===== */
+      [data-animate] {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      [data-animate].animated {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      [data-animate-delay="100"] {
+        transition-delay: 0.1s;
+      }
+
+      [data-animate-delay="200"] {
+        transition-delay: 0.2s;
+      }
+
+      [data-animate-delay="300"] {
+        transition-delay: 0.3s;
+      }
+
+      [data-animate="left"] {
+        transform: translateX(-20px);
+      }
+
+      [data-animate="right"] {
+        transform: translateX(20px);
+      }
+
+      [data-animate="scale"] {
+        transform: scale(0.95);
+      }
+
+      /* ===== RESPONSIVE STYLES ===== */
+      @media (max-width: 1200px) {
+        .modal-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .hero-text {
+          font-size: 3.5rem;
+        }
+      }
+
+      @media (max-width: 991px) {
+        .header {
+          flex-wrap: wrap;
+          height: auto;
+          padding: 10px;
+        }
+
+        .main-nav {
+          order: 3;
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .nav-list {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          height: auto;
+          clip-path: none;
+          padding: 10px 0;
+        }
+
+        .nav-list:before,
+        .nav-list:after {
+          display: none;
+        }
+
+        .nav-item {
+          padding: 15px 20px;
+          justify-content: flex-start;
+          height: auto;
+        }
+
+        .mobile-nav-toggle {
+          display: flex;
+        }
+
+        .utility-nav {
+          margin-left: auto;
+        }
+
+        .section-content {
+          padding: 60px 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-text {
+          font-size: 3rem;
+        }
+
+        .hero-subtext {
+          font-size: 1.2rem;
+          line-height: 1.2;
+        }
+
+        h2 {
+          font-size: 2rem;
+        }
+
+        .modal-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .portfolio-categories,
+        .tos-categories {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .lightbox-nav {
+          position: relative;
+          top: auto;
+          transform: none;
+        }
+
+        .lightbox-content {
+          max-width: 95%;
+          max-height: 60vh;
+        }
+
+        .lightbox-content img {
+          max-height: 60vh;
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          font-size: 14px;
+        }
+        
+        .section {
+          padding: 1rem 0.5rem;
+        }
+        
+        .section-content {
+          padding: 40px 10px;
+        }
+        
+        /* Header adjustments */
+        .header {
+          flex-direction: row;
+          align-items: center;
+          padding: 5px 10px;
+          height: auto;
+        }
+        
+        .utility-nav {
+          order: 1;
+          width: auto;
+          margin-top: 0;
+        }
+        
+        .main-nav {
+          order: 3;
+          width: 100%;
+          margin-top: 5px;
+        }
+        
+        .utility-list {
+          height: 32px;
+          font-size: 11px;
+          padding: 0 0 0 12px;
+        }
+        
+        .utility-item {
+          padding: 0 6px;
+        }
+        
+        .utility-item.cta-button {
+          min-width: 80px;
+        }
+        
+        /* Mobile menu adjustments */
+        .mobile-nav-toggle {
+          height: 32px;
+          padding: 0 15px;
+          font-size: 12px;
+        }
+        
+        .nav-list {
+          position: relative;
+          top: auto;
+          left: auto;
+        }
+        
+        .nav-item {
+          padding: 10px 15px;
+        }
+        
+        /* Hero text adjustments */
+        .hero-text {
+          font-size: 2rem;
+          line-height: 1.2;
+        }
+        
+        .hero-subtext {
+          font-size: 1rem;
+        }
+        
+        .hero-description {
+          font-size: 0.9rem;
+          padding: 0 10px;
+        }
+        
+        /* Dot navigation adjustments */
+        .dot-nav {
+          right: 0.5rem;
+        }
+        
+        .dot-link {
+          width: 18px;
+          height: 18px;
+          margin: 8px 0;
+          font-size: 1rem;
+        }
+        
+        /* Modal adjustments */
+        .modal-content {
+          width: 95%;
+          padding: 20px 10px;
+          margin: 20px auto;
+        }
+        
+        .modal-header h2 {
+          font-size: 1.5rem;
+        }
+        
+        /* Form adjustments */
+        .form-control {
+          padding: 0.8rem;
+          font-size: 0.9rem;
+        }
+        
+        /* Social links adjustments */
+        .social-links {
+          gap: 0.5rem;
+        }
+        
+        .cybr-btn.social {
+          width: 42px;
+          height: 40px;
+          line-height: 40px;
+        }
+        
+        .cybr-btn.social i {
+          font-size: 1rem;
+          line-height: 40px;
+        }
+
+        .lightbox-nav {
+          width: 100%;
+          padding: 0 10px;
+        }
+
+
+        .lightbox-next {
+          transform: scale(0.8);
+        }
+
+        .lightbox-prev {
+          transform: scale(0.8) rotateY(180deg);
+          -webkit-transform: scale(0.8) rotateY(180deg);
+        }
+              
+        .lightbox-prev:after, 
+        .lightbox-next:after {
+          transform: scale(0.8);
+        }
+        
+        .lightbox-close {
+          top: 10px;
+          right: 10px;
+          font-size: 1.5rem;
+        }
+
+        .lightbox-content {
+          max-width: 100%;
+          padding: 0 10px;
+        }
+
+        .lightbox-content img {
+          max-height: 50vh;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .hero-text {
+          font-size: 1.8rem;
+        }
+        
+        .portfolio-categories, .tos-categories {
+          flex-direction: column;
+          width: 100%;
+        }
+        
+        .cybr-btn.portfolio, 
+        .cybr-btn.tos, 
+        .cybr-btn.contact {
+          width: 100%;
+          margin: 0.3rem 0;
+        }
+
+        .lightbox-pagination {
+          margin-top: 10px;
+        }
+      }
+
+      /* Button hover states for mobile */
+      @media (hover: none) {
+        .cybr-btn:hover {
+          --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 1%));
+        }
+        
+        .nav-item:hover {
+          background-color: transparent;
+          color: inherit;
+        }
+        
+        .utility-item:hover {
+          background: transparent;
+          color: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <header class="header">
+      <div class="utility-nav">
+        <ul class="utility-list">
+          <li class="utility-item logo">
+            <a href="#home" class="header-logo scroll-link">
+              <span class="logo-icon">✦</span>
+            </a>
+          </li>
+          <li class="utility-item">
+            <span>/ ILUZTAR - PERSONAL WEBSITE_V.1</span>
+          </li>
         </ul>
-      </nav>
-      <div class="header-actions">
-        <div class="theme-switch-wrapper">
-          <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-          </label>
+      </div>
+      <div class="main-nav">
+        <nav>
+          <div class="mobile-nav-toggle" id="mobileNavToggle">
+            <span>MENU</span>
+          </div>
+          <ul class="nav-list" id="navList">
+            <li class="nav-item active">
+              <a class="nav-link scroll-link" href="#home">/ Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link scroll-link" href="#portfolio">/ Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link scroll-link" href="#tos">/ Terms</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link scroll-link" href="#contact">/ Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="utility-nav">
+        <ul class="utility-list">
+          <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="themeToggle">
+              <input type="checkbox" id="themeToggle" />
+              <div class="slider"></div>
+            </label>
+          </div>
+          <li class="utility-item language-selector">
+            <span class="language-current">EN</span>
+            <ul class="language-dropdown">
+              <li>
+                <a href="#" class="active" hreflang="en">EN</a>
+              </li>
+              <li>
+                <a href="#" hreflang="id">ID</a>
+              </li>
+            </ul>
+          </li>
+          <li class="utility-item cta-button">
+            <a class="nav-link scroll-link" href="#contact">Commission Now</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <!-- Dot Navigation -->
+    <nav class="dot-nav">
+      <a class="dot-link scroll-link tooltip tooltip-left active" href="#home" data-tooltip="Home">✦</a>
+      <a class="dot-link scroll-link tooltip tooltip-left" href="#portfolio" data-tooltip="Portfolio">✦</a>
+      <a class="dot-link scroll-link tooltip tooltip-left" href="#tos" data-tooltip="Terms">✦</a>
+      <a class="dot-link scroll-link tooltip tooltip-left" href="#contact" data-tooltip="Contact">✦</a>
+    </nav>
+    <!-- Portfolio Modals -->
+    <div class="modal" id="illustration-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Illustration Works</h2>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-grid">
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
+            <p class="modal-description">Landscape Illustration</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
+            <p class="modal-description">Abstract Art</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
+            <p class="modal-description">Nature Concept</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
+            <p class="modal-description">Fantasy World</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
+            <p class="modal-description">New Artwork</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
+            <p class="modal-description">Urban Sketch</p>
+          </div>
         </div>
       </div>
     </div>
-  </header>
-
-<!-- Mobile Footer Navigation -->
-<nav class="mobile-footer-nav">
-  <ul>
-    <li><a href="#home" class="scroll scroll-1 active"><i class="fas fa-home"></i> Home</a></li>
-    <li><a href="#portfolio"><i class="scroll scroll-2 fas fa-images"></i> Portfolio</a></li>
-    <li><a href="#tos"><i class="scroll scroll-3 fas fa-file-alt"></i> Terms</a></li>
-    <li><a href="#contact"><i class="scroll scroll-4 fas fa-envelope"></i> Contact</a></li>
-  </ul>
-</nav>
-
-<!-- Dot Navigation -->
-<nav class="dots">
-  <a class="scroll scroll-1 tooltip tooltip-left active" href="#home" data-tooltip="Home">✦</a>
-  <a class="scroll scroll-2 tooltip tooltip-left" href="#portfolio" data-tooltip="Portfolio">✦</a>
-  <a class="scroll scroll-3 tooltip tooltip-left" href="#tos" data-tooltip="Terms">✦</a>
-  <a class="scroll scroll-4 tooltip tooltip-left" href="#contact" data-tooltip="Contact">✦</a>
-</nav>
-
-<!-- Portfolio Modals -->
-<div class="portfolio-modal" id="illustration-modal">
-  <div class="section-content">
-    <div class="modal-header">
-      <h2>Illustration Works</h2>
-      <span class="modal-close">&times;</span>
-    </div>
-    <div class="modal-grid">
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
-        <p class="modal-description">Landscape Illustration</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
-        <p class="modal-description">Abstract Art</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
-        <p class="modal-description">Nature Concept</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
-        <p class="modal-description">Fantasy World</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
-        <p class="modal-description">New Artwork</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
-        <p class="modal-description">Urban Sketch</p>
+    <!-- Character Design Modal -->
+    <div class="modal" id="character-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Character Designs</h2>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-grid">
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
+            <p class="modal-description">Sci-Fi Character</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Game Character">
+            <p class="modal-description">Game Character</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
+            <p class="modal-description">Anime Character</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
+            <p class="modal-description">Fantasy Character</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
+            <p class="modal-description">Concept Art</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+            <p class="modal-description">Character Sheet</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="portfolio-modal" id="character-modal">
-  <div class="section-content">
-    <div class="modal-header">
-      <h2>Character Designs</h2>
-      <span class="modal-close">&times;</span>
-    </div>
-    <div class="modal-grid">
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
-        <p class="modal-description">Sci-Fi Character</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Game Character">
-        <p class="modal-description">Game Character</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
-        <p class="modal-description">Anime Character</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
-        <p class="modal-description">Fantasy Character</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
-        <p class="modal-description">Concept Art</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
-        <p class="modal-description">Character Sheet</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="portfolio-modal" id="branding-modal">
-  <div class="section-content">
-    <div class="modal-header">
-      <h2>Branding Projects</h2>
-      <span class="modal-close">&times;</span>
-    </div>
-    <div class="modal-grid">
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
-        <p class="modal-description">Modern Logo Design</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
-        <p class="modal-description">Creative Branding</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
-        <p class="modal-description">Minimalist Design</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
-        <p class="modal-description">Corporate Identity</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
-        <p class="modal-description">Product Packaging</p>
-      </div>
-      <div class="modal-item">
-        <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
-        <p class="modal-description">Custom Merchandise</p>
+    <!-- Branding Modal -->
+    <div class="modal" id="branding-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Branding Projects</h2>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-grid">
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
+            <p class="modal-description">Modern Logo Design</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
+            <p class="modal-description">Creative Branding</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
+            <p class="modal-description">Minimalist Design</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
+            <p class="modal-description">Corporate Identity</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
+            <p class="modal-description">Product Packaging</p>
+          </div>
+          <div class="modal-item">
+            <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
+            <p class="modal-description">Custom Merchandise</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- TOS Modals -->
-<div class="tos-modal" id="commission-tos-modal">
-  <div class="section-content">
-    <div class="tos-modal-content">
-      <div class="tos-modal-header">
-        <h2>Commission Terms of Service</h2>
-        <span class="tos-modal-close">&times;</span>
-      </div>
-      <div class="tos-content">
-        <h3>1. General Terms</h3>
-        <p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
-        
-        <h3>2. Payment</h3>
-        <p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
-        
-        <h3>3. Process</h3>
-        <p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
-        
-        <h3>4. Delivery</h3>
-        <p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
+    <!-- TOS Modals -->
+    <div class="modal tos-modal" id="commission-tos-modal">
+      <div class="modal-content">
+        <div class="tos-modal-content">
+          <div class="modal-header">
+            <h2>Commission Terms of Service</h2>
+            <span class="modal-close">&times;</span>
+          </div>
+          <div class="tos-content">
+            <h3>1. General Terms</h3>
+            <p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
+            <h3>2. Payment</h3>
+            <p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
+            <h3>3. Process</h3>
+            <p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
+            <h3>4. Delivery</h3>
+            <p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="tos-modal" id="usage-tos-modal">
-  <div class="section-content">
-    <div class="tos-modal-content">
-      <div class="tos-modal-header">
-        <h2>Usage Rights</h2>
-        <span class="tos-modal-close">&times;</span>
-      </div>
-      <div class="tos-content">
-        <h3>1. Personal Use</h3>
-        <p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
-        
-        <h3>2. Commercial Use</h3>
-        <p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
-        
-        <h3>3. Artist Rights</h3>
-        <p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
-        
-        <h3>4. Restrictions</h3>
-        <p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
+    <div class="modal tos-modal" id="usage-tos-modal">
+      <div class="modal-content">
+        <div class="tos-modal-content">
+          <div class="modal-header">
+            <h2>Usage Rights</h2>
+            <span class="modal-close">&times;</span>
+          </div>
+          <div class="tos-content">
+            <h3>1. Personal Use</h3>
+            <p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
+            <h3>2. Commercial Use</h3>
+            <p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
+            <h3>3. Artist Rights</h3>
+            <p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
+            <h3>4. Restrictions</h3>
+            <p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="tos-modal" id="privacy-tos-modal">
-  <div class="section-content">
-    <div class="tos-modal-content">
-      <div class="tos-modal-header">
-        <h2>Privacy Policy</h2>
-        <span class="tos-modal-close">&times;</span>
-      </div>
-      <div class="tos-content">
-        <h3>1. Information Collection</h3>
-        <p>I collect only necessary information for commission processing (name, email, payment details).</p>
-        
-        <h3>2. Data Usage</h3>
-        <p>Your information will only be used for communication and transaction purposes.</p>
-        
-        <h3>3. Data Protection</h3>
-        <p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
-        
-        <h3>4. Third Parties</h3>
-        <p>Payment processors may collect additional data as per their own privacy policies.</p>
+    <div class="modal tos-modal" id="privacy-tos-modal">
+      <div class="modal-content">
+        <div class="tos-modal-content">
+          <div class="modal-header">
+            <h2>Privacy Policy</h2>
+            <span class="modal-close">&times;</span>
+          </div>
+          <div class="tos-content">
+            <h3>1. Information Collection</h3>
+            <p>I collect only necessary information for commission processing (name, email, payment details).</p>
+            <h3>2. Data Usage</h3>
+            <p>Your information will only be used for communication and transaction purposes.</p>
+            <h3>3. Data Protection</h3>
+            <p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
+            <h3>4. Third Parties</h3>
+            <p>Payment processors may collect additional data as per their own privacy policies.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <span class="lightbox-close">&times;</span>
-  <div class="lightbox-nav">
-    <span class="lightbox-prev">❮</span>
-    <span class="lightbox-next">❯</span>
-  </div>
-  <div class="lightbox-content">
-    <img src="" alt="Portfolio Image">
-  </div>
-  <div class="lightbox-pagination"></div>
-</div>
-
-<!-- Sections -->
-<section class="section-1" id="home">
-  <div class="section-content">
-    <div class="hero-text" data-animate="left"><h2>ILUZTAR</h2></div>
-    <div class="hero-subtext" data-animate="right" data-animate-delay="100">Digital Illustrator & Graphic Designer</div>
-    <p class="hero-description" data-animate data-animate-delay="200">Creating captivating illustrations and innovative designs since 2015. Specializing in digital art, character design, and brand visuals.</p>
-    <div class="social-links" data-animate data-animate-delay="300">
-      <a href="https://t.me/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-telegram-plane"></i><span aria-hidden></span>
-        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-telegram-plane"></i></span>
-        <span aria-hidden class="cybr-btn__tag">TG</span>
-      </a>
-      <a href="https://github.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-github"></i><span aria-hidden></span>
-        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-github"></i></span>
-        <span aria-hidden class="cybr-btn__tag">GH</span>
-      </a>
-      <a href="https://facebook.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-facebook-f"></i><span aria-hidden></span>
-        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-facebook-f"></i></span>
-        <span aria-hidden class="cybr-btn__tag">FB</span>
-      </a>
-      <a href="https://instagram.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-instagram"></i><span aria-hidden></span>
-        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-instagram"></i></span>
-        <span aria-hidden class="cybr-btn__tag">IG</span>
-      </a>
-      <a href="https://tiktok.com/@iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-tiktok"></i><span aria-hidden></span>
-        <span aria-hidden class="cybr-btn__glitch"><i class="fab fa-tiktok"></i></span>
-        <span aria-hidden class="cybr-btn__tag">TT</span>
-      </a>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <span class="lightbox-close">&times;</span>
+      <div class="lightbox-content">
+        <img src="" alt="Portfolio Image">
+      </div>
+      <div class="lightbox-nav">
+        <button class="lightbox-prev">&lt;</button>
+        <div class="lightbox-counter">1 / 21</div>
+        <button class="lightbox-next">&gt;</button>
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="section-2" id="portfolio">
-  <div class="section-content">
-    <h2 data-animate>Portfolio</h2>
-    <p data-animate data-animate-delay="100">Explore my work categories</p>
-    
-    <div class="portfolio-categories" data-animate data-animate-delay="200">
-      <button class="cybr-btn portfolio" data-modal="illustration-modal">
-        Illustration<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Illustration_</span>
-        <span aria-hidden class="cybr-btn__tag">ART</span>
-      </button>
-      <button class="cybr-btn portfolio" data-modal="character-modal">
-        Characters<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Characters_</span>
-        <span aria-hidden class="cybr-btn__tag">CHAR</span>
-      </button>
-      <button class="cybr-btn portfolio" data-modal="branding-modal">
-        Branding<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Branding_</span>
-        <span aria-hidden class="cybr-btn__tag">BRND</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="section-3" id="tos">
-  <div class="section-content">
-    <h2 data-animate>Terms of Service</h2>
-    <p data-animate data-animate-delay="100">Please review before commissioning</p>
-    
-    <div class="tos-categories" data-animate data-animate-delay="200">
-      <button class="cybr-btn tos" data-modal="commission-tos-modal">
-        Commissions<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Commissions_</span>
-        <span aria-hidden class="cybr-btn__tag">TOS</span>
-      </button>
-      <button class="cybr-btn tos" data-modal="usage-tos-modal">
-        Usage<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Usage_</span>
-        <span aria-hidden class="cybr-btn__tag">USE</span>
-      </button>
-      <button class="cybr-btn tos" data-modal="privacy-tos-modal">
-        Privacy<span aria-hidden>_</span>
-        <span aria-hidden class="cybr-btn__glitch">Privacy_</span>
-        <span aria-hidden class="cybr-btn__tag">PRIV</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section class="section-4" id="contact">
-  <div class="section-content">
-    <h2 data-animate>Get In Touch</h2>
-    <p data-animate data-animate-delay="100" style="margin-bottom: 2rem;">Interested in working together?</p>
-    <form class="contact-form" data-animate data-animate-delay="200">
-      <div class="form-group">
-        <input type="text" id="name" name="name" class="form-control" placeholder="/Your name_" required>
+    <!-- Sections -->
+    <section class="section home-section" id="home">
+      <div class="section-content">
+        <div class="hero-text" data-animate="left">
+          <h2>ILUZTAR</h2>
+        </div>
+        <div class="hero-subtext" data-animate="right" data-animate-delay="100">Digital Illustrator & Graphic Designer</div>
+        <p class="hero-description" data-animate data-animate-delay="200">Creating captivating illustrations and innovative designs since 2015. Specializing in digital art, character design, and brand visuals.</p>
+        <div class="social-links" data-animate data-animate-delay="300">
+          <a href="https://t.me/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-telegram-plane"></i>
+            <span aria-hidden></span>
+            <span aria-hidden class="cybr-btn__glitch">
+              <i class="fab fa-telegram-plane"></i>
+            </span>
+            <span aria-hidden class="cybr-btn__tag">/</span>
+          </a>
+          <a href="https://github.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+            <span aria-hidden></span>
+            <span aria-hidden class="cybr-btn__glitch">
+              <i class="fab fa-github"></i>
+            </span>
+            <span aria-hidden class="cybr-btn__tag">/</span>
+          </a>
+          <a href="https://facebook.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-facebook-f"></i>
+            <span aria-hidden></span>
+            <span aria-hidden class="cybr-btn__glitch">
+              <i class="fab fa-facebook-f"></i>
+            </span>
+            <span aria-hidden class="cybr-btn__tag">/</span>
+          </a>
+          <a href="https://instagram.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i>
+            <span aria-hidden></span>
+            <span aria-hidden class="cybr-btn__glitch">
+              <i class="fab fa-instagram"></i>
+            </span>
+            <span aria-hidden class="cybr-btn__tag">/</span>
+          </a>
+          <a href="https://tiktok.com/@iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-tiktok"></i>
+            <span aria-hidden></span>
+            <span aria-hidden class="cybr-btn__glitch">
+              <i class="fab fa-tiktok"></i>
+            </span>
+            <span aria-hidden class="cybr-btn__tag">/</span>
+          </a>
+        </div>
       </div>
-      <div class="form-group">
-        <input type="email" id="email" name="email" class="form-control" placeholder="/Your e-mail_" required>
+    </section>
+    <section class="section portfolio-section" id="portfolio">
+      <div class="section-content">
+        <h2 data-animate>Portfolio</h2>
+        <p data-animate data-animate-delay="100">Explore my work categories</p>
+        <div class="portfolio-categories" data-animate data-animate-delay="200">
+          <button class="cybr-btn portfolio" data-modal="illustration-modal">Illustration<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Illustration_</span>
+            <span aria-hidden class="cybr-btn__tag">ART</span>
+          </button>
+          <button class="cybr-btn portfolio" data-modal="character-modal">Characters<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Characters_</span>
+            <span aria-hidden class="cybr-btn__tag">CHAR</span>
+          </button>
+          <button class="cybr-btn portfolio" data-modal="branding-modal">Branding<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Branding_</span>
+            <span aria-hidden class="cybr-btn__tag">BRND</span>
+          </button>
+        </div>
       </div>
-      <div class="form-group">
-        <textarea id="message" name="message" class="form-control" placeholder="/Project details_" required></textarea>
+    </section>
+    <section class="section tos-section" id="tos">
+      <div class="section-content">
+        <h2 data-animate>Terms of Service</h2>
+        <p data-animate data-animate-delay="100">Please review before commissioning</p>
+        <div class="tos-categories" data-animate data-animate-delay="200">
+          <button class="cybr-btn tos" data-modal="commission-tos-modal">Commissions<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Commissions_</span>
+            <span aria-hidden class="cybr-btn__tag">TOS</span>
+          </button>
+          <button class="cybr-btn tos" data-modal="usage-tos-modal">Usage<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Usage_</span>
+            <span aria-hidden class="cybr-btn__tag">USE</span>
+          </button>
+          <button class="cybr-btn tos" data-modal="privacy-tos-modal">Privacy<span aria-hidden>_</span>
+            <span aria-hidden class="cybr-btn__glitch">Privacy_</span>
+            <span aria-hidden class="cybr-btn__tag">PRIV</span>
+          </button>
+        </div>
       </div>
-      <div style="text-align: center;">
-        <button type="submit" class="cybr-btn contact">
-          Send<span aria-hidden>_</span>
-          <span aria-hidden class="cybr-btn__glitch">Send_</span>
-          <span aria-hidden class="cybr-btn__tag">SEND</span>
-        </button>
+    </section>
+    <section class="section contact-section" id="contact">
+      <div class="section-content">
+        <h2 data-animate>Get In Touch</h2>
+        <p data-animate data-animate-delay="100" style="margin-bottom: 2rem;">Interested in working together?</p>
+        <form class="contact-form" data-animate data-animate-delay="200">
+          <div class="form-group">
+            <input type="text" id="name" name="name" class="form-control" placeholder="/ Your Name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" class="form-control" placeholder="/ Your E-mail" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" class="form-control" placeholder="/ Project Details" autocomplete="off" required></textarea>
+          </div>
+          <div style="text-align: center;">
+            <button type="submit" class="cybr-btn contact">Send<span aria-hidden>_</span>
+              <span aria-hidden class="cybr-btn__glitch">Send_</span>
+              <span aria-hidden class="cybr-btn__tag">SEND</span>
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</section>
+    </section>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // ===== DOM ELEMENTS =====
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const navList = document.getElementById('navList');
+        const navItems = document.querySelectorAll('.nav-item');
+        const themeToggle = document.getElementById('themeToggle');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+        const lightboxNav = lightbox.querySelector('.lightbox-nav');
+        const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+        const lightboxNext = lightbox.querySelector('.lightbox-next');
+        const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+        const portfolioImages = document.querySelectorAll('.modal-item img');
+        const scrollLinks = document.querySelectorAll('.scroll-link');
+        const modalCloseButtons = document.querySelectorAll('.modal-close, .lightbox-close');
+        const modals = document.querySelectorAll('.modal, .lightbox');
+        const dotLinks = document.querySelectorAll('.dot-link');
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="script.js"></script>
+        // ===== STATE VARIABLES =====
+        let currentImageIndex = 0;
+        let isScrolling = false;
+        let isModalOpen = false;
+        const images = Array.from(portfolioImages).map(img => ({
+          src: img.src,
+          alt: img.alt
+        }));
 
-</body>
+        // ===== INITIALIZATION =====
+        initNavigation();
+        initThemeSwitcher();
+        initModals();
+        initLightbox();
+        initScrollAnimations();
+        initSmoothScrolling();
+        initPortfolioSlider();
+
+        // ===== NAVIGATION FUNCTIONS =====
+        function initNavigation() {
+          mobileNavToggle.addEventListener('click', toggleMobileMenu);
+          
+          navItems.forEach(item => {
+            const link = item.querySelector('.nav-link');
+            
+            item.addEventListener('click', function(e) {
+              if (e.target !== link) {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                  scrollToSection(targetId);
+                }
+              }
+              setActiveNavItem(this);
+            });
+
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              scrollToSection(this.getAttribute('href'));
+              setActiveNavItem(item);
+            });
+          });
+
+          window.addEventListener('resize', handleResize);
+          handleResize();
+        }
+
+        function toggleMobileMenu() {
+          const isOpen = navList.style.display === 'flex';
+          navList.style.display = isOpen ? 'none' : 'flex';
+          mobileNavToggle.classList.toggle('nav-open', !isOpen);
+        }
+
+        function setActiveNavItem(clickedItem) {
+          navItems.forEach(item => item.classList.remove('active'));
+          clickedItem.classList.add('active');
+        }
+
+        function handleResize() {
+          if (window.innerWidth <= 991) {
+            navList.style.display = 'none';
+            mobileNavToggle.style.display = 'flex';
+          } else {
+            navList.style.display = 'flex';
+            mobileNavToggle.style.display = 'none';
+          }
+        }
+
+        // ===== THEME SWITCHER FUNCTIONS =====
+        function initThemeSwitcher() {
+          const currentTheme = localStorage.getItem('theme');
+          if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') themeToggle.checked = true;
+          }
+          themeToggle.addEventListener('change', switchTheme);
+        }
+
+        function switchTheme(e) {
+          const theme = e.target.checked ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function initModals() {
+          document.querySelectorAll('[data-modal]').forEach(button => {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              const modalId = this.getAttribute('data-modal');
+              openModal(modalId);
+            });
+          });
+
+          modalCloseButtons.forEach(button => {
+            button.addEventListener('click', closeAllModals);
+          });
+
+          document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal') || e.target.classList.contains('lightbox')) {
+              closeAllModals();
+            }
+          });
+
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isModalOpen) {
+              closeAllModals();
+            }
+          });
+        }
+
+        function openModal(modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            isModalOpen = true;
+            
+            setTimeout(() => {
+              modal.style.opacity = '1';
+            }, 10);
+          }
+        }
+
+        function closeAllModals() {
+          modals.forEach(modal => {
+            modal.style.display = 'none';
+          });
+          document.body.style.overflow = 'auto';
+          document.body.style.position = 'static';
+          isModalOpen = false;
+        }
+
+        // ===== LIGHTBOX FUNCTIONS =====
+        function initLightbox() {
+          portfolioImages.forEach((img, index) => {
+            img.addEventListener('click', () => {
+              currentImageIndex = index;
+              updateLightboxImage();
+              lightbox.style.display = 'flex';
+              document.body.style.overflow = 'hidden';
+              document.body.style.position = 'fixed';
+              document.body.style.width = '100%';
+              updateLightboxCounter();
+              positionLightboxNav();
+              isModalOpen = true;
+            });
+          });
+
+          lightboxClose.addEventListener('click', closeAllModals);
+          lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeAllModals();
+          });
+
+          lightboxPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateLightbox(-1);
+          });
+
+          lightboxNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateLightbox(1);
+          });
+
+          document.addEventListener('keydown', (e) => {
+            if (!isModalOpen) return;
+            if (e.key === 'Escape') {
+              closeAllModals();
+            } else if (e.key === 'ArrowLeft') {
+              navigateLightbox(-1);
+            } else if (e.key === 'ArrowRight') {
+              navigateLightbox(1);
+            }
+          });
+          
+          function positionLightboxNav() {
+            if (window.innerWidth <= 576) {
+              lightboxNav.style.position = 'relative';
+              lightboxNav.style.top = 'auto';
+              lightboxNav.style.transform = 'none';
+              lightboxNav.style.flexDirection = 'row';
+              lightboxNav.style.justifyContent = 'center';
+              lightboxNav.style.alignItems = 'center';
+              lightboxNav.style.padding = '10px 0';
+              lightboxNav.style.marginTop = '15px';
+            } else {
+              // For desktop - position counter below the image
+              lightboxNav.style.position = 'static';
+              lightboxNav.style.flexDirection = 'row';
+              lightboxNav.style.justifyContent = 'center';
+              lightboxNav.style.alignItems = 'center';
+              lightboxNav.style.marginTop = '20px';
+              lightboxNav.style.padding = '0';
+            }
+          }
+
+          window.addEventListener('resize', positionLightboxNav);
+        }
+
+        function navigateLightbox(direction) {
+          currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+          updateLightboxImage();
+          updateLightboxCounter();
+        }
+
+        function updateLightboxImage() {
+          lightboxImg.src = images[currentImageIndex].src;
+          lightboxImg.alt = images[currentImageIndex].alt;
+        }
+
+        function updateLightboxCounter() {
+          lightboxCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        // ===== SCROLL ANIMATIONS =====
+        function initScrollAnimations() {
+          function animateOnScroll() {
+            const elements = document.querySelectorAll('[data-animate]');
+            const windowHeight = window.innerHeight;
+            const triggerOffset = windowHeight * 0.8;
+            
+            elements.forEach(element => {
+              const elementPosition = element.getBoundingClientRect().top;
+              if (elementPosition < triggerOffset) {
+                element.classList.add('animated');
+              }
+            });
+          }
+          
+          window.addEventListener('scroll', debounce(animateOnScroll));
+          animateOnScroll();
+        }
+
+        function debounce(func, wait = 10, immediate = true) {
+          let timeout;
+          return function() {
+            const context = this, args = arguments;
+            const later = function() {
+              timeout = null;
+              if (!immediate) func.apply(context, args);
+            };
+            const callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+          };
+        }
+
+        // ===== SMOOTH SCROLLING =====
+        function initSmoothScrolling() {
+          scrollLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              if (targetId.startsWith('#')) {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                  const animateElements = targetSection.querySelectorAll('[data-animate]');
+                  animateElements.forEach(el => el.classList.add('animated'));
+                  scrollToSection(targetId);
+                }
+              }
+            });
+          });
+
+          window.addEventListener('scroll', debounce(updateActiveNav));
+          updateActiveNav();
+        }
+
+        function scrollToSection(targetId) {
+          if (isScrolling || isModalOpen) return;
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            isScrolling = true;
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+              if (link.getAttribute('href') === targetId) {
+                link.parentElement.classList.add('active');
+              }
+            });
+
+            $('html, body').animate({
+              scrollTop: $(targetId).offset().top
+            }, 800, function() {
+              isScrolling = false;
+              updateActiveNav();
+              
+              if (window.innerWidth <= 991) {
+                navList.style.display = 'none';
+                mobileNavToggle.classList.remove('nav-open');
+              }
+            });
+          }
+        }
+
+        function updateActiveNav() {
+          if (isModalOpen) return;
+          const scrollPosition = window.scrollY;
+          
+          document.querySelectorAll('section').forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+              document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.querySelector('a').getAttribute('href') === `#${sectionId}`) {
+                  item.classList.add('active');
+                }
+              });
+
+              document.querySelectorAll('.dot-link').forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === `#${sectionId}`) {
+                  dot.classList.add('active');
+                }
+              });
+            }
+          });
+        }
+
+        // ===== PORTFOLIO SLIDER =====
+        function initPortfolioSlider() {
+          const portfolioSlider = new Swiper('.portfolio-slider', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: false,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              renderBullet: function(index, className) {
+                return '<span class="' + className + '">✦</span>';
+              },
+            },
+            breakpoints: {
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 30
+              },
+              1200: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+                centeredSlides: false
+              }
+            },
+            on: {
+              init: function() {
+                if (this.slides.length <= 3) {
+                  this.navigation.destroy();
+                  this.pagination.destroy();
+                }
+              }
+            }
+          });
+
+          $(window).on('resize', function() {
+            portfolioSlider.update();
+          });
+        }
+
+        // Prevent outline on logo when clicked
+        document.querySelector('.utility-item.logo').addEventListener('mousedown', function(e) {
+          e.preventDefault();
+        });
+      });
+    </script>
+  </body>
 </html>
