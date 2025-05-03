@@ -459,8 +459,8 @@ const swiper = new Swiper('.swiper', {
     };
   }
   
-  // ===== Navigation System =====
-  function setupNavigation() {
+// ===== Navigation System =====
+function setupNavigation() {
     // Smooth scroll to section
     elements.scrollLinks.forEach(link => {
       link.addEventListener('click', function(e) {
@@ -477,12 +477,20 @@ const swiper = new Swiper('.swiper', {
       });
     });
     
-    // Scroll down arrow click handler
-    if (elements.scrollDown) {
-      elements.scrollDown.addEventListener('click', function() {
+    // Section navigation buttons
+    document.querySelectorAll('.prev-section').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToPrevSection();
+      });
+    });
+    
+    document.querySelectorAll('.next-section').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
         scrollToNextSection();
       });
-    }
+    });
     
     // Mouse wheel, keyboard and touchscreen navigation
     window.addEventListener('wheel', handleWheelScroll, { passive: false });

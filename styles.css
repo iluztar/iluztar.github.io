@@ -384,54 +384,6 @@
   padding: 0.8rem 0;
  }
  
- /* Section Counter */
- .cybr-btn.section-counter {
-  width: 5rem;
-  height: 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0;
-  transition: all 0.3s;
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  padding: 0;
-  margin: 0;
-  gap: 0;
-  margin-right: 32px;
-  position: relative; /* Tambahkan ini */
- }
-
- .section-counter {
-  position: absolute;
-  margin-bottom: 0;
-  transform: none;
-  margin-right: 32px;
-  z-index: 9997;
-  transform: rotate(90deg);
- }
- 
- .section-counter span {
-  font-family: "Blender Pro Medium", sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 4px;
- }
- 
- .section-counter .current-section {
-  font-weight: 600;
- }
-
- .section-counter .current-section::after {
-  content: "/";
-  margin-left: 2px;
-  margin-right: 2px;
-  font-weight: 400;
- }
- 
- .section-counter .total-sections {
-  opacity: 0.5;
- }
- 
  /* ===== Social Icons ===== */
 
  .cybr-btn.social {
