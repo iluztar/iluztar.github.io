@@ -1,460 +1,602 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>ILUZTAR ✦</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<head>
+		<meta charset="UTF-8">
+		<title>ILUZTAR ✦</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<meta name="theme-color" content="#ffffff">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="mobile-web-app-status-bar-style" content="black-translucent">
+		<link rel="icon" href="data:image/svg+xml,
+										<svg
+											xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+											<rect width='100' height='100' rx='15' fill='black'/>
+											<text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text>
+										</svg>" type="image/svg+xml">
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+		
+		<!-- https://boxicons.com/ -->
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+		<link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
+		<link href="https://db.onlinewebfonts.com/c/a082fd3df68a0b54e0d4d794bc38d268?family=Blender+Pro+Bold" rel="stylesheet">
+		<link href="https://db.onlinewebfonts.com/c/685030e1abf58bd087a4ee725d9dea6a?family=Blender+Pro+Medium" rel="stylesheet">
+		<link href="https://db.onlinewebfonts.com/c/31b8101b7be4ea7380dd68f7ae18231d?family=Blender+Pro+Thin" rel="stylesheet">
+		<!-- GSAP for animations -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+		<!-- External CSS -->
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<!-- Navigation Elements -->
+		<div class="right-nav">
+			<div class="right-nav-container">
+				<div class="social-icons">
+					<ul>
+						<li>
+							<a href="https://t.me/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-telegram-plane"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://x.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-twitter"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://facebook.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://instagram.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://youtube.com/@iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-youtube"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="section-button social-icons">
+					<ul>
+						<li>
+							<a href="#" class="cybr-btn social prev-section">
+								<i class="fas fa-chevron-up"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="cybr-btn social next-section">
+								<i class="fas fa-chevron-down"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="left-nav">
+			<div class="left-nav-container">
+				<div class="line-nav">
+					<ul>
+						<li class="active">
+							<span class="line"></span>
+							<span class="dot-line"></span>
+						</li>
+						<li>
+							<span class="line"></span>
+							<span class="dot-line"></span>
+						</li>
+						<li>
+							<span class="line"></span>
+							<span class="dot-line"></span>
+						</li>
+						<li>
+							<span class="line"></span>
+							<span class="dot-line"></span>
+						</li>
+						<li>
+							<span class="line"></span>
+							<span class="dot-line"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Header -->
+		<header>
+			<div class="header-container">
+				<div class="logo">
+					<span>
+						<a href="#home" class="scroll scroll-1 logo-text">/LUZTAR</a>
+					</span>
+				</div>
+				<nav class="header-nav">
+					<ul>
+						<li>
+							<a href="#home" data-lang-en="Profile" data-lang-id="Profil" class="scroll scroll-1 active">Profile</a>
+						</li>
+						<li>
+							<a href="#portfolio" data-lang-en="Portfolio" data-lang-id="Portofolio" class="scroll scroll-2">Portfolio</a>
+						</li>
+						<li>
+							<a href="#order" data-lang-en="Order" data-lang-id="Pesan" class="scroll scroll-3">Order</a>
+						</li>
+						<li>
+							<a href="#tos" data-lang-en="ToS" data-lang-id="S&K" class="scroll scroll-4">ToS</a>
+						</li>
+						<li>
+							<a href="#contact" data-lang-en="Contact" data-lang-id="Kontak" class="scroll scroll-5">Contact</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="header-actions">
+					<div class="theme-icon-wrapper">
+						<i id="theme-icon-light" class='bx bx-sun theme-icon'></i>
+						<i id="theme-icon-dark" class='bx bx-moon theme-icon hidden' ></i>
+					</div>
+					<div class="language-selector">
+						<span class="language-current">EN</span>
+					</div>
+					<div class="cart-icon">
+						<i class='bx bx-shopping-bag'></i>
+						<span class="cart-count">0</span>
+					</div>
+					<div class="menu-burger">
+						<span class="burger-line"></span>
+						<span class="burger-line"></span>
+						<span class="burger-line"></span>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- Shopping Cart Sidebar -->
+		<div class="cart-sidebar">
+			<div class="cart-header">
+				<h3 data-lang-en="Cart" data-lang-id="Keranjang">Cart</h3>
+				<button class="cart-close" aria-label="Close"><i class="bx bx-x"></i></button>
+			</div>
+			<div class="cart-items">
+				<!-- Cart items will be added here dynamically -->
+			</div>
+			<div class="cart-total">
+				<span data-lang-en="Total : $" data-lang-id="Total : Rp">Total : $</span>
+				<span class="cart-total-amount">0</span>
+			</div>
+			<div class="cart-actions">
+				<button class="cybr-btn" data-lang-en="Checkout" data-lang-id="Bayar">Checkout</button>
+			</div>
+		</div>
+		<!-- Mobile Menu -->
+		<div class="mobile-menu">
+			<div class="mobile-menu-header">
+				<h3>MENU</h3>
+				<button class="mobile-menu-close" aria-label="Close"><i class="bx bx-x"></i></button>
+			</div>
+			<a href="#home" class="scroll-link" data-lang-en="/ Profile" data-lang-id="/ Profil">/ Profile</a>
+			<a href="#portfolio" class="scroll-link" data-lang-en="/ Portfolio" data-lang-id="/ Portofolio">/ Portfolio</a>
+			<a href="#order" class="scroll-link" data-lang-en="/ Order" data-lang-id="/ Pesan">/ Order</a>
+			<a href="#tos" class="scroll-link" data-lang-en="/ Terms" data-lang-id="/ S&K">/ Terms</a>
+			<a href="#contact" class="scroll-link" data-lang-en="/ Contact" data-lang-id="/ Kontak">/ Contact</a>
+			<!-- Social Icons in Mobile Menu -->
+			<div class="mobile-social-icons">
+				<a href="https://t.me/iluztar/" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-telegram-plane"></i>
+				</a>
+				<a href="https://x.com/iluztar/" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-twitter"></i>
+				</a>
+				<a href="https://facebook.com/iluztar/" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-facebook-f"></i>
+				</a>
+				<a href="https://instagram.com/iluztar/" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-instagram"></i>
+				</a>
+				<a href="https://youtube.com/@iluztar/" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-youtube"></i>
+				</a>
+			</div>
+			<div class="mobile-menu-actions">
+				<div class="mobile-theme-icon-wrapper">
+					<svg id="mobile-theme-icon-light" class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z" stroke="var(--invert)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+					<svg id="mobile-theme-icon-dark" width="24" height="24" class="theme-icon hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<path d="M22 15.8442C20.6866 16.4382 19.2286 16.7688 17.6935 16.7688C11.9153 16.7688 7.23116 12.0847 7.23116 6.30654C7.23116 4.77135 7.5618 3.3134 8.15577 2C4.52576 3.64163 2 7.2947 2 11.5377C2 17.3159 6.68414 22 12.4623 22C16.7053 22 20.3584 19.4742 22 15.8442Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</div>
+				<div class="language-selector">
+					<span class="language-current">EN</span>
+				</div>
+			</div>
+		</div>
+		<!-- Sections -->
+		<section class="section-1" id="home">
+			<div class="section-content">
+				<div class="hero-text" data-animate="left">
+					<h2>/LUZTAR</h2>
+				</div>
+				<div class="hero-subtext" data-animate="right" data-animate-delay="100" data-lang-en="Digital Illustrator & Graphic Designer" data-lang-id="Ilustrator Digital & Desainer Grafis">Digital Illustrator & Graphic Designer</div>
+				<p class="hero-description" data-animate data-animate-delay="200" data-lang-en="Creating captivating illustrations and innovative designs since 2015.
+																				<br>Specializing in digital art, character design, and brand visuals." data-lang-id="Membuat ilustrasi menarik dan desain inovatif sejak 2015.
+																					<br>Berspesialisasi dalam seni digital, desain karakter, dan visualisasi merek."> Creating captivating illustrations and innovative designs since 2015. <br>Specializing in digital art, character design, and brand visuals. </p>
+				<div class="video-play-button" data-animate data-animate-delay="300">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M8 5v14l11-7z" />
+					</svg>
+					<span data-lang-en="WATCH" data-lang-id="TONTON">WATCH</span>
+				</div>
+			</div>
+			<div class="scroll-down">
+				<a href="#portfolio" class="scroll scroll-2">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+					</svg>
+				</a>
+			</div>
+		</section>
+		<section class="section-2" id="portfolio">
+			<div class="section-content">
+				<h2 data-animate data-lang-en="Portfolio" data-lang-id="Portofolio">Portfolio</h2>
+				<p data-animate data-animate-delay="100" data-lang-en="Explore my work categories" data-lang-id="Jelajahi kategori karya saya">Explore my work categories</p>
+				<div class="portfolio-categories" data-animate data-animate-delay="200">
+					<button class="btn" data-modal="illustration-modal" data-lang-en="Illustration" data-lang-id="Ilustrasi">Illustration</button>
+					<button class="btn" data-modal="character-modal" data-lang-en="Characters" data-lang-id="Karakter">Characters</button>
+					<button class="btn" data-modal="branding-modal" data-lang-en="Branding" data-lang-id="Merek">Branding</button>
+				</div>
+			</div>
+		</section>
+		<!-- Commission Section -->
+		<section class="section-3" id="order">
+			<div class="section-content">
+				<h2 data-animate data-lang-en="My Services" data-lang-id="Layanan Saya">My Services</h2>
+				<p data-animate data-animate-delay="100" data-lang-en="Select a service to get started" data-lang-id="Pilih layanan untuk memulai">Select a service to get started</p>
+				<div class="carousel-container" data-animate data-animate-delay="200">
+					<div class="carousel">
 
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
-  <link href="https://db.onlinewebfonts.com/c/a082fd3df68a0b54e0d4d794bc38d268?family=Blender+Pro+Bold" rel="stylesheet">
-  <link href="https://db.onlinewebfonts.com/c/685030e1abf58bd087a4ee725d9dea6a?family=Blender+Pro+Medium" rel="stylesheet">
-  <link href="https://db.onlinewebfonts.com/c/31b8101b7be4ea7380dd68f7ae18231d?family=Blender+Pro+Thin" rel="stylesheet">
+						<button class="btn lbtn">
+							<i class="fas fa-chevron-left"></i>
+						</button>
+						<button class="btn rbtn">
+							<i class="fas fa-chevron-right"></i>
+						</button>
+						
+            <div class="inner">
+							<ul class="card-list">
+								<!-- Fake items at start to allow infinite loop -->
+								<li data-cid="-1" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Brand%20Identity" alt="Brand Identity">
+									</div>
+									<h3 data-lang-en="Brand Identity" data-lang-id="Identitas Merek">Brand Identity</h3>
+									<p data-lang-en="Complete branding package for your business." data-lang-id="Paket branding lengkap untuk bisnis Anda.">Complete branding package for your business.</p>
+									<div class="price">$350</div>
+									<button class="add-to-cart" data-id="brand-identity" data-title="Brand Identity" data-title-id="Identitas Merek" data-price="350" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="0" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Character%20Sheet" alt="Character Sheet">
+									</div>
+									<h3 data-lang-en="Character Sheet" data-lang-id="Lembar Karakter">Character Sheet</h3>
+									<p data-lang-en="Multiple views and expressions of your character." data-lang-id="Beberapa tampilan dan ekspresi karakter Anda.">Multiple views and expressions of your character.</p>
+									<div class="price">$250</div>
+									<button class="add-to-cart" data-id="character-sheet" data-title="Character Sheet" data-title-id="Lembar Karakter" data-price="250" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<!-- Actual items -->
+								<li data-cid="1" class="card active-card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Character%20Sketch" alt="Character Sketch">
+									</div>
+									<h3 data-lang-en="Character Sketch" data-lang-id="Sketsa Karakter">Character Sketch</h3>
+									<p data-lang-en="Quick digital sketch of your character." data-lang-id="Sketsa digital cepat karaktermu.">Quick digital sketch of your character.</p>
+									<div class="price">$50</div>
+									<button class="add-to-cart" data-id="character-sketch" data-title="Character Sketch" data-title-id="Sketsa Karakter" data-price="50" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="2" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Full%20Color%20Illustration" alt="Full Color Illustration">
+									</div>
+									<h3 data-lang-en="Full Color Illustration" data-lang-id="Ilustrasi Warna Penuh">Full Color Illustration</h3>
+									<p data-lang-en="Detailed character illustration with background." data-lang-id="Ilustrasi karakter detail dengan latar belakang.">Detailed character illustration with background.</p>
+									<div class="price">$150</div>
+									<button class="add-to-cart" data-id="full-color-illustration" data-title="Full Color Illustration" data-title-id="Ilustrasi Warna Penuh" data-price="150" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="3" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Logo%20Design" alt="Logo Design">
+									</div>
+									<h3 data-lang-en="Logo Design" data-lang-id="Desain Logo">Logo Design</h3>
+									<p data-lang-en="Unique logo for your brand or project." data-lang-id="Logo unik untuk merek atau proyekmu.">Unique logo for your brand or project.</p>
+									<div class="price">$200</div>
+									<button class="add-to-cart" data-id="logo-design" data-title="Logo Design" data-title-id="Desain Logo" data-price="200" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="4" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Emote%20Pack" alt="Emote Pack">
+									</div>
+									<h3 data-lang-en="Emote Pack" data-lang-id="Paket Emote">Emote Pack</h3>
+									<p data-lang-en="Set of 5 custom emotes for Twitch/Discord." data-lang-id="Set 5 emote kustom untuk Twitch/Discord.">Set of 5 custom emotes for Twitch/Discord.</p>
+									<div class="price">$100</div>
+									<button class="add-to-cart" data-id="emote-pack" data-title="Emote Pack" data-title-id="Paket Emote" data-price="100" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="5" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Character%20Sheet" alt="Character Sheet">
+									</div>
+									<h3 data-lang-en="Character Sheet" data-lang-id="Lembar Karakter">Character Sheet</h3>
+									<p data-lang-en="Multiple views and expressions of your character." data-lang-id="Beberapa tampilan dan ekspresi karakter Anda.">Multiple views and expressions of your character.</p>
+									<div class="price">$250</div>
+									<button class="add-to-cart" data-id="character-sheet" data-title="Character Sheet" data-title-id="Lembar Karakter" data-price="250" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="6" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Brand%20Identity" alt="Brand Identity">
+									</div>
+									<h3 data-lang-en="Brand Identity" data-lang-id="Identitas Merek">Brand Identity</h3>
+									<p data-lang-en="Complete branding package for your business." data-lang-id="Paket branding lengkap untuk bisnis Anda.">Complete branding package for your business.</p>
+									<div class="price">$350</div>
+									<button class="add-to-cart" data-id="brand-identity" data-title="Brand Identity" data-title-id="Identitas Merek" data-price="350" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<!-- Fake items at end to allow infinite loop -->
+								<li data-cid="7" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Character%20Sketch" alt="Character Sketch">
+									</div>
+									<h3 data-lang-en="Character Sketch" data-lang-id="Sketsa Karakter">Character Sketch</h3>
+									<p data-lang-en="Quick digital sketch of your character." data-lang-id="Sketsa digital cepat karaktermu.">Quick digital sketch of your character.</p>
+									<div class="price">$50</div>
+									<button class="add-to-cart" data-id="character-sketch" data-title="Character Sketch" data-title-id="Sketsa Karakter" data-price="50" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+								<li data-cid="8" class="card">
+									<div class="card-image">
+										<img src="https://placeholder.pics/svg/300x300/DEDEDE/555555/Full%20Color%20Illustration" alt="Full Color Illustration">
+									</div>
+									<h3 data-lang-en="Full Color Illustration" data-lang-id="Ilustrasi Warna Penuh">Full Color Illustration</h3>
+									<p data-lang-en="Detailed character illustration with background." data-lang-id="Ilustrasi karakter detail dengan latar belakang.">Detailed character illustration with background.</p>
+									<div class="price">$150</div>
+									<button class="add-to-cart" data-id="full-color-illustration" data-title="Full Color Illustration" data-title-id="Ilustrasi Warna Penuh" data-price="150" data-lang-en="Add to Cart" data-lang-id="Tambah ke Keranjang">Add to Cart</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="dots-container">
+						<div class="dot active-card" data-index="0"></div>
+						<div class="dot" data-index="1"></div>
+						<div class="dot" data-index="2"></div>
+						<div class="dot" data-index="3"></div>
+						<div class="dot" data-index="4"></div>
+						<div class="dot" data-index="5"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="section-4" id="tos">
+			<div class="section-content">
+				<h2 data-animate data-lang-en="Terms of Service" data-lang-id="Syarat dan Ketentuan">Terms of Service</h2>
+				<p data-animate data-animate-delay="100" data-lang-en="Please review before commissioning" data-lang-id="Harap tinjau sebelum memesan">Please review before commissioning</p>
+				<div class="portfolio-categories" data-animate data-animate-delay="200">
+					<button class="btn" data-modal="commission-tos-modal" data-lang-en="Commissions" data-lang-id="Pemesanan">Commissions</button>
+					<button class="btn" data-modal="usage-tos-modal" data-lang-en="Usage" data-lang-id="Penggunaan">Usage</button>
+					<button class="btn" data-modal="privacy-tos-modal" data-lang-en="Privacy" data-lang-id="Privasi">Privacy</button>
+				</div>
+			</div>
+		</section>
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+		<section class="section-5" id="contact">
+			<div class="section-content">
+				<h2 data-animate data-lang-en="Get In Touch" data-lang-id="Hubungi Saya">Get In Touch</h2>
+				<p data-animate data-animate-delay="100" style="margin-bottom: 2rem;" data-lang-en="Interested in working together?" data-lang-id="Tertarik bekerja sama?">Interested in working together?</p>
+				<form id="contact-form" class="contact-form" data-animate data-animate-delay="200">
+					<div class="form-group">
+						<input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+					</div>
+					<div class="form-group">
+						<input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+					</div>
+					<div class="form-group">
+						<textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+					</div>
+					<div class="form-actions">
+						<button type="submit" class="btn" data-lang-en="Send Message" data-lang-id="Kirim Pesan">Send Message</button>
+					</div>
+				</form>
+			</div>
+		</section>
 
-  <div class="right-nav">
-    <div class="right-nav-container">
-
-        <div class="social-icons">
-          <ul>
-            <li>
-              <a href="https://t.me/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
-            </li>
-            <li>
-              <a href="https://x.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li>
-              <a href="https://facebook.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-            </li>
-            <li>
-              <a href="https://instagram.com/iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-            </li>
-            <li>
-              <a href="https://youtube.com/@iluztar/" class="cybr-btn social" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-            </li>
-          </ul>
-        </div>
-
-        
-        <div class="section-button social-icons">
-          <ul>
-            <li>
-              <a href="#" class="cybr-btn social prev-section"><i class="fas fa-arrow-up"></i></a>
-            </li>
-            <li>
-              <a href="#" class="cybr-btn social next-section"><i class="fas fa-arrow-down"></i></a>
-            </li>
-          </ul>
-        </div>
-
-    </div>
-  </div>
-
-
-  <div class="left-nav">
-    <div class="left-nav-container">
-      <div class="line-nav">
-        <ul>
-          <li class="active"><span class="line"></span><span class="dot"></span></li>
-          <li><span class="line"></span><span class="dot"></span></li>
-          <li><span class="line"></span><span class="dot"></span></li>
-          <li><span class="line"></span><span class="dot"></span></li>
-          <li><span class="line"></span><span class="dot"></span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-<!-- Header -->
-  <header>
-    <div class="header-container">
-      <div class="logo">
-        <span><a href="#home" class="scroll scroll-1 logo-text">/LUZTAR</a></span>
-      </div>
-      <nav class="header-nav">
-        <ul>
-          <li><a href="#home" data-lang-en="Profile" data-lang-id="Profil" class="scroll scroll-1 active">Profile</a></li>
-          <li><a href="#portfolio" data-lang-en="Portfolio" data-lang-id="Portofolio" class="scroll scroll-2">Portfolio</a></li>
-          <li><a href="#commission" data-lang-en="Commission" data-lang-id="Pemesanan" class="scroll scroll-3">Commission</a></li>
-          <li><a href="#tos" data-lang-en="ToS" data-lang-id="S&K" class="scroll scroll-4">ToS</a></li>
-          <li><a href="#contact" data-lang-en="Contact" data-lang-id="Kontak" class="scroll scroll-5">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="header-actions">
-
-      <div class="theme-icon-wrapper">
-
-        <svg id="theme-icon-light" class="theme-icon" width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z" stroke="var(--invert)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        
-
-        <svg id="theme-icon-dark" class="theme-icon hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <path d="M22 15.8442C20.6866 16.4382 19.2286 16.7688 17.6935 16.7688C11.9153 16.7688 7.23116 12.0847 7.23116 6.30654C7.23116 4.77135 7.5618 3.3134 8.15577 2C4.52576 3.64163 2 7.2947 2 11.5377C2 17.3159 6.68414 22 12.4623 22C16.7053 22 20.3584 19.4742 22 15.8442Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-
-      </div>
-        
-        <!-- Language Selector -->
-        <div class="language-selector">
-          <span class="language-current">EN</span>
-        </div>
-        
-        <div class="cart-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.412-.587T3 20V8q0-.825.588-1.412T5 6h2q0-2.075 1.463-3.537T12 1t3.538 1.463T17 6h2q.825 0 1.413.588T21 8v12q0 .825-.587 1.413T19 22zm0-2h14V8H5zm7-6q2.075 0 3.538-1.463T17 9h-2q0 1.25-.875 2.125T12 12t-2.125-.875T9 9H7q0 2.075 1.463 3.538T12 14M9 6h6q0-1.25-.875-2.125T12 3t-2.125.875T9 6M5 20V8z"/></svg>
-          <span class="cart-count">0</span>
-        </div>
-
-        <div class="menu-burger">
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-        </div>
-        
-      </div>
-    </div>
-  </header>
-
-  <!-- Shopping Cart Sidebar -->
-  <div class="cart-sidebar">
-    <div class="cart-header">
-      <h3 data-lang-en="Cart" data-lang-id="Keranjang">Cart</h3>
-      <button class="cart-close" aria-label="Close">&times;</button>
-    </div>
-    <div class="cart-items">
-      <!-- Cart items will be added here dynamically -->
-    </div>
-    <div class="cart-total">
-      <span data-lang-en="Total : $" data-lang-id="Total : Rp">Total : $</span><span class="cart-total-amount">0</span>
-    </div>
-    <div class="cart-actions">
-      <button class="cybr-btn" data-lang-en="Checkout" data-lang-id="Bayar">Checkout</button>
-    </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <div class="mobile-menu-header">
-      <h3>MENU</h3>
-      <button class="mobile-menu-close" aria-label="Close">&times;</button>
-    </div>
-    <a href="#home" class="scroll-link" data-lang-en="/ Profile" data-lang-id="/ Profil">/ Profile</a>
-    <a href="#portfolio" class="scroll-link" data-lang-en="/ Portfolio" data-lang-id="/ Portofolio">/ Portfolio</a>
-    <a href="#commission" class="scroll-link" data-lang-en="/ Commission" data-lang-id="/ Pemesanan">/ Commission</a>
-    <a href="#tos" class="scroll-link" data-lang-en="/ Terms" data-lang-id="/ S&K">/ Terms</a>
-    <a href="#contact" class="scroll-link" data-lang-en="/ Contact" data-lang-id="/ Kontak">/ Contact</a>
-    
-    <!-- Social Icons in Mobile Menu -->
-    <div class="mobile-social-icons">
-      <a href="https://t.me/iluztar/" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
-      <a href="https://x.com/iluztar/" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-      <a href="https://facebook.com/iluztar/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://instagram.com/iluztar/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-      <a href="https://youtube.com/@iluztar/" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-    </div>
-    
-    <div class="mobile-menu-actions">
-      <div class="mobile-theme-icon-wrapper">
-        <svg id="mobile-theme-icon-light" class="theme-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z" stroke="var(--invert)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        
-
-        <svg id="mobile-theme-icon-dark" width="24" height="24" class="theme-icon hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <path d="M22 15.8442C20.6866 16.4382 19.2286 16.7688 17.6935 16.7688C11.9153 16.7688 7.23116 12.0847 7.23116 6.30654C7.23116 4.77135 7.5618 3.3134 8.15577 2C4.52576 3.64163 2 7.2947 2 11.5377C2 17.3159 6.68414 22 12.4623 22C16.7053 22 20.3584 19.4742 22 15.8442Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-      </div>
-      <div class="language-selector">
-        <span class="language-current">EN</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="illustration-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 data-lang-en="Illustration Works" data-lang-id="Karya Ilustrasi">Illustration Works</h2>
-        <button class="modal-close" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-grid">
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Abstract Art"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Nature Concept"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Fantasy World"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="New Artwork"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch"></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal" id="character-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 data-lang-en="Character Design" data-lang-id="Desain Karakter">Character Design</h2>
-        <span class="modal-close">&times;</span>
-      </div>
-      <div class="modal-grid">
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Game Character"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Anime Character"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Concept Art">></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Character Sheet"></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal" id="branding-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 data-lang-en="Visual Branding" data-lang-id="Visualisasi Merek">Visual Branding</h2>
-        <span class="modal-close">&times;</span>
-      </div>
-      <div class="modal-grid">
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Creative Branding"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Product Packaging"></div>
-        <div class="modal-item"><img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise"></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal tos-modal" id="commission-tos-modal">
-    <div class="modal-content">
-      <div class="tos-modal-content">
-        <div class="modal-header">
-          <h2>/ Commission</h2>
-          <span class="modal-close">&times;</span>
-        </div>
-        <div class="tos-content">
-          <h3>1. General Terms</h3>
-          <p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
-          <h3>2. Payment</h3>
-          <p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
-          <h3>3. Process</h3>
-          <p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
-          <h3>4. Delivery</h3>
-          <p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal tos-modal" id="usage-tos-modal">
-    <div class="modal-content">
-      <div class="tos-modal-content">
-        <div class="modal-header">
-          <h2>/ Usage Rights</h2>
-          <span class="modal-close">&times;</span>
-        </div>
-        <div class="tos-content">
-          <h3>1. Personal Use</h3>
-          <p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
-          <h3>2. Commercial Use</h3>
-          <p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
-          <h3>3. Artist Rights</h3>
-          <p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
-          <h3>4. Restrictions</h3>
-          <p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal tos-modal" id="privacy-tos-modal">
-    <div class="modal-content">
-      <div class="tos-modal-content">
-        <div class="modal-header">
-          <h2>/ Privacy Policy</h2>
-          <span class="modal-close">&times;</span>
-        </div>
-        <div class="tos-content">
-          <h3>1. Information Collection</h3>
-          <p>I collect only necessary information for commission processing (name, email, payment details).</p>
-          <h3>2. Data Usage</h3>
-          <p>Your information will only be used for communication and transaction purposes.</p>
-          <h3>3. Data Protection</h3>
-          <p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
-          <h3>4. Third Parties</h3>
-          <p>Payment processors may collect additional data as per their own privacy policies.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="lightbox" id="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <div class="lightbox-content"><img src="" alt="Portfolio Image"></div>
-    <div class="lightbox-nav">
-      <button class="lightbox-prev">&lt;</button>
-      <div class="lightbox-counter">1 / 21</div>
-      <button class="lightbox-next">&gt;</button>
-    </div>
-  </div>
-
-<!-- Sections -->
-<section class="section-1" id="home">
-  <div class="section-content">
-    <div class="hero-text" data-animate="left"><h2>/LUZTAR</h2></div>
-    <div class="hero-subtext" data-animate="right" data-animate-delay="100" data-lang-en="Digital Illustrator & Graphic Designer" data-lang-id="Ilustrator Digital & Desainer Grafis">Digital Illustrator & Graphic Designer</div>
-      <p class="hero-description" data-animate data-animate-delay="200" 
-        data-lang-en="Creating captivating illustrations and innovative designs since 2015.<br>Specializing in digital art, character design, and brand visuals." 
-        data-lang-id="Membuat ilustrasi menarik dan desain inovatif sejak 2015.<br>Spesialisasi dalam seni digital, desain karakter, dan visualisasi merek.">
-        Creating captivating illustrations and innovative designs since 2015.<br>Specializing in digital art, character design, and brand visuals.
-      </p>
-  </div>
-
-
-
-  <div class="scroll-down">
-    <a href="#portfolio" class="scroll scroll-2">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
-       <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </a>
-  </div>
-</section>
-
-<section class="section-2" id="portfolio">
-  <div class="section-content">
-    <h2 data-animate data-lang-en="Portfolio" data-lang-id="Portofolio">Portfolio</h2>
-    <p data-animate data-animate-delay="100" data-lang-en="Explore my work categories" data-lang-id="Jelajahi kategori karya saya">Explore my work categories</p>
-    
-    <div class="portfolio-categories" data-animate data-animate-delay="200">
-      <button class="btn" data-modal="illustration-modal" data-lang-en="Illustration" data-lang-id="Ilustrasi">Illustration</button>
-      <button class="btn" data-modal="character-modal" data-lang-en="Characters" data-lang-id="Karakter">Characters</button>
-      <button class="btn" data-modal="branding-modal" data-lang-en="Branding" data-lang-id="Merek">Branding</button>
-    </div>
-    
-  </div>
-</section>
-
-<section class="section-3" id="commission">
-  <div class="section-content">
-    <h2 data-animate data-lang-en="Commission" data-lang-id="Pemesanan">Commission</h2>
-    <div class="commission-container" data-animate data-animate-delay="100">
-      <div class="pricing-options swiper">
-
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <h3>Bust-up</h3>
-            <div class="price">$50</div>
-            <ul>
-              <li data-lang-en="Head and shoulders" data-lang-id="Kepala dan bahu">Head and shoulders</li>
-              <li data-lang-en="Simple background" data-lang-id="Latar belakang sederhana">Simple background</li>
-              <li data-lang-en="1 character" data-lang-id="1 karakter">1 character</li>
-              <li data-lang-en="Delivery in 1-2 weeks" data-lang-id="Pengiriman dalam 1-2 minggu">Delivery in 1-2 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Bust-up Commission" data-price="50" data-lang-en="Order Now" data-lang-id="Pesan Sekarang">Order Now</button>
-          </div>
-          <div class="swiper-slide">
-            <h3>Halfbody</h3>
-            <div class="price">$80</div>
-            <ul>
-              <li>Waist-up portrait</li>
-              <li>Detailed background</li>
-              <li>1 character</li>
-              <li>Delivery in 2-3 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Halfbody Commission" data-price="80">Order Now</button>
-          </div>
-          <div class="swiper-slide">
-            <h3>Fullbody</h3>
-            <div class="price">$120</div>
-            <ul>
-              <li>Complete character</li>
-              <li>Complex background</li>
-              <li>1 character</li>
-              <li>Delivery in 3-4 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Fullbody Commission" data-price="120">Order Now</button>
-          </div>
-          <div class="swiper-slide">
-            <h3>Emote Set</h3>
-            <div class="price">$150</div>
-            <ul>
-              <li>5 custom emotes</li>
-              <li>Transparent background</li>
-              <li>High resolution</li>
-              <li>Delivery in 2 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Emote Set" data-price="150">Order Now</button>
-          </div>
-          <div class="swiper-slide">
-            <h3>Twitch Package</h3>
-            <div class="price">$250</div>
-            <ul>
-              <li>Custom overlay</li>
-              <li>3 panels</li>
-              <li>Offline screen</li>
-              <li>Delivery in 3 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Twitch Package" data-price="250">Order Now</button>
-          </div>
-          <div class="swiper-slide">
-            <h3>Character Sheet</h3>
-            <div class="price">$180</div>
-            <ul>
-              <li>Front/back view</li>
-              <li>Expression sheet</li>
-              <li>Color palette</li>
-              <li>Delivery in 4 weeks</li>
-            </ul>
-            <button class="btn add-to-cart" data-title="Character Sheet" data-price="180">Order Now</button>
-          </div>
-        </div>
-
-        <div class="swiper-nav">
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section-4" id="tos">
-  <div class="section-content">
-    <h2 data-animate data-lang-en="Terms of Service" data-lang-id="Syarat dan Ketentuan">Terms of Service</h2>
-    <p data-animate data-animate-delay="100" data-lang-en="Please review before commissioning" data-lang-id="Harap tinjau sebelum memesan">Please review before commissioning</p>
-    <div class="portfolio-categories" data-animate data-animate-delay="200">
-      <button class="btn" data-modal="commission-tos-modal" data-lang-en="Commissions" data-lang-id="Pemesanan">Commissions</button>
-      <button class="btn" data-modal="usage-tos-modal" data-lang-en="Usage" data-lang-id="Penggunaan">Usage</button>
-      <button class="btn" data-modal="privacy-tos-modal" data-lang-en="Privacy" data-lang-id="Privasi">Privacy</button>
-    </div>
-  </div>
-</section>
-
-<section class="section-5" id="contact">
-  <div class="section-content">
-    <h2 data-animate data-lang-en="Get In Touch" data-lang-id="Hubungi Saya">Get In Touch</h2>
-    <p data-animate data-animate-delay="100" style="margin-bottom: 2rem;" data-lang-en="Interested in working together?" data-lang-id="Tertarik bekerja sama?">Interested in working together?</p>
-    <form class="contact-form" data-animate data-animate-delay="200">
-      <div class="form-group">
-        <label for="name" class="sr-only" data-lang-en="Your Name" data-lang-id="Nama Anda">Your Name</label>
-        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" autocomplete="name" required>
-      </div>
-      <div class="form-group">
-        <label for="email" class="sr-only" data-lang-en="Your Email" data-lang-id="Email Anda">Your Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" autocomplete="email" required>
-      </div>
-      <div class="form-group">
-        <label for="message" class="sr-only" data-lang-en="Your Message" data-lang-id="Pesan Anda">Your Message</label>
-        <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." autocomplete="off" required></textarea>
-      </div>
-      <div class="form-actions">
-        <button type="submit" class="btn" data-lang-en="Send Message" data-lang-id="Kirim Pesan">Send Message</button>
-      </div>
-    </form>
-  </div>
-</section>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="script.js"></script>
-
-</body>
+		<!-- Video Modal -->
+		<div class="modal" id="video-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 data-lang-en="MY PROFILE" data-lang-id="PROFILKU">MY PROFILE</h2>
+					<span class="modal-close"><i class="bx bx-x"></i></span>
+				</div>
+				<div class="video-container">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/example" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+		<!-- Rest of your modals remain the same -->
+		<div class="modal" id="illustration-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Illustration Works</h2>
+					<span class="modal-close"><i class="bx bx-x"></i></span>
+				</div>
+				<div class="modal-grid">
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
+						<p class="modal-description">Landscape Illustration</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
+						<p class="modal-description">Abstract Art</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
+						<p class="modal-description">Nature Concept</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
+						<p class="modal-description">Fantasy World</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
+						<p class="modal-description">New Artwork</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
+						<p class="modal-description">Urban Sketch</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="character-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Character Designs</h2>
+					<span class="modal-close"><i class="bx bx-x"></i></span>
+				</div>
+				<div class="modal-grid">
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
+						<p class="modal-description">Sci-Fi Character</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Game Character">
+						<p class="modal-description">Game Character</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
+						<p class="modal-description">Anime Character</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
+						<p class="modal-description">Fantasy Character</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
+						<p class="modal-description">Concept Art</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+						<p class="modal-description">Character Sheet</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal" id="branding-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Branding Projects</h2>
+					<span class="modal-close"><i class="bx bx-x"></i></span>
+				</div>
+				<div class="modal-grid">
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
+						<p class="modal-description">Modern Logo Design</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
+						<p class="modal-description">Creative Branding</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
+						<p class="modal-description">Minimalist Design</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
+						<p class="modal-description">Corporate Identity</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
+						<p class="modal-description">Product Packaging</p>
+					</div>
+					<div class="modal-item">
+						<img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
+						<p class="modal-description">Custom Merchandise</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal tos-modal" id="commission-tos-modal">
+			<div class="modal-content">
+				<div class="tos-modal-content">
+					<div class="modal-header">
+						<h2>/ Commission</h2>
+						<span class="modal-close"><i class="bx bx-x"></i></span>
+					</div>
+					<div class="tos-content">
+						<h3>1. General Terms</h3>
+						<p>By commissioning me, you agree to these terms. I reserve the right to decline any commission for any reason.</p>
+						<h3>2. Payment</h3>
+						<p>Payment is required upfront via PayPal or other agreed methods. Refunds are only available before work begins.</p>
+						<h3>3. Process</h3>
+						<p>I will provide sketches for approval before finalizing. Revisions are limited to 3 per commission.</p>
+						<h3>4. Delivery</h3>
+						<p>Completed work will be delivered digitally within the agreed timeframe. Rush fees may apply for expedited work.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal tos-modal" id="usage-tos-modal">
+			<div class="modal-content">
+				<div class="tos-modal-content">
+					<div class="modal-header">
+						<h2>/ Usage Rights</h2>
+						<span class="modal-close"><i class="bx bx-x"></i></span>
+					</div>
+					<div class="tos-content">
+						<h3>1. Personal Use</h3>
+						<p>Commissioned work may be used for personal avatars, wallpapers, and non-commercial projects with credit.</p>
+						<h3>2. Commercial Use</h3>
+						<p>Additional fees apply for commercial usage. Please discuss your needs before commissioning.</p>
+						<h3>3. Artist Rights</h3>
+						<p>I retain the right to display commissioned work in my portfolio and social media unless otherwise agreed.</p>
+						<h3>4. Restrictions</h3>
+						<p>Commissioned work may not be used for NFTs, AI training, or other unethical purposes.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal tos-modal" id="privacy-tos-modal">
+			<div class="modal-content">
+				<div class="tos-modal-content">
+					<div class="modal-header">
+						<h2>/ Privacy Policy</h2>
+						<span class="modal-close"><i class="bx bx-x"></i></span>
+					</div>
+					<div class="tos-content">
+						<h3>1. Information Collection</h3>
+						<p>I collect only necessary information for commission processing (name, email, payment details).</p>
+						<h3>2. Data Usage</h3>
+						<p>Your information will only be used for communication and transaction purposes.</p>
+						<h3>3. Data Protection</h3>
+						<p>I implement security measures to protect your data but cannot guarantee absolute security.</p>
+						<h3>4. Third Parties</h3>
+						<p>Payment processors may collect additional data as per their own privacy policies.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="lightbox" id="lightbox">
+			<span class="lightbox-close"><i class="bx bx-x"></i></span>
+			<div class="lightbox-content">
+				<img src="" alt="Portfolio Image">
+			</div>
+			<div class="lightbox-nav">
+				<button class="lightbox-prev">&lt;</button>
+				<div class="lightbox-counter">1 / 21</div>
+				<button class="lightbox-next">&gt;</button>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+		<script type="module" src="js/main.js"></script>
+	</body>
 </html>
