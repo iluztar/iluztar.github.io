@@ -108,6 +108,33 @@ const utils = {
         }
     },
 
+    closeAllModals() {
+        // Close mobile menu if open
+        if (elements.mobileMenu?.classList.contains('active')) {
+            elements.mobileMenu.classList.remove('active');
+            elements.burger?.classList.remove('active');
+        }
+        
+        // Close cart sidebar if open
+        if (elements.cartSidebar?.classList.contains('active')) {
+            elements.cartSidebar.classList.remove('active');
+        }
+        
+        // Close all regular modals
+        document.querySelectorAll('.modal[style*="display: block"]').forEach(modal => {
+            modal.style.display = 'none';
+        });
+        
+        // Close lightbox if open
+        if (elements.lightbox?.style.display === 'flex') {
+            elements.lightbox.style.display = 'none';
+        }
+        
+        // Reset state and body overflow
+        state.isModalOpen = false;
+        document.body.style.overflow = '';
+    },
+
     scrollTo(target, callback) {
         if (typeof gsap !== 'undefined' && gsap.to) {
             gsap.to(window, {
@@ -195,24 +222,32 @@ function setupThemeSwitcher() {
 
 // ===== MOBILE MENU =====
 const mobileMenu = {
-    toggleMenu() {
-        elements.burger?.classList.toggle('active');
-        elements.mobileMenu?.classList.toggle('active');
-        document.body.style.overflow = elements.mobileMenu?.classList.contains('active') ? 'hidden' : '';
-        state.isModalOpen = elements.mobileMenu?.classList.contains('active');
+    toggleMenu(forceClose = false) {
+        if (forceClose || elements.mobileMenu?.classList.contains('active')) {
+            // Close menu
+            elements.burger?.classList.remove('active');
+            elements.mobileMenu?.classList.remove('active');
+            document.body.style.overflow = '';
+            state.isModalOpen = false;
+        } else {
+            // Open menu (close other modals first)
+            utils.closeAllModals();
+            elements.burger?.classList.add('active');
+            elements.mobileMenu?.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            state.isModalOpen = true;
+        }
     },
 
     setup() {
         if (!elements.burger || !elements.mobileMenu) return;
         
-        elements.burger.addEventListener('click', mobileMenu.toggleMenu);
-        elements.mobileMenuClose?.addEventListener('click', mobileMenu.toggleMenu);
+        elements.burger.addEventListener('click', () => mobileMenu.toggleMenu());
+        elements.mobileMenuClose?.addEventListener('click', () => mobileMenu.toggleMenu(true));
         
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                mobileMenu.toggleMenu();
-                // Close mobile menu after clicking a link
-                setTimeout(mobileMenu.toggleMenu, 300);
+                setTimeout(() => mobileMenu.toggleMenu(true), 300);
             });
         });
     }
@@ -303,17 +338,26 @@ function updateCart() {
     }
 }
 
-function toggleCart() {
-    elements.cartSidebar.classList.toggle('active');
-    state.isModalOpen = elements.cartSidebar.classList.contains('active');
-    document.body.style.overflow = state.isModalOpen ? 'hidden' : '';
+function toggleCart(forceClose = false) {
+    if (forceClose || elements.cartSidebar.classList.contains('active')) {
+        // Close cart
+        elements.cartSidebar.classList.remove('active');
+        document.body.style.overflow = '';
+        state.isModalOpen = false;
+    } else {
+        // Open cart (close other modals first)
+        utils.closeAllModals();
+        elements.cartSidebar.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        state.isModalOpen = true;
+    }
 }
 
 function setupCart() {
     if (!elements.cartIcon || !elements.cartSidebar) return;
     
-    elements.cartIcon.addEventListener('click', toggleCart);
-    elements.cartClose?.addEventListener('click', toggleCart);
+    elements.cartIcon.addEventListener('click', () => toggleCart());
+    elements.cartClose?.addEventListener('click', () => toggleCart(true));
     
     if (elements.paymentToggle) {
         elements.paymentToggle.addEventListener('click', () => {
@@ -358,6 +402,7 @@ function setupModals() {
             const modalId = this.getAttribute('data-modal');
             const modal = document.getElementById(modalId);
             if (modal) {
+                utils.closeAllModals();
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 state.isModalOpen = true;
@@ -368,6 +413,7 @@ function setupModals() {
     if (elements.videoPlayButton) {
         const videoModal = document.getElementById('video-modal');
         elements.videoPlayButton.addEventListener('click', () => {
+            utils.closeAllModals();
             videoModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
             state.isModalOpen = true;
@@ -389,9 +435,7 @@ function setupModals() {
     
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal[style*="display: block"], .cart-sidebar.active, .mobile-menu.active, .lightbox[style*="display: flex"]').forEach(el => {
-                utils.closeModal(el);
-            });
+            utils.closeAllModals();
         }
     });
 }
@@ -429,6 +473,7 @@ function setupLightbox() {
         if (img) {
             const index = Array.from(document.querySelectorAll('.modal-item img')).indexOf(img);
             if (index >= 0) {
+                utils.closeAllModals();
                 state.currentImageIndex = index;
                 updateLightboxImage();
                 elements.lightbox.style.display = 'flex';
