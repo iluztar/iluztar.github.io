@@ -1,0 +1,47 @@
+/* ===== FONTS ===== */
+@font-face { font-family: "Blender Pro"; src: url("../font/blender-pro-bold.eot"); src: url("../font/blender-pro-bold.eot?#iefix") format("embedded-opentype"), url("../font/blender-pro-bold.woff2") format("woff2"), url("../font/blender-pro-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Blender Pro"; src: url("../font/blender-pro-medium.eot"); src: url("../font/blender-pro-medium.eot?#iefix") format("embedded-opentype"), url("../font/blender-pro-medium.woff2") format("woff2"), url("../font/blender-pro-medium.woff") format("woff"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Blender Pro"; src: url("../font/blender-pro-thin.eot"); src: url("../font/blender-pro-thin.eot?#iefix") format("embedded-opentype"), url("../font/blender-pro-thin.woff2") format("woff2"), url("../font/blender-pro-thin.woff") format("woff"); font-weight: 100; font-style: normal; font-display: swap; }
+
+/* ===== COLOR VARIABLES ===== */
+:root {
+  /* Dark Theme */
+  --primary: #1a1a1a; --primary-rgb: 26, 26, 26;
+  --secondary: #2a2a2a; --invert: #eaeaea;
+  --accent: #f3bf02; --accent-hover: #d4a80c;
+  --bg-light: rgba(234, 234, 234, 0.05);
+  --border: #4d4d4d; --mid: #333;
+}
+
+[data-theme="light"] {
+  /* Light Theme */
+  --primary: #fff; --primary-rgb: 255, 255, 255;
+  --secondary: #f0f0f0; --invert: #1a1a1a;
+  --accent: #3498db; --accent-hover: #2980b9;
+  --bg-light: rgba(26, 26, 26, 0.05);
+  --border: #cfcfcf; --mid: #dcdcdc;
+}
+
+/* ===== SPACING ===== */
+:root {
+  --nav-height: 50px; --spacing-unit: 0.8rem;
+  --spacing-xs: calc(var(--spacing-unit) * 0.5);
+  --spacing-sm: calc(var(--spacing-unit) * 0.75);
+  --spacing-md: var(--spacing-unit);
+  --spacing-lg: calc(var(--spacing-unit) * 1.25);
+  --spacing-xl: calc(var(--spacing-unit) * 1.5);
+  --spacing-xxl: calc(var(--spacing-unit) * 2);
+  --section-padding: 3rem;
+}
+
+/* ===== TYPOGRAPHY ===== */
+:root {
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);
+  --text-sm: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --text-lg: clamp(1.15rem, 1.1rem + 0.25vw, 1.3rem);
+  --text-xl: clamp(1.3rem, 1.2rem + 0.5vw, 1.6rem);
+  --text-2xl: clamp(1.6rem, 1.4rem + 1vw, 2rem);
+  --text-3xl: clamp(2rem, 1.7rem + 1.5vw, 2.5rem);
+  --text-4xl: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
+}
