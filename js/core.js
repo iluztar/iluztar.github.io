@@ -9,11 +9,12 @@ const state = {
     touchStartY: 0,
     sections: document.querySelectorAll('section'),
     scrollDuration: 800,
-    currentLanguage: 'en',
-    currentTheme: 'dark',
+    currentLanguage: localStorage.getItem('language') || 'en',
+    currentTheme: localStorage.getItem('theme') || 'dark',
     lastScrollPosition: 0,
     isDraggingCarousel: false,
-    carouselStartX: 0
+    carouselStartX: 0,
+    isMobile: window.innerWidth <= 768
 };
 
 // ===== DOM Elements =====
@@ -58,7 +59,7 @@ const elements = {
 
 // ===== UTILITY FUNCTIONS =====
 const utils = {
-    debounce(func, wait = 10, immediate = true) {
+    debounce(func, wait = 100, immediate = false) {
         let timeout;
         return function() {
             const context = this, args = arguments;
@@ -70,6 +71,19 @@ const utils = {
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
             if (callNow) func.apply(context, args);
+        };
+    },
+
+    throttle(func, limit = 100) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
         };
     },
 
@@ -94,41 +108,26 @@ const utils = {
         }
     },
 
-    fallbackScroll(target, callback) {
-        const targetPosition = target.offsetTop;
-        
-        if ('scrollBehavior' in document.documentElement.style) {
+    scrollTo(target, callback) {
+        if (typeof gsap !== 'undefined' && gsap.to) {
+            gsap.to(window, {
+                scrollTo: { y: target, autoKill: false },
+                duration: 0.8,
+                ease: "power2.inOut",
+                onComplete: callback
+            });
+        } else {
             window.scrollTo({
-                top: targetPosition,
+                top: target.offsetTop,
                 behavior: 'smooth'
             });
-            
-            setTimeout(callback, state.scrollDuration || 800);
-        } else {
-            window.scrollTo(0, targetPosition);
-            callback();
+            setTimeout(callback, state.scrollDuration);
         }
     },
 
-    throttle(func, limit = 100) {
-        let lastFunc;
-        let lastRan;
-        return function() {
-            const context = this;
-            const args = arguments;
-            if (!lastRan) {
-                func.apply(context, args);
-                lastRan = Date.now();
-            } else {
-                clearTimeout(lastFunc);
-                lastFunc = setTimeout(function() {
-                    if ((Date.now() - lastRan) >= limit) {
-                        func.apply(context, args);
-                        lastRan = Date.now();
-                    }
-                }, limit - (Date.now() - lastRan));
-            }
-        };
+    checkMobile() {
+        state.isMobile = window.innerWidth <= 768;
+        return state.isMobile;
     }
 };
 
@@ -180,14 +179,12 @@ function updateThemeIcons(theme) {
 }
 
 function setupThemeSwitcher() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(savedTheme);
+    applyTheme(state.currentTheme);
     
     const switchTheme = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        const newTheme = state.currentTheme === 'dark' ? 'light' : 'dark';
         applyTheme(newTheme);
     };
     
@@ -212,7 +209,11 @@ const mobileMenu = {
         elements.mobileMenuClose?.addEventListener('click', mobileMenu.toggleMenu);
         
         document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', mobileMenu.toggleMenu);
+            link.addEventListener('click', () => {
+                mobileMenu.toggleMenu();
+                // Close mobile menu after clicking a link
+                setTimeout(mobileMenu.toggleMenu, 300);
+            });
         });
     }
 };
@@ -250,7 +251,7 @@ function updateCart() {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-            <img src="https://placeholder.pics/svg/100x100" alt="${item.title}">
+            <img src="https://placeholder.pics/svg/100x100" alt="${item.title}" loading="lazy">
             <div class="cart-item-details">
                 <div class="cart-item-title">${item.title}</div>
                 <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
@@ -494,7 +495,7 @@ function setupScrollAnimations() {
         animateOnScroll();
     });
     
-    window.addEventListener('scroll', utils.debounce(animateOnScroll));
+    window.addEventListener('scroll', utils.throttle(animateOnScroll, 100));
 }
 
 // ===== NAVIGATION SYSTEM =====
@@ -625,24 +626,11 @@ function scrollToSection(index) {
     state.currentSectionIndex = index;
     const target = state.sections[index];
     
-    if (typeof gsap !== 'undefined' && gsap.to) {
-        gsap.to(window, {
-            scrollTo: {y: target, autoKill: false},
-            duration: 0.8,
-            ease: "power2.inOut",
-            onComplete: () => {
-                state.isScrolling = false;
-                updateControlNav();
-                updateHeaderNav();
-            }
-        });
-    } else {
-        utils.fallbackScroll(target, () => {
-            state.isScrolling = false;
-            updateControlNav();
-            updateHeaderNav();
-        });
-    }
+    utils.scrollTo(target, () => {
+        state.isScrolling = false;
+        updateControlNav();
+        updateHeaderNav();
+    });
 }
 
 function scrollToNextSection() {
@@ -700,7 +688,7 @@ function setupNavigation() {
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('touchend', handleTouchEnd, { passive: false });
     
-    window.addEventListener('scroll', utils.debounce(updateCurrentSection));
+    window.addEventListener('scroll', utils.throttle(updateCurrentSection, 100));
 }
 
 // ===== LANGUAGE MANAGEMENT =====
@@ -773,6 +761,12 @@ function setupContactForm() {
             return;
         }
         
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.innerHTML = state.currentLanguage === 'id' ? 'Mengirim...' : 'Sending...';
+        
         fetch('https://formspree.io/f/iluztar.studio@gmail.com', {
             method: 'POST',
             headers: {
@@ -799,6 +793,10 @@ function setupContactForm() {
             alert(state.currentLanguage === 'id' ? 
                 'Terjadi kesalahan. Silakan coba lagi nanti.' : 
                 'There was an error. Please try again later.');
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
         });
     });
 }
@@ -817,16 +815,21 @@ document.addEventListener('DOMContentLoaded', function() {
         setupLanguageSelectors();
         setupContactForm();
         
-        updateCurrentSection();
-        window.scrollTo(0, 0);
-        
-        const savedLanguage = localStorage.getItem('language') || 'en';
-        state.currentLanguage = savedLanguage;
+        // Update initial language content
         elements.languageCurrents.forEach(el => {
-            el.textContent = savedLanguage.toUpperCase();
+            el.textContent = state.currentLanguage.toUpperCase();
         });
         updateLanguageContent();
         updateCartButtons();
+        
+        updateCurrentSection();
+        window.scrollTo(0, 0);
+        
+        // Handle resize events
+        window.addEventListener('resize', utils.debounce(() => {
+            utils.checkMobile();
+            updateCurrentSection();
+        }, 250));
         
     } catch (error) {
         console.error('Initialization error:', error);

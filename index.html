@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <!-- Free AI : https://chat.deepseek.com/ -->
-    <!-- Free AI : https://claude.ai/ -->
-    <!-- Free AI : https://chatgpt.com/ -->
-
-    <!-- Web Reference : https://genshin.hoyoverse.com/en/ -->
-    <!-- Web Reference : https://honkaiimpact3.hoyoverse.com/global/en-us/home -->
-
-    <!-- Credit : https://codepen.io/joshuaward/pen/zMKNqX -->
-    <!-- Credit : https://codepen.io/nanmuyig/pen/MYYvYjm -->
-    <!-- Credit : https://codepen.io/matt-cannon/pen/gONqdKp -->
-    <!-- Credit : https://codepen.io/ismailvtl/pen/dyOzEVz -->
-
-    <!-- Credit :  -->
-    <!-- Credit :  -->
-    <!-- Credit :  -->
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ILUZTAR ✦</title>
     <meta name="description" content="Professional digital illustrator and graphic designer creating captivating visuals since 2015">
     
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap" as="style">
+    
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-            <rect width='100' height='100' rx='15' fill='black'/>
-            <text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text>
-        </svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>" type="image/svg+xml">
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@1,300,301,700&f[]=clash-grotesk@1,200,201,600&f[]=quicksand@1,500,600,700&display=swap">
     
     <!-- Boxicons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    
     <!-- External Libraries -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    
-    <link rel="stylesheet" href="./css/base.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/sections.css">
     
+    <!-- Preload scripts -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" as="script">
 </head>
 <body>
     <!-- Loader -->
@@ -182,12 +163,12 @@
             </button>
             <div class="payment-options hidden">
                 <ul>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"></div></li>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa"></div></li>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA"></div></li>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA"></div></li>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/OVO_logo_2016.svg" alt="OVO"></div></li>
-                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/GoPay_logo.svg" alt="GoPay"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" loading="lazy"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" loading="lazy"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" loading="lazy"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" loading="lazy"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/OVO_logo_2016.svg" alt="OVO" loading="lazy"></div></li>
+                    <li><div class="payment-option"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/GoPay_logo.svg" alt="GoPay" loading="lazy"></div></li>
                 </ul>
             </div>
         </div>
@@ -202,10 +183,6 @@
 
     <!-- Mobile Menu -->
     <aside class="mobile-menu" aria-label="Mobile menu">
-        <div class="mobile-menu-header">
-            <h3>MENU</h3>
-            <button class="mobile-menu-close" aria-label="Close menu"><i class='bx bx-x'></i></button>
-        </div>
         <a href="#home" class="scroll-link" data-lang-en="/ Profile" data-lang-id="/ Profil">/ Profile</a>
         <a href="#portfolio" class="scroll-link" data-lang-en="/ Portfolio" data-lang-id="/ Portofolio">/ Portfolio</a>
         <a href="#services" class="scroll-link" data-lang-en="/ Services" data-lang-id="/ Layanan">/ Services</a>
@@ -298,26 +275,26 @@
                 <div class="infinite-carousel" data-animate data-animate-delay="300">
                     <div class="carousel-track">
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Illustration sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Illustration sample" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Character design sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Character design sample" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Branding sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Branding sample" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Digital art sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Digital art sample" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Graphic design sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Graphic design sample" loading="lazy">
                         </div>
                         <!-- Duplicate slides for infinite effect -->
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Illustration sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Illustration sample" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="https://placeholder.pics/svg/300x300" alt="Character design sample">
+                            <img src="https://placeholder.pics/svg/300x300" alt="Character design sample" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -347,7 +324,7 @@
                                 <!-- Fake items at start to allow infinite loop -->
                                 <li data-cid="-1" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Brand Identity">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Brand Identity" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Brand Identity" data-lang-id="Identitas Merek">Brand Identity</h3>
                                     <p data-lang-en="Complete branding package for your business." 
@@ -367,7 +344,7 @@
                                 </li>
                                 <li data-cid="0" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Character Sheet" data-lang-id="Lembar Karakter">Character Sheet</h3>
                                     <p data-lang-en="Multiple views and expressions of your character." 
@@ -389,7 +366,7 @@
                                 <!-- Actual items -->
                                 <li data-cid="1" class="card active-card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sketch">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sketch" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Character Sketch" data-lang-id="Sketsa Karakter">Character Sketch</h3>
                                     <p data-lang-en="Quick digital sketch of your character." 
@@ -409,7 +386,7 @@
                                 </li>
                                 <li data-cid="2" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Full Color Illustration">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Full Color Illustration" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Full Color Illustration" data-lang-id="Ilustrasi Warna Penuh">Full Color Illustration</h3>
                                     <p data-lang-en="Detailed character illustration with background." 
@@ -429,7 +406,7 @@
                                 </li>
                                 <li data-cid="3" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Logo Design">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Logo Design" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Logo Design" data-lang-id="Desain Logo">Logo Design</h3>
                                     <p data-lang-en="Unique logo for your brand or project." 
@@ -449,7 +426,7 @@
                                 </li>
                                 <li data-cid="4" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Emote Pack">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Emote Pack" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Emote Pack" data-lang-id="Paket Emote">Emote Pack</h3>
                                     <p data-lang-en="Set of 5 custom emotes for Twitch/Discord." 
@@ -469,7 +446,7 @@
                                 </li>
                                 <li data-cid="5" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Character Sheet" data-lang-id="Lembar Karakter">Character Sheet</h3>
                                     <p data-lang-en="Multiple views and expressions of your character." 
@@ -489,7 +466,7 @@
                                 </li>
                                 <li data-cid="6" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Brand Identity">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Brand Identity" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Brand Identity" data-lang-id="Identitas Merek">Brand Identity</h3>
                                     <p data-lang-en="Complete branding package for your business." 
@@ -511,7 +488,7 @@
                                 <!-- Fake items at end to allow infinite loop -->
                                 <li data-cid="7" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sketch">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Character Sketch" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Character Sketch" data-lang-id="Sketsa Karakter">Character Sketch</h3>
                                     <p data-lang-en="Quick digital sketch of your character." 
@@ -531,7 +508,7 @@
                                 </li>
                                 <li data-cid="8" class="card">
                                     <div class="card-image">
-                                        <img src="https://placeholder.pics/svg/300x300" alt="Full Color Illustration">
+                                        <img src="https://placeholder.pics/svg/300x300" alt="Full Color Illustration" loading="lazy">
                                     </div>
                                     <h3 data-lang-en="Full Color Illustration" data-lang-id="Ilustrasi Warna Penuh">Full Color Illustration</h3>
                                     <p data-lang-en="Detailed character illustration with background." 
@@ -688,27 +665,27 @@
             </div>
             <div class="modal-grid">
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Landscape Illustration" loading="lazy">
                     <p class="modal-description" data-lang-en="Landscape Illustration" data-lang-id="Ilustrasi Lanskap">Landscape Illustration</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Abstract Art" loading="lazy">
                     <p class="modal-description" data-lang-en="Abstract Art" data-lang-id="Seni Abstrak">Abstract Art</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Nature Concept" loading="lazy">
                     <p class="modal-description" data-lang-en="Nature Concept" data-lang-id="Konsep Alam">Nature Concept</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Fantasy World" loading="lazy">
                     <p class="modal-description" data-lang-en="Fantasy World" data-lang-id="Dunia Fantasi">Fantasy World</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="New Artwork">
+                    <img src="https://placeholder.pics/svg/300x300" alt="New Artwork" loading="lazy">
                     <p class="modal-description" data-lang-en="New Artwork" data-lang-id="Karya Baru">New Artwork</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Urban Sketch" loading="lazy">
                     <p class="modal-description" data-lang-en="Urban Sketch" data-lang-id="Sketsa Urban">Urban Sketch</p>
                 </div>
             </div>
@@ -724,27 +701,27 @@
             </div>
             <div class="modal-grid">
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Sci-Fi Character" loading="lazy">
                     <p class="modal-description" data-lang-en="Sci-Fi Character" data-lang-id="Karakter Fiksi Ilmiah">Sci-Fi Character</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Game Character">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Game Character" loading="lazy">
                     <p class="modal-description" data-lang-en="Game Character" data-lang-id="Karakter Game">Game Character</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Anime Character">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Anime Character" loading="lazy">
                     <p class="modal-description" data-lang-en="Anime Character" data-lang-id="Karakter Anime">Anime Character</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Fantasy Character" loading="lazy">
                     <p class="modal-description" data-lang-en="Fantasy Character" data-lang-id="Karakter Fantasi">Fantasy Character</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Concept Art">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Concept Art" loading="lazy">
                     <p class="modal-description" data-lang-en="Concept Art" data-lang-id="Konsep Seni">Concept Art</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Character Sheet" loading="lazy">
                     <p class="modal-description" data-lang-en="Character Sheet" data-lang-id="Lembar Karakter">Character Sheet</p>
                 </div>
             </div>
@@ -760,27 +737,27 @@
             </div>
             <div class="modal-grid">
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Modern Logo Design" loading="lazy">
                     <p class="modal-description" data-lang-en="Modern Logo Design" data-lang-id="Desain Logo Modern">Modern Logo Design</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Creative Branding" loading="lazy">
                     <p class="modal-description" data-lang-en="Creative Branding" data-lang-id="Branding Kreatif">Creative Branding</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Minimalist Design" loading="lazy">
                     <p class="modal-description" data-lang-en="Minimalist Design" data-lang-id="Desain Minimalis">Minimalist Design</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Corporate Identity" loading="lazy">
                     <p class="modal-description" data-lang-en="Corporate Identity" data-lang-id="Identitas Perusahaan">Corporate Identity</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Product Packaging" loading="lazy">
                     <p class="modal-description" data-lang-en="Product Packaging" data-lang-id="Kemasan Produk">Product Packaging</p>
                 </div>
                 <div class="modal-item">
-                    <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise">
+                    <img src="https://placeholder.pics/svg/300x300" alt="Custom Merchandise" loading="lazy">
                     <p class="modal-description" data-lang-en="Custom Merchandise" data-lang-id="Merchandise Kustom">Custom Merchandise</p>
                 </div>
             </div>
@@ -893,7 +870,7 @@
     <div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer">
         <button class="lightbox-close" aria-label="Close lightbox"><i class="bx bx-x"></i></button>
         <div class="lightbox-content">
-            <img src="" alt="Portfolio Image">
+            <img src="" alt="Portfolio Image" loading="lazy">
         </div>
         <div class="lightbox-nav">
             <button class="main-btn social lightbox-prev" aria-label="Previous image">
@@ -907,10 +884,11 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-    <script src="./js/core.js"></script>
-    <script src="./js/components.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
+    <script src="./js/core.js" defer></script>
+    <script src="./js/components.js" defer></script>
 </body>
 </html>
