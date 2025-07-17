@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ILUZTAR ✦</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='black'/><text x='50%' y='50%' font-size='70' fill='white' text-anchor='middle' dominant-baseline='central'>✦</text></svg>">
+    
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./section3.css">
+    
+    <link rel="preload" href="./GSAP/gsap.min.js" as="script">
+    <link rel="preload" href="./GSAP/ScrollTrigger.min.js" as="script">
+    <link rel="preload" href="./GSAP/ScrollToPlugin.min.js" as="script">
+    <link rel="preload" href="./GSAP/CustomEase.min.js" as="script">
+    <link rel="preload" href="./GSAP/Flip.min.js" as="script">
+    <link rel="preload" href="./GSAP/SplitText.min.js" as="script">
+    <script>
+    function preventThemeFlash() {
+      try {
+        const savedTheme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.content = savedTheme === 'dark' ? '#1a1a1a' : '#ffffff';
+        }
+      } catch (e) {
+        console.log('Theme initialization error:', e);
+      }
+    }
+    preventThemeFlash();
+    </script>
+</head>
+
+<body>
+    <div class="pen-cursor">
+        <div class="pen-cursor-dot"></div>
+    </div>
+    
+        <header id="header">
+            <div class="header-container">
+                <div class="logo"><span class="logo-text">ILUZTAR</span></div>
+                <div class="header-actions">
+                    <a class="theme-wrapper" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="bx bx-sun" id="theme-icon"></i>
+                    </a>
+                    <a class="lang-select"><span class="language-current">EN</span></a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="home" class="full-viewport-section"> 
+                <canvas class="section-canvas"></canvas>
+                <div class="section-content">
+                    <div class="text-block" data-animate data-animate-delay="200">
+                        <h1 data-lang-en="ILUZTAR is an acronym for '<span class='highlight'>ILUZTARION</span>'," data-lang-id="ILUZTAR adalah akronim dari '<span class='highlight'>ILUZTARION</span>',">ILUZTAR is an acronym for '<span class="highlight">ILUZTARION</span>',</h1>
+                        <p data-lang-en="a name born from a blend of creativity and deep meaning" data-lang-id="sebuah nama yang lahir dari perpaduan kreativitas dan makna mendalam">a name born from a blend of creativity and deep meaning</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="300">
+                        <h1 data-lang-en="inspired by the word '<span class='highlight'>ILLUSTRATION</span>'," data-lang-id="yang terinspirasi dari kata '<span class='highlight'>ILLUSTRATION</span>'.">inspired by the word '<span class="highlight">ILLUSTRATION</span>',</h1>
+                        <p data-lang-en="the art of storytelling through images that bring imagination to life" data-lang-id="Seni bercerita melalui gambar yang menghidupkan imajinasi">the art of storytelling through images that bring imagination to life</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="400">
+                        <h1 data-lang-en="'<span class='highlight'>LUZ</span>' means '<span class='highlight'>Light</span>' in Spanish," data-lang-id="'<span class='highlight'>LUZ</span>' berasal dari bahasa Spanyol yang bermakna '<span class='highlight'>Cahaya</span>'">'<span class="highlight">LUZ</span>' means '<span class="highlight">Light</span>' in Spanish,</h1>
+                        <p data-lang-en="symbolizing the enlightenment and inspiration we provide in every artwork" data-lang-id="melambangkan pencerahan dan inspirasi yang kami berikan dalam setiap karya">symbolizing the enlightenment and inspiration we provide in every artwork</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="500">
+                        <h1 data-lang-en="and '<span class='highlight'>ZTAR</span>' is a creative take on '<span class='highlight'>Star</span>'," data-lang-id="dan '<span class='highlight'>ZTAR</span>' merupakan adaptasi kreatif dari kata '<span class='highlight'>Star</span>' (Bintang).">and '<span class="highlight">ZTAR</span>' is a creative take on '<span class="highlight">Star</span>',</h1>
+                        <p data-lang-en="representing quality and the hope to keep shining" data-lang-id="Representasi dari kualitas dan harapan untuk terus bersinar">representing quality and the hope to keep shining</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="600">
+                        <h1 data-lang-en="Together, it symbolizes <span class='highlight'>illustration that radiates starlight</span>," data-lang-id="Secara keseluruhan, ini melambangkan <span class='highlight'>ilustrasi yang memancarkan cahaya bintang</span>,">Together, it symbolizes <span class="highlight">illustration that radiates starlight</span>,</h1>
+                        <p data-lang-en="illuminating every project with beauty and deep meaning" data-lang-id="menerangi setiap proyek dengan keindahan dan makna yang mendalam">illuminating every project with beauty and deep meaning</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="700">
+                        <h1 data-lang-en="a metaphor for <span class='highlight'>artwork that brings inspiration and hope</span>." data-lang-id="sebuah metafora untuk <span class='highlight'>karya seni yang membawa inspirasi dan harapan</span>.">a metaphor for <span class="highlight">artwork that brings inspiration and hope</span>.</h1>
+                        <p data-lang-en="Because we believe every illustration has the power to change the world" data-lang-id="Karena kami percaya bahwa setiap ilustrasi memiliki kekuatan untuk mengubah dunia">Because we believe every illustration has the power to change the world</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section2" class="full-viewport-section">
+                <canvas class="section-canvas"></canvas>
+                <div class="section-content">
+                    <div class="text-block" data-animate data-animate-delay="200">
+                        <h1 data-lang-en="We offer a range of <span class='highlight'>creative services</span>" data-lang-id="Kami menawarkan berbagai <span class='highlight'>layanan kreatif</span>">We offer a range of <span class="highlight">creative services</span></h1>
+                        <p data-lang-en="tailored to bring your visual ideas to life" data-lang-id="yang dirancang untuk mewujudkan ide visual Anda">tailored to bring your visual ideas to life</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="300">
+                        <h1 data-lang-en="<span class='highlight'>Anime-style illustrations</span> that express your vision" data-lang-id="<span class='highlight'>Ilustrasi bergaya anime</span> yang mengekspresikan visi Anda"><span class="highlight">Anime-style illustrations</span> that express your vision</h1>
+                        <p data-lang-en="with unique artistic touches and exceptional detail" data-lang-id="dengan sentuhan artistik yang unik dan detail yang luar biasa">with unique artistic touches and exceptional detail</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="400">
+                        <h1 data-lang-en="<span class='highlight'>Graphic designs</span> that captivate, or <span class='highlight'>perfectly edited photos</span>" data-lang-id="<span class='highlight'>Desain grafis</span> yang memukau, atau <span class='highlight'>foto yang telah diedit sempurna</span>"><span class="highlight">Graphic designs</span> that captivate, or <span class="highlight">perfectly edited photos</span></h1>
+                        <p data-lang-en="crafted with precision by our experienced creative team" data-lang-id="dikerjakan dengan presisi oleh tim kreatif kami yang berpengalaman">crafted with precision by our experienced creative team</p>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card" data-animate data-animate-delay="500">
+                            <h3 data-lang-en="DIGITAL ILLUSTRATION" data-lang-id="ILUSTRASI DIGITAL">DIGITAL ILLUSTRATION</h3>
+                            <p data-lang-en="Custom anime-style illustrations designed with passion for various needs. We create living characters, stunning scenes, and unforgettable promotional artwork." data-lang-id="Ilustrasi bergaya anime khusus yang dirancang dengan penuh passion untuk berbagai kebutuhan. Kami menciptakan karakter yang hidup, scene yang memukau, dan artwork promosi yang tak terlupakan.">Custom anime-style illustrations designed with passion for various needs. We create living characters, stunning scenes, and unforgettable promotional artwork.</p>
+                            <ul class="feature-list">
+                                <li data-lang-en="Expressive and unique character design" data-lang-id="Character design yang ekspresif dan unik">Expressive and unique character design</li>
+                                <li data-lang-en="Detailed and atmospheric scene illustration" data-lang-id="Scene illustration yang detail dan atmosferik">Detailed and atmospheric scene illustration</li>
+                                <li data-lang-en="Promotional artwork for branding" data-lang-id="Promotional artwork untuk branding">Promotional artwork for branding</li>
+                                <li data-lang-en="Fan art and custom commission" data-lang-id="Fan art dan custom commission">Fan art and custom commission</li>
+                            </ul>
+                        </div>
+                        <div class="service-card" data-animate data-animate-delay="600">
+                            <h3 data-lang-en="GRAPHIC DESIGN" data-lang-id="DESAIN GRAFIS">GRAPHIC DESIGN</h3>
+                            <p data-lang-en="Comprehensive professional design services to build and strengthen your brand's visual identity. From logos to marketing materials, we create powerful consistency." data-lang-id="Layanan desain profesional yang komprehensif untuk membangun dan memperkuat identitas visual brand Anda. Dari logo hingga marketing materials, kami ciptakan konsistensi yang powerful.">Comprehensive professional design services to build and strengthen your brand's visual identity. From logos to marketing materials, we create powerful consistency.</p>
+                            <ul class="feature-list">
+                                <li data-lang-en="Brand identity & logo design" data-lang-id="Brand identity & logo design">Brand identity & logo design</li>
+                                <li data-lang-en="Marketing materials & brochures" data-lang-id="Marketing materials & brochures">Marketing materials & brochures</li>
+                                <li data-lang-en="Social media graphics" data-lang-id="Social media graphics">Social media graphics</li>
+                                <li data-lang-en="Packaging & product design" data-lang-id="Packaging & product design">Packaging & product design</li>
+                            </ul>
+                        </div>
+                        <div class="service-card" data-animate data-animate-delay="700">
+                            <h3 data-lang-en="PHOTO EDITING" data-lang-id="EDITING FOTO">PHOTO EDITING</h3>
+                            <p data-lang-en="Enhance your photo quality for professional use with advanced retouching and photo manipulation services. Every detail is fixed with high precision." data-lang-id="Tingkatkan kualitas foto Anda untuk penggunaan profesional dengan layanan retouching dan manipulasi foto yang advanced. Setiap detail diperbaiki dengan presisi tinggi.">Enhance your photo quality for professional use with advanced retouching and photo manipulation services. Every detail is fixed with high precision.</p>
+                            <ul class="feature-list">
+                                <li data-lang-en="Professional photo retouching" data-lang-id="Professional photo retouching">Professional photo retouching</li>
+                                <li data-lang-en="Color correction & enhancement" data-lang-id="Color correction & enhancement">Color correction & enhancement</li>
+                                <li data-lang-en="Background removal & replacement" data-lang-id="Background removal & replacement">Background removal & replacement</li>
+                                <li data-lang-en="Creative photo manipulation" data-lang-id="Creative photo manipulation">Creative photo manipulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section3" class="full-viewport-section">
+                <canvas class="section-canvas"></canvas>
+                <div class="portfolio-container" id="portfolioContainer" role="region" aria-label="Portfolio Gallery">
+                    <!-- Intro animation -->
+                    <div class="intro-container">
+                        <div class="intro-text" data-split="heading">
+                            <h1 
+                            data-lang-en="Explore our <span class='highlight'>portfolio</span>"
+                            data-lang-id="Jelajahi <span class='highlight'>portofolio</span> kami">
+                            Explore our <span class="highlight">portfolio</span>
+                            </h1>
+                            
+                            <p 
+                            data-lang-en="featuring the best works from different projects"
+                            data-lang-id="menampilkan karya terbaik dari berbagai proyek">
+                            featuring the best works from different projects
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Loader -->
+                    <div class="loader" id="portfolioLoader">
+                        <div class="loader-flex">
+                            <div class="loader-column">
+                                <div class="loader-column-inner is-edge">
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/03a36d87-af8c-4cfe-bfed-7a3dd502404b.?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg" alt="" class="loader-image"></div>
+                                </div>
+                            </div>
+                            <div class="loader-column is-alt">
+                                <div class="loader-column-inner is-reversed">
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/03a36d87-af8c-4cfe-bfed-7a3dd502404b.?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg" alt="" class="loader-image"></div>
+                                </div>
+                            </div>
+                            <div class="loader-column">
+                                <div class="loader-column-inner is-centered">
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image is-middle"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg" alt="" class="loader-image"></div>
+                                </div>
+                            </div>
+                            <div class="loader-column">
+                                <div class="loader-column-inner is-edge">
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/03a36d87-af8c-4cfe-bfed-7a3dd502404b.?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg" alt="" class="loader-image"></div>
+                                </div>
+                            </div>
+                            <div class="loader-column is-alt">
+                                <div class="loader-column-inner is-reversed">
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/03a36d87-af8c-4cfe-bfed-7a3dd502404b.?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg" alt="" class="loader-image"></div>
+                                    <div class="loader-image-wrapper"><img src="https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg" alt="" class="loader-image"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid View -->
+                    <div class="grid-container" id="gridContainer">
+                        <div class="grid" id="grid">
+                            <div class="grid-item" data-index="0">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/dfff1381-f09c-454b-b98d-8a79161c3d25?format=jpeg)"></div>
+                            </div>
+                            <div class="grid-item" data-index="1">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/c7af8b26-313a-40e4-9081-85f7fde00c22?format=jpeg)"></div>
+                            </div>
+                            <div class="grid-item" data-index="2">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/03a36d87-af8c-4cfe-bfed-7a3dd502404b.?format=jpeg)"></div>
+                            </div>
+                            <div class="grid-item" data-index="3">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/bdb2a659-2838-4055-a82e-f145c3fd4467?format=jpeg)"></div>
+                            </div>
+                            <div class="grid-item" data-index="4">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/fddfc757-d9c3-44f1-af6e-a607c3746738?format=jpeg)"></div>
+                            </div>
+                            <div class="grid-item" data-index="5">
+                                <div class="grid-item-img" style="background-image:url(https://cdn.cosmos.so/51a307de-a9ba-4c9e-ad24-beff1ce023d0?format=jpeg)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slider View -->
+                    <div class="slider-image" id="sliderImage"></div>
+                    <div class="slider-image-next" id="sliderImageNext"></div>
+                    <div class="slider-image-bg" id="sliderImageBg"></div>
+                    <div class="transition-overlay" id="transitionOverlay"></div>
+
+                    <div class="slider-content" id="sliderContent">
+                        <h1 class="slider-title" id="sliderTitle">
+                            <span class="title-line"><span>URBAN</span></span>
+                            <span class="title-line"><span>GEOMETRY</span></span>
+                        </h1>
+                    </div>
+
+                    <div class="slider-thumbnails" id="sliderThumbnails"></div>
+                </div>
+            </section>
+
+            <section id="section4" class="full-viewport-section">
+                <canvas class="section-canvas"></canvas>
+                <div class="section-content">
+                    <div class="text-block" data-animate data-animate-delay="200">
+                        <h1 data-lang-en="<span class='highlight'>Have a project in mind?</span> Or maybe -" data-lang-id="<span class='highlight'>Punya proyek dalam pikiran?</span> Atau mungkin -"><span class="highlight">Have a project in mind?</span> Or maybe -</h1>
+                        <p data-lang-en="a creative idea you want to turn into an extraordinary artwork?" data-lang-id="sebuah ide kreatif yang ingin Anda wujudkan menjadi karya seni yang luar biasa?">a creative idea you want to turn into an extraordinary artwork?</p>
+                    </div>
+                    <div class="text-block" data-animate data-animate-delay="300">
+                        <h1 data-lang-en="<span class='highlight'>Reach</span> out to us now" data-lang-id="<span class='highlight'>Hubungi</span> kami sekarang"><span class="highlight">Reach</span> out to us now</h1>
+                        <p data-lang-en="Our creative team is ready to help realize your vision !" data-lang-id="Tim kreatif kami siap membantu mewujudkan visi Anda !">Our creative team is ready to help realize your vision !</p>
+                    </div>
+                    <div class="contact-options">
+                        <div class="contact-card" data-animate data-animate-delay="400">
+                            <h3 data-lang-en="💬 Free Consultation" data-lang-id="💬 Konsultasi Gratis">💬 Free Consultation</h3>
+                            <p data-lang-en="Discuss your project with our expert team at no cost" data-lang-id="Diskusikan proyek Anda dengan tim ahli kami tanpa biaya">Discuss your project with our expert team at no cost</p>
+                        </div>
+                        <div class="contact-card" data-animate data-animate-delay="500">
+                            <h3 data-lang-en="⚡ Quick Response" data-lang-id="⚡ Respon Cepat">⚡ Quick Response</h3>
+                            <p data-lang-en="We respond to inquiries within 24 hours or less" data-lang-id="Kami merespons inquiry dalam 24 jam atau kurang">We respond to inquiries within 24 hours or less</p>
+                        </div>
+                        <div class="contact-card" data-animate data-animate-delay="600">
+                            <h3 data-lang-en="🎯 Custom Solutions" data-lang-id="🎯 Solusi Custom">🎯 Custom Solutions</h3>
+                            <p data-lang-en="Every project receives a tailored approach" data-lang-id="Setiap proyek mendapat pendekatan yang disesuaikan">Every project receives a tailored approach</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="links">
+                    <a href="#" id="menu-toggle" aria-label="Menu"><i class='bx bx-menu'></i></a>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="#home" class="scroll" data-lang-en="ABOUT" data-lang-id="TENTANG"><i class='bx bx-user menu-item-icon'></i><span>ABOUT</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <a href="#section2" class="scroll" data-lang-en="SERVICES" data-lang-id="LAYANAN"><i class='bx bx-palette menu-item-icon'></i><span>SERVICES</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <a href="#section3" class="scroll" data-lang-en="GALLERY" data-lang-id="GALERI"><i class='bx bx-photo-album menu-item-icon'></i><span>GALLERY</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <a href="#section4" class="scroll" data-lang-en="CONTACT" data-lang-id="KONTAK"><i class='bx bx-envelope menu-item-icon'></i><span>CONTACT</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <a href="#" data-lang-en="TERMS OF SERVICE" data-lang-id="SYARAT LAYANAN"><i class='bx bx-file menu-item-icon'></i><span>TERMS OF SERVICE</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <a href="#" data-lang-en="HOW TO?" data-lang-id="BAGAIMANA CARA?"><i class='bx bx-help-circle menu-item-icon'></i><span>HOW TO?</span><i class='bx bx-chevron-right menu-item-arrow'></i></a>
+                        <div class="social-links">
+                            <a href="https://t.me/iluztar" aria-label="Telegram"><i class='bx bxl-telegram'></i></a>
+                            <a href="https://x.com/iluztar" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                            <a href="https://facebook.com/iluztar" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+                            <a href="https://instagram.com/iluztar" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                            <a href="https://youtube.com/@iluztar" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ctrl-btn">
+                    <a id="backButton" class="action-btn" aria-label="Toggle Grid Mode"><i class='bx bx-chevron-left'></i></a>
+                    <a id="clear-canvas" class="action-btn" aria-label="Clear Canvas"><i class='bx bx-eraser'></i></a>
+                    <a id="toggle-drawing" class="action-btn" aria-label="Toggle Drawing Mode"><i class='bx bx-brush'></i></a>
+                </div>
+            </div>
+        </footer>
+
+<!-- GSAP -->
+<script src="./GSAP/gsap.min.js"></script>
+<script src="./GSAP/ScrollTrigger.min.js"></script>
+<script src="./GSAP/ScrollToPlugin.min.js"></script>
+<script src="./GSAP/CustomEase.min.js"></script>
+<script src="./GSAP/Flip.min.js"></script>
+<script src="./GSAP/SplitText.min.js"></script>
+
+<!-- Core -->
+<script src="./JS/scroll-animation.js" defer></script>
+<script src="./JS/theme-language.js" defer></script>
+<script src="./JS/drawing-canvas.js" defer></script>
+<script src="./section3.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Inisialisasi manager
+  window.scrollAnimationManager = new ScrollAnimationManager();
+  window.drawingCanvasManager = new DrawingCanvasManager();
+  
+  setTimeout(() => {
+    window.portfolioManager = new Portfolio();
+  }, 500);
+  
+  window.scrollTo(0, 0);
+  
+  const font = new FontFace('Space Grotesk', 'url(https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff2)');
+  
+  font.load().then(() => {
+    document.fonts.add(font);
+    document.body.classList.add('font-loaded');
+    document.body.classList.add('loaded');
+  }).catch(err => {
+    console.log('Font loading failed:', err);
+    document.body.classList.add('font-loaded');
+    document.body.classList.add('loaded');
+  });
+  
+  function setViewportHeight() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  
+  setViewportHeight();
+  window.addEventListener('resize', setViewportHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(setViewportHeight, 300);
+  });
+});
+</script>
+
+</body>
+</html>
