@@ -23,6 +23,16 @@
             --font-code: 'JetBrains Mono', monospace;
         }
 
+        /* Light mode variables */
+        body.light-mode {
+            --bg: #f5f5f5;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text: #1a1a1a;
+            --accent: #0066cc;
+            --accent-2: #cc9900;
+            --border: rgba(0, 0, 0, 0.15);
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -35,6 +45,7 @@
             font-family: var(--font-code);
             overflow-x: hidden;
             cursor: crosshair;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* --- POST PROCESSING & OVERLAYS --- */
@@ -51,12 +62,24 @@
             z-index: 10;
         }
 
+        body.light-mode .scanlines {
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0) 50%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    rgba(255, 255, 255, 0.1));
+        }
+
         .vignette {
             position: fixed;
             inset: 0;
             background: radial-gradient(circle, transparent 40%, #000 120%);
             z-index: 11;
             pointer-events: none;
+        }
+
+        body.light-mode .vignette {
+            background: radial-gradient(circle, transparent 40%, rgba(200, 200, 200, 0.3) 120%);
         }
 
         .noise {
@@ -74,6 +97,10 @@
             pointer-events: none;
         }
 
+        body.light-mode .noise {
+            opacity: 0.3;
+        }
+
         /* --- HUD --- */
         .hud {
             position: fixed;
@@ -89,6 +116,10 @@
             text-transform: uppercase;
         }
 
+        body.light-mode .hud {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
         .hud-top,
         .hud-bottom {
             display: flex;
@@ -100,12 +131,183 @@
             color: var(--accent-2);
         }
 
+        /* Menu button and theme toggle styling */
+        .menu-button,
+        .theme-toggle {
+            pointer-events: auto;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .menu-button,
+        body.light-mode .theme-toggle {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .menu-button:hover,
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
+            z-index: 100;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            pointer-events: auto;
+            padding: 2rem;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-mode .nav-menu {
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-menu-title {
+            font-size: 1.2rem;
+            color: var(--accent-2);
+            font-weight: 700;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+        }
+
+        .close-menu:hover {
+            color: var(--accent);
+        }
+
+        .nav-menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu-link {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-menu-link:hover {
+            border-left-color: var(--accent);
+            background: rgba(0, 153, 255, 0.1);
+            padding-left: 1.5rem;
+        }
+
+        body.light-mode .nav-menu-link:hover {
+            background: rgba(0, 102, 204, 0.15);
+        }
+
+        /* Menu overlay */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .hud-line {
             flex: 1;
             height: 1px;
             background: rgba(255, 255, 255, 0.2);
             margin: 0 1rem;
             position: relative;
+        }
+
+        body.light-mode .hud-line {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-mode .hud-line::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        /* Improved text contrast in light mode */
+        body.light-mode .iluztar-content p,
+        body.light-mode .iluztar-content li,
+        body.light-mode td,
+        body.light-mode .footer {
+            color: rgba(0, 0, 0, 0.85);
+        }
+
+        body.light-mode .scroll-indicator {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        body.light-mode th {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        /* Additional light mode fixes for better readability */
+        body.light-mode .card h3,
+        body.light-mode .section-header,
+        body.light-mode .card-id {
+            filter: brightness(0.7);
+        }
+
+        body.light-mode .quote-box,
+        body.light-mode .highlight-box,
+        body.light-mode .contact-info {
+            border-left-width: 3px;
+        }
+
+        body.light-mode strong {
+            font-weight: 800;
         }
 
         .hud-line::after {
@@ -116,6 +318,24 @@
             width: 5px;
             height: 5px;
             background: var(--accent);
+        }
+
+        /* Hide version text on mobile */
+        .center-nav {
+            position: absolute;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(180deg);
+            writing-mode: vertical-rl;
+            font-family: var(--font-code);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            z-index: 15;
+        }
+
+        body.light-mode .center-nav {
+            color: rgba(0, 0, 0, 0.5);
         }
 
         /* --- MAIN CONTENT CONTAINER --- */
@@ -146,6 +366,7 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
+            position: relative;
         }
 
         .hero-title {
@@ -158,6 +379,12 @@
             letter-spacing: -0.3rem;
             line-height: 0.9;
             mix-blend-mode: overlay;
+            font-family: var(--font-display);
+        }
+
+        body.light-mode .hero-title {
+            -webkit-text-stroke: 2px rgba(0, 0, 0, 0.25);
+            text-stroke: 2px rgba(0, 0, 0, 0.25);
         }
 
         .hero-subtitle {
@@ -252,13 +479,17 @@
         .card h2 {
             font-size: 2.5rem;
             line-height: 0.9;
-            margin: 0 0 1.5rem -2rem;
+            margin: 0 0 1.5rem 0;
             text-transform: uppercase;
             font-weight: 700;
+            font-family: var(--font-display);
             color: #fff;
-            mix-blend-mode: hard-light;
-            transform: scaleX(0.8);
             letter-spacing: 0.5rem;
+            transform: scaleX(0.8);
+        }
+
+        body.light-mode .card h2 {
+            color: #000;
         }
 
         .card-footer {
@@ -270,6 +501,10 @@
             justify-content: space-between;
         }
 
+        body.light-mode .card-footer {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
         .card-number {
             position: absolute;
             bottom: 2.5rem;
@@ -278,6 +513,10 @@
             opacity: 0.1;
             font-weight: 900;
             transform: scaleX(0.8);
+        }
+
+        body.light-mode .card-number {
+            opacity: 0.15;
         }
 
         /* --- BIG TEXT SECTIONS --- */
@@ -297,6 +536,12 @@
             line-height: 0.8;
             mix-blend-mode: overlay;
             transform: scaleX(0.8);
+            font-family: var(--font-display);
+        }
+
+        body.light-mode .big-text {
+            -webkit-text-stroke: 2px rgba(0, 0, 0, 0.25);
+            text-stroke: 2px rgba(0, 0, 0, 0.25);
         }
 
         /* --- SECTION HEADERS --- */
@@ -315,8 +560,9 @@
         }
 
         .section-header::before {
-            content: '>';
-            color: var(--accent);
+            content: '';
+            width: 0;
+            height: 0;
         }
 
         /* --- ILUZTAR CONTENT STYLES --- */
@@ -325,6 +571,10 @@
             line-height: 1.6;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .iluztar-content {
+            color: rgba(0, 0, 0, 0.85);
         }
 
         .iluztar-content h3 {
@@ -390,6 +640,10 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+        body.light-mode td {
+            color: rgba(0, 0, 0, 0.85);
+        }
+
         .color-palette {
             display: flex;
             gap: 1rem;
@@ -427,12 +681,21 @@
             border: 1px solid var(--border);
         }
 
+        body.light-mode .grid-item {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         pre {
             background: rgba(0, 0, 0, 0.5);
             padding: 1.5rem;
             overflow-x: auto;
             font-size: 0.8rem;
             border: 1px solid var(--border);
+        }
+
+        body.light-mode pre {
+            background: rgba(0, 0, 0, 0.08);
+            color: rgba(0, 0, 0, 0.85);
         }
 
         .contact-info {
@@ -505,6 +768,15 @@
                 inset: 1rem;
                 font-size: 8px;
             }
+            
+            .center-nav {
+                display: none !important;
+            }
+
+            .nav-menu {
+                width: 100%;
+                right: -100%;
+            }
         }
     </style>
 </head>
@@ -514,21 +786,49 @@
     <div class="vignette"></div>
     <div class="noise"></div>
 
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <div class="nav-menu-header">
+            <div class="nav-menu-title">NAVIGATION</div>
+            <button class="close-menu" id="closeMenu">&times;</button>
+        </div>
+        <ul class="nav-menu-list">
+            <li class="nav-menu-item"><a href="#identity" class="nav-menu-link">BRAND IDENTITY</a></li>
+            <li class="nav-menu-item"><a href="#values" class="nav-menu-link">CORE VALUES</a></li>
+            <li class="nav-menu-item"><a href="#services" class="nav-menu-link">STUDIO SERVICES</a></li>
+            <li class="nav-menu-item"><a href="#target" class="nav-menu-link">TARGET CLIENT</a></li>
+            <li class="nav-menu-item"><a href="#visual" class="nav-menu-link">VISUAL IDENTITY</a></li>
+            <li class="nav-menu-item"><a href="#style" class="nav-menu-link">VISUAL STYLE</a></li>
+            <li class="nav-menu-item"><a href="#positioning" class="nav-menu-link">POSITIONING</a></li>
+            <li class="nav-menu-item"><a href="#workflow" class="nav-menu-link">COLLABORATIVE WORKFLOW</a></li>
+            <li class="nav-menu-item"><a href="#copyright" class="nav-menu-link">COPYRIGHT POLICY</a></li>
+            <li class="nav-menu-item"><a href="#payment" class="nav-menu-link">PAYMENT TERMS</a></li>
+            <li class="nav-menu-item"><a href="#methods" class="nav-menu-link">PAYMENT METHODS</a></li>
+            <li class="nav-menu-item"><a href="#aesthetic" class="nav-menu-link">AESTHETIC SIGNATURE</a></li>
+            <li class="nav-menu-item"><a href="#philosophy" class="nav-menu-link">CREATIVE PHILOSOPHY</a></li>
+            <li class="nav-menu-item"><a href="#usp" class="nav-menu-link">UNIQUE SELLING POINTS</a></li>
+            <li class="nav-menu-item"><a href="#marketing" class="nav-menu-link">MARKETING MESSAGE</a></li>
+            <li class="nav-menu-item"><a href="#faq" class="nav-menu-link">FAQ</a></li>
+            <li class="nav-menu-item"><a href="#intake" class="nav-menu-link">PROJECT INTAKE FORM</a></li>
+            <li class="nav-menu-item"><a href="#agreement" class="nav-menu-link">COLLABORATION AGREEMENT</a></li>
+            <li class="nav-menu-item"><a href="#conclusion" class="nav-menu-link">CONCLUSION</a></li>
+        </ul>
+    </nav>
+
     <!-- HUD -->
     <div class="hud">
         <div class="hud-top">
             <span>I L U Z T A R</span>
             <div class="hud-line"></div>
-            <span>NAVIGATION <strong>[ MENU ]</strong></span>
-        </div>
-        <div class="center-nav"
-            style="align-self: flex-start; margin-top: auto; margin-bottom: auto; writing-mode: vertical-rl; transform: rotate(180deg);">
-            ILUZTAR STUDIO // <strong>VER 1.0.0</strong>
+            <span class="menu-button" id="menuButton">NAVIGATION <strong>[ MENU ]</strong></span>
         </div>
         <div class="hud-bottom">
-            <span>STATUS: <strong>ACTIVE</strong></span>
+            <span>STATUS: <strong id="systemStatus">ACTIVE</strong></span>
             <div class="hud-line"></div>
-            <span>DARK MODE <strong>[ SWITCH ]</strong></span>
+            <span class="theme-toggle" id="themeToggle"><span id="themeLabel">DARK</span> MODE <strong>[ SWITCH ]</strong></span>
         </div>
     </div>
 
@@ -542,6 +842,9 @@
         
         <!-- HERO SECTION -->
         <section class="hero">
+            <div class="center-nav">
+                ILUZTAR STUDIO // <strong>VER 1.0.0</strong>
+            </div>
             <h1 class="hero-title">ILUZTAR</h1>
             <div class="hero-subtitle">CREATIVE STUDIO // "SHINE THROUGH ART"</div>
         </section>
@@ -552,7 +855,7 @@
         </section>
 
         <!-- QUICK NAVIGATION SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">QUICK NAVIGATION</div>
             <div class="iluztar-content">
                 <h3>🎯 FOR WHOM THIS DOCUMENT IS FOR</h3>
@@ -612,7 +915,7 @@
         </section>
 
         <!-- BRAND IDENTITY SECTION -->
-        <section class="section">
+        <section class="section" id="identity">
             <div class="section-header">1. BRAND IDENTITY</div>
             <div class="iluztar-content">
                 <h3>NAME & MEANING</h3>
@@ -645,7 +948,7 @@
         </section>
 
         <!-- CORE VALUES SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">2. CORE VALUES</div>
             <div class="iluztar-content">
                 <ol>
@@ -658,7 +961,7 @@
         </section>
 
         <!-- SERVICES SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">3. STUDIO SERVICES</div>
             <div class="iluztar-content">
                 <h3>A. ANIME ILLUSTRATION</h3>
@@ -709,7 +1012,7 @@
         </section>
 
         <!-- TARGET CLIENTS SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">4. TARGET CLIENT & POSITIONING</div>
             <div class="iluztar-content">
                 <h3>A. OTHER ARTISTS WHO NEED HELP (PRIMARY TARGET)</h3>
@@ -762,7 +1065,7 @@
         </section>
 
         <!-- VISUAL IDENTITY SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">5. VISUAL IDENTITY</div>
             <div class="iluztar-content">
                 <h3>COLOR PALETTE</h3>
@@ -804,7 +1107,7 @@
         </section>
 
         <!-- VISUAL STYLE SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">6. VISUAL STYLE</div>
             <div class="iluztar-content">
                 <h3>MAIN CHARACTERISTICS</h3>
@@ -823,7 +1126,7 @@
         </section>
 
         <!-- POSITIONING SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">7. POSITIONING & BRAND PERSONALITY</div>
             <div class="iluztar-content">
                 <h3>ILUZTAR IS:</h3>
@@ -859,7 +1162,7 @@
         </section>
 
         <!-- COLLABORATIVE WORKFLOW SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">8. COLLABORATIVE WORKFLOW</div>
             <div class="iluztar-content">
                 <h3>STAGE FLEXIBILITY:</h3>
@@ -938,7 +1241,7 @@
         </section>
 
         <!-- COPYRIGHT SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">9. COPYRIGHT & CREDIT POLICY</div>
             <div class="iluztar-content">
                 <p><strong>Principle:</strong> Respect & Support</p>
@@ -981,7 +1284,7 @@
         </section>
 
         <!-- PAYMENT SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">10. PAYMENT & COLLABORATION TERMS</div>
             <div class="iluztar-content">
                 <h3>PAYMENT MODELS:</h3>
@@ -1127,7 +1430,7 @@
         </section>
 
         <!-- PAYMENT TERMS SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">11. PAYMENT TERMS & METHODS</div>
             <div class="iluztar-content">
                 <h3>STANDARD PAYMENT SCHEDULE:</h3>
@@ -1209,7 +1512,7 @@
         </section>
 
         <!-- AESTHETIC SIGNATURE SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">12. AESTHETIC SIGNATURE</div>
             <div class="iluztar-content">
                 <h3>VISUAL DNA OF ILUZTAR:</h3>
@@ -1243,7 +1546,7 @@
         </section>
 
         <!-- CREATIVE PHILOSOPHY SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">13. CREATIVE PHILOSOPHY</div>
             <div class="iluztar-content">
                 <h3>WORK PRINCIPLES:</h3>
@@ -1315,7 +1618,7 @@
         </section>
 
         <!-- UNIQUE SELLING POINTS SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">14. UNIQUE SELLING POINTS</div>
             <div class="iluztar-content">
                 <h3>FOR OTHER ARTISTS:</h3>
@@ -1345,7 +1648,7 @@
         </section>
 
         <!-- MARKETING MESSAGE SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">15. MARKETING MESSAGE</div>
             <div class="iluztar-content">
                 <h3>TAGLINE VARIATIONS:</h3>
@@ -1368,11 +1671,11 @@
         </section>
 
         <!-- CONTACT SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="contact-info">
                 <h3>📞 CONTACT & PLATFORMS</h3>
                 <p><strong>Handle:</strong> @ILUZTAR</p>
-                <p><strong>Email:</strong> iluztar.studio@gmail.com</p>
+                <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0861647d727c697a267b7c7d6c6167486f65696164266b6765">[email&#160;protected]</a></p>
                 <p><strong>Website:</strong> linktr.ee/iluztar</p>
                 <p><strong>Platforms:</strong> Instagram, Behance, ArtStation</p>
                 
@@ -1422,7 +1725,7 @@
         </section>
 
         <!-- FAQ SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">16. FREQUENTLY ASKED QUESTIONS</div>
             <div class="iluztar-content">
                 <h3>📋 General Questions</h3>
@@ -1595,7 +1898,7 @@
                     <p>If have questions not covered in this FAQ, feel free to reach out!</p>
                     <p><strong>Contact</strong>: <br>
                     • Instagram: @ILUZTAR<br>
-                    • Email: iluztar.studio@gmail.com<br>
+                    • Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a53564f404e5b4814494e4f5e53557a5d575b535614595557">[email&#160;protected]</a><br>
                     • Portfolio: Behance, ArtStation</p>
                     <p><em>"No question is too small. Better to ask and clear, than assume and miscommunicate. Let's make our collaboration smooth and successful! 🤝"</em></p>
                 </div>
@@ -1603,7 +1906,7 @@
         </section>
 
         <!-- PROJECT INTAKE SECTION -->
-        <section class="section">
+        <section class="section" id="section">
             <div class="section-header">17. PROJECT INTAKE FORM (TEMPLATE)</div>
             <div class="iluztar-content">
                 <h3>📝 For Artists Seeking Collaboration</h3>
@@ -1709,7 +2012,7 @@ How did you find ILUZTAR?
         </section>
 
         <!-- SAMPLE AGREEMENT SECTION -->
-        <section class="section">
+        <section class="section" id="agreement">
             <div class="section-header">18. SAMPLE COLLABORATION AGREEMENT</div>
             <div class="iluztar-content">
                 <h3>📄 Simple Collaboration Agreement Template</h3>
@@ -1854,7 +2157,7 @@ ILUZTAR Signature: _______________  Date: _______
         </section>
 
         <!-- CONCLUSION SECTION -->
-        <section class="section">
+        <section class="section" id="conclusion">
             <div class="section-header">19. CONCLUSION</div>
             <div class="iluztar-content">
                 <p><strong>ILUZTAR (イルズター)</strong> is a creative studio with two main missions:</p>
@@ -1916,15 +2219,25 @@ ILUZTAR Signature: _______________  Date: _______
     </div>
 
     <!-- JavaScript -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Simple script for HUD updates and scroll tracking
         document.addEventListener('DOMContentLoaded', function() {
-            // Update scroll position in HUD
+            // Update scroll position in HUD as percentage
             window.addEventListener('scroll', function() {
-                const scrollY = window.scrollY;
-                const scrollElement = document.querySelector('.hud-bottom span:first-child strong');
-                if (scrollElement) {
-                    scrollElement.textContent = `${scrollY.toFixed(0)}`;
+                const systemStatus = document.getElementById('systemStatus');
+                if (systemStatus) {
+                    // Calculate scroll percentage
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.scrollY;
+                    const maxScroll = documentHeight - windowHeight;
+                    const scrollPercentage = Math.round((scrollTop / maxScroll) * 100);
+                    
+                    if (scrollTop > 0) {
+                        systemStatus.textContent = `${scrollPercentage}%`;
+                    } else {
+                        systemStatus.textContent = 'ACTIVE';
+                    }
                 }
             });
 
@@ -1952,32 +2265,67 @@ ILUZTAR Signature: _______________  Date: _______
                     scrollIndicator.style.opacity = '1';
                 }
             });
+        });
 
-            // Update HUD status
-            const statusElement = document.querySelector('.hud-bottom span:first-child strong');
-            if (statusElement) {
-                // Simulate system status
-                const statuses = ['ACTIVE', 'STANDBY', 'PROCESSING', 'READY'];
-                let statusIndex = 0;
-                
-                setInterval(() => {
-                    statusElement.textContent = statuses[statusIndex];
-                    statusIndex = (statusIndex + 1) % statuses.length;
-                    
-                    // Add color change for visual feedback
-                    if (statusElement.textContent === 'ACTIVE') {
-                        statusElement.style.color = 'var(--accent-2)';
-                    } else if (statusElement.textContent === 'PROCESSING') {
-                        statusElement.style.color = 'var(--accent)';
-                    } else {
-                        statusElement.style.color = 'var(--accent-2)';
-                    }
-                }, 3000);
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLabel = document.getElementById('themeLabel');
+        const body = document.body;
+
+        // Check for saved theme preference or default to 'dark'
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeLabel.textContent = 'LIGHT';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeLabel.textContent = 'LIGHT';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeLabel.textContent = 'DARK';
+                localStorage.setItem('theme', 'dark');
             }
+        });
 
-            // Console log for cyberpunk effect
-            console.log('%cILUZTAR // CREATIVE STUDIO PROFILE', 'color: #ff003c; font-size: 24px; font-weight: bold;');
-            console.log('%cSYSTEM INITIALIZED: All profile modules loaded', 'color: #00f3ff;');
+        // Menu Toggle Functionality
+        const menuButton = document.getElementById('menuButton');
+        const navMenu = document.getElementById('navMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuLinks = document.querySelectorAll('.nav-menu-link');
+
+        function openMenu() {
+            navMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuButton.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFunc);
+        menuOverlay.addEventListener('click', closeMenuFunc);
+
+        // Close menu when clicking a link
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                closeMenuFunc();
+            });
+        });
+
+        // Close menu on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeMenuFunc();
+            }
         });
     </script>
 </body>
