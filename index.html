@@ -1,929 +1,1148 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ILUZTAR Creative Studio - Profil Lengkap</title>
+    <title>ILUZTAR // CREATIVE STUDIO PROFILE</title>
+    
+    <!-- External Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
     <style>
-        @media print {
-            @page {
-                size: A4;
-                margin: 1.5cm;
-            }
-            
-            .page-break {
-                page-break-before: always;
-                margin-top: 2rem;
-            }
-            
-            .no-print {
-                display: none !important;
-            }
-            
-            body {
-                font-size: 11pt;
-                line-height: 1.5;
-            }
-            
-            h1 { font-size: 24pt; }
-            h2 { font-size: 18pt; }
-            h3 { font-size: 14pt; }
-            
-            .highlight-box, .quote-box {
-                border: 1px solid #ddd;
-                padding: 12px;
-                margin: 15px 0;
-                background-color: #f9f9f9;
-            }
-            
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 15px 0;
-            }
-            
-            th, td {
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: left;
-            }
-            
-            th {
-                background-color: #f2f2f2;
-            }
+        :root {
+            --bg: #030303;
+            --card-bg: rgba(10, 10, 10, 0.4);
+            --text: #e0e0e0;
+            --accent: #0099ff;
+            --accent-2: #ffd000;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-display: 'Syncopate', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
         }
-        
-        @media screen {
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f5f5f5;
-                color: #333;
-            }
-            
-            .print-container {
-                background: white;
-                padding: 40px;
-                box-shadow: 0 0 20px rgba(0,0,0,0.1);
-                border-radius: 8px;
-            }
+
+        html {
+            scroll-behavior: smooth;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-code);
+            overflow-x: hidden;
+            cursor: crosshair;
         }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #F1C40F;
+
+        /* --- POST PROCESSING & OVERLAYS --- */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0) 50%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
         }
-        
-        .header h1 {
-            color: #1a1a1a;
-            font-size: 36px;
-            margin-bottom: 5px;
+
+        .vignette {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, transparent 40%, #000 120%);
+            z-index: 11;
+            pointer-events: none;
         }
-        
-        .japanese {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 10px;
+
+        .noise {
+            content: "";
+            inset: 0;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 12;
+            opacity: 0.9;
+            position: fixed;
+            background: transparent url("noise.png") repeat 0 0;
+            background-size: 300px 300px;
+            pointer-events: none;
         }
-        
-        .tagline {
-            font-size: 20px;
-            color: #F1C40F;
-            font-weight: bold;
-            font-style: italic;
+
+        /* --- HUD --- */
+        .hud {
+            position: fixed;
+            inset: 2rem;
+            z-index: 20;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: var(--font-code);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
         }
-        
+
+        .hud-top,
+        .hud-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hud strong {
+            color: var(--accent-2);
+        }
+
+        .hud-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .hud-line::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .content-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        /* --- SECTION STYLES --- */
         .section {
-            margin-bottom: 30px;
-            page-break-inside: avoid;
+            margin-bottom: 10rem;
+            position: relative;
         }
-        
-        .section-title {
-            color: #1a1a1a;
-            background-color: #f8f9fa;
-            padding: 10px 15px;
-            border-left: 4px solid #F1C40F;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            page-break-after: avoid;
+
+        .section:last-child {
+            margin-bottom: 0;
         }
-        
-        .subsection-title {
-            color: #333;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #eee;
-            page-break-after: avoid;
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
         }
-        
-        .content {
-            margin-left: 10px;
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: -0.3rem;
+            line-height: 0.9;
+            mix-blend-mode: overlay;
         }
-        
-        .content ul, .content ol {
-            padding-left: 20px;
-            margin: 10px 0;
+
+        .hero-subtitle {
+            font-family: var(--font-code);
+            font-size: 1.2rem;
+            color: var(--accent-2);
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
         }
-        
-        .content li {
-            margin-bottom: 5px;
+
+        /* --- GRID LAYOUT FOR CARDS --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
         }
-        
-        .highlight-box {
-            background-color: #fff9e6;
-            border-left: 4px solid #F1C40F;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 4px 4px 0;
+
+        /* --- CARDS & CONTENT --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 460px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        
+
+        /* Hover Effect for non-touch */
+        @media (hover: hover) {
+            .card:hover {
+                border-color: var(--accent);
+                box-shadow: 0 0 30px rgba(255, 166, 0, 0.2);
+                background: rgba(20, 20, 20, 0.8);
+                transform: translateY(-5px);
+            }
+        }
+
+        .card::before,
+        .card::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .card::before {
+            top: -1px;
+            left: -1px;
+            border-top-color: var(--text);
+            border-left-color: var(--text);
+        }
+
+        .card::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom-color: var(--text);
+            border-right-color: var(--text);
+        }
+
+        .card:hover::before,
+        .card:hover::after {
+            width: 100%;
+            height: 100%;
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-id {
+            font-family: var(--font-code);
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .card h2 {
+            font-size: 2.5rem;
+            line-height: 0.9;
+            margin: 0 0 1.5rem -2rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #fff;
+            mix-blend-mode: hard-light;
+            transform: scaleX(0.8);
+            letter-spacing: 0.5rem;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-number {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 1rem;
+            font-size: 4rem;
+            opacity: 0.1;
+            font-weight: 900;
+            transform: scaleX(0.8);
+        }
+
+        /* --- BIG TEXT SECTIONS --- */
+        .big-text-section {
+            margin: 8rem 0;
+            text-align: center;
+        }
+
+        .big-text {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 0.5rem;
+            line-height: 0.8;
+            mix-blend-mode: overlay;
+            transform: scaleX(0.8);
+        }
+
+        /* --- SECTION HEADERS --- */
+        .section-header {
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            color: var(--accent-2);
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header::before {
+            content: '>';
+            color: var(--accent);
+        }
+
+        /* --- ILUZTAR CONTENT STYLES --- */
+        .iluztar-content {
+            font-family: var(--font-code);
+            line-height: 1.6;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .iluztar-content h3 {
+            color: var(--accent-2);
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .iluztar-content h4 {
+            color: var(--accent);
+            font-size: 1rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .iluztar-content p {
+            margin: 1rem 0;
+        }
+
+        .iluztar-content ul, .iluztar-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .iluztar-content li {
+            margin: 0.5rem 0;
+        }
+
         .quote-box {
-            background-color: #f0f8ff;
-            border-left: 4px solid #4a90e2;
-            padding: 15px;
-            margin: 15px 0;
+            background: rgba(255, 208, 0, 0.05);
+            border-left: 2px solid var(--accent-2);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             font-style: italic;
-            border-radius: 0 4px 4px 0;
         }
-        
+
+        .highlight-box {
+            background: rgba(0, 153, 255, 0.05);
+            border-left: 2px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.8rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-2);
+            text-align: left;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         .color-palette {
             display: flex;
-            gap: 20px;
-            margin: 15px 0;
+            gap: 1rem;
+            margin: 1.5rem 0;
             flex-wrap: wrap;
         }
-        
+
         .color-swatch {
             text-align: center;
             min-width: 120px;
         }
-        
+
         .color-box {
             width: 100px;
             height: 60px;
-            margin: 0 auto 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            margin: 0 auto 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 2px;
         }
-        
+
         .black { background-color: #1a1a1a; }
-        .white { background-color: #ffffff; border: 1px solid #ddd; }
+        .white { background-color: #ffffff; border: 1px solid var(--border); }
         .gold { background-color: #F1C40F; }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        
-        td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        
-        .contact-info {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #F1C40F;
-        }
-        
-        .button {
-            background-color: #F1C40F;
-            color: #1a1a1a;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto;
-            font-weight: bold;
-        }
-        
-        .button:hover {
-            background-color: #e0b90f;
-        }
-        
-        .page-break {
-            page-break-before: always;
-            margin-top: 40px;
-        }
-        
-        code, pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            overflow-x: auto;
-        }
-        
-        .note {
-            background-color: #e8f4fd;
-            padding: 10px;
-            border-left: 4px solid #4a90e2;
-            margin: 10px 0;
-            font-size: 14px;
-        }
-        
-        .checklist {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .checklist li:before {
-            content: "□ ";
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .checklist li.done:before {
-            content: "✅ ";
-        }
-        
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
-        
+
         .grid-item {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 4px;
-            border: 1px solid #eee;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
         }
-        
-        .form-field {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #eee;
+
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
         }
-        
-        .form-field label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+
+        .contact-info {
+            background: rgba(255, 208, 0, 0.05);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 8rem;
+            border-top: 1px solid var(--border);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- SCROLL INDICATOR --- */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            pointer-events: none;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 4rem 1.5rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .big-text {
+                font-size: clamp(3rem, 12vw, 8rem);
+                letter-spacing: -0.3rem;
+            }
+            
+            .hud {
+                inset: 1rem;
+                font-size: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="print-container">
-        <div class="header">
-            <h1>ILUZTAR</h1>
-            <div class="japanese">イルズター (iruzutaa)</div>
-            <div class="tagline">"Shine Through Art"</div>
-        </div>
+    <!-- OVERLAYS -->
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    <div class="noise"></div>
 
-        <div class="section">
-            <h2 class="section-title">📑 QUICK NAVIGATION</h2>
-            <div class="content">
-                <h3 class="subsection-title">🎯 Untuk Siapa Dokumen Ini?</h3>
+    <!-- HUD -->
+    <div class="hud">
+        <div class="hud-top">
+            <span>I L U Z T A R</span>
+            <div class="hud-line"></div>
+            <span>NAVIGATION <strong>[ MENU ]</strong></span>
+        </div>
+        <div class="center-nav"
+            style="align-self: flex-start; margin-top: auto; margin-bottom: auto; writing-mode: vertical-rl; transform: rotate(180deg);">
+            ILUZTAR STUDIO // <strong>VER 1.0.0</strong>
+        </div>
+        <div class="hud-bottom">
+            <span>STATUS: <strong>ACTIVE</strong></span>
+            <div class="hud-line"></div>
+            <span>DARK MODE <strong>[ SWITCH ]</strong></span>
+        </div>
+    </div>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="scroll-indicator">
+        SCROLL
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-container">
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1 class="hero-title">ILUZTAR</h1>
+            <div class="hero-subtitle">CREATIVE STUDIO // "SHINE THROUGH ART"</div>
+        </section>
+
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">IDENTITY</h2>
+        </section>
+
+        <!-- QUICK NAVIGATION SECTION -->
+        <section class="section">
+            <div class="section-header">QUICK NAVIGATION</div>
+            <div class="iluztar-content">
+                <h3>🎯 FOR WHOM THIS DOCUMENT IS FOR</h3>
                 
                 <div class="grid">
                     <div class="grid-item">
-                        <h4>👥 Untuk Artist yang Butuh Kolaborasi:</h4>
+                        <h4>👥 FOR ARTISTS WHO NEED COLLABORATION:</h4>
                         <ol>
-                            <li>Section 1: Identitas Brand - Kenalan dulu</li>
-                            <li>Section 3: Layanan Studio - Apa yang bisa dibantu</li>
-                            <li>Section 7: Workflow Kolaboratif - Cara kerja sama</li>
-                            <li>Section 8: Copyright Policy - Hak cipta & kredit</li>
+                            <li>Section 1: Brand Identity - Get to know us</li>
+                            <li>Section 3: Studio Services - What we can help with</li>
+                            <li>Section 7: Collaborative Workflow - How we work together</li>
+                            <li>Section 8: Copyright Policy - Rights & credits</li>
                             <li>Section 9: Payment Terms - Pricing & payment</li>
-                            <li>Section 15: FAQ - Jawaban lengkap</li>
+                            <li>Section 15: FAQ - Complete answers</li>
                         </ol>
                     </div>
                     
                     <div class="grid-item">
-                        <h4>💼 Untuk Client Business/Individual:</h4>
+                        <h4>💼 FOR BUSINESS/INDIVIDUAL CLIENTS:</h4>
                         <ol>
-                            <li>Section 1: Identitas Brand - Kenalan ILUZTAR</li>
-                            <li>Section 3: Layanan Studio - Apa yang ditawarkan</li>
-                            <li>Section 4: Target Client - Cocok untuk siapa</li>
-                            <li>Section 9: Payment Terms - Harga & cara bayar</li>
-                            <li>Section 14: Kontak & Platform - Hubungi kami</li>
+                            <li>Section 1: Brand Identity - Get to know ILUZTAR</li>
+                            <li>Section 3: Studio Services - What we offer</li>
+                            <li>Section 4: Target Client - Who we're for</li>
+                            <li>Section 9: Payment Terms - Price & payment</li>
+                            <li>Section 14: Contact & Platform - Reach us</li>
                         </ol>
                     </div>
                     
                     <div class="grid-item">
-                        <h4>🎨 Ingin Tahu Lebih Dalam tentang ILUZTAR:</h4>
+                        <h4>🎨 WANT TO KNOW MORE ABOUT ILUZTAR:</h4>
                         <ol>
-                            <li>Section 1: Identitas Brand - Siapa & kenapa</li>
-                            <li>Section 2: Core Values - Prinsip kerja</li>
-                            <li>Section 5: Identitas Visual - Warna & simbol</li>
-                            <li>Section 6: Gaya Visual - Ciri khas karya</li>
-                            <li>Section 10: Aesthetic Signature - DNA visual</li>
-                            <li>Section 11: Filosofi Kreatif - Cara berpikir</li>
+                            <li>Section 1: Brand Identity - Who & why</li>
+                            <li>Section 2: Core Values - Work principles</li>
+                            <li>Section 5: Visual Identity - Colors & symbols</li>
+                            <li>Section 6: Visual Style - Artistic signature</li>
+                            <li>Section 10: Aesthetic Signature - Visual DNA</li>
+                            <li>Section 11: Creative Philosophy - How we think</li>
                         </ol>
                     </div>
                     
                     <div class="grid-item">
-                        <h4>📜 Professional & Legal Info:</h4>
+                        <h4>📜 PROFESSIONAL & LEGAL INFO:</h4>
                         <ol>
-                            <li>Section 8: Copyright & Credit Policy - Ownership & kredit</li>
-                            <li>Section 9: Payment & Collaboration Terms - Lengkap dengan contoh</li>
-                            <li>Section 15: FAQ - Pertanyaan umum</li>
-                            <li>Section 17: Sample Collaboration Agreement - Template kontrak</li>
+                            <li>Section 8: Copyright & Credit Policy - Ownership & credit</li>
+                            <li>Section 9: Payment & Collaboration Terms - Complete with examples</li>
+                            <li>Section 15: FAQ - Common questions</li>
+                            <li>Section 17: Sample Collaboration Agreement - Contract template</li>
                         </ol>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">BRAND</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">1. IDENTITAS BRAND</h2>
-            
-            <h3 class="subsection-title">Nama & Makna</h3>
-            <div class="content">
-                <p><strong>ILUZTAR</strong> merupakan gabungan dari tiga elemen bahasa:</p>
+        <!-- BRAND IDENTITY SECTION -->
+        <section class="section">
+            <div class="section-header">1. BRAND IDENTITY</div>
+            <div class="iluztar-content">
+                <h3>NAME & MEANING</h3>
+                <p><strong>ILUZTAR</strong> is a combination of three language elements:</p>
                 <ul>
-                    <li><strong>ILLU</strong> (dari "Illustration") = Seni ilustrasi</li>
-                    <li><strong>LUZ</strong> (Bahasa Spanyol/Portugis: "Cahaya/Light") = Cahaya yang menerangi</li>
-                    <li><strong>STAR</strong> (Bintang) = Bintang yang bersinar</li>
+                    <li><strong>ILLU</strong> (from "Illustration") = Illustration art</li>
+                    <li><strong>LUZ</strong> (Spanish/Portuguese: "Light") = Light that illuminates</li>
+                    <li><strong>STAR</strong> (Star) = Shining star</li>
                 </ul>
                 
-                <h4>Penyebutan</h4>
+                <h4>Pronunciation</h4>
                 <ul>
-                    <li><strong>Bahasa Indonesia</strong>: ILUZTAR (dilafalkan: i-luz-tar)</li>
-                    <li><strong>Bahasa Jepang</strong>: イルズター (iruzutaa)</li>
+                    <li><strong>Indonesian</strong>: ILUZTAR (pronounced: i-luz-tar)</li>
+                    <li><strong>Japanese</strong>: イルズター (iruzutaa)</li>
                 </ul>
                 
                 <h4>Tagline</h4>
                 <p><strong>"Shine Through Art"</strong><br>
                 (Bersinar Melalui Karya Seni)</p>
-            </div>
 
-            <h3 class="subsection-title">Filosofi Inti</h3>
-            <div class="quote-box">
-                <p>ILUZTAR percaya bahwa setiap karya seni adalah cara untuk bersinar. Seperti bintang di langit malam, ILUZTAR ingin ikut bercahaya bersama para seniman lainnya—bukan dengan mengklaim sebagai yang paling terang, tetapi sebagai bintang yang menemani dan memperindah konstelasi.</p>
-                <p>ILUZTAR tidak hanya membuat karya untuk diri sendiri, tetapi juga membantu artist lain dan klien bersinar—karena cahaya satu bintang tidak mengurangi cahaya bintang lainnya.</p>
-            </div>
+                <h3>CORE PHILOSOPHY</h3>
+                <div class="quote-box">
+                    <p>ILUZTAR believes that every artwork is a way to shine. Like stars in the night sky, ILUZTAR wants to shine together with other artists—not by claiming to be the brightest, but as a star that accompanies and beautifies the constellation.</p>
+                    <p>ILUZTAR doesn't just create works for itself, but also helps other artists and clients shine—because one star's light doesn't diminish another star's light.</p>
+                </div>
 
-            <h3 class="subsection-title">Origin Story</h3>
-            <div class="content">
-                <p>Perjalanan seni ILUZTAR dimulai dari hobi menggambar di kelas saat sekolah—dari doodle sederhana jadi passion serius. Meski sekolah di SMK Teknik Komputer Jaringan, kuliah Teknik Informatika, dan kerja sebagai admin di kantor, art tetap jadi tempat paling bebas untuk berekspresi. Sekarang fokus menekuni seni dengan serius.</p>
+                <h3>ORIGIN STORY</h3>
+                <p>ILUZTAR's art journey started from drawing as a hobby in class during school—from simple doodles to serious passion. Despite studying at a Computer Networking Vocational High School, majoring in Informatics Engineering in college, and working as an office admin, art remained the freest place for expression. Now focusing on pursuing art seriously.</p>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">2. NILAI-NILAI UTAMA (CORE VALUES)</h2>
-            <div class="content">
+        <!-- CORE VALUES SECTION -->
+        <section class="section">
+            <div class="section-header">2. CORE VALUES</div>
+            <div class="iluztar-content">
                 <ol>
-                    <li><strong>Quality</strong> – Serius dengan setiap karya</li>
-                    <li><strong>Collaboration</strong> – Membantu artist lain sukses</li>
-                    <li><strong>Honesty</strong> – Respect hak cipta dan ownership</li>
-                    <li><strong>Freedom</strong> – Berani berkarya tanpa terjebak perfeksionisme</li>
+                    <li><strong>Quality</strong> – Serious about every work</li>
+                    <li><strong>Collaboration</strong> – Helping other artists succeed</li>
+                    <li><strong>Honesty</strong> – Respect copyright and ownership</li>
+                    <li><strong>Freedom</strong> – Brave to create without perfectionism trap</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">3. LAYANAN STUDIO (SERVICES)</h2>
-            
-            <h3 class="subsection-title">A. Anime Illustration</h3>
-            <div class="content">
-                <p><strong>Yang Dikerjakan:</strong></p>
+        <!-- SERVICES SECTION -->
+        <section class="section">
+            <div class="section-header">3. STUDIO SERVICES</div>
+            <div class="iluztar-content">
+                <h3>A. ANIME ILLUSTRATION</h3>
+                <p><strong>What We Do:</strong></p>
                 <ul>
                     <li>Character design & illustration</li>
                     <li>Full workflow (sketch → lineart → coloring → finishing)</li>
-                    <li>Background (termasuk photobashing kalau diperlukan)</li>
+                    <li>Background (including photobashing if needed)</li>
                 </ul>
                 
-                <p><strong>Karakteristik:</strong> Warna yang nyaman dilihat dengan saturasi seimbang, finish yang punya karakter.</p>
+                <p><strong>Characteristics:</strong> Colors comfortable to look at with balanced saturation, finish that has character.</p>
                 
-                <p><strong>Spesialisasi Kolaborasi:</strong> Bisa bantu artist lain di berbagai tahapan - dari melanjutkan sketch, lineart, coloring, finishing, atau fokus ke background aja.</p>
+                <p><strong>Collaboration Specialization:</strong> Can help other artists at various stages - from continuing sketches, lineart, coloring, finishing, or focusing just on background.</p>
                 
                 <div class="highlight-box">
-                    <strong>Cocok untuk Artist yang:</strong>
+                    <strong>Suitable for Artists Who:</strong>
                     <ul>
-                        <li>Kebanyakan komisi, ga sempat selesaiin semua</li>
-                        <li>Butuh bantuan tahapan tertentu</li>
-                        <li>Artblock dan butuh second hand</li>
-                        <li>Mau fokus ke character, delegate background</li>
+                        <li>Have too many commissions, can't finish all</li>
+                        <li>Need help with specific stages</li>
+                        <li>Artblock and need second hand</li>
+                        <li>Want to focus on character, delegate background</li>
                     </ul>
                 </div>
-            </div>
 
-            <h3 class="subsection-title">B. Graphic Branding</h3>
-            <div class="content">
-                <p><strong>Yang Dikerjakan:</strong></p>
+                <h3>B. GRAPHIC BRANDING</h3>
+                <p><strong>What We Do:</strong></p>
                 <ul>
                     <li>Logo & brand identity</li>
                     <li>Poster & promotional materials</li>
                     <li>Typography & layout</li>
                 </ul>
-                <p><strong>Karakteristik:</strong> Bold, memorable, strategis untuk bisnis.</p>
-                <p><strong>Cocok untuk:</strong> Banner, poster, social media graphics, brand package.</p>
-            </div>
+                <p><strong>Characteristics:</strong> Bold, memorable, strategic for business.</p>
+                <p><strong>Suitable for:</strong> Banner, poster, social media graphics, brand package.</p>
 
-            <h3 class="subsection-title">C. Photo Manipulation</h3>
-            <div class="content">
-                <p><strong>Yang Dikerjakan:</strong></p>
+                <h3>C. PHOTO MANIPULATION</h3>
+                <p><strong>What We Do:</strong></p>
                 <ul>
                     <li>Photo editing & retouching</li>
                     <li>Composite imagery & color grading</li>
                     <li>Creative visual effects</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">CLIENTS</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">4. TARGET CLIENT & POSITIONING</h2>
-            
-            <h3 class="subsection-title">A. Artist Lain yang Butuh Bantuan (PRIMARY TARGET)</h3>
-            <div class="content">
-                <p>Artist yang:</p>
+        <!-- TARGET CLIENTS SECTION -->
+        <section class="section">
+            <div class="section-header">4. TARGET CLIENT & POSITIONING</div>
+            <div class="iluztar-content">
+                <h3>A. OTHER ARTISTS WHO NEED HELP (PRIMARY TARGET)</h3>
+                <p>Artists who:</p>
                 <ul>
-                    <li>Kebanyakan komisi, ga sempat selesaiin semua</li>
-                    <li>Butuh bantuan tahapan spesifik</li>
-                    <li>Artblock dan butuh second hand</li>
-                    <li>Mau fokus ke strength mereka, delegate sisanya</li>
-                    <li>Cari kolaborator yang bisa adapt dengan style mereka</li>
+                    <li>Have too many commissions, can't finish all</li>
+                    <li>Need help with specific stages</li>
+                    <li>Artblock and need second hand</li>
+                    <li>Want to focus on their strengths, delegate the rest</li>
+                    <li>Looking for collaborators who can adapt to their style</li>
                 </ul>
                 
                 <div class="highlight-box">
                     <strong>Value:</strong> "Too much commission? Artblock? We got you."
                     <ul>
-                        <li>Fleksibel masuk tahapan manapun</li>
-                        <li>Adaptif dengan style</li>
-                        <li>Reliable untuk deadline</li>
-                        <li>Hasil tetap sesuai visi kamu</li>
+                        <li>Flexible entry at any stage</li>
+                        <li>Adaptive to style</li>
+                        <li>Reliable for deadlines</li>
+                        <li>Results still match your vision</li>
                     </ul>
                 </div>
-            </div>
 
-            <h3 class="subsection-title">B. Klien Individu/Business</h3>
-            <div class="content">
+                <h3>B. INDIVIDUAL/BUSINESS CLIENTS</h3>
                 <ul>
-                    <li>Content creator yang butuh visual anime</li>
-                    <li>Brand yang butuh identitas visual kuat</li>
-                    <li>Yang appreciate desain bold dan punya karakter</li>
+                    <li>Content creators who need anime visuals</li>
+                    <li>Brands that need strong visual identity</li>
+                    <li>Those who appreciate bold design with character</li>
+                </ul>
+
+                <h3>C. GENERAL CHARACTERISTICS</h3>
+                <ul>
+                    <li>Appreciate skill and quality</li>
+                    <li>Brief/concept is already clear (for business)</li>
+                    <li>Open for collaboration</li>
+                    <li>Respect creative process</li>
+                </ul>
+
+                <h3>NOT FOR:</h3>
+                <ul>
+                    <li>Those looking for super polished and clean aesthetic</li>
+                    <li>Those who need many revisions without clear direction</li>
+                </ul>
+                
+                <h3>PRICING PHILOSOPHY:</h3>
+                <ul>
+                    <li><strong>Initial contact</strong>: Often offering help to other artists</li>
+                    <li><strong>Value-based</strong>: Value the skill and time invested</li>
                 </ul>
             </div>
+        </section>
 
-            <h3 class="subsection-title">C. Karakteristik Umum</h3>
-            <div class="content">
-                <ul>
-                    <li>Appreciate skill dan quality</li>
-                    <li>Brief/konsep udah jelas (untuk business)</li>
-                    <li>Open untuk kolaborasi</li>
-                    <li>Respect proses kreatif</li>
-                </ul>
-            </div>
-
-            <h3 class="subsection-title">Bukan Untuk:</h3>
-            <div class="content">
-                <ul>
-                    <li>Yang cari aesthetic super polished dan clean</li>
-                    <li>Yang butuh banyak revisi tanpa arah jelas</li>
-                </ul>
-            </div>
-            
-            <h3 class="subsection-title">Pricing Philosophy:</h3>
-            <div class="content">
-                <ul>
-                    <li><strong>Awal kontak</strong>: Sering nawarin bantuan ke artist lain</li>
-                    <li><strong>Value-based</strong>: Hargai skill dan waktu yang diinvest</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">5. IDENTITAS VISUAL</h2>
-            
-            <h3 class="subsection-title">Palet Warna</h3>
-            <div class="color-palette">
-                <div class="color-swatch">
-                    <div class="color-box black"></div>
-                    <strong>PRIMARY</strong><br>
-                    Hitam #1a1a1a
+        <!-- VISUAL IDENTITY SECTION -->
+        <section class="section">
+            <div class="section-header">5. VISUAL IDENTITY</div>
+            <div class="iluztar-content">
+                <h3>COLOR PALETTE</h3>
+                <div class="color-palette">
+                    <div class="color-swatch">
+                        <div class="color-box black"></div>
+                        <strong>PRIMARY</strong><br>
+                        Black #1a1a1a
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box white"></div>
+                        <strong>SECONDARY</strong><br>
+                        White #ffffff
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box gold"></div>
+                        <strong>ACCENT</strong><br>
+                        Gold Yellow #F1C40F
+                    </div>
                 </div>
-                <div class="color-swatch">
-                    <div class="color-box white"></div>
-                    <strong>SECONDARY</strong><br>
-                    Putih #ffffff
-                </div>
-                <div class="color-swatch">
-                    <div class="color-box gold"></div>
-                    <strong>ACCENT</strong><br>
-                    Kuning Emas #F1C40F
-                </div>
-            </div>
-            <div class="content">
-                <p><strong>Prinsip:</strong> Kontras seimbang, saturasi rendah untuk nyaman di mata.</p>
-            </div>
+                <p><strong>Principle:</strong> Balanced contrast, low saturation for eye comfort.</p>
 
-            <h3 class="subsection-title">Simbol & Ikonografi</h3>
-            <div class="content">
+                <h3>SYMBOLS & ICONOGRAPHY</h3>
                 <ul>
-                    <li><strong>Bintang</strong> – Identitas inti</li>
-                    <li><strong>Pena</strong> – Craft, kreativitas</li>
-                    <li><strong>Mata</strong> – Vision</li>
-                    <li><strong>Sinar Cahaya</strong> – Inspirasi</li>
-                    <li><strong>Bentuk Geometris</strong> – Struktur</li>
-                    <li><strong>Kamera/Lensa</strong> – Representasi teknik hybrid</li>
-                    <li><strong>Tangan yang Membantu</strong> – Simbol kolaborasi</li>
+                    <li><strong>Star</strong> – Core identity</li>
+                    <li><strong>Pen</strong> – Craft, creativity</li>
+                    <li><strong>Eye</strong> – Vision</li>
+                    <li><strong>Light Rays</strong> – Inspiration</li>
+                    <li><strong>Geometric Shapes</strong> – Structure</li>
+                    <li><strong>Camera/Lens</strong> – Hybrid technique representation</li>
+                    <li><strong>Helping Hand</strong> – Collaboration symbol</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">STYLE</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">6. GAYA VISUAL (VISUAL STYLE)</h2>
-            
-            <h3 class="subsection-title">Karakteristik Utama</h3>
-            <div class="content">
-                <p>ILUZTAR memiliki gaya yang <strong>bold dan berkarakter</strong> - tidak takut dengan tekstur, warna kontras, dan imperfeksi yang disengaja. Hasilnya adalah karya yang nyaman dilihat tapi tetap punya personality.</p>
-            </div>
+        <!-- VISUAL STYLE SECTION -->
+        <section class="section">
+            <div class="section-header">6. VISUAL STYLE</div>
+            <div class="iluztar-content">
+                <h3>MAIN CHARACTERISTICS</h3>
+                <p>ILUZTAR has a style that is <strong>bold and characteristic</strong> - not afraid of texture, contrasting colors, and intentional imperfections. The result is work that's comfortable to look at but still has personality.</p>
 
-            <h3 class="subsection-title">Tekstur & Finishing</h3>
-            <div class="content">
+                <h3>TEXTURE & FINISHING</h3>
                 <p><strong>Approach:</strong></p>
                 <ul>
-                    <li>Layer tekstur untuk depth (noise, grunge, paper)</li>
-                    <li>Visible brushwork - tidak over-polish</li>
+                    <li>Texture layers for depth (noise, grunge, paper)</li>
+                    <li>Visible brushwork - not over-polished</li>
                     <li>"Done is better than perfect"</li>
                 </ul>
                 
-                <p><strong>Why:</strong> Tekstur dan roughness adalah cara ILUZTAR untuk tidak terjebak perfeksionisme. Karya yang "selesai dengan karakter" lebih baik daripada "sempurna tapi never finished".</p>
+                <p><strong>Why:</strong> Texture and roughness are ILUZTAR's way of avoiding perfectionism traps. Work that's "finished with character" is better than "perfect but never finished".</p>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">7. POSITIONING & BRAND PERSONALITY</h2>
-            
-            <h3 class="subsection-title">ILUZTAR Adalah:</h3>
-            <div class="content">
+        <!-- POSITIONING SECTION -->
+        <section class="section">
+            <div class="section-header">7. POSITIONING & BRAND PERSONALITY</div>
+            <div class="iluztar-content">
+                <h3>ILUZTAR IS:</h3>
                 <ul>
-                    <li>Studio kreatif dengan gaya visual yang berkarakter</li>
-                    <li><strong>Support system untuk artist lain yang overwhelmed</strong></li>
-                    <li><strong>Collaborative partner yang reliable</strong></li>
-                    <li>Profesional tapi tetap punya edge</li>
-                    <li><strong>"We got you" mentality - siap bantu artist yang stuck</strong></li>
-                    <li><strong>Respectful terhadap hak cipta dan ownership</strong></li>
+                    <li>A creative studio with characteristic visual style</li>
+                    <li><strong>Support system for other artists who are overwhelmed</strong></li>
+                    <li><strong>Collaborative partner that's reliable</strong></li>
+                    <li>Professional but still has edge</li>
+                    <li><strong>"We got you" mentality - ready to help stuck artists</strong></li>
+                    <li><strong>Respectful of copyright and ownership</strong></li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">ILUZTAR Bukan:</h3>
-            <div class="content">
+                <h3>ILUZTAR IS NOT:</h3>
                 <ul>
-                    <li>Kompetitor untuk artist lain (justru partner)</li>
-                    <li>Yang mengklaim karya kolaborasi sebagai milik sendiri</li>
+                    <li>A competitor to other artists (rather a partner)</li>
+                    <li>One who claims collaborative work as their own</li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Keunikan:</h3>
-            <div class="content">
+                <h3>UNIQUENESS:</h3>
                 <ol>
-                    <li><strong>Gaya yang Berkarakter</strong> – Tekstur visible, tidak over-polish</li>
-                    <li><strong>Pewarnaan Nyaman</strong> – Saturasi seimbang, enak dilihat</li>
-                    <li><strong>Fleksibel Kolaboratif</strong> – Bisa masuk di berbagai tahap, adaptif dengan style</li>
-                    <li><strong>Artist Support</strong> – Membantu mengatasi workload dan artblock</li>
-                    <li><strong>Professional Ethics</strong> – Clear boundaries soal ownership dan credit</li>
+                    <li><strong>Characteristic Style</strong> – Visible texture, not over-polished</li>
+                    <li><strong>Comfortable Coloring</strong> – Balanced saturation, pleasant to look at</li>
+                    <li><strong>Flexible Collaboration</strong> – Can enter at various stages, adaptive to style</li>
+                    <li><strong>Artist Support</strong> – Helps overcome workload and artblock</li>
+                    <li><strong>Professional Ethics</strong> – Clear boundaries about ownership and credit</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">WORKFLOW</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">8. WORKFLOW KOLABORATIF</h2>
-            
-            <h3 class="subsection-title">Fleksibilitas Tahapan:</h3>
-            
-            <div class="content">
-                <p><strong>Sebagai Lead Artist:</strong> Dari konsep hingga final artwork</p>
+        <!-- COLLABORATIVE WORKFLOW SECTION -->
+        <section class="section">
+            <div class="section-header">8. COLLABORATIVE WORKFLOW</div>
+            <div class="iluztar-content">
+                <h3>STAGE FLEXIBILITY:</h3>
                 
-                <p><strong>Sebagai Kolaborator (SPESIALISASI):</strong><br>
-                Bisa masuk di tahapan manapun:</p>
+                <p><strong>As Lead Artist:</strong> From concept to final artwork</p>
+                
+                <p><strong>As Collaborator (SPECIALIZATION):</strong><br>
+                Can enter at any stage:</p>
                 <ul>
-                    <li><strong>Sketch continuation</strong> – Lanjutin sketsa yang udah ada</li>
-                    <li><strong>Lineart</strong> – Dari sketch ke lineart</li>
-                    <li><strong>Coloring</strong> – Pewarnaan dari lineart</li>
-                    <li><strong>Finishing</strong> – Polish dan detail akhir</li>
-                    <li><strong>Background</strong> – Fokus background (photobashing kalau perlu)</li>
-                    <li><strong>Mix & match</strong> – Kombinasi sesuai kebutuhan</li>
+                    <li><strong>Sketch continuation</strong> – Continue existing sketch</li>
+                    <li><strong>Lineart</strong> – From sketch to lineart</li>
+                    <li><strong>Coloring</strong> – Coloring from lineart</li>
+                    <li><strong>Finishing</strong> – Polish and final details</li>
+                    <li><strong>Background</strong> – Focus on background (photobashing if needed)</li>
+                    <li><strong>Mix & match</strong> – Combination as needed</li>
                 </ul>
                 
-                <p><strong>Note:</strong> Photobashing adalah teknik yang dipake kalau emang cocok untuk hasil terbaik, bukan service terpisah.</p>
-            </div>
+                <p><strong>Note:</strong> Photobashing is a technique used when it's suitable for best results, not a separate service.</p>
 
-            <h3 class="subsection-title">Real Workflow Examples:</h3>
-            
-            <div class="highlight-box">
-                <p><strong>Scenario 1 - Artist Overload:</strong></p>
-                <p>Artist punya 10 komisi, cuma sempat bikin sketch<br>
-                → ILUZTAR ambil alih: lineart + coloring + finishing<br>
-                → Artist tetap final say<br>
-                → Client dapat hasil tepat waktu</p>
-            </div>
+                <h3>REAL WORKFLOW EXAMPLES:</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>Scenario 1 - Artist Overload:</strong></p>
+                    <p>Artist has 10 commissions, only has time for sketches<br>
+                    → ILUZTAR takes over: lineart + coloring + finishing<br>
+                    → Artist remains final say<br>
+                    → Client gets results on time</p>
+                </div>
 
-            <div class="highlight-box">
-                <p><strong>Scenario 2 - Artblock:</strong></p>
-                <p>Artist stuck di coloring, kehilangan momentum<br>
-                → ILUZTAR lanjutin sesuai style<br>
-                → Artist bisa fokus ke project lain atau istirahat<br>
-                → Karya tetap selesai</p>
-            </div>
+                <div class="highlight-box">
+                    <p><strong>Scenario 2 - Artblock:</strong></p>
+                    <p>Artist stuck at coloring, losing momentum<br>
+                    → ILUZTAR continues according to style<br>
+                    → Artist can focus on other projects or rest<br>
+                    → Work still gets finished</p>
+                </div>
 
-            <div class="highlight-box">
-                <p><strong>Scenario 3 - Specialization Split:</strong></p>
-                <p>Artist jago character tapi butuh background kompleks<br>
-                → Artist fokus character<br>
-                → ILUZTAR handle background<br>
-                → Hasil: karya yang balance</p>
-            </div>
+                <div class="highlight-box">
+                    <p><strong>Scenario 3 - Specialization Split:</strong></p>
+                    <p>Artist good at character but needs complex background<br>
+                    → Artist focuses on character<br>
+                    → ILUZTAR handles background<br>
+                    → Result: balanced work</p>
+                </div>
 
-            <h3 class="subsection-title">Workflow Photobashing:</h3>
-            <div class="content">
-                <p><strong>Catatan:</strong> Ini teknik pendukung yang dipake kalau emang perlu untuk background kompleks.</p>
+                <h3>PHOTOBASHING WORKFLOW:</h3>
+                <p><strong>Note:</strong> This is a supporting technique used when needed for complex backgrounds.</p>
                 
                 <p><strong>Process:</strong></p>
                 <ol>
-                    <li>Kumpulin foto referensi</li>
-                    <li>Planning komposisi</li>
-                    <li>Manipulasi & gabungin elemen foto</li>
-                    <li>Paint over untuk nyatuin</li>
-                    <li>Color matching dengan character</li>
-                    <li>Tambahin tekstur signature</li>
+                    <li>Gather photo references</li>
+                    <li>Planning composition</li>
+                    <li>Manipulate & combine photo elements</li>
+                    <li>Paint over to blend</li>
+                    <li>Color matching with character</li>
+                    <li>Add signature texture</li>
                 </ol>
                 
-                <p><strong>Keunggulan:</strong><br>
-                Efisien untuk detail kompleks, tetap artistik, fleksibel antara foto dan painting.</p>
-            </div>
+                <p><strong>Advantages:</strong><br>
+                Efficient for complex details, still artistic, flexible between photo and painting.</p>
 
-            <h3 class="subsection-title">Communication Style:</h3>
-            <div class="content">
+                <h3>COMMUNICATION STYLE:</h3>
                 <ul>
                     <li><strong>"We got you"</strong> approach</li>
-                    <li>Clear communication tentang progress</li>
-                    <li>Flexible dengan revisi yang reasonable</li>
-                    <li>Respect vision original artist</li>
-                    <li>Transparent tentang timeline</li>
+                    <li>Clear communication about progress</li>
+                    <li>Flexible with reasonable revisions</li>
+                    <li>Respect original artist vision</li>
+                    <li>Transparent about timeline</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">POLICY</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">9. COPYRIGHT & CREDIT POLICY</h2>
-            
-            <div class="content">
-                <p><strong>Prinsip:</strong> Respect & Support</p>
+        <!-- COPYRIGHT SECTION -->
+        <section class="section">
+            <div class="section-header">9. COPYRIGHT & CREDIT POLICY</div>
+            <div class="iluztar-content">
+                <p><strong>Principle:</strong> Respect & Support</p>
                 
-                <h3 class="subsection-title">Untuk Collaborative Works:</h3>
+                <h3>FOR COLLABORATIVE WORKS:</h3>
                 <ul>
-                    <li><strong>ILUZTAR TIDAK claim karya kolaborasi sebagai karya sendiri</strong></li>
-                    <li>Posisi sebagai <strong>partner</strong> atau <strong>assistant</strong></li>
-                    <li>Credit sesuai kesepakatan:
+                    <li><strong>ILUZTAR DOES NOT claim collaborative work as their own</strong></li>
+                    <li>Position as <strong>partner</strong> or <strong>assistant</strong></li>
+                    <li>Credit according to agreement:
                         <ul>
                             <li>"Art by [Artist Name], assisted by ILUZTAR"</li>
                             <li>"Character by [Artist Name], Background by ILUZTAR"</li>
-                            <li>Atau sesuai preferensi artist</li>
+                            <li>Or according to artist preference</li>
                         </ul>
                     </li>
                 </ul>
 
-                <h3 class="subsection-title">Hak Cipta:</h3>
+                <h3>COPYRIGHT:</h3>
                 <ul>
-                    <li><strong>Ownership tetap pada original artist</strong></li>
-                    <li>ILUZTAR bantu eksekusi, bukan pemilik konsep</li>
-                    <li>Original artist yang final say</li>
-                    <li>Original artist yang berhak publish dan monetize</li>
-                    <li>ILUZTAR showcase di portfolio <strong>hanya dengan izin</strong></li>
+                    <li><strong>Ownership remains with original artist</strong></li>
+                    <li>ILUZTAR helps execution, not concept owner</li>
+                    <li>Original artist has final say</li>
+                    <li>Original artist has right to publish and monetize</li>
+                    <li>ILUZTAR showcases in portfolio <strong>only with permission</strong></li>
                 </ul>
 
-                <h3 class="subsection-title">Portfolio & Showcase:</h3>
+                <h3>PORTFOLIO & SHOWCASE:</h3>
                 <ul>
-                    <li><strong>Selalu minta izin</strong> sebelum posting</li>
-                    <li>Selalu credit dengan jelas</li>
-                    <li>Jelasin bagian mana yang dikerjakan ILUZTAR</li>
-                    <li>Respect NDA kalau ada</li>
+                    <li><strong>Always ask permission</strong> before posting</li>
+                    <li>Always credit clearly</li>
+                    <li>Explain which parts ILUZTAR worked on</li>
+                    <li>Respect NDA if any</li>
                 </ul>
 
                 <div class="quote-box">
                     <strong>Why This Matters:</strong>
-                    <p>"ILUZTAR ada untuk bantu artist lain bersinar, bukan ngambil spotlight mereka. Kalau kolaborasi, tujuannya buat karya kamu lebih baik dan selesai tepat waktu - bukan buat aku claim. Your vision, your credit. I'm just here to help."</p>
+                    <p>"ILUZTAR exists to help other artists shine, not take their spotlight. If collaborating, the goal is to make your work better and finished on time - not for me to claim. Your vision, your credit. I'm just here to help."</p>
                 </div>
-
-                <p><strong>Kelebihan:</strong></p>
-                <ul>
-                    <li>Respect visi artist lain</li>
-                    <li>Adaptif dengan berbagai style</li>
-                    <li>Quality konsisten</li>
-                    <li>Komunikasi jelas</li>
-                    <li>Fleksibel dalam peran</li>
-                    <li>Kuasai berbagai teknik</li>
-                    <li>Reliable untuk deadline</li>
-                    <li>Ngerti struggle artist (pernah alami)</li>
-                    <li><strong>Professional ethics & clear boundaries</strong></li>
-                </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- PAYMENT SECTION -->
+        <section class="section">
+            <div class="section-header">10. PAYMENT & COLLABORATION TERMS</div>
+            <div class="iluztar-content">
+                <h3>PAYMENT MODELS:</h3>
+                <p>ILUZTAR offers <strong>two flexible payment models:</strong></p>
 
-        <div class="section">
-            <h2 class="section-title">10. PAYMENT & COLLABORATION TERMS</h2>
-            
-            <h3 class="subsection-title">Payment Models:</h3>
-            <div class="content">
-                <p>ILUZTAR offer <strong>dua model pembayaran yang fleksibel:</strong></p>
-            </div>
+                <h3>MODEL 1: FIXED RATE per Stage (Recommended)</h3>
+                
+                <table>
+                    <tr>
+                        <th>Service</th>
+                        <th>Price Range (IDR)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Lineart Only</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>• Bust up</td>
+                        <td>Rp 75.000 - Rp 125.000</td>
+                    </tr>
+                    <tr>
+                        <td>• Half body</td>
+                        <td>Rp 125.000 - Rp 200.000</td>
+                    </tr>
+                    <tr>
+                        <td>• Full body</td>
+                        <td>Rp 200.000 - Rp 300.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Coloring Only</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>• Bust up</td>
+                        <td>Rp 100.000 - Rp 150.000</td>
+                    </tr>
+                    <tr>
+                        <td>• Half body</td>
+                        <td>Rp 150.000 - Rp 250.000</td>
+                    </tr>
+                    <tr>
+                        <td>• Full body</td>
+                        <td>Rp 250.000 - Rp 400.000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Background</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>• Simple</td>
+                        <td>Rp 150.000 - Rp 250.000</td>
+                    </tr>
+                    <tr>
+                        <td>• Complex</td>
+                        <td>Rp 250.000 - Rp 500.000+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Collaboration</strong></td>
+                        <td>Custom quote</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rush Fee</strong></td>
+                        <td>+30-50%</td>
+                    </tr>
+                </table>
 
-            <h3 class="subsection-title">MODEL 1: FIXED RATE per Tahapan (Recommended)</h3>
-            
-            <table>
-                <tr>
-                    <th>Service</th>
-                    <th>Price Range (IDR)</th>
-                </tr>
-                <tr>
-                    <td><strong>Lineart Only</strong></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>• Bust up</td>
-                    <td>Rp 75.000 - Rp 125.000</td>
-                </tr>
-                <tr>
-                    <td>• Half body</td>
-                    <td>Rp 125.000 - Rp 200.000</td>
-                </tr>
-                <tr>
-                    <td>• Full body</td>
-                    <td>Rp 200.000 - Rp 300.000</td>
-                </tr>
-                <tr>
-                    <td><strong>Coloring Only</strong></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>• Bust up</td>
-                    <td>Rp 100.000 - Rp 150.000</td>
-                </tr>
-                <tr>
-                    <td>• Half body</td>
-                    <td>Rp 150.000 - Rp 250.000</td>
-                </tr>
-                <tr>
-                    <td>• Full body</td>
-                    <td>Rp 250.000 - Rp 400.000</td>
-                </tr>
-                <tr>
-                    <td><strong>Background</strong></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>• Simple</td>
-                    <td>Rp 150.000 - Rp 250.000</td>
-                </tr>
-                <tr>
-                    <td>• Complex</td>
-                    <td>Rp 250.000 - Rp 500.000+</td>
-                </tr>
-                <tr>
-                    <td><strong>Full Collaboration</strong></td>
-                    <td>Custom quote</td>
-                </tr>
-                <tr>
-                    <td><strong>Rush Fee</strong></td>
-                    <td>+30-50%</td>
-                </tr>
-            </table>
-
-            <div class="content">
-                <p><strong>Kelebihan Model Ini:</strong></p>
+                <p><strong>Advantages of This Model:</strong></p>
                 <ul>
-                    <li>Konsisten dan predictable</li>
-                    <li>Artist bebas markup ke client</li>
-                    <li>Ga perlu transparansi fee client</li>
-                    <li>Professional dan sustainable</li>
+                    <li>Consistent and predictable</li>
+                    <li>Artist free to markup to client</li>
+                    <li>No need for client fee transparency</li>
+                    <li>Professional and sustainable</li>
                 </ul>
-                <p><strong>Best untuk:</strong> Artist dengan client sendiri, project one-time</p>
+                <p><strong>Best for:</strong> Artist with own clients, one-time projects</p>
                 
                 <h4>Pricing Tiers Guidance:</h4>
                 <div class="grid">
                     <div class="grid-item">
                         <strong>🌱 ENTRY TIER (Simple/Basic)</strong><br>
-                        Untuk: Flat colors, simple shading, clean line<br>
+                        For: Flat colors, simple shading, clean line<br>
                         Range: Lower end of pricing<br>
-                        Cocok: Student projects, portfolio pieces
+                        Suitable: Student projects, portfolio pieces
                     </div>
                     <div class="grid-item">
                         <strong>🌿 STANDARD TIER (Medium Complexity)</strong><br>
-                        Untuk: Full shading, moderate detail, some effects<br>
+                        For: Full shading, moderate detail, some effects<br>
                         Range: Mid range pricing<br>
-                        Cocok: Most commission work
+                        Suitable: Most commission work
                     </div>
                     <div class="grid-item">
                         <strong>🌳 PREMIUM TIER (Complex/Detailed)</strong><br>
-                        Untuk: High detail, complex lighting, heavy effects<br>
+                        For: High detail, complex lighting, heavy effects<br>
                         Range: Upper end of pricing<br>
-                        Cocok: Commercial work, showcase pieces
+                        Suitable: Commercial work, showcase pieces
                     </div>
                 </div>
-            </div>
 
-            <h3 class="subsection-title">MODEL 2: REVENUE SPLIT / Percentage</h3>
-            <div class="content">
+                <h3>MODEL 2: REVENUE SPLIT / Percentage</h3>
                 <ul>
                     <li><strong>30-40%</strong> - Background only / Specific task</li>
                     <li><strong>40-50%</strong> - Coloring + Finishing</li>
                     <li><strong>50-60%</strong> - Lineart + Coloring + Finishing</li>
-                    <li><strong>60-70%</strong> - Almost full work (artist hanya sketch/concept)</li>
+                    <li><strong>60-70%</strong> - Almost full work (artist only sketch/concept)</li>
                 </ul>
                 
-                <p><strong>Kelebihan Model Ini:</strong></p>
+                <p><strong>Advantages of This Model:</strong></p>
                 <ul>
-                    <li>Fair proporsional dengan nilai project</li>
-                    <li>Flexible untuk project besar atau kecil</li>
-                    <li>Sama-sama benefit dari high-value project</li>
+                    <li>Fair proportional to project value</li>
+                    <li>Flexible for large or small projects</li>
+                    <li>Both benefit from high-value projects</li>
                 </ul>
-                <p><strong>Best untuk:</strong> Long-term collaboration, project besar</p>
-            </div>
-            
-            <h3 class="subsection-title">Sample Scenarios:</h3>
-            <div class="content">
+                <p><strong>Best for:</strong> Long-term collaboration, large projects</p>
+                
+                <h3>SAMPLE SCENARIOS:</h3>
                 <div class="grid">
                     <div class="grid-item">
                         <strong>Scenario A: Artist Overload - Full Support</strong><br>
-                        Artist dapat komisi dari client: Rp 600.000<br>
-                        Artist cuma sempat sketch<br>
-                        ILUZTAR handle: Lineart + Color + Finish<br><br>
+                        Artist gets commission from client: Rp 600.000<br>
+                        Artist only has time for sketch<br>
+                        ILUZTAR handles: Lineart + Color + Finish<br><br>
                         • Fixed Rate: Rp 400.000<br>
                         • Revenue Split: 60% = Rp 360.000<br>
                         • Negotiated: Rp 375.000 flat rate
                     </div>
                     <div class="grid-item">
                         <strong>Scenario B: Background Specialist</strong><br>
-                        Artist dapat komisi dari client: Rp 900.000<br>
-                        Artist handle character<br>
-                        ILUZTAR handle: Complex background<br><br>
+                        Artist gets commission from client: Rp 900.000<br>
+                        Artist handles character<br>
+                        ILUZTAR handles: Complex background<br><br>
                         • Fixed Rate: Rp 300.000 - Rp 400.000<br>
                         • Revenue Split: 40% = Rp 360.000
                     </div>
                     <div class="grid-item">
                         <strong>Scenario C: Artblock Support</strong><br>
-                        Artist stuck di coloring phase<br>
+                        Artist stuck at coloring phase<br>
                         Original fee: Rp 450.000<br>
-                        ILUZTAR handle: Coloring + Finishing<br><br>
+                        ILUZTAR handles: Coloring + Finishing<br><br>
                         • Fixed Rate: Rp 250.000 - Rp 300.000<br>
                         • Revenue Split: 50% = Rp 225.000
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">11. PAYMENT TERMS & METHODS</h2>
-            
-            <h3 class="subsection-title">Standard Payment Schedule:</h3>
-            <div class="content">
+        <!-- PAYMENT TERMS SECTION -->
+        <section class="section">
+            <div class="section-header">11. PAYMENT TERMS & METHODS</div>
+            <div class="iluztar-content">
+                <h3>STANDARD PAYMENT SCHEDULE:</h3>
                 <ol>
-                    <li><strong>50% Upfront Deposit</strong> - Saat mulai kerja</li>
-                    <li><strong>50% Upon Completion</strong> - Sebelum kirim final files</li>
+                    <li><strong>50% Upfront Deposit</strong> - When work begins</li>
+                    <li><strong>50% Upon Completion</strong> - Before sending final files</li>
                 </ol>
                 <p><strong>For Trusted Partners:</strong></p>
                 <ul>
-                    <li>Full upfront (untuk artist yang sering kolaborasi)</li>
-                    <li>Net 7 payment (untuk studio/agency)</li>
+                    <li>Full upfront (for frequent collaborators)</li>
+                    <li>Net 7 payment (for studio/agency)</li>
                 </ul>
-                <p><strong>Preferred Payment Method:</strong> E-Wallet (GoPay/OVO/Dana/ShopeePay) untuk instant ⚡</p>
-            </div>
+                <p><strong>Preferred Payment Method:</strong> E-Wallet (GoPay/OVO/Dana/ShopeePay) for instant ⚡</p>
 
-            <h3 class="subsection-title">Payment Methods:</h3>
-            <div class="content">
+                <h3>PAYMENT METHODS:</h3>
                 <p><strong>Domestic (Indonesia):</strong></p>
                 <ul>
                     <li><strong>Primary:</strong> E-Wallet - GoPay, OVO, Dana, ShopeePay ⚡ (Instant)</li>
@@ -943,426 +1162,403 @@
                     <li><strong>USD</strong> for international clients (converted at current rate)</li>
                 </ul>
                 
-                <p><strong>Note:</strong> E-Wallet preferred untuk faster processing. Bank transfer available tapi might delay.</p>
+                <p><strong>Note:</strong> E-Wallet preferred for faster processing. Bank transfer available but might delay.</p>
                 
                 <p><strong>Invoice:</strong> Provided for all transactions (for professional accounting)</p>
-            </div>
 
-            <h3 class="subsection-title">Revision Policy:</h3>
-            <div class="content">
+                <h3>REVISION POLICY:</h3>
                 <p><strong>Included:</strong></p>
                 <ul>
                     <li>2-3 minor revisions (color adjustments, small fixes)</li>
-                    <li>Progress check-ins di milestone</li>
+                    <li>Progress check-ins at milestones</li>
                 </ul>
                 
                 <p><strong>Additional:</strong></p>
                 <ul>
-                    <li>Major changes setelah approval: +20-30% fee</li>
+                    <li>Major changes after approval: +20-30% fee</li>
                     <li>Scope changes: Requote</li>
-                    <li>Changes setelah final delivery: New project rate</li>
+                    <li>Changes after final delivery: New project rate</li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Special Considerations:</h3>
-            <div class="content">
+                <h3>SPECIAL CONSIDERATIONS:</h3>
                 <ul>
                     <li><strong>Student discount:</strong> 10-15% off</li>
                     <li><strong>First collaboration:</strong> 10% off</li>
-                    <li><strong>Bulk projects:</strong> 10-15% off untuk 5+ pieces</li>
-                    <li><strong>Portfolio building:</strong> Possible reduced rates untuk mutual benefit</li>
-                    <li><strong>Barter/Trade:</strong> Open untuk skill exchange</li>
+                    <li><strong>Bulk projects:</strong> 10-15% off for 5+ pieces</li>
+                    <li><strong>Portfolio building:</strong> Possible reduced rates for mutual benefit</li>
+                    <li><strong>Barter/Trade:</strong> Open for skill exchange</li>
                 </ul>
                 
                 <div class="quote-box">
-                    <p>"Support artist community lebih penting dari maximize profit jangka pendek. Kalau struggling tapi passionate, let's talk - we can work something out! 💙"</p>
+                    <p>"Supporting artist community is more important than maximizing short-term profit. If struggling but passionate, let's talk - we can work something out! 💙"</p>
                 </div>
-            </div>
-            
-            <h3 class="subsection-title">Protection Terms:</h3>
-            <div class="content">
+                
+                <h3>PROTECTION TERMS:</h3>
                 <ul>
-                    <li>Work dimulai setelah deposit diterima (confirmation via e-wallet/bank)</li>
-                    <li>WIP di-watermark sampai full payment</li>
-                    <li>Final files dikirim setelah payment lunas</li>
-                    <li>Refund policy jelas di contract</li>
+                    <li>Work begins after deposit received (confirmation via e-wallet/bank)</li>
+                    <li>WIP watermarked until full payment</li>
+                    <li>Final files sent after full payment</li>
+                    <li>Clear refund policy in contract</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">AESTHETIC</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">12. AESTHETIC SIGNATURE</h2>
-            
-            <h3 class="subsection-title">DNA Visual ILUZTAR:</h3>
-            <div class="content">
+        <!-- AESTHETIC SIGNATURE SECTION -->
+        <section class="section">
+            <div class="section-header">12. AESTHETIC SIGNATURE</div>
+            <div class="iluztar-content">
+                <h3>VISUAL DNA OF ILUZTAR:</h3>
                 <ol>
-                    <li><strong>Color Balance</strong> – Saturasi rendah, kontras seimbang, aksen kuning emas</li>
-                    <li><strong>Texture Richness</strong> – Multi-layer tekstur, imperfeksi analog yang disengaja</li>
-                    <li><strong>Rough Artistic Touch</strong> – Visible brushwork, karakter melalui "imperfection"</li>
-                    <li><strong>Constructivist Influence</strong> – Elemen geometris bold, tipografi deconstructed</li>
-                    <li><strong>Mixed Media Approach</strong> – Kombinasi foto, vektor, tipografi, teknik kolase</li>
-                    <li><strong>Photobashing Hybrid</strong> – Latar belakang realistis yang terintegrasi dengan ilustrasi anime</li>
+                    <li><strong>Color Balance</strong> – Low saturation, balanced contrast, gold yellow accent</li>
+                    <li><strong>Texture Richness</strong> – Multi-layer texture, intentional analog imperfections</li>
+                    <li><strong>Rough Artistic Touch</strong> – Visible brushwork, character through "imperfection"</li>
+                    <li><strong>Constructivist Influence</strong> – Bold geometric elements, deconstructed typography</li>
+                    <li><strong>Mixed Media Approach</strong> – Combination of photo, vector, typography, collage techniques</li>
+                    <li><strong>Photobashing Hybrid</strong> – Realistic backgrounds integrated with anime illustration</li>
                 </ol>
-            </div>
 
-            <h3 class="subsection-title">Teknik Photobashing Khusus:</h3>
-            <div class="content">
+                <h3>SPECIAL PHOTOBASHING TECHNIQUE:</h3>
                 <ul>
-                    <li><strong>Seamless Integration</strong> – Foto dan painting menyatu secara natural</li>
-                    <li><strong>Atmospheric Perspective</strong> – Pengaturan depth melalui warna dan detail</li>
-                    <li><strong>Lighting Consistency</strong> – Pencahayaan yang konsisten antara karakter dan background</li>
-                    <li><strong>Style Bridge</strong> – Menjembatani gaya anime dengan elemen fotorealistik</li>
+                    <li><strong>Seamless Integration</strong> – Photos and painting blend naturally</li>
+                    <li><strong>Atmospheric Perspective</strong> – Depth arrangement through color and detail</li>
+                    <li><strong>Lighting Consistency</strong> – Consistent lighting between character and background</li>
+                    <li><strong>Style Bridge</strong> – Bridging anime style with photorealistic elements</li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Teknik & Tools:</h3>
-            <div class="content">
+                <h3>TECHNIQUES & TOOLS:</h3>
                 <ul>
                     <li><strong>Digital Painting</strong> – Core skill</li>
-                    <li><strong>Photo Manipulation</strong> – Untuk composite</li>
-                    <li><strong>Photobashing</strong> – Hybrid untuk background kompleks (kalau perlu)</li>
+                    <li><strong>Photo Manipulation</strong> – For composite</li>
+                    <li><strong>Photobashing</strong> – Hybrid for complex backgrounds (if needed)</li>
                     <li><strong>Texture Layering</strong> – Signature aesthetic</li>
-                    <li><strong>Vector Graphics</strong> – Untuk branding</li>
+                    <li><strong>Vector Graphics</strong> – For branding</li>
                 </ul>
-                <p>Semua teknik <strong>dipake sesuai kebutuhan project</strong>. Focus tetap hasil yang quality dan sesuai vision.</p>
+                <p>All techniques <strong>used according to project needs</strong>. Focus remains on quality results that match vision.</p>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">13. FILOSOFI KREATIF</h2>
-            
-            <h3 class="subsection-title">Prinsip Kerja:</h3>
-            <div class="content">
+        <!-- CREATIVE PHILOSOPHY SECTION -->
+        <section class="section">
+            <div class="section-header">13. CREATIVE PHILOSOPHY</div>
+            <div class="iluztar-content">
+                <h3>WORK PRINCIPLES:</h3>
                 <ul>
-                    <li>Setiap karya punya jiwa dan karakter</li>
-                    <li>Bangun identitas, ga cuma ikut tren</li>
-                    <li>Detail penting, tapi ga terjebak perfeksionisme</li>
-                    <li><strong>Kolaborasi bikin hasil lebih baik</strong></li>
-                    <li>Berani choose > main aman</li>
-                    <li>Kuasai berbagai teknik untuk fleksibilitas</li>
+                    <li>Every work has soul and character</li>
+                    <li>Build identity, not just follow trends</li>
+                    <li>Details important, but don't get trapped in perfectionism</li>
+                    <li><strong>Collaboration makes results better</strong></li>
+                    <li>Brave to choose > play it safe</li>
+                    <li>Master various techniques for flexibility</li>
                     <li><strong>"We got you" - support system</strong></li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Paradoks Perfeksionisme:</h3>
-            <div class="content">
-                <p>Sengaja pilih aesthetic yang ga over-polish sebagai strategi:</p>
+                <h3>PERFECTIONISM PARADOX:</h3>
+                <p>Intentionally choose aesthetic that's not over-polished as strategy:</p>
                 <ul>
-                    <li>Ga terjebak detail kecil</li>
+                    <li>Don't get trapped in small details</li>
                     <li>"Done is better than perfect"</li>
-                    <li>Imperfeksi = kebebasan dari perfeksionisme</li>
-                    <li>Pake teknik yang paling cocok buat hasil efisien</li>
-                    <li><strong>Ngerti struggle artblock karena pernah alami</strong></li>
+                    <li>Imperfection = freedom from perfectionism</li>
+                    <li>Use techniques most suitable for efficient results</li>
+                    <li><strong>Understand artblock struggle because have experienced it</strong></li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Evolusi Teknik:</h3>
-            <div class="content">
-                <p>ILUZTAR terus develop skill sebagai respons:</p>
+                <h3>TECHNIQUE EVOLUTION:</h3>
+                <p>ILUZTAR continuously develops skills as response to:</p>
                 <ul>
-                    <li>Request yang lebih kompleks</li>
-                    <li>Kebutuhan efisiensi tanpa sacrifice quality</li>
-                    <li>Eksplorasi berbagai style</li>
-                    <li>Develop aesthetic yang unique</li>
-                    <li><strong>Bantu artist lain dengan berbagai kebutuhan</strong></li>
+                    <li>More complex requests</li>
+                    <li>Efficiency needs without sacrificing quality</li>
+                    <li>Exploration of various styles</li>
+                    <li>Developing unique aesthetic</li>
+                    <li><strong>Helping other artists with various needs</strong></li>
                 </ul>
-            </div>
 
-            <h3 class="subsection-title">Personal Touch:</h3>
-            <div class="quote-box">
-                <p>"Bidang art ini bener-bener terjun karena passion sih, walaupun awal mula serius karena temen sebangku hobi gambar. Bahkan pas sekolah dan kuliah lebih ke tech, art tetap yang paling bebas buat ekspresif."</p>
+                <h3>PERSONAL TOUCH:</h3>
+                <div class="quote-box">
+                    <p>"The art field is truly entered because of passion, even though initially serious because desk mate liked drawing. Even though in school and college more into tech, art remained the freest for expression."</p>
+                    
+                    <p>This is why ILUZTAR can deeply connect with other artists - because understand the struggle, value the passion, and respect the process.</p>
+                </div>
                 
-                <p>Ini kenapa ILUZTAR ngerti struggle artist lain:</p>
-                <ul>
-                    <li>Pernah artblock berkali-kali</li>
-                    <li>Tau rasanya overwhelm dengan banyak project</li>
-                    <li>Ngerti value dari bantuan dan kolaborasi</li>
-                </ul>
-            </div>
-            
-            <h3 class="subsection-title">When in Doubt:</h3>
-            <div class="grid">
-                <div class="grid-item">
-                    <strong>For Original Work:</strong>
-                    <ul>
-                        <li>Let the textures speak</li>
-                        <li>Embrace the roughness</li>
-                        <li>Trust the process</li>
-                        <li>Done > Perfect</li>
-                    </ul>
-                </div>
-                <div class="grid-item">
-                    <strong>For Collaborative Work:</strong>
-                    <ul>
-                        <li>Communicate clearly</li>
-                        <li>Respect vision & style</li>
-                        <li>Ask for references</li>
-                        <li>Regular check-ins</li>
-                        <li>Pake teknik yang paling cocok</li>
-                    </ul>
+                <h3>WHEN IN DOUBT:</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <strong>For Original Work:</strong>
+                        <ul>
+                            <li>Let the textures speak</li>
+                            <li>Embrace the roughness</li>
+                            <li>Trust the process</li>
+                            <li>Done > Perfect</li>
+                        </ul>
+                    </div>
+                    <div class="grid-item">
+                        <strong>For Collaborative Work:</strong>
+                        <ul>
+                            <li>Communicate clearly</li>
+                            <li>Respect vision & style</li>
+                            <li>Ask for references</li>
+                            <li>Regular check-ins</li>
+                            <li>Use most suitable techniques</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">UNIQUE</h2>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">14. UNIQUE SELLING POINTS</h2>
-            
-            <h3 class="subsection-title">Untuk Artist Lain:</h3>
-            <div class="content">
+        <!-- UNIQUE SELLING POINTS SECTION -->
+        <section class="section">
+            <div class="section-header">14. UNIQUE SELLING POINTS</div>
+            <div class="iluztar-content">
+                <h3>FOR OTHER ARTISTS:</h3>
                 <ol>
-                    <li><strong>Flexible Entry</strong> – Bisa masuk tahapan manapun</li>
-                    <li><strong>Style Adaptability</strong> – Bisa sesuaiin dengan style kamu</li>
-                    <li><strong>Reliable</strong> – Commit dengan timeline realistis</li>
-                    <li><strong>Artist-Friendly</strong> – Paham struggle artist</li>
+                    <li><strong>Flexible Entry</strong> – Can enter at any stage</li>
+                    <li><strong>Style Adaptability</strong> – Can match your style</li>
+                    <li><strong>Reliable</strong> – Committed to realistic timeline</li>
+                    <li><strong>Artist-Friendly</strong> – Understand artist struggles</li>
                     <li><strong>Artblock Support</strong> – "We got you when stuck"</li>
-                    <li><strong>Quality Consistent</strong> – Maintain standar tinggi</li>
-                    <li><strong>Respect Vision</strong> – Final say tetap di kamu</li>
-                    <li><strong>Copyright Respect</strong> – Ga claim karya, posisi sebagai partner</li>
+                    <li><strong>Quality Consistent</strong> – Maintain high standards</li>
+                    <li><strong>Respect Vision</strong> – Final say remains with you</li>
+                    <li><strong>Copyright Respect</strong> – Don't claim work, position as partner</li>
                     <li><strong>Professional Ethics</strong> – Clear boundaries, transparent credit</li>
-                    <li><strong>Flexible Payment</strong> – Fixed atau revenue split</li>
-                    <li><strong>Fair Pricing</strong> – Sustainable untuk semua</li>
+                    <li><strong>Flexible Payment</strong> – Fixed or revenue split</li>
+                    <li><strong>Fair Pricing</strong> – Sustainable for all</li>
                 </ol>
-            </div>
 
-            <h3 class="subsection-title">Untuk Klien Business:</h3>
-            <div class="content">
+                <h3>FOR BUSINESS CLIENTS:</h3>
                 <ol>
-                    <li><strong>Strong Visual Identity</strong> – Bold design berkarakter</li>
-                    <li><strong>Professional</strong> – Quality dan timeline terjaga</li>
-                    <li><strong>Versatile</strong> – Berbagai skill untuk berbagai kebutuhan</li>
+                    <li><strong>Strong Visual Identity</strong> – Bold design with character</li>
+                    <li><strong>Professional</strong> – Quality and timeline maintained</li>
+                    <li><strong>Versatile</strong> – Various skills for various needs</li>
                     <li><strong>Clear Communication</strong> – Transparent process</li>
-                    <li><strong>Unique Aesthetic</strong> – Beda dari mainstream</li>
+                    <li><strong>Unique Aesthetic</strong> – Different from mainstream</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2 class="section-title">15. MARKETING MESSAGE</h2>
-            
-            <h3 class="subsection-title">Tagline Variations:</h3>
-            <div class="content">
+        <!-- MARKETING MESSAGE SECTION -->
+        <section class="section">
+            <div class="section-header">15. MARKETING MESSAGE</div>
+            <div class="iluztar-content">
+                <h3>TAGLINE VARIATIONS:</h3>
                 <p><strong>General</strong>: "Shine Through Art"</p>
                 <p><strong>For Artists</strong>: "Too much commission? Artblock? We got you."</p>
                 <p><strong>For Collaboration</strong>: "Your vision, our hands, together we shine."</p>
-            </div>
 
-            <h3 class="subsection-title">Positioning Statement:</h3>
-            <div class="quote-box">
-                <p>"ILUZTAR adalah creative studio yang bikin karya original, tapi juga <strong>support system buat artist lain</strong>. Dengan skill di anime illustration, graphic branding, dan berbagai teknik digital, ILUZTAR siap bantu artist yang overload atau stuck. <strong>We got you</strong> - dari sketch sampe finishing, dari character sampe background."</p>
-            </div>
-            
-            <h3 class="subsection-title">Offering Statement:</h3>
-            <div class="quote-box">
-                <p>"I work with both <strong>fixed rates</strong> or <strong>revenue split</strong>—whatever works for you.</p>
-                <p>Fixed rates based on complexity. Revenue split usually 40-60% depending on scope.</p>
-                <p>Happy to discuss what makes sense. Goal: fair collaboration where we both succeed. 🤝"</p>
-            </div>
-        </div>
-
-        <div class="page-break"></div>
-
-        <div class="contact-info">
-            <h3>📞 KONTAK & PLATFORM</h3>
-            <p><strong>Handle:</strong> @ILUZTAR</p>
-            <p><strong>Email:</strong> iluztar.studio@gmail.com</p>
-            <p><strong>Website:</strong> linktr.ee/iluztar</p>
-            <p><strong>Platform:</strong> Instagram, Behance, ArtStation</p>
-            
-            <h4>Portfolio Highlight:</h4>
-            <ul>
-                <li>Karya original berbagai teknik</li>
-                <li>Collaborative works (dengan izin)</li>
-                <li>Before-after collaborative projects</li>
-                <li>Process breakdown</li>
-                <li>Showcase versatility</li>
-            </ul>
-            
-            <h4>Portfolio Credit Guidelines:</h4>
-            <ul>
-                <li><strong>Original Works</strong>: "Art by ILUZTAR"</li>
-                <li><strong>Collaborative Works</strong>:
-                    <ul>
-                        <li>"Art by [Artist], assisted by ILUZTAR"</li>
-                        <li>"Character by [Artist], Background by ILUZTAR"</li>
-                        <li>Clear caption peran ILUZTAR</li>
-                        <li>Tag & credit artist</li>
-                        <li><strong>Posting cuma dengan izin</strong></li>
-                    </ul>
-                </li>
-            </ul>
-            
-            <h4>Communication Channels:</h4>
-            <ul>
-                <li><strong>For Artists</strong>: Direct approach, casual tapi professional</li>
-                <li><strong>For Business</strong>: Professional dengan creative edge</li>
-                <li><strong>Response</strong>: "Okay okay thank u buat inslightnya aku dpt idee ovo"</li>
-            </ul>
-            
-            <h4>Professional Boundaries:</h4>
-            <ul>
-                <li>Clear contracts untuk collaborative work</li>
-                <li>NDA respect jika diperlukan</li>
-                <li>Credit discussion sejak awal project</li>
-                <li>Ownership clarity dalam agreement</li>
-            </ul>
-        </div>
-
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">16. FAQ (FREQUENTLY ASKED QUESTIONS)</h2>
-            
-            <h3 class="subsection-title">📋 General Questions</h3>
-            <div class="content">
-                <p><strong>Q: Apa bedanya ILUZTAR dengan artist lain?</strong><br>
-                A: ILUZTAR fokus sebagai <strong>collaborative partner</strong>, bukan kompetitor. Spesialisasi bantu artist yang overload atau artblock, fleksibel masuk di tahapan manapun.</p>
+                <h3>POSITIONING STATEMENT:</h3>
+                <div class="quote-box">
+                    <p>"ILUZTAR is a creative studio that makes original work, but also <strong>support system for other artists</strong>. With skills in anime illustration, graphic branding, and various digital techniques, ILUZTAR is ready to help artists who are overloaded or stuck. <strong>We got you</strong> - from sketch to finishing, from character to background."</p>
+                </div>
                 
-                <p><strong>Q: Berapa lama pengerjaan biasanya?</strong><br>
-                A: Tergantung kompleksitas:<br>
-                • <strong>Lineart only</strong>: 2-3 hari<br>
-                • <strong>Coloring only</strong>: 3-5 hari<br>
-                • <strong>Background photobashing</strong>: 3-7 hari<br>
-                • <strong>Full collaboration</strong>: 5-14 hari<br>
-                • <strong>Rush service</strong>: Available dengan additional fee (+30-50%)</p>
-                
-                <p><strong>Q: Apakah ILUZTAR bisa match style saya?</strong><br>
-                A: Ya! Adaptif dengan berbagai style. Kirim reference atau style guide, dan akan adjust. Ada approval di milestone buat ensure consistency.</p>
+                <h3>OFFERING STATEMENT:</h3>
+                <div class="quote-box">
+                    <p>"I work with both <strong>fixed rates</strong> or <strong>revenue split</strong>—whatever works for you.</p>
+                    <p>Fixed rates based on complexity. Revenue split usually 40-60% depending on scope.</p>
+                    <p>Happy to discuss what makes sense. Goal: fair collaboration where we both succeed. 🤝"</p>
+                </div>
             </div>
+        </section>
 
-            <h3 class="subsection-title">💰 Payment & Pricing</h3>
-            <div class="content">
-                <p><strong>Q: Lebih baik pakai fixed rate atau revenue split?</strong><br>
+        <!-- CONTACT SECTION -->
+        <section class="section">
+            <div class="contact-info">
+                <h3>📞 CONTACT & PLATFORMS</h3>
+                <p><strong>Handle:</strong> @ILUZTAR</p>
+                <p><strong>Email:</strong> iluztar.studio@gmail.com</p>
+                <p><strong>Website:</strong> linktr.ee/iluztar</p>
+                <p><strong>Platforms:</strong> Instagram, Behance, ArtStation</p>
+                
+                <h4>Portfolio Highlights:</h4>
+                <ul>
+                    <li>Original work with various techniques</li>
+                    <li>Collaborative works (with permission)</li>
+                    <li>Before-after collaborative projects</li>
+                    <li>Process breakdown</li>
+                    <li>Versatility showcase</li>
+                </ul>
+                
+                <h4>Portfolio Credit Guidelines:</h4>
+                <ul>
+                    <li><strong>Original Works</strong>: "Art by ILUZTAR"</li>
+                    <li><strong>Collaborative Works</strong>:
+                        <ul>
+                            <li>"Art by [Artist], assisted by ILUZTAR"</li>
+                            <li>"Character by [Artist], Background by ILUZTAR"</li>
+                            <li>Clear caption of ILUZTAR's role</li>
+                            <li>Tag & credit artist</li>
+                            <li><strong>Post only with permission</strong></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h4>Communication Channels:</h4>
+                <ul>
+                    <li><strong>For Artists</strong>: Direct approach, casual but professional</li>
+                    <li><strong>For Business</strong>: Professional with creative edge</li>
+                    <li><strong>Response</strong>: "Okay okay thank u buat inslightnya aku dpt idee ovo"</li>
+                </ul>
+                
+                <h4>Professional Boundaries:</h4>
+                <ul>
+                    <li>Clear contracts for collaborative work</li>
+                    <li>NDA respect if needed</li>
+                    <li>Credit discussion from project start</li>
+                    <li>Ownership clarity in agreement</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BIG TEXT SECTION -->
+        <section class="section big-text-section">
+            <h2 class="big-text">FAQ</h2>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="section">
+            <div class="section-header">16. FREQUENTLY ASKED QUESTIONS</div>
+            <div class="iluztar-content">
+                <h3>📋 General Questions</h3>
+                <p><strong>Q: What's different about ILUZTAR from other artists?</strong><br>
+                A: ILUZTAR focuses as <strong>collaborative partner</strong>, not competitor. Specializes in helping artists who are overloaded or artblocked, flexible entry at any stage.</p>
+                
+                <p><strong>Q: How long does work usually take?</strong><br>
+                A: Depends on complexity:<br>
+                • <strong>Lineart only</strong>: 2-3 days<br>
+                • <strong>Coloring only</strong>: 3-5 days<br>
+                • <strong>Background photobashing</strong>: 3-7 days<br>
+                • <strong>Full collaboration</strong>: 5-14 days<br>
+                • <strong>Rush service</strong>: Available with additional fee (+30-50%)</p>
+                
+                <p><strong>Q: Can ILUZTAR match my style?</strong><br>
+                A: Yes! Adaptive to various styles. Send reference or style guide, and will adjust. Approval at milestones to ensure consistency.</p>
+
+                <h3>💰 Payment & Pricing</h3>
+                <p><strong>Q: Better to use fixed rate or revenue split?</strong><br>
                 A: <br>
-                • <strong>Fixed Rate</strong> → Kalau punya client sendiri dan mau kontrol pricing. Lebih predictable.<br>
-                • <strong>Revenue Split</strong> → Kalau prefer sharing, atau project besar. Lebih flexible.</p>
+                • <strong>Fixed Rate</strong> → If you have own client and want to control pricing. More predictable.<br>
+                • <strong>Revenue Split</strong> → If prefer sharing, or large project. More flexible.</p>
                 
-                <p><strong>Q: Apakah harga bisa nego?</strong><br>
-                A: Bisa didiskusikan untuk:<br>
+                <p><strong>Q: Is price negotiable?</strong><br>
+                A: Can be discussed for:<br>
                 • Bulk projects (5+ pieces)<br>
                 • Long-term collaboration<br>
                 • Student/emerging artists<br>
-                • Complexity unusual<br>
-                Tapi maintain fair pricing untuk sustainable.</p>
+                • Unusual complexity<br>
+                But maintain fair pricing for sustainability.</p>
                 
-                <p><strong>Q: Kapan payment harus dilakukan?</strong><br>
+                <p><strong>Q: When should payment be made?</strong><br>
                 A: Standard: <strong>50% upfront</strong> + <strong>50% completion</strong>.<br>
-                Trusted partners bisa lebih flexible.</p>
+                Trusted partners can be more flexible.</p>
                 
-                <p><strong>Q: Payment method apa saja?</strong><br>
+                <p><strong>Q: What payment methods?</strong><br>
                 A: <br>
                 • <strong>Primary</strong>: E-Wallet - GoPay, OVO, Dana, ShopeePay (instant) ⚡<br>
-                • <strong>QRIS</strong>: Bisa dari e-wallet apapun<br>
-                • <strong>Bank</strong>: Lampung atau BTN (1-2 hari)<br>
+                • <strong>QRIS</strong>: Can from any e-wallet<br>
+                • <strong>Bank</strong>: Lampung or BTN (1-2 days)<br>
                 • <strong>International</strong>: PayPal/ Wise<br><br>
-                Invoice disediakan. E-wallet preferred karena instant!</p>
+                Invoice provided. E-wallet preferred because instant!</p>
                 
-                <p><strong>Q: Kalau saya cancel di tengah jalan?</strong><br>
+                <p><strong>Q: If I cancel midway?</strong><br>
                 A: <br>
-                • <strong>Sebelum mulai kerja</strong>: Full refund deposit<br>
-                • <strong>Sudah mulai kerja</strong>: Deposit non-refundable, bisa lanjut di lain waktu<br>
-                • <strong>50% selesai</strong>: Deposit + partial payment untuk work done<br>
-                • <strong>Contract clear sejak awal untuk avoid misunderstanding</strong></p>
-            </div>
+                • <strong>Before work starts</strong>: Full deposit refund<br>
+                • <strong>Already started work</strong>: Deposit non-refundable, can continue later<br>
+                • <strong>50% completed</strong>: Deposit + partial payment for work done<br>
+                • <strong>Clear contract from start to avoid misunderstanding</strong></p>
 
-            <h3 class="subsection-title">🎨 Workflow & Collaboration</h3>
-            <div class="content">
-                <p><strong>Q: Saya cuma punya sketch rough, bisa?</strong><br>
-                A: Absolutely! Kami bisa mulai dari sketch kasar, bahkan dari concept/description saja. Yang penting ada direction yang jelas tentang vision akhirnya.</p>
+                <h3>🎨 Workflow & Collaboration</h3>
+                <p><strong>Q: I only have rough sketch, can?</strong><br>
+                A: Absolutely! We can start from rough sketch, even from concept/description only. Important to have clear direction about final vision.</p>
                 
-                <p><strong>Q: Saya butuh bantuan background aja, bisa?</strong><br>
-                A: Bisa! Background adalah salah satu bagian yang sering kami bantu. Kirim character artwork + reference background yang diinginkan. Kami akan gunakan teknik yang paling sesuai untuk hasil terbaik.</p>
+                <p><strong>Q: I need help with background only, can?</strong><br>
+                A: Yes! Background is one part we often help with. Send character artwork + desired background reference. We'll use most suitable technique for best results.</p>
                 
-                <p><strong>Q: Berapa kali revisi yang included?</strong><br>
-                A: <strong>2-3 minor revisions</strong> included (color adjustment, small details). Major changes atau scope change akan dicharge additional fee.</p>
+                <p><strong>Q: How many revisions included?</strong><br>
+                A: <strong>2-3 minor revisions</strong> included (color adjustment, small details). Major changes or scope change will be charged additional fee.</p>
                 
-                <p><strong>Q: Bagaimana kalau hasil tidak sesuai harapan?</strong><br>
-                A: Kami provide <strong>WIP updates</strong> di milestone penting untuk approval. Kalau ada concern, communicate as early as possible. Kami akan revise sampai sesuai vision (dalam reasonable scope).</p>
+                <p><strong>Q: What if results don't match expectations?</strong><br>
+                A: We provide <strong>WIP updates</strong> at important milestones for approval. If concerns, communicate as early as possible. We'll revise until matches vision (within reasonable scope).</p>
                 
-                <p><strong>Q: Saya sedang artblock, apa ILUZTAR bisa bantu?</strong><br>
-                A: YES! "We got you" - ini salah satu core offering kami. Kirim WIP yang stuck, dan kami akan bantu lanjutkan dengan respect ke vision original kamu.</p>
-            </div>
+                <p><strong>Q: I'm having artblock, can ILUZTAR help?</strong><br>
+                A: YES! "We got you" - this is one of our core offerings. Send WIP that's stuck, and we'll help continue with respect to your original vision.</p>
 
-            <h3 class="subsection-title">📜 Copyright & Credit</h3>
-            <div class="content">
-                <p><strong>Q: Siapa yang own karya hasil kolaborasi?</strong><br>
-                A: <strong>Original artist</strong> tetap owner (kecuali disepakati berbeda). ILUZTAR hanya membantu eksekusi, bukan claim ownership.</p>
+                <h3>📜 Copyright & Credit</h3>
+                <p><strong>Q: Who owns collaborative work results?</strong><br>
+                A: <strong>Original artist</strong> remains owner (unless agreed differently). ILUZTAR only helps execution, doesn't claim ownership.</p>
                 
-                <p><strong>Q: Bagaimana credit-nya?</strong><br>
-                A: Disesuaikan dengan kontribusi:<br>
+                <p><strong>Q: How about credit?</strong><br>
+                A: Adjusted according to contribution:<br>
                 • "Art by [You], assisted by ILUZTAR"<br>
                 • "Character by [You], Background by ILUZTAR"<br>
                 • "Art by [You] x ILUZTAR" (equal collab)<br>
-                • Atau sesuai preferensi kamu</p>
+                • Or according to your preference</p>
                 
-                <p><strong>Q: Apakah ILUZTAR bisa post di portfolio?</strong><br>
-                A: <strong>Hanya dengan permission explicit</strong> dari kamu. Kalau posting, akan selalu credit kamu dengan jelas dan mention bagian mana yang ILUZTAR kerjakan.</p>
+                <p><strong>Q: Can ILUZTAR post in portfolio?</strong><br>
+                A: <strong>Only with explicit permission</strong> from you. If posting, will always credit you clearly and mention which parts ILUZTAR worked on.</p>
                 
-                <p><strong>Q: Bagaimana dengan NDA?</strong><br>
-                A: Kami respect NDA dan bisa sign jika diperlukan. Work tetap confidential sampai kamu publish atau approve untuk showcase.</p>
-            </div>
+                <p><strong>Q: What about NDA?</strong><br>
+                A: We respect NDA and can sign if needed. Work remains confidential until you publish or approve for showcase.</p>
 
-            <h3 class="subsection-title">🎯 Scope & Capabilities</h3>
-            <div class="content">
-                <p><strong>Q: Apa yang TIDAK bisa ILUZTAR kerjakan?</strong><br>
+                <h3>🎯 Scope & Capabilities</h3>
+                <p><strong>Q: What CAN'T ILUZTAR work on?</strong><br>
                 A: <br>
-                • NSFW extreme content<br>
-                • Hate speech atau content yang harmful<br>
-                • Plagiarism atau copy exact dari artist lain<br>
-                • Style yang completely outside anime/semi-realistic range (misalnya: pure chibi, very abstract)<br>
-                • Mechanical mecha yang sangat complex (bisa, tapi dengan caveat)</p>
+                • Extreme NSFW content<br>
+                • Hate speech or harmful content<br>
+                • Plagiarism or exact copy from other artists<br>
+                • Style completely outside anime/semi-realistic range (e.g.: pure chibi, very abstract)<br>
+                • Very complex mechanical mecha (can, but with caveat)</p>
                 
-                <p><strong>Q: Apakah bisa untuk commercial project?</strong><br>
-                A: Ya! Commercial project welcome. Rate mungkin adjusted untuk commercial usage rights. Discuss di awal untuk clarity.</p>
+                <p><strong>Q: Can for commercial project?</strong><br>
+                A: Yes! Commercial project welcome. Rate may be adjusted for commercial usage rights. Discuss at start for clarity.</p>
                 
-                <p><strong>Q: Bahasa apa yang digunakan untuk komunikasi?</strong><br>
+                <p><strong>Q: What language for communication?</strong><br>
                 A: <br>
                 • <strong>Bahasa Indonesia</strong> (primary, most comfortable)<br>
                 • <strong>English</strong> (fluent, no problem)<br>
-                • Communication style: Casual tapi professional, clear dan responsive</p>
+                • Communication style: Casual but professional, clear and responsive</p>
                 
-                <p><strong>Q: Timezone dan availability?</strong><br>
-                A: Based di Indonesia (GMT+7/WIB). Response time: Usually within 24 hours. Available untuk meeting/call by appointment.</p>
-            </div>
+                <p><strong>Q: Timezone and availability?</strong><br>
+                A: Based in Indonesia (GMT+7/WIB). Response time: Usually within 24 hours. Available for meeting/call by appointment.</p>
 
-            <h3 class="subsection-title">🚀 Getting Started</h3>
-            <div class="content">
-                <p><strong>Q: Bagaimana cara mulai kolaborasi?</strong><br>
+                <h3>🚀 Getting Started</h3>
+                <p><strong>Q: How to start collaboration?</strong><br>
                 A: Simple steps:<br>
-                1. <strong>Contact</strong> via Instagram DM, Email, atau platform lain<br>
-                2. <strong>Brief</strong>: Explain project kamu, tahapan apa yang butuh bantuan<br>
+                1. <strong>Contact</strong> via Instagram DM, Email, or other platform<br>
+                2. <strong>Brief</strong>: Explain your project, what stages need help<br>
                 3. <strong>Quote</strong>: ILUZTAR provide pricing estimate<br>
                 4. <strong>Agreement</strong>: Confirm scope, timeline, payment terms<br>
-                5. <strong>Deposit</strong>: 50% payment untuk start<br>
+                5. <strong>Deposit</strong>: 50% payment to start<br>
                 6. <strong>Work</strong>: Regular updates + approval milestones<br>
                 7. <strong>Delivery</strong>: Final payment → Final files delivered</p>
                 
-                <p><strong>Q: Apa yang perlu saya siapkan sebelum contact?</strong><br>
-                A: Helpful untuk provide:<br>
-                • <strong>Description</strong> project atau WIP yang butuh bantuan<br>
-                • <strong>Reference</strong> style atau specific requirements<br>
-                • <strong>Timeline</strong> kapan butuh selesai<br>
-                • <strong>Budget</strong> range (kalau ada)<br>
-                • <strong>Scope</strong> tahapan apa yang butuh bantuan<br><br>
-                Tapi kalau belum jelas juga gak apa-apa! Kita bisa discuss dan figure out together.</p>
+                <p><strong>Q: What should I prepare before contact?</strong><br>
+                A: Helpful to provide:<br>
+                • <strong>Description</strong> project or WIP that needs help<br>
+                • <strong>Reference</strong> style or specific requirements<br>
+                • <strong>Timeline</strong> when need finished<br>
+                • <strong>Budget</strong> range (if any)<br>
+                • <strong>Scope</strong> what stages need help<br><br>
+                But if not clear yet also okay! We can discuss and figure out together.</p>
                 
-                <p><strong>Q: Apakah ada minimum project value?</strong><br>
-                A: Tidak ada hard minimum, tapi untuk efficiency, lebih prefer project dengan value Rp 75.000+ (atau equivalent USD $5+). Small tasks bisa didiskusikan case by case.</p>
+                <p><strong>Q: Is there minimum project value?</strong><br>
+                A: No hard minimum, but for efficiency, prefer projects with value Rp 75.000+ (or equivalent USD $5+). Small tasks can be discussed case by case.</p>
                 
-                <p><strong>Q: Rate untuk student atau emerging artist gimana?</strong><br>
-                A: ILUZTAR understand struggle sebagai emerging artist. Ada flexible pricing untuk:<br>
-                • Student artists (dengan student card/proof)<br>
-                • Emerging artists (portfolio <1 tahun)<br>
+                <p><strong>Q: Rate for student or emerging artist?</strong><br>
+                A: ILUZTAR understands struggle as emerging artist. Flexible pricing for:<br>
+                • Student artists (with student card/proof)<br>
+                • Emerging artists (portfolio <1 year)<br>
                 • First-time collaboration (discount 10-15%)<br>
                 • Barter/skill exchange (case by case)<br><br>
-                Contact untuk discuss special rates! 💙</p>
-            </div>
+                Contact to discuss special rates! 💙</p>
 
-            <h3 class="subsection-title">💡 Tips for Smooth Collaboration</h3>
-            <div class="content">
+                <h3>💡 Tips for Smooth Collaboration</h3>
                 <div class="grid">
                     <div class="grid-item">
                         <strong>DO's:</strong><br>
@@ -1370,7 +1566,7 @@
                         ✅ Provide references and style guides<br>
                         ✅ Give feedback at WIP checkpoints<br>
                         ✅ Respect agreed timeline and scope<br>
-                        ✅ <strong>Payment on time (E-Wallet preferred untuk instant)</strong> ⚡<br>
+                        ✅ <strong>Payment on time (E-Wallet preferred for instant)</strong> ⚡<br>
                         ✅ Send payment confirmation screenshot<br>
                         ✅ Keep communication professional
                     </div>
@@ -1388,32 +1584,30 @@
                 
                 <h4>Pro Tips for Payment:</h4>
                 <ul>
-                    <li>💰 Use E-Wallet (GoPay/OVO/Dana/ShopeePay) untuk instant confirmation</li>
+                    <li>💰 Use E-Wallet (GoPay/OVO/Dana/ShopeePay) for instant confirmation</li>
                     <li>💰 Screenshot & send payment proof immediately</li>
-                    <li>💰 Include project name di transfer notes</li>
-                    <li>💰 Confirm receipt dari ILUZTAR before expecting work to start</li>
+                    <li>💰 Include project name in transfer notes</li>
+                    <li>💰 Confirm receipt from ILUZTAR before expecting work to start</li>
                 </ul>
+                
+                <h3>📞 Still Have Questions?</h3>
+                <div class="quote-box">
+                    <p>If have questions not covered in this FAQ, feel free to reach out!</p>
+                    <p><strong>Contact</strong>: <br>
+                    • Instagram: @ILUZTAR<br>
+                    • Email: iluztar.studio@gmail.com<br>
+                    • Portfolio: Behance, ArtStation</p>
+                    <p><em>"No question is too small. Better to ask and clear, than assume and miscommunicate. Let's make our collaboration smooth and successful! 🤝"</em></p>
+                </div>
             </div>
-            
-            <h3 class="subsection-title">📞 Still Have Questions?</h3>
-            <div class="quote-box">
-                <p>Kalau ada pertanyaan yang tidak covered di FAQ ini, feel free to reach out!</p>
-                <p><strong>Contact</strong>: <br>
-                • Instagram: @ILUZTAR<br>
-                • Email: iluztar.studio@gmail.com<br>
-                • Portfolio: Behance, ArtStation</p>
-                <p><em>"No question is too small. Better to ask dan clear, daripada assume dan miscommunicate. Let's make our collaboration smooth and successful! 🤝"</em></p>
-            </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">17. PROJECT INTAKE FORM (TEMPLATE)</h2>
-            
-            <h3 class="subsection-title">📝 For Artists Seeking Collaboration</h3>
-            <div class="content">
-                <p>Untuk memudahkan proses dan mendapatkan quote yang akurat, silakan isi information berikut saat first contact:</p>
+        <!-- PROJECT INTAKE SECTION -->
+        <section class="section">
+            <div class="section-header">17. PROJECT INTAKE FORM (TEMPLATE)</div>
+            <div class="iluztar-content">
+                <h3>📝 For Artists Seeking Collaboration</h3>
+                <p>To facilitate process and get accurate quote, please fill this information during first contact:</p>
                 
                 <div class="highlight-box">
                     <pre>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1510,73 +1704,16 @@ How did you find ILUZTAR?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
                 </div>
                 
-                <p><strong>Note:</strong> Tidak semua field harus diisi! Kalau ada yang belum tau, skip saja. Ini hanya untuk membantu kami understand project kamu lebih baik dan give accurate quote.</p>
+                <p><strong>Note:</strong> Not all fields must be filled! If don't know yet, skip. This is only to help us understand your project better and give accurate quote.</p>
             </div>
+        </section>
 
-            <h3 class="subsection-title">📝 For Business/Direct Clients</h3>
-            <div class="content">
-                <div class="highlight-box">
-                    <pre>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ILUZTAR COMMISSION REQUEST FORM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 CLIENT INFO:
-Name/Company: _______________
-Contact: _______________
-Project for: [ ] Business  [ ] Personal  [ ] Content Creation
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📋 WHAT DO YOU NEED?
-
-Service Type:
-[ ] Anime Illustration (character art)
-[ ] Graphic Branding (logo, poster, banner)
-[ ] Photo Manipulation
-[ ] Other: _______________
-
-Quantity: _____ pieces/designs
-
-Deliverable format needed:
-[ ] Social media post  [ ] Print  [ ] Website  
-[ ] Merch  [ ] Other: _______________
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📅 TIMELINE:
-Deadline: _______________
-Is this a rush project? [ ] Yes  [ ] No
-
-💰 BUDGET:
-Budget range: _______________
-
-🎨 CREATIVE BRIEF:
-Concept/description: _______________
-Reference/inspiration: _______________
-Brand colors (if any): _______________
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
-                </div>
-                
-                <p><strong>Where to send:</strong></p>
-                <ul>
-                    <li>Email: iluztar.studio@gmail.com</li>
-                    <li>Instagram DM: @ILUZTAR</li>
-                    <li>Subject: "ILUZTAR Collab Request - [Your Name]"</li>
-                    <li>Attach reference images kalau ada</li>
-                    <li>Response within 24-48 hours</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">18. SAMPLE COLLABORATION AGREEMENT</h2>
-            
-            <h3 class="subsection-title">📄 Simple Collaboration Agreement Template</h3>
-            <div class="content">
-                <p>Untuk transparency dan professional protection, berikut adalah template agreement yang bisa digunakan:</p>
+        <!-- SAMPLE AGREEMENT SECTION -->
+        <section class="section">
+            <div class="section-header">18. SAMPLE COLLABORATION AGREEMENT</div>
+            <div class="iluztar-content">
+                <h3>📄 Simple Collaboration Agreement Template</h3>
+                <p>For transparency and professional protection, here is template agreement that can be used:</p>
                 
                 <div class="highlight-box">
                     <pre>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1633,7 +1770,7 @@ Payment method: _______________
 [ ] QRIS  [ ] Bank Transfer (Bank Lampung/BTN)
 [ ] PayPal (international)  [ ] Wise (international)
 
-Note: E-Wallet preferred untuk instant processing
+Note: E-Wallet preferred for instant processing
 
 Late payment: Additional charge may apply after 7 days
 
@@ -1714,74 +1851,134 @@ ILUZTAR Signature: _______________  Date: _______
                     <li>When in doubt, over-communicate</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="page-break"></div>
-
-        <div class="section">
-            <h2 class="section-title">19. KESIMPULAN</h2>
-            
-            <div class="content">
-                <p><strong>ILUZTAR (イルズター)</strong> adalah studio kreatif dengan dua misi utama:</p>
+        <!-- CONCLUSION SECTION -->
+        <section class="section">
+            <div class="section-header">19. CONCLUSION</div>
+            <div class="iluztar-content">
+                <p><strong>ILUZTAR (イルズター)</strong> is a creative studio with two main missions:</p>
                 
-                <h3 class="subsection-title">1. Creating Original Art</h3>
+                <h3>1. Creating Original Art</h3>
                 <ul>
-                    <li>Identitas visual yang kuat dan khas</li>
-                    <li>Tekstur berat, sentuhan artistik kasar, warna seimbang</li>
-                    <li>Menguasai berbagai teknik digital modern</li>
-                    <li>"Shine Through Art" - bersinar melalui karya sendiri</li>
+                    <li>Strong and distinctive visual identity</li>
+                    <li>Heavy texture, rough artistic touch, balanced colors</li>
+                    <li>Mastery of various modern digital techniques</li>
+                    <li>"Shine Through Art" - shine through own work</li>
                 </ul>
 
-                <h3 class="subsection-title">2. Supporting Fellow Artists</h3>
+                <h3>2. Supporting Fellow Artists</h3>
                 <ul>
-                    <li><strong>Collaborative partner untuk artist yang butuh bantuan</strong></li>
-                    <li>Fleksibel di berbagai tahapan (sketch, line, color, finish, background)</li>
-                    <li>Support system untuk artblock dan workload overwhelm</li>
-                    <li>"We got you" - membantu artist lain bersinar</li>
-                    <li>Adaptif dengan berbagai style dan vision</li>
+                    <li><strong>Collaborative partner for artists who need help</strong></li>
+                    <li>Flexible at various stages (sketch, line, color, finish, background)</li>
+                    <li>Support system for artblock and workload overwhelm</li>
+                    <li>"We got you" - helping other artists shine</li>
+                    <li>Adaptive to various styles and visions</li>
                 </ul>
 
-                <h3 class="subsection-title">Posisi Unik:</h3>
+                <h3>Unique Position:</h3>
                 <ul>
-                    <li>Bukan kompetitor, tapi partner untuk artist community</li>
-                    <li>Berani dengan imperfeksi yang disengaja</li>
-                    <li>Menguasai berbagai teknik untuk fleksibilitas maksimal</li>
-                    <li>Karya nyaman dilihat tanpa kehilangan karakter</li>
-                    <li><strong>Understanding terhadap artist struggles (pernah alami sendiri)</strong></li>
-                    <li>Karya berbicara sendiri</li>
+                    <li>Not competitor, but partner for artist community</li>
+                    <li>Brave with intentional imperfections</li>
+                    <li>Mastery of various techniques for maximum flexibility</li>
+                    <li>Work comfortable to look at without losing character</li>
+                    <li><strong>Understanding of artist struggles (experienced themselves)</strong></li>
+                    <li>Work speaks for itself</li>
                 </ul>
 
-                <h3 class="subsection-title">Personal Values:</h3>
+                <h3>Personal Values:</h3>
                 <div class="quote-box">
-                    <p>"Bidang art bener-bener terjun karena passion, walaupun sempat di coding dan administrasi, art tetap yang paling bebas untuk ekspresif."</p>
-                    <p>Ini filosofi yang membuat ILUZTAR bisa deeply connect dengan artist lain - karena understand the struggle, value the passion, dan respect the process.</p>
+                    <p>"The art field is truly entered because of passion, even though been in coding and administration, art remained the freest for expression."</p>
+                    <p>This philosophy makes ILUZTAR able to deeply connect with other artists - because understand the struggle, value the passion, and respect the process.</p>
                 </div>
 
                 <div class="highlight-box">
-                    <p><strong>Core DNA:</strong> Craft + Illuminate + Freedom + Collaboration + Integrity = Bersinar bersama seperti bintang, dengan respect dan profesionalisme</p>
+                    <p><strong>Core DNA:</strong> Craft + Illuminate + Freedom + Collaboration + Integrity = Shine together like stars, with respect and professionalism</p>
                     
-                    <p><strong>Esensi:</strong> Estetika seimbang, karakter kasar, imperfeksi yang disengaja, semangat kolaboratif, nyaman di mata, versatile dalam teknik, <strong>support system untuk artist community</strong>, <strong>respect terhadap hak cipta dan ownership</strong>.</p>
+                    <p><strong>Essence:</strong> Balanced aesthetic, rough character, intentional imperfections, collaborative spirit, eye comfort, versatile in techniques, <strong>support system for artist community</strong>, <strong>respect for copyright and ownership</strong>.</p>
                     
                     <p><strong>Mission Statement:</strong> "To shine through our art, and to help fellow artists shine through theirs - with respect, integrity, and clear boundaries."</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="contact-info" style="margin-top: 40px;">
-            <p style="text-align: center; font-style: italic;">Dokumen ini merepresentasikan identitas lengkap ILUZTAR Creative Studio</p>
-            <p style="text-align: center; font-style: italic;">Diperbarui: Februari 2026</p>
-            <p style="text-align: center; font-weight: bold; color: #F1C40F; font-size: 18px;">"Shine Through Art"</p>
-            <p style="text-align: center;">Your Collaborative Partner in Creative Excellence</p>
-            <p style="text-align: center;">"We Got You - Support System for Artists"</p>
-        </div>
+        <!-- FINAL BIG TEXT -->
+        <section class="section big-text-section">
+            <h2 class="big-text">SHINE</h2>
+        </section>
 
-        <div class="no-print" style="margin-top: 40px;">
-            <button class="button" onclick="window.print()">💾 Download PDF</button>
-            <p style="text-align: center; margin-top: 20px; color: #666;">
-                Klik tombol di atas untuk menyimpan sebagai PDF.<br>
-                Pilih "Save as PDF" di printer options.
-            </p>
-        </div>
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>ILUZTAR CREATIVE STUDIO // "SHINE THROUGH ART"</div>
+            <div style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.5;">PROFILE DOCUMENT // FEBRUARY 2026</div>
+            <div style="margin-top: 2rem; font-size: 0.6rem; opacity: 0.3;">© 2026 ILUZTAR CREATIVE STUDIO // ALL MODULES ACTIVE</div>
+        </footer>
     </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Simple script for HUD updates and scroll tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update scroll position in HUD
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const scrollElement = document.querySelector('.hud-bottom span:first-child strong');
+                if (scrollElement) {
+                    scrollElement.textContent = `${scrollY.toFixed(0)}`;
+                }
+            });
+
+            // Add hover effect to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    // Add slight glow effect
+                    this.style.boxShadow = '0 0 40px rgba(255, 166, 60, 0.3), 0 20px 50px rgba(0, 0, 0, 0.5)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    // Restore original shadow
+                    this.style.boxShadow = '0 0 0 1px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.5)';
+                });
+            });
+
+            // Hide scroll indicator after scrolling
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    scrollIndicator.style.opacity = '0';
+                    scrollIndicator.style.transition = 'opacity 0.5s';
+                } else {
+                    scrollIndicator.style.opacity = '1';
+                }
+            });
+
+            // Update HUD status
+            const statusElement = document.querySelector('.hud-bottom span:first-child strong');
+            if (statusElement) {
+                // Simulate system status
+                const statuses = ['ACTIVE', 'STANDBY', 'PROCESSING', 'READY'];
+                let statusIndex = 0;
+                
+                setInterval(() => {
+                    statusElement.textContent = statuses[statusIndex];
+                    statusIndex = (statusIndex + 1) % statuses.length;
+                    
+                    // Add color change for visual feedback
+                    if (statusElement.textContent === 'ACTIVE') {
+                        statusElement.style.color = 'var(--accent-2)';
+                    } else if (statusElement.textContent === 'PROCESSING') {
+                        statusElement.style.color = 'var(--accent)';
+                    } else {
+                        statusElement.style.color = 'var(--accent-2)';
+                    }
+                }, 3000);
+            }
+
+            // Console log for cyberpunk effect
+            console.log('%cILUZTAR // CREATIVE STUDIO PROFILE', 'color: #ff003c; font-size: 24px; font-weight: bold;');
+            console.log('%cSYSTEM INITIALIZED: All profile modules loaded', 'color: #00f3ff;');
+        });
+    </script>
 </body>
 </html>
