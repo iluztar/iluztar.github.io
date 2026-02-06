@@ -2235,12 +2235,11 @@
             const themeLabel = document.getElementById('themeLabel');
             const body = document.body;
 
-            // Check for saved theme preference or default to 'dark'
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            if (currentTheme === 'light') {
-                body.classList.add('light-mode');
-                themeLabel.textContent = 'LIGHT';
-            }
+            // SELALU SET DEFAULT KE DARK MODE
+            // Hapus preferensi tersimpan jika ada, lalu set ke dark
+            localStorage.removeItem('theme'); // Hapus saved theme
+            body.classList.remove('light-mode'); // Pastikan light-mode dihapus
+            themeLabel.textContent = 'DARK'; // Set label ke DARK
 
             themeToggle.addEventListener('click', function() {
                 body.classList.toggle('light-mode');
@@ -2354,4 +2353,3 @@
     </script>
 </body>
 </html>
-
