@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILUZTAR | Shine Through Art</title>
+    <meta name="description" content="ILUZTAR (イルズター) - Creative studio for anime illustration, graphic branding, and photo manipulation. Collaborative partner for artists who need help. Shine Through Art.">
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://iluztar.com/">
+    <meta property="og:title"       content="ILUZTAR // CREATIVE STUDIO | Shine Through Art">
+    <meta property="og:description" content="Creative studio for anime illustration, graphic branding, and artist collaboration. We got you - Support system for artists.">
+    <meta property="og:image"       content="https://iluztar.com/preview.jpg">
+    <link rel="icon"      href="./img/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://iluztar.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preload"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Syncopate:wght@400;700&display=swap"
+          as="style"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Syncopate:wght@400;700&display=swap">
+    </noscript>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/07-sidebar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+</head>
+
+<body class="no-js light-mode">
+
+    <aside class="desktop-sidebar" id="desktopSidebar" aria-label="Site navigation">
+
+        <a href="#home" class="sb-logo" id="sbLogo" aria-label="Go to top">
+            <div class="sb-logo-icon">
+                <svg viewBox="0 0 220 162" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M110 2 C112 79,112 79,218 81 C112 83,112 83,110 160 C108 83,108 83,2 81 C108 79,108 79,110 2 Z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                </svg>
+            </div>
+            <div class="sb-logo-text">
+                <strong>ILUZTAR</strong>
+                <span>イルズター // CREATIVE STUDIO</span>
+            </div>
+        </a>
+
+        <ul class="sb-nav" id="sbNav">
+            <li><a href="#home"         class="sb-nav-item active" data-section="0">
+                <span class="sb-nav-icon"><i class='bx bx-home-alt'></i><sup class="sb-nav-num">00</sup></span>
+                <span class="sb-nav-label">// HOME</span>
+            </a></li>
+            <li><a href="about.html"    class="sb-nav-item"        data-section="-1">
+                <span class="sb-nav-icon"><i class='bx bx-user'></i><sup class="sb-nav-num">00</sup></span>
+                <span class="sb-nav-label" id="sbLabelAbout">// ABOUT US</span>
+            </a></li>
+            <li class="sb-divider"></li>
+            <li><a href="#services"     class="sb-nav-item"        data-section="1">
+                <span class="sb-nav-icon"><i class='bx bx-palette'></i><sup class="sb-nav-num">01</sup></span>
+                <span class="sb-nav-label" id="sbLabelServices">// SERVICES</span>
+            </a></li>
+            <li><a href="#portfolio"    class="sb-nav-item"        data-section="2">
+                <span class="sb-nav-icon"><i class='bx bx-image-alt'></i><sup class="sb-nav-num">02</sup></span>
+                <span class="sb-nav-label">// PORTFOLIO</span>
+            </a></li>
+            <li><a href="#testimonials" class="sb-nav-item"        data-section="3">
+                <span class="sb-nav-icon"><i class='bx bx-chat'></i><sup class="sb-nav-num">03</sup></span>
+                <span class="sb-nav-label" id="sbLabelTestimonials">// TESTIMONIALS</span>
+            </a></li>
+            <li><a href="#faq"          class="sb-nav-item"        data-section="4">
+                <span class="sb-nav-icon"><i class='bx bx-help-circle'></i><sup class="sb-nav-num">04</sup></span>
+                <span class="sb-nav-label">// FAQ</span>
+            </a></li>
+            <li><a href="#contact"      class="sb-nav-item"        data-section="5">
+                <span class="sb-nav-icon"><i class='bx bx-envelope'></i><sup class="sb-nav-num">05</sup></span>
+                <span class="sb-nav-label" id="sbLabelContact">// CONTACT</span>
+            </a></li>
+        </ul>
+
+        <div class="sb-divider"></div>
+
+        <div class="sb-controls">
+            <div class="sb-ctrl-box">
+                <button class="sb-ctrl" id="sbThemeBtn" aria-label="Toggle theme">
+                    <span class="sb-ctrl-icon"><i class='bx bx-sun' id="sbThemeIcon"></i></span>
+                    <span class="sb-ctrl-value" id="sbThemeValue">LIGHT THEME</span>
+                </button>
+                <div class="sb-ctrl-box-divider"></div>
+                <button class="sb-ctrl" id="sbLangBtn" aria-label="Switch language">
+                    <span class="sb-ctrl-icon"><i class='bx bx-globe'></i></span>
+                    <span class="sb-ctrl-value" id="sbLangValue">ENGLISH</span>
+                </button>
+                <div class="sb-ctrl-box-divider sb-audio-divider"></div>
+                <button class="sb-ctrl sb-ctrl-audio" id="sbAudioBtn" aria-label="Toggle audio">
+                    <span class="sb-ctrl-icon"><i class='bx bx-volume-full' id="sbAudioIcon"></i></span>
+                    <span class="sb-ctrl-value" id="sbAudioValue">SOUND ON</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sb-socials">
+            <div class="sb-socials-box">
+                <div class="sb-socials-icon-wrap" aria-hidden="true"><i class='bx bx-link'></i></div>
+                <div class="sb-social-links">
+                    <a id="sbEmailLink" href="#" class="sb-social-link" aria-label="Email"><i class='bx bx-envelope'></i></a>
+                    <a href="https://t.me/iluztar"             target="_blank" rel="noopener noreferrer" class="sb-social-link" aria-label="Telegram"><i class='bx bxl-telegram'></i></a>
+                    <a href="https://www.facebook.com/iluztar" target="_blank" rel="noopener noreferrer" class="sb-social-link" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+                    <a href="https://instagram.com/iluztar"    target="_blank" rel="noopener noreferrer" class="sb-social-link" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://youtube.com/@iluztar"     target="_blank" rel="noopener noreferrer" class="sb-social-link" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+                </div>
+            </div>
+        </div>
+
+        <button class="sb-hide-btn" id="sbHideBtn" aria-label="Hide sidebar">
+            <span class="sb-ctrl-icon"><i class='bx bx-chevrons-left'></i></span>
+            <span class="sb-hide-label">HIDE NAV</span>
+        </button>
+
+    </aside>
+
+    <button class="sb-show-btn" id="sbShowBtn"
+            aria-label="Show navigation"
+            title="Show navigation (Alt+H)"
+            data-tooltip="SHOW NAV // ALT+H">
+        <i class='bx bx-menu'></i>
+    </button>
+
+    <div class="sb-overlay" id="sbOverlay" aria-hidden="true"></div>
+
+    <div class="preloader">
+        <div class="preloader-bg"></div>
+        <div class="eye-stage">
+            <div class="eye-wrap">
+                <svg class="eye-outer-svg" viewBox="0 0 110 60" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0, 0.285)">
+                        <path class="eye-sclera-path" fill="#fff" d="m 95.346487,35.606881 c -3.128142,3.406564 -7.517368,7.337214 -12.381547,10.4326 -9.769304,6.215342 -21.307401,8.0087 -28.17785,8.0087 -6.804938,0 -18.121935,-1.850681 -27.727462,-8.0087 -4.896935,-3.14452 -9.212462,-6.919583 -12.340604,-10.326146 -2.85791,-3.103575 -4.7577246,-5.994241 -4.7577246,-5.994241 0,0 1.6295826,-2.645 4.7577246,-5.977864 3.005309,-3.218221 7.410914,-7.058793 12.340604,-10.162368 9.261594,-5.8222757 21.282833,-8.1970435 27.727462,-8.1970435 6.862261,0 18.408546,1.9817028 28.17785,8.1970435 4.847802,3.087198 9.253405,6.886827 12.381547,10.244257 2.898851,3.111765 4.692213,5.895976 4.692213,5.895976 0,0 -1.817929,2.751455 -4.692213,5.887786 z"/>
+                        <g class="eye-inner">
+                            <circle class="eye-sclera-circle" fill="#111" cx="55" cy="29.719" r="24.333"/>
+                            <g class="eye-iris">
+                                <circle class="eye-iris-circle" fill="#ffcc00" cx="55" cy="29.715" r="22.42"/>
+                                <circle class="eye-pupil" fill="#000" cx="55" cy="29.719" r="12.126"/>
+                                <path class="eye-highlight" fill="#fff" fill-rule="evenodd" d="M55,15.463C55.368,29.632,55.368,29.632,74.873,30,55.368,30.368,55.368,30.368,55,44.537,54.632,30.368,54.632,30.368,35.127,30,54.632,29.632,54.632,29.632,55,15.463Z"/>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="star-stage">
+            <div class="star-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 162" xml:space="preserve">
+                    <path class="preloader-star-path" d="M110 2 C112 79,112 79,218 81 C112 83,112 83,110 160 C108 83,108 83,2 81 C108 79,108 79,110 2 Z" fill="white" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                </svg>
+            </div>
+        </div>
+        <div class="preloader-scanlines" aria-hidden="true"></div>
+        <div class="preloader-noise" aria-hidden="true"></div>
+    </div>
+
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <div id="alert" role="alert"></div>
+
+    <main>
+        <section class="hero" id="home">
+            <h1 class="hero-title">ILUZTAR</h1>
+            <p class="hero-subtitle">イルズター // CREATIVE STUDIO</p>
+            <p class="hero-description" id="heroDescription"></p>
+            <div class="hero-cta" id="heroCta"></div>
+            <div class="scroll-indicator" aria-hidden="true">SCROLL</div>
+        </section>
+
+        <div class="content-container">
+
+        <section class="services-scene" id="services">
+            <div class="services-scene-inner">
+                <div class="services-sticky-frame">
+                    <div class="services-label-block">
+                        <h2 class="big-text services-big-text">CREATE</h2>
+                        <p class="section-header" id="servicesSectionHeader"></p>
+                    </div>
+                    <div class="services-cards-area">
+                        <div class="services-cards-wrapper" id="servicesCardsWrapper"></div>
+                    </div>
+                    <div class="services-outro" aria-hidden="true">
+                        <span class="services-outro-text">// SHINE BEGINS HERE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-scene" id="portfolio">
+            <div class="portfolio-scene-inner">
+                <div class="portfolio-sticky-frame">
+                    <div class="portfolio-label-block">
+                        <h2 class="big-text portfolio-big-text">INSPIRE</h2>
+                        <p class="section-header">02. PORTFOLIO</p>
+                    </div>
+                    <div class="portfolio-content-area">
+                        <div class="carousel-section">
+                            <div class="swiper portfolio-swiper">
+                                <div class="swiper-wrapper" id="portfolioWrapper"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-scene" id="testimonials">
+            <div class="testimonials-scene-inner">
+                <div class="testimonials-sticky-frame">
+                    <div class="testimonials-label-block">
+                        <h2 class="big-text testimonials-big-text">REFINE</h2>
+                        <p class="section-header" id="testimonialsSectionHeader"></p>
+                    </div>
+                    <div class="testimonials-content-area">
+                        <div class="carousel-section">
+                            <div class="swiper testimonial-swiper">
+                                <div class="swiper-wrapper" id="testimonialWrapper"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-scene" id="faq">
+            <div class="faq-scene-inner">
+                <div class="faq-sticky-frame">
+                    <div class="faq-label-block">
+                        <h2 class="big-text faq-big-text">EVOLVE</h2>
+                        <p class="section-header">04. FAQ</p>
+                    </div>
+                    <div class="faq-content-area">
+                        <div class="faq-accordion" id="faqAccordion"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-scene" id="contact">
+            <div class="contact-scene-inner">
+                <div class="contact-sticky-frame">
+                    <div class="contact-label-block">
+                        <h2 class="big-text contact-big-text">UNITE</h2>
+                        <p class="section-header" id="contactSectionHeader"></p>
+                    </div>
+                    <div class="contact-content-area">
+                        <div class="contact-grid">
+                            <div class="contact-card">
+                                <div class="contact-content">
+                                    <div class="contact-icon"><i class='bx bx-envelope'></i></div>
+                                    <h3 class="contact-title">EMAIL</h3>
+                                    <div class="contact-info">
+                                        <a href="#" id="emailLink" class="contact-link" rel="noopener noreferrer">iluztar [at] proton.me</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-card">
+                                <div class="contact-content">
+                                    <div class="contact-icon"><i class='bx bxl-telegram'></i></div>
+                                    <h3 class="contact-title">TELEGRAM</h3>
+                                    <div class="contact-info">
+                                        <a href="https://t.me/iluztar" target="_blank" rel="noopener noreferrer" class="contact-link">@iluztar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-card">
+                                <div class="contact-content">
+                                    <div class="contact-icon"><i class='bx bxl-facebook'></i></div>
+                                    <h3 class="contact-title">FACEBOOK</h3>
+                                    <div class="contact-info">
+                                        <a href="https://www.facebook.com/iluztar" target="_blank" rel="noopener noreferrer" class="contact-link">@iluztar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-card">
+                                <div class="contact-content">
+                                    <div class="contact-icon"><i class='bx bxl-instagram'></i></div>
+                                    <h3 class="contact-title">INSTAGRAM</h3>
+                                    <div class="contact-info">
+                                        <a href="https://instagram.com/iluztar" target="_blank" rel="noopener noreferrer" class="contact-link instagram-link" data-username="iluztar">@iluztar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="big-text-section">
+            <h2 class="big-text">SHINE</h2>
+        </section>
+
+        <footer class="footer">
+            <div>ILUZTAR - "SHINE THROUGH ART"</div>
+            <div class="footer-date">
+                <span>[ HOMEPAGE // UPDATED ON FEBRUARY 2026 ]</span>
+            </div>
+            <div class="footer-copyright">© 2026 ILUZTAR CREATIVE STUDIO</div>
+        </footer>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js" defer></script>
+    <script type="module" src="./js/script.js"></script>
+    <script src="./js/sw-register.js"></script>
+    <script>
+        (function() {
+            var el = document.getElementById('emailLink');
+            if (!el) return;
+            var addr = 'iluztar' + '@' + ['proton','me'].join('.');
+            el.href = 'mailto:' + addr;
+            el.textContent = addr;
+        })();
+    </script>
+</body>
+</html>

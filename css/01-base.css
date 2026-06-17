@@ -1,0 +1,112 @@
+/* 01-base.css — Reset, Variables & Base Styles */
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:auto; }
+html.lenis { height:auto; }
+.lenis.lenis-smooth { scroll-behavior:auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior:contain; }
+.lenis.lenis-stopped { overflow:hidden; }
+html,body { width:100%; max-width:100%; overflow-x:hidden; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:#2b2b2b; }
+::-webkit-scrollbar-thumb { background:#ffd000; }
+::-webkit-scrollbar-thumb:hover { background:#e0b800; }
+body.light-mode ::-webkit-scrollbar-track { background:#e0e0e0; }
+body.light-mode ::-webkit-scrollbar-thumb { background:#1a1a1a; }
+body.light-mode ::-webkit-scrollbar-thumb:hover { background:#444; }
+
+/* Hide scrollbar during preloader */
+body.no-js, body.preloader-active {
+  overflow:hidden !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+}
+body.no-js::-webkit-scrollbar,
+body.preloader-active::-webkit-scrollbar,
+html:has(body.preloader-active)::-webkit-scrollbar { display:none !important; width:0 !important; }
+html:has(body.preloader-active) { overflow:hidden !important; scrollbar-width:none !important; }
+
+:root {
+  /* Colors */
+  --color-bg:#0a0a0a;               --color-bg-light:#f8f8f8;
+  --color-card-bg:#151515;          --color-card-bg-light:#ffffff;
+  --color-text:#e8e8e8;             --color-text-light:#1e1e1e;
+  --color-accent:#ffd000;           --color-accent-light:#1e1e1e;
+  --color-border:rgba(255,255,255,0.08); --color-border-light:rgba(0,0,0,0.08);
+  --color-hover-bg:#1f1f1f;         --color-hover-bg-light:#f3f3f3;
+
+  /* Fonts */
+  --font-display:'Syncopate',sans-serif;
+  --font-code:'JetBrains Mono',monospace;
+
+  /* Spacing */
+  --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+  --space-6:1.5rem; --space-8:2rem;  --space-10:2.5rem; --space-12:3rem;
+  --space-16:4rem;  --space-20:5rem;
+
+  /* Transitions */
+  --transition-fast:150ms cubic-bezier(.4,0,.2,1);
+  --transition-normal:300ms cubic-bezier(.4,0,.2,1);
+  --transition-slow:400ms cubic-bezier(.4,0,.2,1);
+
+  /* Z-index layers */
+  --z-bg:-1; --z-content:2; --z-fx:9994;
+  --z-alert:9997; --z-overlay:9998; --z-menu:9998;
+
+  /* Layout */
+  --container-padding:1.5rem;
+  --container-max-width:1200px;
+  --grid-cols:12;
+  --grid-gap:1rem;
+  --section-gap:3rem;
+  --content-area-padding:var(--container-padding);
+
+  /* Alert / nav tokens */
+  --alert-padding-y:0.75rem;
+  --alert-padding-x:1.5rem;
+  --nav-padding:2rem;
+  --nav-header-gap:2rem;
+  --nav-item-gap:2rem;
+  --nav-link-padding:1rem;
+  --nav-link-indent:1.8rem;
+  --nav-indicator:3px;
+  --nav-close-size:40px;
+
+  /* Semantic aliases */
+  --bg:var(--color-bg); --card-bg:var(--color-card-bg); --text:var(--color-text);
+  --accent:var(--color-accent); --border:var(--color-border); --hover-bg:var(--color-hover-bg);
+  --box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 20px 40px -10px rgba(0,0,0,0.7);
+  --hover-shadow:0 0 0 1px rgba(255,215,0,0.15),0 25px 50px -12px rgba(0,0,0,0.8);
+}
+
+body.light-mode {
+  --bg:var(--color-bg-light); --card-bg:var(--color-card-bg-light);
+  --text:var(--color-text-light); --accent:var(--color-accent-light);
+  --border:var(--color-border-light); --hover-bg:var(--color-hover-bg-light);
+  --box-shadow:0 1px 3px rgba(0,0,0,0.05),0 4px 12px rgba(0,0,0,0.03);
+  --hover-shadow:0 8px 24px -6px rgba(0,0,0,0.16),0 2px 6px rgba(0,0,0,0.05);
+}
+
+body {
+  font-family:var(--font-code); line-height:1.5; min-height:100vh; cursor:crosshair;
+  transition:background-color .3s ease,color .3s ease;
+  background:var(--bg); color:var(--text);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+img { max-width:100%; height:auto; display:block; user-select:none; border:0; }
+
+.cta-button,.faq-question,.contact-link,.name-link,.avatar-link,.verified-badge,
+.sb-nav-item,.sb-ctrl,.sb-show-btn,.sb-hide-btn,.sb-logo {
+  cursor:pointer !important; user-select:none; touch-action:manipulation;
+}
+
+::selection { background:transparent; color:inherit; }
+
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+.hero-title,.hero-cta,.big-text,.section-header,.carousel-section,.faq-item,.contact-card {
+  will-change:transform,opacity;
+}

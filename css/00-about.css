@@ -1,0 +1,264 @@
+/* ============================================
+   00-about.css — About Page Specific Styles
+   Extends main.css (loaded before this file)
+   ============================================ */
+
+/* ============================================================
+   SIDEBAR COMPENSATION — mirrors index.html behaviour
+   main margin-left is set by 07-sidebar.css when sidebar
+   is visible; about page needs the same scene/label overrides
+   ============================================================ */
+@media (min-width: 1024px) {
+    body.sidebar-visible .about-page {
+        max-width: min(var(--container-max-width), calc(100vw - 5rem - 4rem)) !important;
+    }
+}
+
+/* ============================================================
+   SCROLLBAR — hide during preloader (body.no-js is active
+   until JS removes it, same window as preloader-active)
+   ============================================================ */
+body.no-js,
+body.preloader-active {
+    overflow: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+body.no-js::-webkit-scrollbar,
+body.preloader-active::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+/* ============================================================
+   HERO TITLE — about page uses a smaller title so it does
+   not overwhelm the section big-texts below.
+   index uses clamp(3rem,15vw,12rem); we scale that down.
+   ============================================================ */
+.about-hero-title {
+    font-size: clamp(2.5rem, 10vw, 7rem) !important;
+    letter-spacing: clamp(-0.05rem, -0.3vw, -0.2rem) !important;
+    margin-top: 4rem !important;
+}
+
+@media (max-width: 768px) {
+    .about-hero-title {
+        font-size: clamp(2.2rem, 9vw, 5rem) !important;
+        margin-top: 2rem !important;
+    }
+}
+@media (max-width: 480px) {
+    .about-hero-title {
+        font-size: clamp(2rem, 10vw, 4rem) !important;
+        margin-top: 1.5rem !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 1023px) {
+    .about-hero-title {
+        font-size: clamp(1.8rem, 7vh, 4rem) !important;
+        margin-top: 2rem !important;
+    }
+}
+
+/* ============================================================
+   ABOUT PAGE CONTENT CONTAINER
+   Inherits .content-container; add-page adds visual context
+   ============================================================ */
+.content-container.about-page {
+    padding-top: 0;
+}
+
+/* ============================================================
+   BIG TEXT — long words (ILLUMINATE, INTEGRITY, MASTERY …)
+   need a tighter cap so they don't overflow on small screens
+   ============================================================ */
+.about-page .big-text {
+    font-size: clamp(2rem, 9vw, 7rem) !important;
+    letter-spacing: clamp(-0.05rem, 0.2vw, 0.3rem) !important;
+}
+
+@media (max-width: 768px) {
+    .about-page .big-text {
+        font-size: clamp(1.8rem, 9vw, 5rem) !important;
+    }
+}
+@media (max-width: 480px) {
+    .about-page .big-text {
+        font-size: clamp(1.6rem, 10vw, 4rem) !important;
+        letter-spacing: -0.02rem !important;
+    }
+}
+
+/* ============================================================
+   ABOUT CARDS
+   ============================================================ */
+.about-card {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.about-content {
+    font-family: var(--font-code);
+    line-height: 1.7;
+    font-size: 0.9rem;
+    color: var(--text);
+    opacity: 0.9;
+}
+
+/* ============================================================
+   LANGUAGE VISIBILITY
+   ============================================================ */
+.lang-content {
+    display: none;
+}
+
+html[data-lang="en"] .lang-content.en,
+html[data-lang="id"] .lang-content.id {
+    display: block;
+}
+
+/* ============================================================
+   TYPOGRAPHY — headings inside about-content
+   ============================================================ */
+.about-content h3,
+.about-content .card-title {
+    color: #fff;
+    margin: 1.5rem 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+body.light-mode .about-content h3,
+body.light-mode .about-content .card-title {
+    color: #000;
+}
+
+.about-content h4 {
+    color: var(--accent);
+    margin: 1rem 0 0.5rem;
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.about-content p {
+    margin: 0.75rem 0;
+}
+
+.about-content ul,
+.about-content ol {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+.about-content li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.about-content strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* ============================================================
+   HIGHLIGHT & QUOTE BOXES
+   ============================================================ */
+.highlight-box,
+.quote-box {
+    background: rgba(255, 208, 0, 0.05);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    transition: background var(--transition-normal), padding-left var(--transition-normal);
+    position: relative;
+}
+
+.highlight-box::before,
+.quote-box::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transition: width var(--transition-normal);
+}
+
+.highlight-box:hover,
+.quote-box:hover {
+    background: rgba(255, 208, 0, 0.08);
+    padding-left: 1.5rem;
+}
+
+.highlight-box:hover::before,
+.quote-box:hover::before {
+    width: 4px;
+}
+
+body.light-mode .highlight-box,
+body.light-mode .quote-box {
+    background: rgba(0, 0, 0, 0.05);
+}
+body.light-mode .highlight-box:hover,
+body.light-mode .quote-box:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.quote-box {
+    font-style: italic;
+    border-left-color: rgba(255, 208, 0, 0.6);
+}
+.quote-box::before {
+    background: rgba(255, 208, 0, 0.6);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    color: var(--text);
+    opacity: 0.6;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.footer > * { margin: 0.4rem 0; }
+.footer-date { color: var(--accent); opacity: 1; }
+.footer-copyright { opacity: 0.5; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .about-card { padding: 1.5rem; }
+    .about-content { font-size: 0.85rem; }
+    .about-content h3,
+    .about-content .card-title { font-size: 1.1rem; }
+    .highlight-box,
+    .quote-box { padding: 1rem; margin: 1.25rem 0; }
+}
+
+@media (max-width: 480px) {
+    .about-card { padding: 1rem; }
+    .about-content { font-size: 0.8rem; }
+    .about-content h3,
+    .about-content .card-title {
+        font-size: 1rem;
+        margin: 1rem 0 0.5rem;
+    }
+    .highlight-box,
+    .quote-box { padding: 0.875rem; }
+}
+
+@media (orientation: landscape) and (max-width: 1023px) {
+    .about-card { padding: 1.25rem; }
+    .about-content { font-size: 0.82rem; }
+}

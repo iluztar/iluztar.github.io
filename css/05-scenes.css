@@ -1,0 +1,246 @@
+/* 05-scenes.css — Sticky Scroll Scenes */
+
+:root {
+    --label-padding-x:   var(--content-area-padding);
+    --label-gap:         0;
+    --label-header-mt:   0.5rem;
+    --label-header-pb:   0.5rem;
+    --label-header-fs:   0.875rem;
+    --big-text-lh:       0.85;
+    --scene-pad-v:       clamp(2.5rem, 7vh, 5rem);
+}
+
+/* ─── Scene wrappers ─── */
+.portfolio-scene,.testimonials-scene,.faq-scene,.contact-scene {
+    height:150vh; position:relative;
+    width:100vw; margin-left:calc(-50vw + 50%);
+    overscroll-behavior:contain;
+}
+.portfolio-scene-inner,.testimonials-scene-inner,
+.faq-scene-inner,.contact-scene-inner { height:100%; position:relative; }
+
+/* ─── Sticky frames ─── */
+.portfolio-sticky-frame,.testimonials-sticky-frame {
+    position:sticky; top:0; height:100vh; width:100%;
+    overflow:hidden; display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    padding:var(--scene-pad-v) 0; box-sizing:border-box;
+}
+.faq-sticky-frame {
+    position:sticky; top:0; height:100vh; width:100%;
+    overflow:hidden; display:flex; flex-direction:column;
+    justify-content:flex-start; align-items:center;
+    padding:var(--scene-pad-v) 0 1rem; box-sizing:border-box;
+}
+.contact-sticky-frame {
+    position:sticky; top:0; height:auto; width:100%;
+    overflow:visible; display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    padding:var(--scene-pad-v) 0; box-sizing:border-box;
+}
+
+/* ─── Label blocks ─── */
+.portfolio-label-block,.testimonials-label-block,.faq-label-block,
+.contact-label-block,.services-label-block {
+    display:flex; flex-direction:column; align-items:center;
+    pointer-events:none; flex-shrink:0;
+    padding:0 var(--label-padding-x); gap:var(--label-gap);
+    width:100%; max-width:var(--container-max-width);
+}
+
+/* ─── Big text ─── */
+.portfolio-big-text,.testimonials-big-text,.faq-big-text,
+.contact-big-text,.services-big-text {
+    pointer-events:none;
+    font-size:clamp(3rem,15vw,12rem) !important;
+    line-height:var(--big-text-lh); margin:0 !important;
+    width:100%; text-align:center;
+}
+
+/* ─── Section headers inside label blocks ─── */
+.portfolio-label-block .section-header,.testimonials-label-block .section-header,
+.faq-label-block .section-header,.contact-label-block .section-header,
+.services-label-block .section-header {
+    margin-top:var(--label-header-mt); margin-bottom:0;
+    padding-bottom:var(--label-header-pb);
+    font-size:var(--label-header-fs);
+    border-bottom:1px solid var(--border);
+    width:100%; max-width:100%; min-width:unset;
+    text-align:center; position:relative;
+}
+
+/* ─── Content areas ─── */
+.portfolio-content-area,.testimonials-content-area {
+    position:relative; width:100%;
+    max-width:var(--container-max-width); height:auto; flex-shrink:0;
+    margin-top:clamp(1rem,2.5vh,1.8rem);
+    display:flex; align-items:center;
+    padding:0 var(--container-padding);
+}
+.faq-content-area {
+    position:relative; width:100%;
+    max-width:var(--container-max-width);
+    flex-shrink:1; min-height:0;
+    margin-top:clamp(1.5rem,3vh,2.5rem);
+    padding:0 var(--container-padding);
+    max-height:calc(100vh - var(--scene-pad-v) * 2 - 9rem);
+    overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none;
+}
+.faq-content-area::-webkit-scrollbar { display:none; }
+.contact-content-area {
+    position:relative; width:100%;
+    max-width:var(--container-max-width); height:auto;
+    margin-top:clamp(1rem,2.5vh,1.8rem);
+    padding:0 var(--container-padding); overflow:visible;
+}
+
+/* ─── Services scene (GSAP scroll) ─── */
+.services-scene {
+    height:500vh; position:relative;
+    width:100vw; margin-left:calc(-50vw + 50%);
+}
+.services-scene-inner { height:100%; position:relative; }
+.services-sticky-frame {
+    position:sticky; top:0; height:100vh; width:100%;
+    overflow:hidden; display:flex; flex-direction:column;
+    justify-content:center; align-items:center;
+    padding:var(--scene-pad-v) 0; box-sizing:border-box; gap:0;
+}
+.services-cards-area {
+    position:relative; width:100%; height:400px;
+    flex-shrink:0; margin-top:clamp(3rem,5vh,4rem);
+    display:flex; align-items:center; overflow:visible;
+}
+.services-cards-wrapper {
+    position:relative; width:100%; height:100%; display:flex; align-items:center;
+}
+.services-cards-wrapper .card {
+    position:absolute; top:50%;
+    will-change:transform,opacity; pointer-events:auto;
+    height:340px; min-height:unset;
+    background:var(--card-bg) !important;
+    backdrop-filter:none !important; -webkit-backdrop-filter:none !important;
+    isolation:auto; z-index:var(--z-content);
+}
+.services-outro {
+    position:absolute; inset:0;
+    display:flex; justify-content:center; align-items:center;
+    pointer-events:none; opacity:0; z-index:10;
+}
+.services-outro-text {
+    font-family:var(--font-code); font-size:clamp(.8rem,2vw,1.1rem);
+    color:var(--accent); letter-spacing:.35rem; text-transform:uppercase;
+}
+
+/* ─── Responsive ─── */
+@media (max-width:1023px) {
+    .services-scene { height:480vh; }
+    .services-cards-area { height:370px; }
+    .services-cards-wrapper .card { height:310px; }
+    .portfolio-scene,.testimonials-scene,.faq-scene { height:150vh; }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text,.services-big-text { font-size:clamp(2.5rem,12vw,6rem) !important; }
+}
+@media (max-width:639px) {
+    .services-scene { height:440vh; }
+    .services-sticky-frame { padding:clamp(1.8rem,5vh,3.5rem) 0; }
+    .services-cards-area { height:350px; margin-top:clamp(2.5rem,4vh,3.5rem); }
+    .services-cards-wrapper .card { height:290px; }
+    .portfolio-scene,.testimonials-scene,.faq-scene { height:150vh; }
+    .portfolio-sticky-frame,.testimonials-sticky-frame,
+    .faq-sticky-frame { padding:clamp(1.8rem,5vh,3.5rem) 0; }
+    .contact-sticky-frame { padding:clamp(1.2rem,3vh,2rem) 0; }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text,.services-big-text { font-size:clamp(2.5rem,13vw,5rem) !important; }
+    .portfolio-label-block .section-header,.testimonials-label-block .section-header,
+    .faq-label-block .section-header,.contact-label-block .section-header,
+    .services-label-block .section-header { font-size:.75rem; }
+    .portfolio-swiper .swiper-pagination,.testimonial-swiper .swiper-pagination { bottom:.5rem; padding:.5rem; }
+    .portfolio-swiper .swiper-pagination-bullet,.testimonial-swiper .swiper-pagination-bullet { width:10px; height:10px; margin:0 6px; }
+    .portfolio-swiper .swiper-slide,.testimonial-swiper .swiper-slide { padding:0 .5rem; }
+    .portfolio-content-area,.testimonials-content-area,
+    .faq-content-area,.contact-content-area { padding:0 var(--content-area-padding); }
+    .contact-card { min-height:140px; padding:1rem; }
+}
+@media (max-width:479px) {
+    .services-scene { height:420vh; }
+    .services-sticky-frame { padding:clamp(1.5rem,4vh,3rem) 0; }
+    .services-cards-area { height:330px; margin-top:clamp(2rem,3.5vh,3rem); }
+    .services-cards-wrapper .card { height:270px; }
+    .portfolio-scene,.testimonials-scene,.faq-scene { height:150vh; }
+    .portfolio-sticky-frame,.testimonials-sticky-frame,
+    .faq-sticky-frame { padding:clamp(1.5rem,4vh,3rem) 0; }
+    .contact-sticky-frame { padding:clamp(1rem,2.5vh,1.5rem) 0; }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text,.services-big-text { font-size:clamp(2.5rem,14vw,4rem) !important; }
+    .portfolio-label-block .section-header,.testimonials-label-block .section-header,
+    .faq-label-block .section-header,.contact-label-block .section-header,
+    .services-label-block .section-header { font-size:.7rem; }
+}
+@media (max-width:359px) {
+    .portfolio-content-area,.testimonials-content-area,
+    .faq-content-area,.contact-content-area { padding:0 var(--content-area-padding); }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text,.services-big-text { font-size:clamp(2rem,16vw,3.5rem) !important; }
+}
+@media (orientation:landscape) and (max-width:1023px) {
+    .portfolio-scene,.testimonials-scene,.faq-scene { height:120vh; }
+    .portfolio-sticky-frame,.testimonials-sticky-frame,
+    .faq-sticky-frame { padding:2.5rem 0 2rem; justify-content:flex-start; }
+    .contact-sticky-frame { padding:1.2rem 0; }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text { font-size:clamp(2rem,9vh,5rem) !important; }
+    .portfolio-label-block .section-header,.testimonials-label-block .section-header,
+    .faq-label-block .section-header,.contact-label-block .section-header,
+    .services-label-block .section-header { font-size:.7rem; margin-top:.3rem; padding-bottom:.3rem; }
+    .portfolio-content-area,.testimonials-content-area { margin-top:.75rem; }
+    .faq-content-area { margin-top:1.5rem; max-height:calc(100vh - 2rem * 2 - 8rem); }
+    .contact-content-area { margin-top:.6rem; }
+    .services-scene { height:380vh; }
+    .services-sticky-frame { padding:2rem 0; }
+    .services-big-text { font-size:clamp(2rem,9vh,5rem) !important; }
+    .services-label-block .section-header { font-size:.7rem; margin-top:.3rem; padding-bottom:.3rem; }
+    .services-cards-area { height:280px; margin-top:1.5rem; }
+    .services-cards-wrapper .card { height:240px; }
+}
+@media (max-height:450px) and (orientation:landscape) {
+    .portfolio-scene,.testimonials-scene,.faq-scene { height:110vh; }
+    .portfolio-sticky-frame,.testimonials-sticky-frame,
+    .faq-sticky-frame { padding:2rem 0 1.5rem; justify-content:flex-start; }
+    .contact-sticky-frame { padding:.8rem 0; }
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text { font-size:clamp(1.8rem,7vh,4rem) !important; }
+    .portfolio-content-area,.testimonials-content-area { margin-top:.5rem; }
+    .faq-content-area { margin-top:1rem; max-height:calc(100vh - 1.5rem * 2 - 7rem); }
+    .contact-content-area { margin-top:.4rem; }
+    .services-scene { height:340vh; }
+    .services-sticky-frame { padding:1.5rem 0; }
+    .services-big-text { font-size:clamp(1.8rem,7vh,4rem) !important; }
+    .services-cards-area { height:230px; margin-top:1rem; }
+    .services-cards-wrapper .card { height:200px; padding:1rem; }
+    .contact-card { padding:.75rem; min-height:clamp(90px,16vh,120px); }
+    .contact-icon { font-size:1.4rem; margin-bottom:.3rem; }
+    .contact-title { font-size:.65rem; }
+    .contact-link { font-size:.7rem; }
+    .contact-grid { grid-template-columns:repeat(4,1fr); gap:1rem; }
+}
+@media (max-height:380px) and (orientation:landscape) {
+    .portfolio-big-text,.testimonials-big-text,
+    .faq-big-text,.contact-big-text,.services-big-text { font-size:clamp(1.5rem,6vh,3rem) !important; }
+    .portfolio-sticky-frame,.testimonials-sticky-frame,
+    .faq-sticky-frame { padding:1.2rem 0; }
+    .services-cards-area { height:200px; }
+    .services-cards-wrapper .card { height:175px; }
+    /* Hide headers at extreme landscape heights */
+    .portfolio-label-block .section-header,.testimonials-label-block .section-header,
+    .faq-label-block .section-header,.contact-label-block .section-header,
+    .services-label-block .section-header { display:none; }
+}
+
+@media print {
+    .scanlines,.vignette,.noise,.scroll-indicator,#alert { display:none !important; }
+    body { background:white !important; color:black !important; }
+    .card,.portfolio-card,.testimonial-card,.contact-card {
+        break-inside:avoid; box-shadow:none !important; border:1px solid #ccc !important;
+    }
+}
