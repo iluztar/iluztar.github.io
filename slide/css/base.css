@@ -1,0 +1,73 @@
+    /* ==========================================================================
+       Rebuilt to genuinely match 00_neo-grid-bold/template.html: a fixed
+       1920x1080 canvas composed slide-by-slide on a literal 12-column x
+       8-row CSS grid (40px inset, 12-16px gaps), panels filled with solid
+       color only — no borders, no box-shadow, depth is panel adjacency.
+       Palette is COLOR.txt as-is: paper/ink from its light+dark text/bg
+       pair, accent blue #0042F8 standing in for the reference's lemon.
+       Fonts match the reference exactly: Space Grotesk + JetBrains Mono.
+       ========================================================================== */
+    :root {
+      --paper: #F7F7F8;
+      --paper-card: #FFFFFF;
+      --ink: #101114;
+      --ink-card: #17181C;
+      --ink-card-alt: #1F2126;
+      --accent: #0042F8;
+      --line-on-paper: rgba(16, 17, 20, 0.14);
+      --line-on-ink: rgba(247, 247, 248, 0.16);
+      --muted-on-ink: rgba(247, 247, 248, 0.62);
+      --stage-bg: #17181A;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --canvas-w: 1920px;
+      --canvas-h: 1080px;
+      --frame-inset: 40px;
+      --gap: 14px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; overflow: hidden; }
+    body {
+      font-family: var(--font-display);
+      background: var(--stage-bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+    /* Manual cursor text-selection (drag-select while presenting, to point
+       something out live) — yellow reads clearly no matter which tile color
+       (paper/ink/blue) is underneath, unlike the blue accent used elsewhere. */
+    ::selection { background: #F5D200; color: var(--ink); }
+    h1, h2, h3, h4, h5, p { margin: 0; }
+    mark {
+      background: var(--accent); color: #fff; padding: 0 10px;
+      box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+
+    /* ============================= TYPOGRAPHY SCALE =============================
+       t-display / t-title / t-h2 / t-h3 all run uppercase — the headline AND
+       every card sub-title reads as graphic, at-a-distance impact (the type
+       IS the layout). Prose-style exceptions (the cover's full thesis title,
+       quote statements, the author/supervisor names) opt back out with an
+       inline text-transform:none. Uppercase reads best with looser tracking
+       than mixed-case, so letter-spacing here is neutral-to-open rather than
+       the tight negative tracking usual for large display type. Mono
+       meta-labels (t-label / t-label-sm) stay uppercase too, as tag/eyebrow
+       chrome rather than reading text. */
+    .t-display { font-weight: 700; font-size: 104px; line-height: 1.0;  letter-spacing: 0em;    text-transform: uppercase; }
+    .t-title   { font-weight: 700; font-size: 72px;  line-height: 1.0;  letter-spacing: 0.005em; text-transform: uppercase; }
+    .t-h2      { font-weight: 700; font-size: 50px;  line-height: 1.05; letter-spacing: 0.01em;  text-transform: uppercase; }
+    .t-h3      { font-weight: 700; font-size: 32px;  line-height: 1.2;  letter-spacing: 0.015em; text-transform: uppercase; }
+    .t-body    { font-weight: 400; font-size: 22px;  line-height: 1.5; }
+    .t-body-sm { font-weight: 400; font-size: 19px;  line-height: 1.5; }
+    .t-label   { font-family: var(--font-mono); font-weight: 500; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .t-label-sm{ font-family: var(--font-mono); font-weight: 500; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .t-stat    { font-weight: 700; font-size: 108px; line-height: 0.92; letter-spacing: -0.03em; }
+    .t-stat-sm { font-weight: 700; font-size: 64px;  line-height: 0.95; letter-spacing: -0.02em; }
+    .t-num-big { font-weight: 700; font-size: 220px; line-height: 0.85; letter-spacing: -0.04em; }
+

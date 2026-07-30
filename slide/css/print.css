@@ -1,0 +1,37 @@
+    /* ==========================================================================
+       PRINT — one 1920x1080 landscape page per slide, no margin, so
+       File > Print > Save as PDF gives a clean deck importable into
+       PowerPoint (Insert > slides from PDF, or drop each page as an image).
+       ========================================================================== */
+    @media print {
+      /* Inches (not px) so the browser's print dialog reliably recognizes
+         this as a genuine custom landscape page instead of silently
+         falling back to Letter/A4 and auto-shrinking + cropping the
+         content. 20in x 11.25in = exactly 1920x1080 at the CSS-standard
+         96dpi, so nothing in the design needs to rescale. */
+      @page { size: 20in 11.25in; margin: 0; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; width: auto !important; }
+      .stage-viewport { position: static !important; display: block !important; overflow: visible !important; height: auto !important; }
+      .stage { position: relative !important; overflow: visible !important; transform: none !important; width: 1920px !important; height: auto !important; }
+      .deck-strip { display: block !important; transform: none !important; width: auto !important; height: auto !important; }
+      .slide {
+        position: relative !important;
+        display: block !important;
+        opacity: 1 !important; visibility: visible !important;
+        transform: none !important;
+        width: 1920px !important; height: 1080px !important;
+        break-after: page; page-break-after: always;
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .slide:last-child { break-after: auto; page-break-after: auto; }
+      .pagenum, .nav-overlay, .deck-overlay { display: none !important; }
+      /* Entrance animation is a screen-only affordance (CSS baseline + GSAP
+         tweening, see animateToSlide in the script) — print must show every
+         tile fully visible and untransformed regardless of which slide was
+         active, or how far any GSAP tween had progressed, when printed. */
+      .frame > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+      /* GSAP sets inline transform directly on the strip during a glide —
+         make sure print's transform:none above always wins over that too. */
+      .deck-strip, .slide { animation: none !important; }
+    }
