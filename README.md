@@ -34,6 +34,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - **Dua versi**: *Full* (±71 detik, 8 scene) dan *Cut* (±30 detik, versi ringkas untuk media sosial).
 - **Sinkron voice-over**: unggah file audio narasi, lalu animasi mengikuti waktu audionya.
 - **Tombol "Play scene"** untuk langsung memutar scene tertentu.
+- **Mode gelap / terang**: tombol bulan/matahari (atau tombol `T`). Pilihan disimpan di browser; tanpa pilihan, mengikuti pengaturan sistem. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
 - **Stage responsif**: kanvas 1600×900 yang diskalakan otomatis ke ukuran layar mana pun.
 - **Satu file**: semua kode, gaya, dan gambar ada di `index.html`, jadi mudah di-hosting di mana saja.
 - **Statistik Instagram asli**: jumlah posts, followers, dan following di scene 8 diambil dari akun @iluztar dan diperbarui otomatis.
@@ -55,6 +56,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | `→` / `←` | Scene berikutnya / sebelumnya |
 | `H` | Sembunyikan / tampilkan kontrol |
 | `Esc` | Keluar, lalu kembali ke mode scroll di frame terakhir |
+| `T` | Ganti tema gelap / terang (berlaku juga di mode scroll) |
 
 Kontrol dan kursor otomatis tersembunyi setelah 2,2 detik tanpa input. Klik progress bar untuk melompat ke waktu tertentu.
 
@@ -118,7 +120,6 @@ Isi `index.html`, dari atas ke bawah:
 |---|---|---|
 | [GSAP](https://gsap.com) | 3.12.5 | Mesin animasi & timeline |
 | ScrollTrigger | 3.12.5 | Menghubungkan scroll ke timeline |
-| CustomEase | 3.12.5 | Kurva easing khas (motion tokens) |
 | [Lenis](https://lenis.darkroom.engineering) | 1.1.13 | Smooth scrolling |
 | DM Sans (Google Fonts) | – | Tipografi |
 
@@ -132,28 +133,22 @@ dan 1,3 detik pertama diputar otomatis saat halaman dibuka.
 **Stage tetap, skala dinamis.** Semua posisi ditulis dalam koordinat 1600×900 di dalam `.fit`.
 `fit()` menghitung variabel CSS `--s` agar stage selalu pas di layar.
 
-**Motion tokens (`M.ease`)** adalah kosakata gerak yang dipakai di seluruh film:
+**Bahasa gerak** (objek `E`) mengikuti video referensi: tenang dan presisi, tanpa pantulan atau goyangan.
+Elemen masuk cepat lalu berhenti bersih (`power3.out`), perpindahan memakai `power2.inOut`, dan "hidup"-nya
+datang dari kamera yang terus bergeser pelan (`drift`) serta bentuk yang berubah menjadi bentuk berikutnya (match cut).
 
-| Token | Dipakai untuk |
-|---|---|
-| `enter` | Elemen masuk: cepat di awal, berhenti bersih |
-| `exit` | Elemen keluar: berakselerasi menjauh (selalu lebih cepat dari masuk) |
-| `move` | Morph dan perpindahan posisi (match cut) |
-| `pop` | Ikon kecil di dalam kalimat |
-| `brand` | Momen brand, satu-satunya tempat overshoot nyata |
+**Latar**: satu kanvas bersama (`#gbg`) dengan gradien radial lembut dan grid yang memudar diagonal. Pergantian
+abu-abu ↔ biru memakai sapuan vertikal bertepi lembut (`--wb` / `--wt` pada `mask`).
 
 **Helper utama:**
 
 | Fungsi | Kegunaan |
 |---|---|
-| `scene(tl, id, a, b)` | Menampilkan satu scene dari detik `a` sampai `b`, plus zoom kamera pelan |
-| `show(tl, el, a, b, {in, out})` | Menampilkan satu layer; `in`/`out: 0` berarti *hard cut* (untuk match cut) |
-| `typeWords(tl, el, t, per)` | Reveal per kata; `per` bisa angka (jeda rata) atau array waktu per kata (sinkron narasi) |
-| `typeChars(tl, el, t, dur)` | Efek mengetik huruf demi huruf dengan kursor, untuk teks UI seperti input chat |
-| `settle(tl, el, t)` | Goyangan kecil setelah mendarat (follow-through); hanya untuk momen hero |
-| `anticipate(tl, el, t)` | Ancang-ancang kecil sebelum bergerak |
-| `flash(tl, t)` / `tileOut(tl, t)` | Transisi cahaya putih / sapuan tile biru |
-| `bg(tl, blue, t)` | Mengganti latar grid abu-abu ↔ biru |
+| `scene(tl, id, a, b)` | Menampilkan satu scene dari detik `a` sampai `b`, plus kamera yang mundur sangat pelan |
+| `show(tl, el, a, b, {in, out})` | Menampilkan satu shot; cross-dissolve berpusat di titik potong, `in`/`out: 0` = potongan langsung (match cut) |
+| `typeWords(tl, el, t, per)` | Kata muncul satu per satu; `per` bisa angka (jeda rata) atau array waktu per kata (sinkron narasi) |
+| `typeChars(tl, el, t, dur, o)` | Efek mengetik huruf demi huruf dengan kursor (`data-caret="star"` untuk kursor bintang) |
+| `bg(tl, blue, t, dur)` | Sapuan vertikal latar abu-abu ↔ biru |
 
 **Aturan penting:** setiap tween masuk merender state awalnya saat timeline dibangun (`immediateRender`),
 sehingga tidak ada elemen yang sempat tampil di posisi akhir sebelum animasinya berjalan.
