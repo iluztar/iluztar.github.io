@@ -1765,7 +1765,7 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '
 const LOGO_SVG = '<svg viewBox="0 0 4000 4000" aria-hidden="true"><use href="#logo"/></svg>';
 
 /* ---------- admin panel ---------- */
-let adminTab = 'contact';
+let adminTab = 'contact', adminOk = null;
 function adminShell() {
   let d = $('#admin');
   if (d) return d;
@@ -1839,6 +1839,16 @@ async function renderAdmin(d) {
   const c = await sb();
   const { data: { session } } = await c.auth.getSession();
   if (!session) return renderLogin(d);
+  // only emails listed in reel_admins may edit (enforced by row-level security; checked here too so a
+  // non-admin account never sees the editor)
+  if (adminOk !== session.user.email) {
+    const { data: ok, error } = await c.rpc('is_reel_admin');
+    if (error || ok !== true) {
+      await c.auth.signOut();
+      return renderLogin(d, error ? 'Akses admin belum diatur di database. Jalankan SQL “kunci admin” dari README.' : 'Akun ini tidak punya akses admin.', true);
+    }
+    adminOk = session.user.email;
+  }
   $('.ad-sub', d).textContent = session.user.email;
   const nav = $('.ad-tabs', d); nav.hidden = false;
   nav.innerHTML = TABS.map(([id, label]) => `<button data-tab="${id}" aria-pressed="${id === adminTab}">${label}</button>`).join('');
@@ -1975,7 +1985,7 @@ function renderAccount(d, c, session) {
     const { error } = await c.auth.updateUser({ password: f.p1.value });
     if (error) { msg.className = 'ad-msg err'; msg.textContent = error.message; } else { f.reset(); msg.className = 'ad-msg ok'; msg.textContent = 'Password diperbarui.'; }
   });
-  $('.ad-out', d).addEventListener('click', async () => { await c.auth.signOut(); adminTab = 'contact'; renderLogin(d, 'Anda sudah keluar.'); });
+  $('.ad-out', d).addEventListener('click', async () => { await c.auth.signOut(); adminTab = 'contact'; adminOk = null; renderLogin(d, 'Anda sudah keluar.'); });
 }
 async function openAdmin() {
   const d = adminShell(); d.hidden = false;
