@@ -6,6 +6,20 @@ timeline dan merender ±25 frame di titik-titik kunci (1.5s, 3s, 4.5s, 8s, 10.5s
 
 ---
 
+## 0. Status Implementasi
+
+Sudah diterapkan di `index.html` (timing narasi tidak diubah, jadi sinkron VO tetap sama):
+
+- [x] **Motion tokens** `M.ease` (`enter`, `exit`, `move`, `pop`, `brand`) via CustomEase, dengan fallback bila plugin gagal dimuat.
+- [x] **Ritme**: `back.out(1.2)` 23× → 1×; `settle()` 24× → 5× (hanya momen hero: titik 2023, sketsa mendarat, "We got you.", folder S7, logo).
+- [x] **Reveal teks tanpa blur** (lebih tajam & ringan di GPU); ikon inline cukup pop tanpa goyangan tambahan.
+- [x] **Transisi berarah**: `show()` sekarang masuk dari bawah dan keluar ke atas (exit lebih cepat dari enter), bukan fade datar.
+- [x] **Aksi keluar** menggantikan fade: timer jatuh keluar frame (S2), sketsa tersapu ke folder Plate (S2), tile Big Project/Single Task menyusut ke tengah (S5).
+- [x] **Komposisi**: timer, kartu layanan, kartu IG, tile S5, profil IG, dan logo penutup diperbesar 18–46%.
+- [x] **Logo lock-up** di end card: dua bagian logo meluncur dari sudut berlawanan lalu mengunci.
+
+Belum: Fase 0 (refactor sub-timeline, beat map, harness), kamera kanvas, SplitText mask, artwork hero, suara, varian 9:16, pemindahan gambar base64.
+
 ## 1. Ringkasan Review
 
 ### Yang sudah kuat (pertahankan)
