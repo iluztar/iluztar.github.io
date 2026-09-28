@@ -232,9 +232,14 @@ body:not(.playing) .wpill .say{display:none}body:not(.playing) .wpill .blab{opac
 .pup svg{width:28px}
 .url{font-weight:700;font-size:64px;letter-spacing:-.02em}
 .endlogo{display:flex;flex-direction:column;align-items:center;gap:26px}
-.endlogo svg.lg{width:130px}
-.endlogo .say{font-size:38px;letter-spacing:-.018em;color:var(--sub)}
+.endlogo svg.lg{width:190px;overflow:visible}
+.endlogo .say{font-size:44px;letter-spacing:-.018em;color:var(--sub)}
 .endlogo .sep{color:var(--muted);font-weight:500}
+
+/* hero objects read larger in frame (individual `scale` stacks with GSAP's transform) */
+.hz{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;scale:var(--hz,1.2)}
+.cflow{scale:1.18}
+#s5a{scale:1.3}
 
 /* ---------- global fx / controls ---------- */
 #fx{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,#fff 0%,#E3E9FF 35%,#8FA8FF 75%,#5E82FF 100%)}
@@ -309,6 +314,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
   <defs>
     <linearGradient id="fgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7E9CFF"/><stop offset="1" stop-color="#0047FF"/></linearGradient>
     <clipPath id="cc"><circle cx="0" cy="0" r="45"/></clipPath>
+    <clipPath id="lgclip"><rect width="4000" height="4000" rx="880"/></clipPath>
     <path id="lgp" d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"/>
     <symbol id="mark" viewBox="713.96 713.96 2572.08 2572.08"><use href="#lgp" fill="#0042f8"/></symbol>
     <symbol id="markw" viewBox="713.96 713.96 2572.08 2572.08"><use href="#lgp" fill="#fff"/></symbol>
@@ -393,11 +399,11 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
       </div>
     </div>
     <div class="layer" id="s2b">
-      <div class="timer">
+      <div class="hz" style="--hz:1.25"><div class="timer">
         <svg class="ring" viewBox="0 0 320 320"><circle cx="160" cy="160" r="140" fill="none" stroke="#E4E4E7" stroke-width="12"/><circle class="prog" cx="160" cy="160" r="140" fill="none" stroke="#1E6BF0" stroke-width="12" stroke-linecap="round" stroke-dasharray="880" stroke-dashoffset="440" transform="rotate(0 160 160)"/></svg>
         <div class="tdig">22:57:57</div><div class="tlab">Timer</div>
         <div class="tdots"><i></i><i></i><i></i></div>
-      </div>
+      </div></div>
       <div class="cap bot type">Tight deadlines,</div>
     </div>
     <div class="layer" id="s2c">
@@ -447,8 +453,10 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
   <div class="fit"><div class="cam"><div class="bg"></div>
     <div class="layer" id="s4a">
       <div class="cap top type">Whether it's a full commission or just an extra pair of hands,</div>
+      <div class="hz" style="display:block">
       <div class="svc" id="fc"><h3>Full-<br>Commission</h3><div class="ln" style="width:92%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:96%"></div><div class="ln" style="width:70%"></div><div class="pb"></div></div>
       <div class="svc" id="ph"><h3>Pair of<br>Hands</h3><div class="ln" style="width:90%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:94%"></div><div class="ln" style="width:60%"></div><div class="pb"></div></div>
+      </div>
     </div>
     <div class="layer hero" id="s4b">
       <div class="cflow">
@@ -565,19 +573,19 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
     </div>
     <div class="layer hero" id="s8b">
       <div class="cap top type">Find us on Instagram at @iluztar</div>
-      <div class="prof" id="prof">
+      <div class="hz" style="--hz:1.18"><div class="prof" id="prof">
         <div class="ptop"><div class="pav"><svg viewBox="0 0 4000 4000"><use href="#logo"/></svg></div>
           <div class="pi"><div class="pname">ILUZTAR</div><div class="phandle">@iluztar</div>
             <div class="pstats"><div>56<small>posts</small></div><div>1397<small>followers</small></div><div>1032<small>following</small></div></div></div></div>
         <div class="pbio"><div class="r">Artist</div><div class="b">Let's shine together through art</div></div>
         <div class="pbtns"><span class="f">Follow</span><span>Message</span><span>Contact</span></div>
-      </div>
+      </div></div>
     </div>
     <div class="layer" id="s8c">
       <div class="say type tw"><span class="w" style="color:var(--sub)">or visit</span><span class="cur" style="margin:0 .2em 0 .1em"><svg viewBox="0 0 24 24"><use href="#link"/></svg></span><span class="url">iluztar.com</span></div>
     </div>
     <div class="layer" id="s8d">
-      <div class="endlogo"><svg class="lg" viewBox="0 0 100 100"><use href="#logo"/></svg><div class="say type tw"><span class="cur lead"><svg viewBox="0 0 24 24"><use href="#ig"/></svg></span>iluztar<span class="cur" style="margin:0 .22em 0 .7em"><svg viewBox="0 0 24 24"><use href="#link"/></svg></span>iluztar.com</div></div>
+      <div class="endlogo"><svg class="lg" viewBox="0 0 4000 4000" aria-label="Iluztar logo"><rect class="lgbox" width="4000" height="4000" rx="880" fill="#0042f8"/><g clip-path="url(#lgclip)"><path class="lgA" fill="#fff"/><path class="lgB" fill="#fff"/></g></svg><div class="say type tw"><span class="cur lead"><svg viewBox="0 0 24 24"><use href="#ig"/></svg></span>iluztar<span class="cur" style="margin:0 .22em 0 .7em"><svg viewBox="0 0 24 24"><use href="#link"/></svg></span>iluztar.com</div></div>
     </div>
   </div></div>
   <p class="vo">Ready to bring your next project to life? Find us on Instagram at iluztar, or visit iluztar.com.</p>
@@ -611,6 +619,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (() => {
@@ -679,6 +688,20 @@ $$('.tw').forEach(el => {
     g.innerHTML = `<g class="nd"><circle r="${r}" fill="#fff" stroke="#D3DCFF" stroke-width="2"/><circle cy="${-r * .2}" r="${r * .3}" fill="#0047FF"/><path d="M${-r * .56} ${r * .6} a${r * .56} ${r * .46} 0 0 1 ${r * 1.12} 0z" fill="#0047FF"/></g>`;
     nodes.appendChild(g);
   }
+})();
+// end-card logo: the mark is two mirrored halves in one path — split them so they can animate separately
+(function logoHalves() {
+  const d = $('#lgp').getAttribute('d'), k = d.search(/m-?\d/);
+  const first = d.slice(0, k), tmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  tmp.setAttribute('d', first);
+  const [dx, dy] = d.slice(k + 1).match(/-?[\d.]+/g).map(Number);
+  const end = tmp.getPointAtLength(tmp.getTotalLength());
+  const start = { x: +first.match(/-?[\d.]+/g)[0], y: +first.match(/-?[\d.]+/g)[1] };
+  // relative moveto after an implicit close is measured from the subpath start
+  const base = Math.hypot(end.x - start.x, end.y - start.y) < 2 ? start : end;
+  const rest = d.slice(k).replace(/^m-?[\d.]+[ ,]-?[\d.]+/, `M${(base.x + dx).toFixed(2)} ${(base.y + dy).toFixed(2)}`);
+  $$('.lgA').forEach(p => p.setAttribute('d', first));
+  $$('.lgB').forEach(p => p.setAttribute('d', rest));
 })();
 const tiles = $('#tiles'); for (let i = 0; i < 144; i++) tiles.appendChild(document.createElement('i'));
 const film = $('#film');
@@ -768,6 +791,23 @@ function enterScroll(at = 0, intro = false) {
 /* ---------- state ---------- */
 let hooks = [], mode = 'full', tl = null, audio = null, audioURL = null, labels = [], playingNow = false, idleT, hintT, uiHidden = false, overCtrl = false;
 
+/* ---------- motion tokens ----------
+   One easing vocabulary for the whole film (see MOTION_PLAN.md):
+   enter = fast in, clean stop · exit = accelerate away · move = morphs / position changes
+   pop = small UI icons · brand = the only place real overshoot is allowed. */
+const hasCE = typeof CustomEase !== 'undefined';
+if (hasCE) gsap.registerPlugin(CustomEase);
+const ce = (id, d, fallback) => hasCE ? CustomEase.create(id, d) : fallback;
+const M = {
+  ease: {
+    enter: ce('mEnter', 'M0,0 C0.16,1 0.3,1 1,1', 'expo.out'),
+    exit: ce('mExit', 'M0,0 C0.5,0 0.75,0.35 1,1', 'power2.in'),
+    move: ce('mMove', 'M0,0 C0.65,0 0.35,1 1,1', 'power3.inOut'),
+    pop: 'back.out(1.6)',
+    brand: 'back.out(1.8)',
+  },
+};
+
 /* ---------- helpers ---------- */
 function typeWords(tl, el, t, per = 0.16) {
   // icons pop in at their place in the sentence: right after the word before them (or first, if they lead)
@@ -776,14 +816,13 @@ function typeWords(tl, el, t, per = 0.16) {
     if (n.classList.contains('cur')) {
       const tc = last + .12;
       tl.set(n, { display: 'inline-flex', opacity: 1 }, tc);
-      tl.fromTo(n, { scale: 0 }, { scale: 1, duration: .35, ease: 'back.out(1.2)', immediateRender: false }, tc);
-      settle(tl, n, tc + .35, { amt: .09 });
+      tl.fromTo(n, { scale: 0 }, { scale: 1, duration: .4, ease: M.ease.pop, immediateRender: false }, tc);
       return;
     }
     const tt = Array.isArray(per) ? t + (per[i] ?? per[per.length - 1]) : t + i * per;
     i++; last = tt;
     tl.set(n, { display: 'inline-block' }, tt);
-    tl.fromTo(n, { opacity: 0, y: 12, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .55, ease: 'expo.out', immediateRender: false }, tt);
+    tl.fromTo(n, { opacity: 0, y: '.45em' }, { opacity: 1, y: 0, duration: .5, ease: M.ease.enter, immediateRender: false }, tt);
   });
 }
 /* Letter-by-letter typing across `dur` seconds (slightly uneven, like a real typist).
@@ -797,8 +836,7 @@ function typeChars(tl, el, t, dur) {
   items.forEach(it => {
     if (it.classList.contains('cur')) {
       tl.set(it, { display: 'inline-flex', opacity: 1 }, tt);
-      tl.fromTo(it, { scale: 0 }, { scale: 1, duration: .35, ease: 'back.out(1.2)', immediateRender: false }, tt);
-      settle(tl, it, tt + .35, { amt: .09 });
+      tl.fromTo(it, { scale: 0 }, { scale: 1, duration: .4, ease: M.ease.pop, immediateRender: false }, tt);
       tt += rate * 2; return;
     }
     tl.set(it, { display: 'inline-block', opacity: 1 }, tt);
@@ -812,10 +850,11 @@ function typeChars(tl, el, t, dur) {
    o.in / o.out = 0 gives a hard cut — used for match cuts and cuts hidden under a flash/tile wipe. */
 function show(tl, el, a, b, o = {}) {
   const fin = o.in ?? .45, fout = o.out ?? .45;
-  if (fin) tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: fin, ease: 'power2.out', immediateRender: false }, a);
+  // soft cuts carry direction: new layers rise in from below, old ones lift away (exits are quicker than entrances)
+  if (fin) tl.fromTo(el, { autoAlpha: 0, y: 36 }, { autoAlpha: 1, y: 0, duration: fin * 1.4, ease: M.ease.enter, immediateRender: false }, a);
   else tl.set(el, { autoAlpha: 1 }, a);
   if (b == null) return;
-  if (fout) tl.to(el, { autoAlpha: 0, duration: fout, ease: 'power2.inOut' }, b - fout * .4);
+  if (fout) tl.to(el, { autoAlpha: 0, y: -36, duration: fout * .8, ease: M.ease.exit }, b - fout * .5);
   else tl.set(el, { autoAlpha: 0 }, b);
 }
 /* Scenes are transparent while playing (the grid lives in #gbg), so a scene stays mounted a
@@ -860,10 +899,9 @@ function anticipate(tl, el, t, o = {}) {
 }
 // service card content builds in: title, then the text lines draw, then the button
 function cardFill(tl, card, t) {
-  tl.fromTo($('h3', card), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .4, ease: 'power2.out' }, t);
+  tl.fromTo($('h3', card), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .4, ease: M.ease.enter }, t);
   tl.fromTo($$('.ln', card), { scaleX: 0, transformOrigin: '0% 50%' }, { scaleX: 1, duration: .45, ease: 'power3.out', stagger: .06 }, t + .14);
-  tl.fromTo($('.pb', card), { scale: 0, transformOrigin: '0% 50%' }, { scale: 1, duration: .4, ease: 'back.out(1.2)' }, t + .5);
-  settle(tl, $('.pb', card), t + .9, { amt: .09 });
+  tl.fromTo($('.pb', card), { scale: 0, transformOrigin: '0% 50%' }, { scale: 1, duration: .4, ease: M.ease.enter }, t + .5);
 }
 const fmt = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = s % 60; return [h, m, x].map(v => String(v).padStart(2, '0')).join(':'); };
 
@@ -893,11 +931,11 @@ function S1(tl) {
   const c = $('#s1c'); show(tl, c, 3.65, 5.72, { out: 0 });
   typeWords(tl, $('.locText', c), 3.75, [.05, .35, .6, .85]);
   const pill = $('.pill', c);
-  tl.fromTo(pill, { scale: .2, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: 'back.out(1.2)' }, 4.72);
+  tl.fromTo(pill, { scale: .2, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: M.ease.enter }, 4.72);
   tl.to($('.locText', c), { x: -60, opacity: 0, duration: .35, ease: 'power2.in' }, 5.05);
   tl.to($('.pt', c), { opacity: 0, duration: .2 }, 5.05);
   // network layer starts at scale 1.5 around its centre → centre circle r45 renders as r67.5
-  tl.to(pill, { left: 732.5, top: 422.5, width: 135, height: 135, borderRadius: 67.5, duration: .6, ease: 'power3.inOut' }, 5.1);
+  tl.to(pill, { left: 732.5, top: 422.5, width: 135, height: 135, borderRadius: 67.5, duration: .6, ease: M.ease.move }, 5.1);
   // D — network
   const d = $('#s1d'); show(tl, d, 5.7, 9.0, { in: 0 });
   tl.fromTo(d, { scale: 1.5, transformOrigin: '50% 54.444%' }, { scale: 1, duration: 3.2, ease: 'power3.out' }, 5.7);
@@ -906,8 +944,7 @@ function S1(tl) {
     const len = +l.dataset.len;
     l.style.strokeDasharray = `${len} ${len + 6}`;
     tl.fromTo(l, { strokeDashoffset: len + 3 }, { strokeDashoffset: 0, duration: .45, ease: 'power2.out' }, 5.95 + i * .1);
-    tl.fromTo(nds[i], { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: .45, ease: 'back.out(1.2)' }, 6.25 + i * .1);
-    settle(tl, nds[i], 6.25 + i * .1 + .45, { amt: .1 });
+    tl.fromTo(nds[i], { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: .45, ease: M.ease.pop }, 6.25 + i * .1);
   });
   tl.fromTo($('.orbit', d), { opacity: 0 }, { opacity: .35, duration: .7 }, 6.9);
   [7.15, 7.85].forEach(t => tl.fromTo($('.pulse', d), { scale: 1, opacity: .55, svgOrigin: '800 490' }, { scale: 2.4, opacity: 0, duration: 1.1, ease: 'power2.out', immediateRender: false }, t));
@@ -932,7 +969,7 @@ function S1(tl) {
   });
   tl.to(yr2, { yPercent: -110, opacity: 0, duration: .25, ease: 'power2.in' }, 10.1);
   typeWords(tl, yr1, 10.2, [0, .18]);
-  tl.fromTo($('.dots .on', e), { scale: 0 }, { scale: 1, duration: .35, ease: 'back.out(1.2)' }, 10.35);
+  tl.fromTo($('.dots .on', e), { scale: 0 }, { scale: 1, duration: .4, ease: M.ease.brand }, 10.35);
   settle(tl, $('.dots .on', e), 10.7, { amt: .12 });
   tl.to(cal, { scale: 1, duration: .7, ease: 'power2.out' }, 10.4);
 }
@@ -946,22 +983,19 @@ function S2(tl) {
     typeChars(tl, $(i), t, send - t - .12);
     tl.set($(i), { display: 'none' }, send);
     tl.set($(b), { display: 'block' }, send);
-    tl.fromTo($(b), { scale: .5, opacity: 0, transformOrigin: '100% 100%' }, { scale: 1, opacity: 1, duration: .35, ease: 'back.out(1.2)', immediateRender: false }, send);
-    tl.fromTo('#s2a .send', { scale: .8 }, { scale: 1, duration: .3, ease: 'back.out(1.2)', immediateRender: false }, send);
-    settle(tl, $(b), send + .35, { amt: .07 });
-    settle(tl, '#s2a .send', send + .3, { amt: .1 });
+    tl.fromTo($(b), { scale: .5, opacity: 0, transformOrigin: '100% 100%' }, { scale: 1, opacity: 1, duration: .32, ease: M.ease.enter, immediateRender: false }, send);
+    tl.fromTo('#s2a .send', { scale: .8 }, { scale: 1, duration: .3, ease: M.ease.enter, immediateRender: false }, send);
   });
   tl.set('#b4', { display: 'block' }, 14.1);
-  tl.fromTo('#b4', { scale: .3, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: .4, ease: 'back.out(1.2)', immediateRender: false }, 14.1);
-  settle(tl, '#b4', 14.5, { amt: .08 });
+  tl.fromTo('#b4', { scale: .3, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: .36, ease: M.ease.enter, immediateRender: false }, 14.1);
 
   const b = $('#s2b'); show(tl, b, 15.05, 16.12);
-  tl.fromTo($('.timer', b), { rotation: -28, scale: .7, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: .55, ease: 'back.out(1.2)' }, 15.05);
-  settle(tl, $('.timer', b), 15.6, { amt: .045, rot: 3 });
+  tl.fromTo($('.timer', b), { rotation: -28, scale: .7, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: .6, ease: M.ease.enter }, 15.05);
   tl.fromTo($('.prog', b), { strokeDashoffset: 860 }, { strokeDashoffset: 440, duration: 1, ease: 'power1.inOut' }, 15.08);
   const dig = $('.tdig', b), clock = { v: 22 * 3600 + 57 * 60 + 57 };
   tl.fromTo(clock, { v: 22 * 3600 + 57 * 60 + 57 }, { v: 16 * 3600 + 41 * 60 + 41, duration: 1, ease: 'power2.out', onUpdate: () => dig.textContent = fmt(clock.v), immediateRender: false }, 15.08);
   typeWords(tl, $('.cap', b), 15.2, .22);
+  tl.to($('.timer', b), { y: 220, rotation: 14, opacity: 0, duration: .4, ease: M.ease.exit }, 15.78);
 
   const c = $('#s2c'); show(tl, c, 16.12, 17.62);
   $$('.sheet', c).forEach((s, i) => {
@@ -969,13 +1003,13 @@ function S2(tl) {
     settle(tl, s, 16.12 + i * .24 + .5, { amt: .035, rot: 2.5 });
   });
   typeWords(tl, $('.cap', c), 16.3, .25);
+  tl.to($$('.sheet', c), { x: (i) => (1.5 - i) * 90, y: 260, scale: .3, rotation: (i) => (i % 2 ? 12 : -12), opacity: 0, duration: .4, ease: M.ease.exit, stagger: .05 }, 17.0);
 
   const d = $('#s2d'); show(tl, d, 17.62, 20.1);
   const pw = $('.pwrap', d);
-  tl.fromTo(pw, { rotation: -25, scale: .45, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: .55, ease: 'back.out(1.2)' }, 17.62);
+  tl.fromTo(pw, { rotation: -25, scale: .45, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: .6, ease: M.ease.enter }, 17.62);
   $$('.psh', d).forEach((s, i) => {
-    tl.fromTo(s, { y: -170, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: 'back.out(1.2)' }, 17.95 + i * .14);
-    settle(tl, s, 17.95 + i * .14 + .4, { amt: .05, y: 8 });
+    tl.fromTo(s, { y: -170, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: M.ease.enter }, 17.95 + i * .14);
   });
   tl.to(pw, { keyframes: { rotation: [0, -4, 4, -3, 2, 0] }, duration: .6, ease: 'none' }, 18.5);
   tl.to(pw, { scale: 1.12, duration: 1.4, ease: 'power2.inOut' }, 18.7);
@@ -985,7 +1019,7 @@ function S2(tl) {
 function S3(tl, end, cut) {
   scene(tl, 's3', 20.1, end);
   const a = $('#s3a'); show(tl, a, 20.1, end, { out: cut ? .4 : 0 });
-  tl.fromTo($('.s3col', a), { scale: 2.6 }, { scale: 1, duration: .6, ease: 'expo.out' }, 20.1);
+  tl.fromTo($('.s3col', a), { scale: 2.6 }, { scale: 1, duration: .6, ease: M.ease.enter }, 20.1);
   settle(tl, $('.s3col', a), 20.7, { amt: .03 });
   typeChars(tl, $('#s3say'), 20.15, .75);
 }
@@ -999,11 +1033,10 @@ function S4(tl) {
   const t0 = 21.72, per = [0, .12, .24, .38, .52, 1.3, 1.44, 1.56, 1.68, 1.84, 1.96, 2.1];
   typeWords(tl, $('.cap', a), t0, per);
   const fc = $('#fc'), ph = $('#ph'), tFc = t0 + per[3], tPh = t0 + per[9];
-  tl.fromTo(fc, { x: 0, y: 40, rotation: 0, rotationY: 70, scale: .9, opacity: 0, transformPerspective: 1000 }, { y: 0, rotationY: 0, scale: 1, opacity: 1, duration: .7, ease: 'power3.out' }, tFc);
-  settle(tl, fc, tFc + .7, { amt: .025, rot: 1.5 });
+  tl.fromTo(fc, { x: 0, y: 40, rotation: 0, rotationY: 70, scale: .9, opacity: 0, transformPerspective: 1000 }, { y: 0, rotationY: 0, scale: 1, opacity: 1, duration: .7, ease: M.ease.enter }, tFc);
   cardFill(tl, fc, tFc + .25);
   anticipate(tl, fc, tPh - .05, { amt: .04, dur: .14 });
-  tl.to(fc, { x: -185, rotation: -6, duration: .65, ease: 'power3.inOut' }, tPh - .05);
+  tl.to(fc, { x: -185, rotation: -6, duration: .65, ease: M.ease.move }, tPh - .05);
   tl.fromTo(ph, { x: 420, y: 40, rotation: 16, opacity: 0 }, { x: 185, y: 10, rotation: 6, opacity: 1, duration: .7, ease: 'power3.out' }, tPh);
   cardFill(tl, ph, tPh + .25);
   tl.to([fc, ph], { y: '-=12', duration: .9, ease: 'sine.inOut', yoyo: true, repeat: 1 }, tPh + .85);
@@ -1012,8 +1045,8 @@ function S4(tl) {
   const b = $('#s4b'); show(tl, b, 26.0, 29.0);
   const [k1, k2, k3] = ['#cf1', '#cf2', '#cf3'].map(s => $(s));
   const L = { x: -380, rotationY: 25, scale: .78 }, C = { x: 0, rotationY: 0, scale: 1.05 }, R = { x: 380, rotationY: -25, scale: .78 };
-  tl.fromTo(k1, { x: 0, rotationY: 0, rotation: -8, scale: .6, opacity: 0 }, { rotation: 0, scale: 1.05, opacity: 1, duration: .55, ease: 'back.out(1.2)' }, 26.05);
-  tl.to(k1, { ...L, duration: .7, ease: 'power3.inOut' }, 26.85);
+  tl.fromTo(k1, { x: 0, rotationY: 0, rotation: -8, scale: .6, opacity: 0 }, { rotation: 0, scale: 1.05, opacity: 1, duration: .6, ease: M.ease.enter }, 26.05);
+  tl.to(k1, { ...L, duration: .7, ease: M.ease.move }, 26.85);
   tl.fromTo(k2, { x: 560, rotationY: -30, scale: .7, opacity: 0 }, { ...C, opacity: 1, duration: .7, ease: 'power3.out' }, 26.9);
   tl.fromTo(k3, { x: 700, rotationY: -35, scale: .6, opacity: 0 }, { ...R, opacity: 1, duration: .7, ease: 'power3.out' }, 27.65);
   tl.to([k1, k2, k3], { y: -10, duration: .8, ease: 'sine.inOut', stagger: .1, yoyo: true, repeat: 1 }, 28.0);
@@ -1038,15 +1071,16 @@ function S5(tl) {
   scene(tl, 's5', 30.65, 39.5);
   const a = $('#s5a'); show(tl, a, 30.65, 33.6, { in: 0 });
   const bp = $('#bp'), st = $('#st'), sel = $('#sel');
-  tl.fromTo(bp, { x: 170, scale: .04 }, { scale: 1, duration: .55, ease: 'back.out(1.2)' }, 30.85);
-  settle(tl, bp, 31.4, { amt: .06 });
+  tl.fromTo(bp, { x: 170, scale: .04 }, { scale: 1, duration: .6, ease: M.ease.enter }, 30.85);
   tl.fromTo(sel, { width: 360, left: 620, opacity: 0 }, { opacity: 1, duration: .2 }, 31.2);
-  tl.fromTo($$('i', sel), { scale: 0 }, { scale: 1, duration: .3, ease: 'back.out(1.2)', stagger: .05 }, 31.2);
-  $$('i', sel).forEach((n, i) => settle(tl, n, 31.5 + i * .05, { amt: .1 }));
+  tl.fromTo($$('i', sel), { scale: 0 }, { scale: 1, duration: .3, ease: M.ease.enter, stagger: .05 }, 31.2);
   typeChars(tl, $('.tt', bp), 31.35, .5);
-  tl.fromTo(st, { x: -170, opacity: 0 }, { x: 0, opacity: 1, duration: .55, ease: 'power3.inOut' }, 32.3);
-  tl.to(bp, { x: 0, duration: .55, ease: 'power3.inOut' }, 32.3);
-  tl.to(sel, { width: 720, left: 440, duration: .55, ease: 'power3.inOut' }, 32.3);
+  tl.fromTo(st, { x: -170, opacity: 0 }, { x: 0, opacity: 1, duration: .55, ease: M.ease.move }, 32.3);
+  tl.to(bp, { x: 0, duration: .55, ease: M.ease.move }, 32.3);
+  tl.to(sel, { width: 720, left: 440, duration: .55, ease: M.ease.move }, 32.3);
+  // both tiles collapse into the centre, where the next line ("every piece") appears
+  tl.to([bp, st], { x: (i) => (i ? -170 : 170), scale: .2, opacity: 0, duration: .38, ease: M.ease.exit, stagger: .04 }, 33.08);
+  tl.to(sel, { width: 80, left: 760, opacity: 0, duration: .38, ease: M.ease.exit }, 33.08);
   typeChars(tl, $('.tt', st), 32.6, .5);
   tl.fromTo($$('.pp', a), { y: 0 }, { y: -18, duration: .25, ease: 'power2.out', yoyo: true, repeat: 1, stagger: .06 }, 32.95);
 
@@ -1063,8 +1097,7 @@ function S5(tl) {
   typeWords(tl, $('.dhead', c), 36.1, .15);
   $$('.row', c).forEach((r, i) => tl.fromTo(r, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: .3, ease: 'power2.out' }, 36.5 + i * .6));
   $$('.row .cb', c).forEach((s, i) => {
-    tl.fromTo(s, { scale: .6, rotation: -20 }, { scale: 1, rotation: 0, duration: .35, ease: 'back.out(1.2)' }, 36.7 + i * .6);
-    settle(tl, s, 36.7 + i * .6 + .35, { amt: .08, rot: 4 });
+    tl.fromTo(s, { scale: .6, rotation: -20 }, { scale: 1, rotation: 0, duration: .4, ease: M.ease.pop }, 36.7 + i * .6);
   });
   tl.to('#dcard', { scale: .95, duration: 1.2, ease: 'sine.inOut' }, 38.2);
 }
@@ -1083,11 +1116,11 @@ function S6(tl) {
   const b = $('#s6b'); show(tl, b, 42.78, 44.8, { out: 0 });
   const works = $$('.work', b).map(el => { const cs = getComputedStyle(el); return { el, x: parseFloat(cs.getPropertyValue('--x')), y: parseFloat(cs.getPropertyValue('--y')), r: parseFloat(cs.getPropertyValue('--r')) }; });
   works.forEach((w, i) => {
-    tl.fromTo(w.el, { x: 0, y: 40, rotation: w.r * 3, scale: .7, opacity: 0 }, { y: 0, rotation: w.r, scale: 1, opacity: 1, duration: .55, ease: 'back.out(1.2)' }, 42.95 + i * .12);
+    tl.fromTo(w.el, { x: 0, y: 40, rotation: w.r * 3, scale: .7, opacity: 0 }, { y: 0, rotation: w.r, scale: 1, opacity: 1, duration: .6, ease: M.ease.enter }, 42.95 + i * .12);
     tl.to(w.el, { y: i % 2 ? -10 : 10, duration: .9, ease: 'sine.inOut' }, 43.6);
     // merge: every file slides to the centre and becomes the dark toggle (420×96), its dot becomes the grey knob
     const t = 44.25 + i * .04;
-    tl.to(w.el, { x: -w.x - 60, y: -w.y - 16, rotation: 0, width: 420, height: 96, borderRadius: 48, paddingLeft: 16, backgroundColor: '#262626', color: 'rgba(255,255,255,0)', boxShadow: '0 1px 2px rgba(20,20,40,0),0 8px 18px -6px rgba(20,20,40,0)', duration: .5, ease: 'power3.inOut' }, t);
+    tl.to(w.el, { x: -w.x - 60, y: -w.y - 16, rotation: 0, width: 420, height: 96, borderRadius: 48, paddingLeft: 16, backgroundColor: '#262626', color: 'rgba(255,255,255,0)', boxShadow: '0 1px 2px rgba(20,20,40,0),0 8px 18px -6px rgba(20,20,40,0)', duration: .5, ease: M.ease.move }, t);
     tl.to($('em', w.el), { opacity: 0, duration: .2 }, t);
     tl.to($('i', w.el), { width: 66, height: 66, borderWidth: 0, backgroundColor: '#7C7C82', boxShadow: '0 0 0 0px #7C7C82 inset', duration: .5, ease: 'power3.inOut' }, t);
   });
@@ -1095,7 +1128,7 @@ function S6(tl) {
   // C — the merged file IS the toggle: flip it on, "Refine"
   const c = $('#s6c'), tog = $('.tog', c), knob = $('.knob', c), tlab = $('.tlabel', c);
   show(tl, c, 44.8, 46.45, { in: 0, out: 0 });
-  tl.fromTo(knob, { x: -322, background: '#7C7C82' }, { x: 0, background: '#ffffff', duration: .55, ease: 'power3.inOut' }, 44.95);
+  tl.fromTo(knob, { x: -322, background: '#7C7C82' }, { x: 0, background: '#ffffff', duration: .55, ease: M.ease.move }, 44.95);
   tl.fromTo(tlab, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: .35, ease: 'power2.out' }, 45.2);
   tl.to(tog, { scale: 1.06, duration: .25, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 45.55);
   // …then it turns into the white request pill in place
@@ -1111,11 +1144,10 @@ function S6(tl) {
   typeChars(tl, $('.say', wp), 46.55, .85);
   tl.to($('.say', wp), { opacity: 0, duration: .2 }, 47.55);
   anticipate(tl, wp, 47.6, { amt: .035, dur: .14 });
-  tl.to(wp, { width: 200, height: 56, borderRadius: 28, backgroundColor: '#0047FF', duration: .5, ease: 'power3.inOut' }, 47.6);
+  tl.to(wp, { width: 200, height: 56, borderRadius: 28, backgroundColor: '#0047FF', duration: .5, ease: M.ease.move }, 47.6);
   tl.fromTo($('.blab', wp), { opacity: 0 }, { opacity: 1, duration: .3 }, 47.85);
-  tl.fromTo('#wf', { scale: .35, opacity: 0 }, { scale: 1, opacity: 1, duration: .8, ease: 'expo.out' }, 47.8);
+  tl.fromTo('#wf', { scale: .35, opacity: 0 }, { scale: 1, opacity: 1, duration: .8, ease: M.ease.enter }, 47.8);
   tl.fromTo($$('#wf > *'), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .35, stagger: .04, ease: 'power2.out' }, 48.0);
-  $$('#wf > *').forEach((n, i) => settle(tl, n, 48.35 + i * .04, { amt: .04, y: 4 }));
   tl.fromTo(wp, { scale: 1 }, { keyframes: { scale: [1, .92, 1] }, duration: .35, immediateRender: false }, 48.7);
   bg(tl, false, 49.05, .4);
 }
@@ -1126,7 +1158,7 @@ function S7(tl) {
   typeWords(tl, a, 49.45, [.05, .3, 1.15, 1.35, 1.55, 1.75, 1.95]);
   tl.set('#s7cur .fold', { scale: 0 }, 49.4);
   tl.to('#s7cur .bar', { scaleY: 0, duration: .15 }, 50.15);
-  tl.to('#s7cur .fold', { scale: 1, duration: .4, ease: 'back.out(1.2)' }, 50.2);
+  tl.to('#s7cur .fold', { scale: 1, duration: .4, ease: M.ease.brand }, 50.2);
   settle(tl, '#s7cur .fold', 50.6, { amt: .08 });
   tl.to(a, { y: -40, opacity: 0, duration: .45, ease: 'power2.in' }, 51.7);
 
@@ -1155,7 +1187,7 @@ function S7(tl) {
   show(tl, l, 51.95, 56.0, { in: .2, out: 0 });
 
   const c = $('#s7c'); show(tl, c, 55.5, 58.4, { in: 0 });
-  tl.fromTo($('.hands', c), { scale: .25, rotation: -6, opacity: 0, transformOrigin: '50% 50%' }, { scale: 1, rotation: 0, opacity: 1, duration: .9, ease: 'expo.out' }, 55.55);
+  tl.fromTo($('.hands', c), { scale: .25, rotation: -6, opacity: 0, transformOrigin: '50% 50%' }, { scale: 1, rotation: 0, opacity: 1, duration: .9, ease: M.ease.enter }, 55.55);
   tl.to($('.hands', c), { y: -12, duration: .8, ease: 'sine.inOut', yoyo: true, repeat: 2 }, 56.5);
   typeWords(tl, $('.cap', c), 55.75, [.0, .2, .4, .65, 1.1]);
   tl.fromTo($('.cap .big', c), { scale: 1 }, { keyframes: { scale: [1, 1.18, 1] }, duration: .5, immediateRender: false }, 57.1);
@@ -1171,32 +1203,32 @@ function S8(tl, T) {
       typeChars(tl, $(i), t, send - t - .12);
       tl.set($(i), { display: 'none' }, send);
       tl.set($(b), { display: 'block' }, send);
-      tl.fromTo($(b), { scale: .5, opacity: 0, transformOrigin: '100% 100%' }, { scale: 1, opacity: 1, duration: .35, ease: 'back.out(1.2)', immediateRender: false }, send);
-      tl.fromTo('#in8 .send', { scale: .8 }, { scale: 1, duration: .3, ease: 'back.out(1.2)', immediateRender: false }, send);
-      settle(tl, $(b), send + .35, { amt: .07 });
-      settle(tl, '#in8 .send', send + .3, { amt: .1 });
+      tl.fromTo($(b), { scale: .5, opacity: 0, transformOrigin: '100% 100%' }, { scale: 1, opacity: 1, duration: .32, ease: M.ease.enter, immediateRender: false }, send);
+      tl.fromTo('#in8 .send', { scale: .8 }, { scale: 1, duration: .3, ease: M.ease.enter, immediateRender: false }, send);
     });
     tl.set('#r3', { display: 'block' }, T.a + 2.35);
-    tl.fromTo('#r3', { scale: .3, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: .4, ease: 'back.out(1.2)', immediateRender: false }, T.a + 2.35);
-    settle(tl, '#r3', T.a + 2.75, { amt: .08 });
+    tl.fromTo('#r3', { scale: .3, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: .36, ease: M.ease.enter, immediateRender: false }, T.a + 2.35);
   }
   const b = $('#s8b'); show(tl, b, T.b, T.c);
   typeWords(tl, $('.cap', b), T.b + .1, .2);
-  tl.fromTo('#prof', { scale: 3.2, transformOrigin: '14% 28%', opacity: 0 }, { scale: 1, opacity: 1, duration: .9, ease: 'expo.out' }, T.b);
-  settle(tl, '#prof', T.b + .9, { amt: .02 });
+  tl.fromTo('#prof', { scale: 3.2, transformOrigin: '14% 28%', opacity: 0 }, { scale: 1, opacity: 1, duration: .9, ease: M.ease.enter }, T.b);
   tl.fromTo($$('#prof .pname, #prof .phandle, #prof .pstats, #prof .pbio, #prof .pbtns span'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .35, stagger: .06, ease: 'power2.out' }, T.b + .6);
   tl.fromTo('#prof .f', { scale: 1 }, { keyframes: { scale: [1, .9, 1] }, duration: .35, immediateRender: false }, T.b + 2.2);
-  tl.to('#prof', { scale: .5, opacity: 0, duration: .4, ease: 'power2.in' }, T.c - .4);
+  tl.to('#prof', { scale: .5, opacity: 0, duration: .4, ease: M.ease.exit }, T.c - .4);
 
   const c = $('#s8c'); show(tl, c, T.c, T.d);
-  tl.fromTo($('.say', c), { scale: 1.4 }, { scale: 1, duration: .5, ease: 'expo.out' }, T.c);
-  settle(tl, $('.say', c), T.c + .5, { amt: .025 });
+  tl.fromTo($('.say', c), { scale: 1.4 }, { scale: 1, duration: .5, ease: M.ease.enter }, T.c);
   typeChars(tl, $('.say', c), T.c + .1, 1.1);
 
   const d = $('#s8d'); show(tl, d, T.d, null);
-  tl.fromTo($('.lg', d), { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: .6, ease: 'back.out(1.2)' }, T.d);
-  typeChars(tl, $('.say', d), T.d + .65, .95);
-  tl.to($('.lg', d), { y: -10, duration: 1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, T.d + 1);
+  // logo lock-up: the tile grows, the two halves slide in from opposite corners and click together
+  const lg = $('.lg', d);
+  tl.fromTo(lg, { scale: .2, rotation: -20, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: .55, ease: M.ease.brand }, T.d);
+  tl.fromTo($('.lgA', d), { x: 1500, y: -1500 }, { x: 0, y: 0, duration: .5, ease: M.ease.move }, T.d + .2);
+  tl.fromTo($('.lgB', d), { x: -1500, y: 1500 }, { x: 0, y: 0, duration: .5, ease: M.ease.move }, T.d + .2);
+  settle(tl, lg, T.d + .7, { amt: .07 });
+  typeChars(tl, $('.say', d), T.d + .6, .95);
+  tl.to(lg, { y: -10, duration: 1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, T.d + 1.3);
 }
 
 const runHooks = () => hooks.forEach(f => f());
