@@ -18,6 +18,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - [Teknologi](#teknologi)
 - [Arsitektur Animasi](#arsitektur-animasi)
 - [Panduan Mengedit](#panduan-mengedit)
+- [Admin: Ganti Gambar & Audio](#admin-ganti-gambar--audio)
 - [Statistik Instagram Otomatis](#statistik-instagram-otomatis)
 - [Deploy (GitHub Pages)](#deploy-github-pages)
 - [Performa & Aksesibilitas](#performa--aksesibilitas)
@@ -97,6 +98,7 @@ Lalu buka http://localhost:8000.
 ```
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
+├── config.js         # URL & anon key Supabase untuk panel admin (kosong = admin nonaktif)
 ├── favicon.svg, favicon-32.png, apple-touch-icon.png   # ikon tab & home screen (logo Iluztar)
 ├── data/
 │   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
@@ -184,6 +186,63 @@ masih ditulis langsung (`#0047FF`, `#0042f8`), jadi cari dan ganti juga di sana.
 __reel.time()     // waktu timeline saat ini
 __reel.seek(42.5) // lompat & pause di detik 42.5 (mode Play)
 ```
+
+## Admin: Ganti Gambar & Audio
+
+Pemilik bisa login lalu mengganti **audio track** dan **gambar-gambar contoh** di reel tanpa mengedit kode.
+Penggantinya langsung terlihat oleh semua pengunjung.
+
+| Slot | Isi |
+|---|---|
+| `AUDIO` | Audio track (voice-over/musik) yang diputar saat **Play** |
+| `TEX` | Tekstur di belakang "This is Iluztar" |
+| `ART0`–`ART5` | Enam artwork galeri "A creative studio" |
+| `SHEET0` | Lembar sketsa ("unfinished sketches") |
+| `CF0`–`CF2` | Gambar postingan Sketch / Line-art / Base Color |
+| `HANDS` | Tangan memegang file |
+
+**Cara kerja:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
+Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
+yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa **mengubah**.
+
+**Setup (sekali saja):**
+
+1. Buat project di [supabase.com](https://supabase.com).
+2. Buka **SQL Editor**, lalu jalankan:
+
+   ```sql
+   create table public.reel_slots (
+     slot text primary key,
+     url text not null,
+     updated_at timestamptz default now()
+   );
+   alter table public.reel_slots enable row level security;
+   create policy "public read"  on public.reel_slots for select using (true);
+   create policy "admin write"  on public.reel_slots for all to authenticated using (true) with check (true);
+
+   insert into storage.buckets (id, name, public) values ('reel', 'reel', true);
+   create policy "admin upload" on storage.objects for insert to authenticated with check (bucket_id = 'reel');
+   create policy "admin update" on storage.objects for update to authenticated using (bucket_id = 'reel');
+   create policy "admin delete" on storage.objects for delete to authenticated using (bucket_id = 'reel');
+   ```
+
+3. **Authentication → Sign In / Providers → Email:** matikan *Allow new users to sign up*, supaya tidak ada orang
+   lain yang bisa membuat akun.
+4. **Authentication → Users → Add user:** buat akun admin Anda (email + password).
+5. **Project Settings → API:** salin *Project URL* dan kunci *anon* / *publishable* ke `config.js`:
+
+   ```js
+   window.ILUZTAR_SUPABASE = {
+     url: 'https://xxxxxxxx.supabase.co',
+     anonKey: 'eyJ...',
+   };
+   ```
+
+   Kedua nilai ini memang aman untuk publik. Yang melindungi data adalah *row-level security* di langkah 2.
+6. Buka situs. Tombol ikon orang akan muncul di bar bawah. Klik, login, lalu unggah file per slot
+   (gambar maks. 8 MB, audio maks. 20 MB). Tombol **Reset** mengembalikan slot ke bawaan.
+
+Sebelum `config.js` diisi, panel bisa dibuka lewat `?admin` di akhir alamat. Panel akan menampilkan petunjuk setup.
 
 ## Statistik Instagram Otomatis
 
