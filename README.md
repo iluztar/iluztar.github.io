@@ -18,6 +18,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - [Teknologi](#teknologi)
 - [Arsitektur Animasi](#arsitektur-animasi)
 - [Panduan Mengedit](#panduan-mengedit)
+- [Admin: Ganti Gambar & Audio](#admin-ganti-gambar--audio)
 - [Statistik Instagram Otomatis](#statistik-instagram-otomatis)
 - [Deploy (GitHub Pages)](#deploy-github-pages)
 - [Performa & Aksesibilitas](#performa--aksesibilitas)
@@ -32,9 +33,9 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
   - **Mode Scroll** (default): animasi bergerak mengikuti scroll, dengan smooth scrolling dari Lenis.
   - **Mode Play**: diputar seperti video, layar penuh, dengan kontrol pemutar.
 - **Dua versi**: *Full* (±71 detik, 8 scene) dan *Cut* (±30 detik, versi ringkas untuk media sosial).
-- **Sinkron voice-over**: unggah file audio narasi, lalu animasi mengikuti waktu audionya.
+- **Sinkron voice-over** *(sementara disembunyikan)*: unggah file audio narasi, lalu animasi mengikuti waktu audionya. Untuk memunculkan lagi tombolnya, hapus atribut `hidden` pada `<label class="vofile">` di `index.html`.
 - **Tombol "Play scene"** untuk langsung memutar scene tertentu.
-- **Mode gelap / terang**: tombol bulan/matahari (atau tombol `T`). Pilihan disimpan di browser; tanpa pilihan, mengikuti pengaturan sistem. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
+- **Mode gelap / terang**: default terang. Tombol bulan/matahari (atau tombol `T`) mengganti tema, dan pilihannya disimpan di browser. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
 - **Stage responsif**: kanvas 1600×900 yang diskalakan otomatis ke ukuran layar mana pun.
 - **Satu file**: semua kode, gaya, dan gambar ada di `index.html`, jadi mudah di-hosting di mana saja.
 - **Statistik Instagram asli**: jumlah posts, followers, dan following di scene 8 diambil dari akun @iluztar dan diperbarui otomatis.
@@ -46,7 +47,6 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | Menonton sambil scroll | Buka halaman, lalu scroll ke bawah |
 | Putar sebagai video | Klik **Play** di bar bawah (pilih dulu *Full · 71s* atau *Cut · 30s*) |
 | Putar dari scene saat ini | Klik **▶ Play scene** di pojok kanan atas |
-| Tambah narasi | Klik **♪ Add voice-over**, lalu pilih file audio |
 
 **Pintasan keyboard (mode Play):**
 
@@ -70,7 +70,7 @@ Kontrol dan kursor otomatis tersembunyi setelah 2,2 detik tanpa input. Klik prog
 | 04 | Services | 0:21 | Kartu *Full-Commission* & *Pair of Hands* → tahap Sketch / Line-art / Base Color → "We've got you covered!" |
 | 05 | Same care | 0:30 | *Big Project* vs *Single Task* → checklist *Care, Precision, Attention to detail* |
 | 06 | You & we | 0:39 | "You keep the vision" → file-file menyatu jadi toggle "Refine" → "I want a Website!" menjadi situs |
-| 07 | Ownership | 0:49 | "Stays true to your style, your direction, and your ownership" |
+| 07 | Ownership | 0:49 | "And every piece stays true to your style" → panah bergelombang → "Your Ownership" |
 | 08 | Let's talk | 0:58 | Chat CTA → profil Instagram → iluztar.com → logo penutup |
 
 Versi *Cut* memakai scene 1–3, lalu langsung ke scene 8 (tanpa bagian chat).
@@ -98,6 +98,8 @@ Lalu buka http://localhost:8000.
 ```
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
+├── config.js         # URL & anon key Supabase untuk panel admin (kosong = admin nonaktif)
+├── favicon.svg, favicon-32.png, apple-touch-icon.png   # ikon tab & home screen (logo Iluztar)
 ├── data/
 │   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
 ├── .github/workflows/
@@ -136,6 +138,11 @@ dan 1,3 detik pertama diputar otomatis saat halaman dibuka.
 **Bahasa gerak** (objek `E`) mengikuti video referensi: tenang dan presisi, tanpa pantulan atau goyangan.
 Elemen masuk cepat lalu berhenti bersih (`power3.out`), perpindahan memakai `power2.inOut`, dan "hidup"-nya
 datang dari kamera yang terus bergeser pelan (`drift`) serta bentuk yang berubah menjadi bentuk berikutnya (match cut).
+
+**Mengikuti ketukan**: gerak kamera/drift yang pelan tidak meluncur mulus, tapi maju bertahap tepat di ketukan
+musik referensi lalu diam di antaranya. Daftar ketukan ada di konstanta `BEATS` (onset kuat dari audio referensi,
+diekstrak dengan analisis *spectral flux*), dan fungsi easing `bE(start, durasi, {beats, w})` membagi satu gerakan
+menjadi langkah-langkah di ketukan itu. Kalau musik diganti, cukup perbarui `BEATS`.
 
 **Latar**: satu kanvas bersama (`#gbg`) dengan gradien radial lembut dan grid yang memudar diagonal. Pergantian
 abu-abu ↔ biru memakai sapuan vertikal bertepi lembut (`--wb` / `--wt` pada `mask`).
@@ -179,6 +186,62 @@ masih ditulis langsung (`#0047FF`, `#0042f8`), jadi cari dan ganti juga di sana.
 __reel.time()     // waktu timeline saat ini
 __reel.seek(42.5) // lompat & pause di detik 42.5 (mode Play)
 ```
+
+## Admin: Ganti Gambar & Audio
+
+Pemilik bisa login lalu mengganti **audio track** dan **gambar-gambar contoh** di reel tanpa mengedit kode.
+Penggantinya langsung terlihat oleh semua pengunjung.
+
+| Slot | Isi |
+|---|---|
+| `AUDIO` | Audio track (voice-over/musik) yang diputar saat **Play** |
+| `TEX` | Tekstur di belakang "This is Iluztar" |
+| `ART0`–`ART5` | Enam artwork galeri "A creative studio" |
+| `SHEET0` | Lembar sketsa ("unfinished sketches") |
+| `CF0`–`CF2` | Gambar postingan Sketch / Line-art / Base Color |
+
+**Cara kerja:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
+Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
+yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa **mengubah**.
+
+**Setup (sekali saja):**
+
+1. Buat project di [supabase.com](https://supabase.com).
+2. Buka **SQL Editor**, lalu jalankan:
+
+   ```sql
+   create table public.reel_slots (
+     slot text primary key,
+     url text not null,
+     updated_at timestamptz default now()
+   );
+   alter table public.reel_slots enable row level security;
+   create policy "public read"  on public.reel_slots for select using (true);
+   create policy "admin write"  on public.reel_slots for all to authenticated using (true) with check (true);
+
+   insert into storage.buckets (id, name, public) values ('reel', 'reel', true);
+   create policy "admin upload" on storage.objects for insert to authenticated with check (bucket_id = 'reel');
+   create policy "admin update" on storage.objects for update to authenticated using (bucket_id = 'reel');
+   create policy "admin delete" on storage.objects for delete to authenticated using (bucket_id = 'reel');
+   ```
+
+3. **Authentication → Sign In / Providers → Email:** matikan *Allow new users to sign up*, supaya tidak ada orang
+   lain yang bisa membuat akun.
+4. **Authentication → Users → Add user:** buat akun admin Anda (email + password).
+5. **Project Settings → API:** salin *Project URL* dan kunci *anon* / *publishable* ke `config.js`:
+
+   ```js
+   window.ILUZTAR_SUPABASE = {
+     url: 'https://xxxxxxxx.supabase.co',
+     anonKey: 'eyJ...',
+   };
+   ```
+
+   Kedua nilai ini memang aman untuk publik. Yang melindungi data adalah *row-level security* di langkah 2.
+6. Buka situs. Tombol ikon orang akan muncul di bar bawah. Klik, login, lalu unggah file per slot
+   (gambar maks. 8 MB, audio maks. 20 MB). Tombol **Reset** mengembalikan slot ke bawaan.
+
+Sebelum `config.js` diisi, panel bisa dibuka lewat `?admin` di akhir alamat. Panel akan menampilkan petunjuk setup.
 
 ## Statistik Instagram Otomatis
 
