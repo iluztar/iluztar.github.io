@@ -70,7 +70,7 @@ Kontrol dan kursor otomatis tersembunyi setelah 2,2 detik tanpa input. Klik prog
 | 04 | Services | 0:21 | Kartu *Full-Commission* & *Pair of Hands* → tahap Sketch / Line-art / Base Color → "We've got you covered!" |
 | 05 | Same care | 0:30 | *Big Project* vs *Single Task* → checklist *Care, Precision, Attention to detail* |
 | 06 | You & we | 0:39 | "You keep the vision" → file-file menyatu jadi toggle "Refine" → "I want a Website!" menjadi situs |
-| 07 | Ownership | 0:49 | "Stays true to your style, your direction, and your ownership" |
+| 07 | Ownership | 0:49 | "And every piece stays true to your style" → panah bergelombang → "Your Ownership" |
 | 08 | Let's talk | 0:58 | Chat CTA → profil Instagram → iluztar.com → logo penutup |
 
 Versi *Cut* memakai scene 1–3, lalu langsung ke scene 8 (tanpa bagian chat).
@@ -199,7 +199,6 @@ Penggantinya langsung terlihat oleh semua pengunjung.
 | `ART0`–`ART5` | Enam artwork galeri "A creative studio" |
 | `SHEET0` | Lembar sketsa ("unfinished sketches") |
 | `CF0`–`CF2` | Gambar postingan Sketch / Line-art / Base Color |
-| `HANDS` | Tangan memegang file |
 
 **Cara kerja:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
 Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
