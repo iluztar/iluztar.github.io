@@ -1537,7 +1537,8 @@ function useSlots(map) {
   refreshPristine(); applySlots(film);
   if (!playingNow || !audio) setAudio(slotMap.AUDIO || null);
 }
-const sbHeaders = () => ({ apikey: SB.anonKey, Authorization: 'Bearer ' + SB.anonKey });
+// new-style publishable keys (sb_publishable_…) aren't JWTs, so they go in apikey only; legacy anon JWTs also need Authorization
+const sbHeaders = () => SB.anonKey.startsWith('sb_') ? { apikey: SB.anonKey } : { apikey: SB.anonKey, Authorization: 'Bearer ' + SB.anonKey };
 async function loadSlots() {
   if (!SB_ON) return;
   try {
