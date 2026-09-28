@@ -75,6 +75,22 @@ Kontrol dan kursor otomatis tersembunyi setelah 2,2 detik tanpa input. Klik prog
 
 Versi *Cut* memakai scene 1–3, lalu langsung ke scene 8 (tanpa bagian chat).
 
+## Elemen yang Bisa Diklik
+
+Reel ini sebuah halaman web, jadi elemennya bisa diklik, baik saat di-scroll maupun saat diputar:
+
+| Elemen | Aksi |
+|---|---|
+| Artwork galeri, lembar sketsa, gambar postingan | Dibuka besar (lightbox). Film otomatis dijeda, lalu lanjut saat ditutup (klik / `Esc`) |
+| "Bandar Lampung, Indonesia" | Google Maps |
+| Kartu Full-Commission / Pair of Hands, tombol **Order**, folder Big Project / Single Task, **Build it!** | DM Instagram (`ig.me/m/iluztar`) |
+| Header postingan, nama & tombol **Follow** di profil | Profil Instagram @iluztar |
+| **Message** | DM Instagram |
+| **Contact**, "iluztar.com" | iluztar.com |
+| Logo penutup | Putar ulang dari awal |
+
+Tautan diatur lewat atribut `data-act="link"` + `data-href` (atau `href` pada `<a>`) di `index.html`.
+
 ## Menjalankan Secara Lokal
 
 Tidak perlu proses build. Cukup jalankan server statis apa saja:
