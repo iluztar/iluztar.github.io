@@ -161,16 +161,17 @@ body:not(.playing) .intext{display:none!important}
 .pwrap{display:flex;flex-direction:column;align-items:center}
 
 /* ---------- S4 (blue) ---------- */
-.svc{position:absolute;left:640px;top:225px;width:320px;height:450px;border-radius:34px;background:#F4F4F6;padding:34px 30px;box-shadow:0 1px 2px rgba(0,20,90,.08),0 18px 36px -12px rgba(0,20,90,.28),0 50px 90px -30px rgba(0,20,90,.35)}
+.svc{position:absolute;left:640px;top:225px;width:320px;height:450px;border-radius:34px;background:#F4F4F6;padding:34px 30px 26px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(0,20,90,.08),0 18px 36px -12px rgba(0,20,90,.28),0 50px 90px -30px rgba(0,20,90,.35)}
 .svc h3{margin:0;color:var(--blue);font-size:40px;font-weight:500;line-height:1.02;letter-spacing:-.02em}
-.svc .sv{list-style:none;margin:30px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
-.svc .sv li{display:flex;align-items:center;gap:12px;font-size:24px;font-weight:500;color:#1F1F21;letter-spacing:-.01em}
+.svc .sv{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+.svc .sv li{display:flex;align-items:center;gap:12px;font-size:23px;line-height:1.2;font-weight:500;color:#1F1F21;letter-spacing:-.01em}
 .svc .sv li i{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;background:var(--blue)}
 .svc .sv li.off{color:#A4A4AC}
 .svc .sv li.off i{background:transparent;box-shadow:inset 0 0 0 2px #C4D0FA}
 .svc .ck{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:0}
-.svc .svn{position:absolute;left:30px;bottom:82px;font-size:17px;color:#8A8A8F}
-.svc .pb{position:absolute;left:30px;bottom:30px;height:40px;padding:0 22px;border-radius:20px;background:var(--blue);color:#fff;font-size:18px;font-weight:600;display:flex;align-items:center;text-decoration:none}
+.svc .svf{margin-top:auto;padding-top:16px;border-top:1px solid #DFE3F0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.svc .svn{font-size:15px;line-height:1.25;color:#8A8A8F;letter-spacing:.01em}
+.svc .pb{flex:none;height:40px;padding:0 20px;border-radius:20px;background:var(--blue);color:#fff;font-size:17px;font-weight:600;display:flex;align-items:center;text-decoration:none}
 #fc{z-index:2}#ph{z-index:1}
 #fc:hover{z-index:1}#ph:hover{z-index:3}
 .cflow{position:absolute;inset:0}
@@ -600,8 +601,8 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
   <div class="fit"><div class="cam"><div class="bg"></div>
     <div class="layer" id="s4a">
       <div class="hz" style="display:block">
-        <div class="svc" id="ph" data-act="link" data-link="order"><h3>Pair of<br>Hands</h3><ul class="sv"><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Sketch</li><li class="off"><i></i>Lineart</li><li class="off"><i></i>Base Color</li><li class="off"><i></i>Render</li></ul><small class="svn">Pick one stage</small><a class="pb" data-act="link" data-link="order" href="#">Order</a></div>
-        <div class="svc" id="fc" data-act="link" data-link="order"><h3>Full-<br>Commission</h3><ul class="sv"><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Idea</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Sketch</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Lineart</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Full Color</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Render</li></ul><small class="svn">Idea to final</small><a class="pb" data-act="link" data-link="order" href="#">Order</a></div>
+        <div class="svc" id="ph" data-act="link" data-link="order"><h3>Pair of<br>Hands</h3><ul class="sv"><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Sketch</li><li class="off"><i></i>Lineart</li><li class="off"><i></i>Base Color</li><li class="off"><i></i>Render</li></ul><div class="svf"><small class="svn">Pick one stage</small><a class="pb" data-act="link" data-link="order" href="#">Order</a></div></div>
+        <div class="svc" id="fc" data-act="link" data-link="order"><h3>Full-<br>Commission</h3><ul class="sv"><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Idea</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Sketch</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Lineart</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Full Color</li><li class="on"><i><svg class="ck" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg></i>Render</li></ul><div class="svf"><small class="svn">Idea to final</small><a class="pb" data-act="link" data-link="order" href="#">Order</a></div></div>
       </div>
     </div>
     <div class="layer hero" id="s4b">
@@ -1082,7 +1083,7 @@ function cardFill(tl, card, t) {
     if (ck) tl.fromTo(ck, { strokeDashoffset: 20 }, { strokeDashoffset: 0, duration: .22, ease: E.out }, t + .22 + i * .09);
   });
   tl.fromTo($('.svn', card), { opacity: 0 }, { opacity: 1, duration: .3 }, t + .6);
-  tl.fromTo($('.pb', card), { opacity: 0, scale: .85, transformOrigin: '0% 50%' }, { opacity: 1, scale: 1, duration: .3, ease: E.out }, t + .62);
+  tl.fromTo($('.pb', card), { opacity: 0, scale: .85, transformOrigin: '100% 50%' }, { opacity: 1, scale: 1, duration: .3, ease: E.out }, t + .62);
 }
 const fmt = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, x = s % 60; return [h, m, x].map(v => String(v).padStart(2, '0')).join(':'); };
 
