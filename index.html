@@ -882,6 +882,27 @@ let hooks = [], mode = 'full', tl = null, audio = null, audioURL = null, labels 
    no wobble); life comes from slow camera drift and from shapes turning into the next shape. */
 const E = { out: 'power3.out', inOut: 'power2.inOut', in: 'power2.in', drift: 'none', soft: 'sine.inOut' };
 
+/* ---------- the beat ----------
+   Strong onsets of the reference soundtrack (spectral-flux peaks, at least 0.4 s apart), in seconds.
+   Slow "camera" moves don't glide: they advance in short steps that land on these hits and hold
+   in between, like the reference cut. */
+const BEATS = [0.19, 1.17, 2.35, 3.47, 4.63, 5.75, 6.33, 7.5, 9.38, 10.79, 12.97, 13.56, 14.56, 15.35, 17.02, 17.73, 19.6, 20.4, 21.27, 21.77, 25.65, 26.15, 27.67, 30.05, 30.85, 31.46, 31.95, 33.99, 34.91, 35.87, 36.52, 37.58, 38.0, 38.94, 42.07, 42.82, 43.58, 43.99, 45.85, 46.34, 47.01, 48.38, 49.06, 49.86, 50.67, 52.19, 55.11, 55.96, 57.13, 59.11, 60.48, 60.98, 61.64, 64.51, 65.16, 66.25, 66.99];
+/* Ease for a tween that starts at `a` and lasts `dur`: one quick ease-out step per beat inside the
+   window, holding still between beats. Steps share the move equally unless `w` gives each a weight;
+   `beats` overrides which hits are used. */
+function bE(a, dur, o = {}) {
+  let bs = o.beats || BEATS.filter(t => t >= a - .02 && t < a + dur - .06);
+  if (!bs.length) bs = [a];
+  const w = o.w || bs.map(() => 1), W = w.reduce((p, q) => p + q, 0);
+  const steps = bs.map((b, i) => [b, Math.max(.08, Math.min(.35, ((bs[i + 1] ?? a + dur) - b) * .85)), w[i] / W]);
+  return x => {
+    const t = a + x * dur;
+    let s = 0;
+    for (const [b, d, k] of steps) { const u = Math.min(Math.max((t - b) / d, 0), 1); s += k * (1 - Math.pow(1 - u, 3)); }
+    return x >= 1 ? 1 : s;
+  };
+}
+
 /* ---------- helpers ---------- */
 // words fade on one by one; inline icons ease in right after the word before them
 function typeWords(tl, el, t, per = .16) {
@@ -932,7 +953,7 @@ function scene(tl, id, a, b, last) {
   const el = $('#' + id), hold = last ? 0 : .35;
   tl.set(el, { autoAlpha: 1 }, a);
   if (!last) tl.set(el, { autoAlpha: 0 }, b + hold);
-  tl.fromTo($('.cam', el), { scale: 1.03 }, { scale: 1, duration: b - a + hold, ease: 'none', immediateRender: false }, a);
+  tl.fromTo($('.cam', el), { scale: 1.03 }, { scale: 1, duration: b - a + hold, ease: bE(a, b - a + hold), immediateRender: false }, a);
   labels.push(a);
 }
 /* Grey ↔ blue: the blue canvas wipes in top-down and wipes away top-down (the "vertical" reveal). */
@@ -966,7 +987,7 @@ function S1(tl) {
   $$('.art', b).map(el => ({ el, d: parseFloat(el.dataset.d || 1) })).sort((p, q) => p.d - q.d).forEach((p, i) => {
     tl.fromTo(p.el, { x: -160 * p.d, y: 520 + 160 * (1 - p.d), opacity: 0 }, { x: 0, y: 0, opacity: p.d < .6 ? .6 : 1, duration: .9, ease: E.out }, 2.2 + i * .035);
   });
-  tl.fromTo(b, { y: 0 }, { y: -34, duration: 1.35, ease: E.drift, immediateRender: false }, 2.2);
+  tl.fromTo(b, { y: 0 }, { y: -34, duration: 1.35, ease: bE(2.2, 1.35), immediateRender: false }, 2.2);
 
   // C — Bandar Lampung, then the Indonesia pill opens beside it (the line re-centres as it grows)
   const c = $('#s1c'); show(tl, c, 3.55, 5.66, { in: .12, out: 0 });
@@ -991,7 +1012,7 @@ function S1(tl) {
     tl.fromTo(nds[i], { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: .28, ease: E.out }, 7.26 + i * .035);
   });
   tl.to(net, { scale: 1, duration: .4, ease: 'power2.inOut' }, 7.42);
-  tl.to(net, { scale: .95, y: -10, duration: .9, ease: E.drift }, 7.82);
+  tl.to(net, { scale: .95, y: -10, duration: .9, ease: bE(7.82, .9) }, 7.82);
 
   // E — the calendar rises huge and counts back: ‹ is pressed and a page turns 2026 → 2025 → 2024 → "Since 2023!"
   const e = $('#s1e'), calw = $('.calw', e);
@@ -1008,8 +1029,8 @@ function S1(tl) {
     tl.set(L, { opacity: 0 }, t + .25);
   });
   tl.fromTo($('.calF .on', e), { scale: 0 }, { scale: 1, duration: .25, ease: E.out }, 9.75);
-  tl.set(calw, { scale: .62, y: 18, rotation: -1.5 }, 9.98);
-  tl.to(calw, { scale: .58, y: 0, rotation: 1, duration: .74, ease: E.drift }, 9.98);
+  tl.set(calw, { scale: .62, y: 18 }, 9.98);
+  tl.to(calw, { scale: .58, y: 0, duration: .74, ease: bE(9.98, .74) }, 9.98);
 }
 
 function S2(tl) {
@@ -1054,7 +1075,7 @@ function S2(tl) {
   // D — "Plate.file" swings in from the left, papers peek out, then the camera pushes in
   const d = $('#s2d'), hz = $('.hz', d), pw = $('.pwrap', d); show(tl, d, 17.45, 19.95, { out: .1 });
   tl.fromTo(hz, { scale: .78 }, { scale: 1.2, duration: .32, ease: E.out }, 18.7);
-  tl.to(hz, { scale: 1.28, duration: .8, ease: E.drift }, 19.02);
+  tl.to(hz, { scale: 1.28, duration: .8, ease: bE(19.02, .8) }, 19.02);
   tl.to(pw, { x: -260, y: 150, scale: 1.25, duration: .2, ease: E.in }, 19.8);
   tl.fromTo(pw, { x: -420, y: 80, rotation: -32, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: .32, ease: 'power1.inOut' }, 17.45);
   $$('.psh', d).forEach((s, i) => tl.fromTo(s, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: .25, ease: E.out }, 17.66 + i * .05));
@@ -1066,7 +1087,7 @@ function S3(tl, end, cut) {
   const a = $('#s3a'), say = $('.say', a); show(tl, a, 19.95, end, { in: 0, out: cut ? .4 : .3 });
   tl.set($('.cur', a), { opacity: 1 }, 19.95);
   tl.fromTo(say, { x: 230, opacity: 0 }, { x: 0, opacity: 1, duration: .3, ease: E.out }, 20.0);
-  tl.to(say, { x: -30, duration: end - 20.3, ease: E.drift }, 20.3);
+  tl.to(say, { x: -30, duration: end - 20.3, ease: bE(20.3, end - 20.3) }, 20.3);
   if (!cut) bg(tl, true, 21.15, .7);
 }
 
@@ -1078,11 +1099,11 @@ function S4(tl) {
   gsap.set(hz, { scale: 1.2 });
   tl.fromTo(fc, { x: -560, y: -30, rotationY: 65, opacity: 0, transformPerspective: 1400, filter: 'brightness(.6)' }, { x: 0, y: 0, rotationY: 0, opacity: 1, filter: 'brightness(1)', duration: .4, ease: E.out }, 21.85);
   cardFill(tl, fc, 22.05);
-  tl.to(fc, { y: 14, scale: .97, duration: 1.7, ease: E.drift }, 22.25);
+  tl.to(fc, { y: 14, scale: .97, duration: 1.7, ease: bE(22.25, 1.7) }, 22.25);
   tl.to(fc, { x: -100, y: 0, rotation: -14, scale: .72, duration: .3, ease: E.inOut }, 23.92);
   tl.fromTo(ph, { x: 0, rotation: 0, scale: .72, opacity: 0 }, { x: 110, y: 8, rotation: 12, opacity: 1, duration: .3, ease: E.inOut }, 23.92);
   cardFill(tl, ph, 24.05);
-  tl.to(hz, { rotation: -1.5, y: 10, duration: 1.6, ease: E.drift }, 24.22);
+  tl.to(hz, { rotation: -1.5, y: 10, duration: 1.6, ease: bE(24.22, 1.6) }, 24.22);
   tl.to([fc, ph], { rotationY: -90, duration: .2, ease: E.in, transformPerspective: 1400 }, 25.85);
 
   // B — cover-flow of the three stages; the focus steps Sketch → Line-art → Base Color
@@ -1103,7 +1124,7 @@ function S4(tl) {
   tl.fromTo(P, { p: 0 }, { p: 1, duration: .38, ease: E.inOut, immediateRender: false }, 27.0);
   tl.to(P, { p: 2, duration: .38, ease: E.inOut }, 28.1);
   tl.to($('.cflow', b), { scale: .8, duration: .25, ease: E.in }, 28.95);
-  tl.fromTo($('.cflow', b), { scale: 1 }, { scale: .97, duration: 2.5, ease: E.drift }, 26.45);
+  tl.fromTo($('.cflow', b), { scale: 1 }, { scale: .97, duration: 2.5, ease: bE(26.45, 2.5) }, 26.45);
   // each post comes alive as it takes focus: caption typed, heart, likes count up
   cards.forEach((k, i) => {
     const te = [26.2, 27.15, 28.25][i];
@@ -1136,7 +1157,7 @@ function S5(tl) {
   tl.fromTo(st, { x: -170, opacity: 0 }, { x: 0, opacity: 1, duration: .42, ease: E.inOut }, 32.2);
   tl.to(bp, { x: 0, duration: .42, ease: E.inOut }, 32.2);
   tl.to(sel, { width: 720, left: 440, duration: .42, ease: E.inOut }, 32.2);
-  tl.fromTo($('.s5w', a), { scale: 1, y: 0 }, { scale: 1.05, y: 12, duration: 1, ease: E.drift, immediateRender: false }, 32.62);
+  tl.fromTo($('.s5w', a), { scale: 1, y: 0 }, { scale: 1.05, y: 12, duration: 1, ease: bE(32.62, 1), immediateRender: false }, 32.62);
 
   // B — "we treat every" word by word, the papers slide in after it
   const b = $('#s5b'); show(tl, b, 33.6, 35.1, { out: .2 });
@@ -1144,8 +1165,9 @@ function S5(tl) {
 
   // C — the checklist card grows out of a dot, then the camera slowly pulls back as each line is ticked
   const c = $('#s5c'), card = $('#dcard'); show(tl, c, 35.6, 39.5, { in: 0 });
-  tl.fromTo(card, { scale: .04, opacity: 0 }, { scale: 1.32, opacity: 1, duration: .32, ease: E.out }, 35.6);
-  tl.to(card, { scale: .86, duration: 3.5, ease: 'power1.out' }, 35.95);
+  tl.fromTo(card, { scale: .04, opacity: 0 }, { scale: 1.32, opacity: 1, duration: .26, ease: E.out }, 35.7);
+  tl.to(card, { scale: 1.2, duration: .28, ease: 'power2.out' }, 35.96);
+  tl.to(card, { scale: .84, duration: 3.1, ease: bE(36.3, 3.1, { beats: [36.52, 37.58, 37.98], w: [.5, .44, .06] }) }, 36.3);
   tl.fromTo($('.dhead', card), { opacity: 0 }, { opacity: 1, duration: .15 }, 35.8);
   $$('.row', card).forEach((r, i) => {
     const t = [35.82, 36.36, 37.45][i];
@@ -1193,7 +1215,7 @@ function S6(tl) {
   tl.fromTo(tog, { scale: .9 }, { scale: 1, duration: .3, ease: E.out }, 44.45);
   tl.fromTo(knob, { backgroundColor: '#B9C8FF' }, { backgroundColor: '#FFFFFF', duration: .25 }, 44.5);
   tl.fromTo(lab, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: .25, ease: E.out }, 44.55);
-  tl.to(tog, { scale: 1.03, duration: .8, ease: E.drift }, 44.8);
+  tl.to(tog, { scale: 1.03, duration: .8, ease: bE(44.8, .8) }, 44.8);
   // …then collapses into the small white request pill
   tl.to([knob, lab], { opacity: 0, duration: .12 }, 45.58);
   tl.to(tog, { width: 270, height: 50, borderRadius: 25, padding: 0, backgroundColor: '#F7F7F8', scale: 1, duration: .22, ease: E.inOut }, 45.6);
@@ -1206,7 +1228,7 @@ function S6(tl) {
   tl.to(lbl, { opacity: 0, duration: .1 }, 47.35);
   tl.to(wp, { width: 1130, height: 625, borderRadius: 44, duration: .5, ease: 'power3.inOut' }, 47.35);
   tl.fromTo(kids, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .3, stagger: .03, ease: E.out }, 47.45);
-  tl.fromTo(wp, { scale: 1 }, { scale: 1.03, duration: 1.4, ease: E.drift, immediateRender: false }, 47.85);
+  tl.fromTo(wp, { scale: 1 }, { scale: 1.03, duration: 1.4, ease: bE(47.85, 1.4), immediateRender: false }, 47.85);
   tl.to(wp, { x: -260, duration: .2, ease: E.in }, 49.25);
   bg(tl, false, 49.3, .5);
 }
@@ -1223,12 +1245,12 @@ function S7(tl) {
   const A = { d: 0 };
   tl.to(w, { scale: .58, x: -350, duration: .4, ease: E.inOut }, 52.0);
   tl.fromTo(A, { d: 0 }, { d: 1, duration: .42, ease: 'power1.inOut', immediateRender: false }, 52.1);
-  tl.to(w, { x: -400, duration: 1.1, ease: E.drift }, 52.5);
+  tl.to(w, { x: -400, duration: 1.1, ease: bE(52.5, 1.1) }, 52.5);
   tl.to(w, { scale: 1.3, x: -1080, duration: .7, ease: E.inOut }, 53.6);
   tl.to(wave, { attr: { d: STRAIGHT }, duration: .7, ease: E.inOut }, 54.3);
-  tl.to(w, { x: -1300, duration: .7, ease: E.drift }, 54.3);
+  tl.to(w, { x: -1300, duration: .7, ease: bE(54.3, .7) }, 54.3);
   tl.to(w, { x: -1700, duration: .6, ease: E.inOut }, 55.0);
-  tl.to(w, { x: -1800, duration: 2.5, ease: E.drift }, 55.6);
+  tl.to(w, { x: -1800, duration: 2.5, ease: bE(55.6, 2.5) }, 55.6);
   tl.to(w, { x: -2500, duration: .45, ease: E.in }, 58.1);
   hooks.push(() => {
     const L = wave.getTotalLength(), e = L * A.d;
@@ -1238,7 +1260,7 @@ function S7(tl) {
     head.setAttribute('transform', `translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) rotate(${(Math.atan2(p.y - q.y, p.x - q.x) * 180 / Math.PI).toFixed(2)})`);
   });
   tl.fromTo(hands, { x: 1200, opacity: 1 }, { x: 190, duration: .5, ease: E.out }, 55.6);
-  tl.to(hands, { x: 110, duration: 2.0, ease: E.drift }, 56.1);
+  tl.to(hands, { x: 110, duration: 2.0, ease: bE(56.1, 2.0) }, 56.1);
   tl.to(hands, { opacity: 0, duration: .2 }, 58.15);
 }
 
@@ -1262,7 +1284,7 @@ function S8(tl, T) {
   tl.fromTo($$('#prof .pname, #prof .pstats > div, #prof .pbio'), { opacity: 0 }, { opacity: 1, duration: .15, stagger: .1 }, T.b + .3);
   tl.fromTo($$('#prof .pbtns span'), { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: .22, stagger: .1, ease: E.out }, T.b + 1.1);
   tl.to(prof, { scale: .6, duration: .4, ease: 'power2.inOut' }, T.b + 1.35);
-  tl.to(prof, { scale: .52, duration: Math.max(.4, T.c - T.b - 1.75), ease: E.drift }, T.b + 1.75);
+  tl.to(prof, { scale: .52, duration: Math.max(.4, T.c - T.b - 1.75), ease: bE(T.b + 1.75, Math.max(.4, T.c - T.b - 1.75)) }, T.b + 1.75);
   // follower count ticks up to the live number; read at render time, so data that arrives late still shows
   const igc = { p: 0 };
   tl.fromTo(igc, { p: 0 }, { p: 1, duration: .9, ease: 'power2.out', immediateRender: false, onUpdate: () => {
@@ -1275,7 +1297,7 @@ function S8(tl, T) {
   // C — the link
   const c = $('#s8c'); show(tl, c, T.c, T.d);
   tl.set($('.cur', c), { opacity: 1 }, T.c);
-  tl.fromTo($('.say', c), { scale: 1 }, { scale: 1.04, duration: T.d - T.c, ease: E.drift, immediateRender: false }, T.c);
+  tl.fromTo($('.say', c), { scale: 1 }, { scale: 1.04, duration: T.d - T.c, ease: bE(T.c, T.d - T.c), immediateRender: false }, T.c);
 
   // D — the mark, small and still, to the end
   const d = $('#s8d'); show(tl, d, T.d, null);

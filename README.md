@@ -137,6 +137,11 @@ dan 1,3 detik pertama diputar otomatis saat halaman dibuka.
 Elemen masuk cepat lalu berhenti bersih (`power3.out`), perpindahan memakai `power2.inOut`, dan "hidup"-nya
 datang dari kamera yang terus bergeser pelan (`drift`) serta bentuk yang berubah menjadi bentuk berikutnya (match cut).
 
+**Mengikuti ketukan**: gerak kamera/drift yang pelan tidak meluncur mulus, tapi maju bertahap tepat di ketukan
+musik referensi lalu diam di antaranya. Daftar ketukan ada di konstanta `BEATS` (onset kuat dari audio referensi,
+diekstrak dengan analisis *spectral flux*), dan fungsi easing `bE(start, durasi, {beats, w})` membagi satu gerakan
+menjadi langkah-langkah di ketukan itu. Kalau musik diganti, cukup perbarui `BEATS`.
+
 **Latar**: satu kanvas bersama (`#gbg`) dengan gradien radial lembut dan grid yang memudar diagonal. Pergantian
 abu-abu ↔ biru memakai sapuan vertikal bertepi lembut (`--wb` / `--wt` pada `mask`).
 
