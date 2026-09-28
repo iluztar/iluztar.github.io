@@ -116,7 +116,7 @@ Lalu buka http://localhost:8000.
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
 ├── config.js         # URL & anon key Supabase untuk panel admin (kosong = admin nonaktif)
-├── favicon.svg, favicon-32.png, apple-touch-icon.png   # ikon tab & home screen (logo Iluztar)
+├── favicon.ico, favicon.svg, favicon-32.png, apple-touch-icon.png   # ikon tab & home screen (logo Iluztar)
 ├── data/
 │   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
 ├── .github/workflows/
