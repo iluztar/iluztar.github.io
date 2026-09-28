@@ -83,13 +83,14 @@ Reel ini sebuah halaman web, jadi elemennya bisa diklik, baik saat di-scroll mau
 |---|---|
 | Artwork galeri, lembar sketsa, gambar postingan | Dibuka besar (lightbox). Film otomatis dijeda, lalu lanjut saat ditutup (klik / `Esc`) |
 | "Bandar Lampung, Indonesia" | Google Maps |
-| Kartu Full-Commission / Pair of Hands, tombol **Order**, folder Big Project / Single Task, **Build it!** | DM Instagram (`ig.me/m/iluztar`) |
+| Kartu Full-Commission / Pair of Hands, tombol **Order**, folder Big Project / Single Task, **Build it!** | WhatsApp bila nomornya diisi, selain itu DM Instagram (bisa diatur di admin) |
 | Header postingan, nama & tombol **Follow** di profil | Profil Instagram @iluztar |
 | **Message** | DM Instagram |
-| **Contact**, "iluztar.com" | iluztar.com |
+| **Contact** | WhatsApp → email → website → DM (bisa diatur di admin); labelnya ikut berubah jadi *WhatsApp* / *Email* |
+| "iluztar.com" | Website |
 | Logo penutup | Putar ulang dari awal |
 
-Tautan diatur lewat atribut `data-act="link"` + `data-href` (atau `href` pada `<a>`) di `index.html`.
+Setiap elemen menyebut tujuannya lewat `data-link` (`ig`, `dm`, `contact`, `order`, `web`, `map`); alamatnya dihitung dari pengaturan Kontak di panel admin.
 
 ## Menjalankan Secara Lokal
 
@@ -203,20 +204,27 @@ __reel.time()     // waktu timeline saat ini
 __reel.seek(42.5) // lompat & pause di detik 42.5 (mode Play)
 ```
 
-## Admin: Ganti Gambar & Audio
+## Admin: Edit Kontak, Profil & Media
 
-Pemilik bisa login lalu mengganti **audio track** dan **gambar-gambar contoh** di reel tanpa mengedit kode.
-Penggantinya langsung terlihat oleh semua pengunjung.
+Klik ikon orang di bar bawah (atau buka alamat dengan `?admin`), lalu login. Panel admin punya empat tab:
 
-| Slot | Isi |
+| Tab | Isi |
 |---|---|
-| `AUDIO` | Audio track (voice-over/musik) yang diputar saat **Play** |
-| `TEX` | Tekstur di belakang "This is Iluztar" |
-| `ART0`–`ART5` | Enam artwork galeri "A creative studio" |
-| `SHEET0` | Lembar sketsa ("unfinished sketches") |
-| `CF0`–`CF2` | Gambar postingan Sketch / Line-art / Base Color |
+| **Kontak** | Username Instagram, nomor WhatsApp (awalan 0 otomatis jadi 62) dan pesan awalnya, email, website, alamat Google Maps, serta tujuan tombol **Contact** dan **Order** (otomatis, WhatsApp, email, website, atau DM Instagram). Ada pratinjau semua tautan sebelum disimpan. |
+| **Profil** | Nama, keterangan, dan bio di kartu profil scene 8 |
+| **Media** | Ganti audio track dan gambar contoh (tabel slot di bawah) |
+| **Akun** | Ganti password, keluar |
 
-**Cara kerja:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
+Di halaman login ada **Lupa password?** yang mengirim link reset ke email. Supaya link itu kembali ke situs,
+tambahkan alamat situs (misalnya `https://iluztar.vercel.app`) di Supabase: *Authentication → URL Configuration*
+(*Site URL* dan *Redirect URLs*).
+
+Semua perubahan langsung terlihat oleh pengunjung. Kontak dan profil disimpan di tabel yang sama dengan media
+(`reel_slots`, baris berawalan `c:`), jadi tidak perlu tabel tambahan.
+
+### Slot media
+
+**Cara kerja media:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
 Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
 yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa **mengubah**.
 
