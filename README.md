@@ -18,6 +18,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - [Teknologi](#teknologi)
 - [Arsitektur Animasi](#arsitektur-animasi)
 - [Panduan Mengedit](#panduan-mengedit)
+- [Statistik Instagram Otomatis](#statistik-instagram-otomatis)
 - [Deploy (GitHub Pages)](#deploy-github-pages)
 - [Performa & Aksesibilitas](#performa--aksesibilitas)
 - [Roadmap](#roadmap)
@@ -33,8 +34,10 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - **Dua versi**: *Full* (±71 detik, 8 scene) dan *Cut* (±30 detik, versi ringkas untuk media sosial).
 - **Sinkron voice-over**: unggah file audio narasi, lalu animasi mengikuti waktu audionya.
 - **Tombol "Play scene"** untuk langsung memutar scene tertentu.
+- **Mode gelap / terang**: tombol bulan/matahari (atau tombol `T`). Pilihan disimpan di browser; tanpa pilihan, mengikuti pengaturan sistem. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
 - **Stage responsif**: kanvas 1600×900 yang diskalakan otomatis ke ukuran layar mana pun.
 - **Satu file**: semua kode, gaya, dan gambar ada di `index.html`, jadi mudah di-hosting di mana saja.
+- **Statistik Instagram asli**: jumlah posts, followers, dan following di scene 8 diambil dari akun @iluztar dan diperbarui otomatis.
 
 ## Cara Menonton
 
@@ -53,6 +56,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | `→` / `←` | Scene berikutnya / sebelumnya |
 | `H` | Sembunyikan / tampilkan kontrol |
 | `Esc` | Keluar, lalu kembali ke mode scroll di frame terakhir |
+| `T` | Ganti tema gelap / terang (berlaku juga di mode scroll) |
 
 Kontrol dan kursor otomatis tersembunyi setelah 2,2 detik tanpa input. Klik progress bar untuk melompat ke waktu tertentu.
 
@@ -94,6 +98,10 @@ Lalu buka http://localhost:8000.
 ```
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
+├── data/
+│   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
+├── .github/workflows/
+│   └── instagram-stats.yml  # mengambil statistik Instagram tiap 6 jam + refresh token mingguan
 ├── MOTION_PLAN.md    # review motion + rencana pengembangan visual bertahap
 └── README.md
 ```
@@ -112,7 +120,6 @@ Isi `index.html`, dari atas ke bawah:
 |---|---|---|
 | [GSAP](https://gsap.com) | 3.12.5 | Mesin animasi & timeline |
 | ScrollTrigger | 3.12.5 | Menghubungkan scroll ke timeline |
-| CustomEase | 3.12.5 | Kurva easing khas (motion tokens) |
 | [Lenis](https://lenis.darkroom.engineering) | 1.1.13 | Smooth scrolling |
 | DM Sans (Google Fonts) | – | Tipografi |
 
@@ -126,28 +133,22 @@ dan 1,3 detik pertama diputar otomatis saat halaman dibuka.
 **Stage tetap, skala dinamis.** Semua posisi ditulis dalam koordinat 1600×900 di dalam `.fit`.
 `fit()` menghitung variabel CSS `--s` agar stage selalu pas di layar.
 
-**Motion tokens (`M.ease`)** adalah kosakata gerak yang dipakai di seluruh film:
+**Bahasa gerak** (objek `E`) mengikuti video referensi: tenang dan presisi, tanpa pantulan atau goyangan.
+Elemen masuk cepat lalu berhenti bersih (`power3.out`), perpindahan memakai `power2.inOut`, dan "hidup"-nya
+datang dari kamera yang terus bergeser pelan (`drift`) serta bentuk yang berubah menjadi bentuk berikutnya (match cut).
 
-| Token | Dipakai untuk |
-|---|---|
-| `enter` | Elemen masuk: cepat di awal, berhenti bersih |
-| `exit` | Elemen keluar: berakselerasi menjauh (selalu lebih cepat dari masuk) |
-| `move` | Morph dan perpindahan posisi (match cut) |
-| `pop` | Ikon kecil di dalam kalimat |
-| `brand` | Momen brand, satu-satunya tempat overshoot nyata |
+**Latar**: satu kanvas bersama (`#gbg`) dengan gradien radial lembut dan grid yang memudar diagonal. Pergantian
+abu-abu ↔ biru memakai sapuan vertikal bertepi lembut (`--wb` / `--wt` pada `mask`).
 
 **Helper utama:**
 
 | Fungsi | Kegunaan |
 |---|---|
-| `scene(tl, id, a, b)` | Menampilkan satu scene dari detik `a` sampai `b`, plus zoom kamera pelan |
-| `show(tl, el, a, b, {in, out})` | Menampilkan satu layer; `in`/`out: 0` berarti *hard cut* (untuk match cut) |
-| `typeWords(tl, el, t, per)` | Reveal per kata; `per` bisa angka (jeda rata) atau array waktu per kata (sinkron narasi) |
-| `typeChars(tl, el, t, dur)` | Efek mengetik huruf demi huruf dengan kursor, untuk teks UI seperti input chat |
-| `settle(tl, el, t)` | Goyangan kecil setelah mendarat (follow-through); hanya untuk momen hero |
-| `anticipate(tl, el, t)` | Ancang-ancang kecil sebelum bergerak |
-| `flash(tl, t)` / `tileOut(tl, t)` | Transisi cahaya putih / sapuan tile biru |
-| `bg(tl, blue, t)` | Mengganti latar grid abu-abu ↔ biru |
+| `scene(tl, id, a, b)` | Menampilkan satu scene dari detik `a` sampai `b`, plus kamera yang mundur sangat pelan |
+| `show(tl, el, a, b, {in, out})` | Menampilkan satu shot; cross-dissolve berpusat di titik potong, `in`/`out: 0` = potongan langsung (match cut) |
+| `typeWords(tl, el, t, per)` | Kata muncul satu per satu; `per` bisa angka (jeda rata) atau array waktu per kata (sinkron narasi) |
+| `typeChars(tl, el, t, dur, o)` | Efek mengetik huruf demi huruf dengan kursor (`data-caret="star"` untuk kursor bintang) |
+| `bg(tl, blue, t, dur)` | Sapuan vertikal latar abu-abu ↔ biru |
 
 **Aturan penting:** setiap tween masuk merender state awalnya saat timeline dibangun (`immediateRender`),
 sehingga tidak ada elemen yang sempat tampil di posisi akhir sebelum animasinya berjalan.
@@ -178,6 +179,43 @@ masih ditulis langsung (`#0047FF`, `#0042f8`), jadi cari dan ganti juga di sana.
 __reel.time()     // waktu timeline saat ini
 __reel.seek(42.5) // lompat & pause di detik 42.5 (mode Play)
 ```
+
+## Statistik Instagram Otomatis
+
+Kartu profil di scene 8 menampilkan jumlah **posts / followers / following** asli dari akun Instagram.
+
+**Cara kerjanya:**
+
+```
+Instagram API ──(token rahasia)──▶ GitHub Actions (tiap 6 jam) ──▶ data/instagram.json ──▶ index.html
+```
+
+- Workflow `.github/workflows/instagram-stats.yml` memanggil Instagram API memakai token yang disimpan sebagai
+  **repository secret**, lalu meng-commit `data/instagram.json`, tapi hanya jika angkanya berubah.
+- `index.html` hanya membaca JSON publik itu (dari `raw.githubusercontent.com`, dengan cadangan `data/instagram.json`).
+  **Token tidak pernah sampai ke browser.**
+- Angka followers naik perlahan menuju nilai aslinya saat kartu muncul. Angka ≥ 10.000 diringkas (misalnya `12.3K`).
+- Jika JSON gagal dimuat (offline, dibuka via `file://`), angka yang tertulis di HTML dipakai sebagai cadangan.
+
+**Setup (sekali saja):**
+
+1. **Akun Instagram harus Professional** (Business atau Creator): *Settings → Account type and tools → Switch to professional account*.
+2. **Buat aplikasi Meta** di [developers.facebook.com](https://developers.facebook.com/apps). Pilih use case Instagram
+   (*Instagram API with Instagram Login*), buka **API setup with Instagram login**, tambahkan akun @iluztar, lalu klik
+   **Generate token**. Hasilnya adalah *long-lived token* (berlaku 60 hari). Mode *Development* sudah cukup untuk akun
+   milik sendiri, tanpa App Review. Nama menu di dashboard Meta bisa sedikit berbeda karena sering diperbarui.
+3. **Simpan token** di repo: *Settings → Secrets and variables → Actions → New repository secret*
+   - Name: `IG_ACCESS_TOKEN`
+   - Secret: token dari langkah 2
+4. **(Disarankan) Refresh token otomatis.** Token Instagram kedaluwarsa setelah 60 hari. Agar tidak perlu diperbarui manual:
+   - Buat [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) dengan
+     *Repository access: Only select repositories → iluztar.github.io* dan *Permissions → Secrets: Read and write*.
+   - Simpan sebagai secret `GH_SECRETS_PAT`.
+   - Setiap Senin, workflow akan me-refresh `IG_ACCESS_TOKEN` secara otomatis.
+5. **Jalankan pertama kali**: tab *Actions → Instagram stats → Run workflow*. Jadwal otomatis hanya berjalan dari branch
+   default (`main`).
+
+Tanpa `GH_SECRETS_PAT`, ulangi langkah 2–3 sebelum 60 hari. Workflow akan memberi peringatan di log.
 
 ## Deploy (GitHub Pages)
 

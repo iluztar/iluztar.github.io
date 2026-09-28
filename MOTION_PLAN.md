@@ -8,17 +8,16 @@ timeline dan merender ±25 frame di titik-titik kunci (1.5s, 3s, 4.5s, 8s, 10.5s
 
 ## 0. Status Implementasi
 
-Sudah diterapkan di `index.html` (timing narasi tidak diubah, jadi sinkron VO tetap sama):
+**Revisi 2: disamakan dengan video referensi** (`VID_20260926_221855_617.mp4`, 71,5 detik). Setiap shot dicocokkan
+frame demi frame (8 fps) terhadap referensi, lalu timeline ditulis ulang:
 
-- [x] **Motion tokens** `M.ease` (`enter`, `exit`, `move`, `pop`, `brand`) via CustomEase, dengan fallback bila plugin gagal dimuat.
-- [x] **Ritme**: `back.out(1.2)` 23× → 1×; `settle()` 24× → 5× (hanya momen hero: titik 2023, sketsa mendarat, "We got you.", folder S7, logo).
-- [x] **Reveal teks tanpa blur** (lebih tajam & ringan di GPU); ikon inline cukup pop tanpa goyangan tambahan.
-- [x] **Transisi berarah**: `show()` sekarang masuk dari bawah dan keluar ke atas (exit lebih cepat dari enter), bukan fade datar.
-- [x] **Aksi keluar** menggantikan fade: timer jatuh keluar frame (S2), sketsa tersapu ke folder Plate (S2), tile Big Project/Single Task menyusut ke tengah (S5).
-- [x] **Komposisi**: timer, kartu layanan, kartu IG, tile S5, profil IG, dan logo penutup diperbesar 18–46%.
-- [x] **Logo lock-up** di end card: dua bagian logo meluncur dari sudut berlawanan lalu mengunci.
+- [x] **Tanpa wiggle**: semua `settle()`, `anticipate()`, `back.out`, flash putih, dan wipe tile dihapus. Elemen masuk cepat lalu berhenti bersih; gerak halus datang dari kamera yang terus bergeser pelan.
+- [x] **Shot disamakan dengan referensi**: kursor bintang berputar, zoom menembus teks, galeri naik dari bawah, pin berputar + pill "Indonesia", jaringan ±30 artist dengan garis menyebar searah jarum jam lalu kamera mundur, kalender dengan balik halaman, chat yang diketik, timer miring, tumpukan sketsa, folder "Plate.file", kartu layanan yang mengipas, *cover-flow* Sketch → Line-art → Base Color, *selection box*, checklist yang tumbuh dari titik, mata membuka + kalimat yang bergeser, roda "Work" → toggle "Refine" → pill → situs web, panah bergelombang yang diikuti kamera lalu tangan, chat penutup → profil Instagram → iluztar.com → logo.
+- [x] **Latar bergradien**: gradien radial lembut + grid yang memudar diagonal (terinspirasi file referensi View Transitions), bukan grid datar.
+- [x] **Transisi latar halus**: abu-abu ↔ biru memakai sapuan vertikal bertepi lembut.
+- [x] **Mode gelap / terang**: *View Transitions* gaya "vertical" (satu-satunya gaya yang dipakai), tersimpan di browser, mengikuti sistem bila belum dipilih.
 
-Belum: Fase 0 (refactor sub-timeline, beat map, harness), kamera kanvas, SplitText mask, artwork hero, suara, varian 9:16, pemindahan gambar base64.
+Belum: refactor ke sub-timeline + beat map, SplitText, suara, varian 9:16, pemindahan gambar base64 ke file.
 
 ## 1. Ringkasan Review
 
