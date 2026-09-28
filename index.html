@@ -576,7 +576,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
       <div class="hz" style="--hz:1.18"><div class="prof" id="prof">
         <div class="ptop"><div class="pav"><svg viewBox="0 0 4000 4000"><use href="#logo"/></svg></div>
           <div class="pi"><div class="pname">ILUZTAR</div><div class="phandle">@iluztar</div>
-            <div class="pstats"><div>56<small>posts</small></div><div>1397<small>followers</small></div><div>1032<small>following</small></div></div></div></div>
+            <div class="pstats"><div><span class="ig-num" data-k="posts" data-v="56">56</span><small>posts</small></div><div><span class="ig-num" data-k="followers" data-v="1397">1397</span><small>followers</small></div><div><span class="ig-num" data-k="following" data-v="1032">1032</span><small>following</small></div></div></div></div>
         <div class="pbio"><div class="r">Artist</div><div class="b">Let's shine together through art</div></div>
         <div class="pbtns"><span class="f">Follow</span><span>Message</span><span>Contact</span></div>
       </div></div>
@@ -787,6 +787,24 @@ function enterScroll(at = 0, intro = false) {
   }
   updateChip();
 }
+
+/* ---------- live Instagram stats ----------
+   A scheduled GitHub Action (.github/workflows/instagram-stats.yml) writes data/instagram.json from the
+   Instagram API; the page only reads that public JSON, so no token ever reaches the browser.
+   Until it loads (or if it can't: offline, file://) the numbers written in the HTML are used. */
+let igStats = null;
+const IG_SOURCES = ['https://raw.githubusercontent.com/iluztar/iluztar.github.io/main/data/instagram.json', 'data/instagram.json'];
+(async () => {
+  for (const u of IG_SOURCES) {
+    try {
+      const r = await fetch(u, { cache: 'no-cache' });
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (['posts', 'followers', 'following'].every(k => Number.isFinite(j[k]))) { igStats = j; return; }
+    } catch (e) {}
+  }
+})();
+const igFmt = n => n >= 1e6 ? +(n / 1e6).toFixed(1) + 'M' : n >= 1e4 ? +(n / 1e3).toFixed(1) + 'K' : String(Math.round(n));
 
 /* ---------- state ---------- */
 let hooks = [], mode = 'full', tl = null, audio = null, audioURL = null, labels = [], playingNow = false, idleT, hintT, uiHidden = false, overCtrl = false;
@@ -1213,6 +1231,14 @@ function S8(tl, T) {
   typeWords(tl, $('.cap', b), T.b + .1, .2);
   tl.fromTo('#prof', { scale: 3.2, transformOrigin: '14% 28%', opacity: 0 }, { scale: 1, opacity: 1, duration: .9, ease: M.ease.enter }, T.b);
   tl.fromTo($$('#prof .pname, #prof .phandle, #prof .pstats, #prof .pbio, #prof .pbtns span'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .35, stagger: .06, ease: 'power2.out' }, T.b + .6);
+  // follower count ticks up to the live number; read at render time, so data that arrives late still shows
+  const igc = { p: 0 };
+  tl.fromTo(igc, { p: 0 }, { p: 1, duration: 1, ease: 'power2.out', immediateRender: false, onUpdate: () => {
+    $$('#prof .ig-num').forEach(el => {
+      const k = el.dataset.k, to = igStats ? igStats[k] : +el.dataset.v;
+      el.textContent = igFmt(k === 'followers' ? to * (.9 + .1 * igc.p) : to);
+    });
+  } }, T.b + .6);
   tl.fromTo('#prof .f', { scale: 1 }, { keyframes: { scale: [1, .9, 1] }, duration: .35, immediateRender: false }, T.b + 2.2);
   tl.to('#prof', { scale: .5, opacity: 0, duration: .4, ease: M.ease.exit }, T.c - .4);
 

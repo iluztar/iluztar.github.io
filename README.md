@@ -18,6 +18,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - [Teknologi](#teknologi)
 - [Arsitektur Animasi](#arsitektur-animasi)
 - [Panduan Mengedit](#panduan-mengedit)
+- [Statistik Instagram Otomatis](#statistik-instagram-otomatis)
 - [Deploy (GitHub Pages)](#deploy-github-pages)
 - [Performa & Aksesibilitas](#performa--aksesibilitas)
 - [Roadmap](#roadmap)
@@ -35,6 +36,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - **Tombol "Play scene"** untuk langsung memutar scene tertentu.
 - **Stage responsif**: kanvas 1600×900 yang diskalakan otomatis ke ukuran layar mana pun.
 - **Satu file**: semua kode, gaya, dan gambar ada di `index.html`, jadi mudah di-hosting di mana saja.
+- **Statistik Instagram asli**: jumlah posts, followers, dan following di scene 8 diambil dari akun @iluztar dan diperbarui otomatis.
 
 ## Cara Menonton
 
@@ -94,6 +96,10 @@ Lalu buka http://localhost:8000.
 ```
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
+├── data/
+│   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
+├── .github/workflows/
+│   └── instagram-stats.yml  # mengambil statistik Instagram tiap 6 jam + refresh token mingguan
 ├── MOTION_PLAN.md    # review motion + rencana pengembangan visual bertahap
 └── README.md
 ```
@@ -178,6 +184,43 @@ masih ditulis langsung (`#0047FF`, `#0042f8`), jadi cari dan ganti juga di sana.
 __reel.time()     // waktu timeline saat ini
 __reel.seek(42.5) // lompat & pause di detik 42.5 (mode Play)
 ```
+
+## Statistik Instagram Otomatis
+
+Kartu profil di scene 8 menampilkan jumlah **posts / followers / following** asli dari akun Instagram.
+
+**Cara kerjanya:**
+
+```
+Instagram API ──(token rahasia)──▶ GitHub Actions (tiap 6 jam) ──▶ data/instagram.json ──▶ index.html
+```
+
+- Workflow `.github/workflows/instagram-stats.yml` memanggil Instagram API memakai token yang disimpan sebagai
+  **repository secret**, lalu meng-commit `data/instagram.json`, tapi hanya jika angkanya berubah.
+- `index.html` hanya membaca JSON publik itu (dari `raw.githubusercontent.com`, dengan cadangan `data/instagram.json`).
+  **Token tidak pernah sampai ke browser.**
+- Angka followers naik perlahan menuju nilai aslinya saat kartu muncul. Angka ≥ 10.000 diringkas (misalnya `12.3K`).
+- Jika JSON gagal dimuat (offline, dibuka via `file://`), angka yang tertulis di HTML dipakai sebagai cadangan.
+
+**Setup (sekali saja):**
+
+1. **Akun Instagram harus Professional** (Business atau Creator): *Settings → Account type and tools → Switch to professional account*.
+2. **Buat aplikasi Meta** di [developers.facebook.com](https://developers.facebook.com/apps). Pilih use case Instagram
+   (*Instagram API with Instagram Login*), buka **API setup with Instagram login**, tambahkan akun @iluztar, lalu klik
+   **Generate token**. Hasilnya adalah *long-lived token* (berlaku 60 hari). Mode *Development* sudah cukup untuk akun
+   milik sendiri, tanpa App Review. Nama menu di dashboard Meta bisa sedikit berbeda karena sering diperbarui.
+3. **Simpan token** di repo: *Settings → Secrets and variables → Actions → New repository secret*
+   - Name: `IG_ACCESS_TOKEN`
+   - Secret: token dari langkah 2
+4. **(Disarankan) Refresh token otomatis.** Token Instagram kedaluwarsa setelah 60 hari. Agar tidak perlu diperbarui manual:
+   - Buat [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) dengan
+     *Repository access: Only select repositories → iluztar.github.io* dan *Permissions → Secrets: Read and write*.
+   - Simpan sebagai secret `GH_SECRETS_PAT`.
+   - Setiap Senin, workflow akan me-refresh `IG_ACCESS_TOKEN` secara otomatis.
+5. **Jalankan pertama kali**: tab *Actions → Instagram stats → Run workflow*. Jadwal otomatis hanya berjalan dari branch
+   default (`main`).
+
+Tanpa `GH_SECRETS_PAT`, ulangi langkah 2–3 sebelum 60 hari. Workflow akan memberi peringatan di log.
 
 ## Deploy (GitHub Pages)
 
