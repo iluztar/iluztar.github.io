@@ -6,10 +6,20 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 
 🌐 **Live:** https://iluztar.github.io · 📷 Instagram: [@iluztar](https://instagram.com/iluztar) · 🔗 iluztar.com
 
+> **Tentang proyek ini**
+>
+> Proyek ini dibuat oleh salah satu artist di **ILUZTAR Studio** untuk menuntaskan skripsi berjudul
+> ***"Pengembangan Company Profile Digital Studio Kreatif ILUZTAR dengan Menggunakan Motion Graphic sebagai Media Promosi"***.
+>
+> Harapannya, proyek ini bisa menjadi referensi untuk mengembangkan website dengan animasi yang dinamis. Caranya:
+> sebuah video motion graphic dijadikan bahan referensi, lalu dikonversi menjadi website interaktif dengan bantuan
+> **Claude AI (Opus 5.5)**.
+
 ---
 
 ## Daftar Isi
 
+- [Latar Belakang Proyek](#latar-belakang-proyek)
 - [Fitur](#fitur)
 - [Cara Menonton](#cara-menonton)
 - [Alur Cerita (Scene)](#alur-cerita-scene)
@@ -26,6 +36,25 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 - [Kredit & Hak Cipta](#kredit--hak-cipta)
 
 ---
+
+## Latar Belakang Proyek
+
+| | |
+|---|---|
+| **Pembuat** | Salah satu artist ILUZTAR Studio |
+| **Konteks** | Skripsi |
+| **Judul** | *Pengembangan Company Profile Digital Studio Kreatif ILUZTAR dengan Menggunakan Motion Graphic sebagai Media Promosi* |
+| **Tujuan** | Menjadi referensi pengembangan website dengan animasi dinamis |
+| **Metode** | Video motion graphic dipakai sebagai referensi, lalu dikonversi menjadi website interaktif |
+| **Alat bantu** | Claude AI (Opus 5.5) |
+
+**Alur konversi video → website** yang dipakai di proyek ini:
+
+1. **Analisis video referensi.** Video dipecah per frame untuk mencatat setiap shot: kapan mulai, arah gerak, dan ukuran objek.
+2. **Analisis audio.** Ketukan musik dideteksi (*spectral flux*) supaya gerak kamera melangkah tepat di beat (lihat `BEATS`).
+3. **Membangun ulang dengan HTML/CSS/GSAP.** Setiap shot ditulis sebagai timeline animasi, bukan video, sehingga tetap tajam di semua ukuran layar.
+4. **Verifikasi.** Hasil dirender dan dibandingkan berdampingan dengan video di detik yang sama, lalu dikoreksi sampai mirip.
+5. **Menjadikannya website.** Elemen dibuat bisa diklik (lightbox, Maps, Instagram, WhatsApp, form pesanan), ditambah panel admin untuk mengedit konten.
 
 ## Fitur
 
