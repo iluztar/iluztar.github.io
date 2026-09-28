@@ -83,7 +83,9 @@ Reel ini sebuah halaman web, jadi elemennya bisa diklik, baik saat di-scroll mau
 |---|---|
 | Artwork galeri, lembar sketsa, gambar postingan | Dibuka besar (lightbox). Film otomatis dijeda, lalu lanjut saat ditutup (klik / `Esc`) |
 | "Bandar Lampung, Indonesia" | Google Maps |
-| Kartu Full-Commission / Pair of Hands, tombol **Order**, folder Big Project / Single Task, **Build it!** | WhatsApp bila nomornya diisi, selain itu DM Instagram (bisa diatur di admin) |
+| Checklist di kartu Full-Commission (boleh pilih beberapa) / Pair of Hands (pilih satu) | Memilih tahap yang ingin dipesan |
+| Tombol **Order** di kartu layanan | Membuka WhatsApp dengan pesan berisi layanan + tahap yang dicentang (mis. *“saya ingin order Full-Commission: Sketch, Lineart, Full Color.”*). Kalau tujuannya email, pesan masuk ke subjek/isi email; kalau DM Instagram, pesan disalin otomatis untuk ditempel |
+| Folder Big Project / Single Task, **Build it!** | WhatsApp bila nomornya diisi, selain itu DM Instagram (bisa diatur di admin) |
 | Header postingan, nama & tombol **Follow** di profil | Profil Instagram @iluztar |
 | **Message** | DM Instagram |
 | **Contact** | WhatsApp → email → website → DM (bisa diatur di admin); labelnya ikut berubah jadi *WhatsApp* / *Email* |
