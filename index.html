@@ -362,9 +362,14 @@ body.scrollmode.sc-active #bar{opacity:0;pointer-events:none;transform:translate
 #hint.on{opacity:1;transform:translate(-50%,0) scale(1);filter:blur(0)}
 /* portrait phones: the stage is cropped to its central 1100px (see fit()), so the few shots wider than that
    are pulled in, and the small UI-style type is enlarged a little */
-.portrait #s1d .net{scale:.8}
-.portrait #s6d{scale:.9}
-.portrait #s8a,.portrait #s8b{scale:.84}
+.portrait #s1b{scale:.74}
+.portrait #s1d{scale:.66}
+.portrait #s1e{scale:.8}
+.portrait #s2c{scale:.74}
+.portrait #s4b{scale:.76}
+.portrait #s6d{scale:.8}
+.portrait #s8a{scale:.84}
+.portrait #s8b{scale:.8}
 .portrait #s2a .chat{scale:1.25}
 .portrait .say.sm{font-size:46px}
 .portrait #s7a{translate:-160px 0}
@@ -387,65 +392,119 @@ body.scrollmode.sc-active #bar{opacity:0;pointer-events:none;transform:translate
 .playing .cam,.playing .cf,.playing .svc,.playing .art,.playing .tile,.playing .sheet,.playing .dcard,.playing .wpill,.playing .prof,.playing .world,.playing .calw,.playing .cal.half,.playing .timer,.playing .pwrap,.playing .wrow,.playing .net{will-change:transform}
 #adminBtn[hidden]{display:none}
 #adminBtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;display:block}
-/* admin drawer: light sheet on the right (bottom sheet on phones) */
-#admin{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100%;z-index:90;background:#F7F7F8;color:#101114;border-left:1px solid rgba(16,17,20,.12);box-shadow:-18px 0 40px rgba(0,0,0,.18);display:flex;flex-direction:column;font:14px/1.45 "DM Sans",system-ui,sans-serif;color-scheme:light}
+/* admin drawer: grouped-settings sheet (right on desktop, bottom sheet on phones), follows the site theme */
+#admin{--ad-bg:#F2F2F5;--ad-card:#fff;--ad-ink:#111114;--ad-sub:#6B6B73;--ad-mute:#9A9AA2;--ad-line:rgba(17,17,20,.08);--ad-field:#F6F6F8;--ad-track:rgba(17,17,20,.06);--ad-shadow:0 1px 2px rgba(17,17,20,.05),0 1px 1px rgba(17,17,20,.03);
+  position:fixed;top:12px;right:12px;bottom:12px;width:440px;max-width:calc(100% - 24px);z-index:90;background:var(--ad-bg);color:var(--ad-ink);border-radius:22px;box-shadow:0 0 0 1px var(--ad-line),0 30px 80px -20px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;font:14px/1.45 "DM Sans",system-ui,sans-serif;color-scheme:light;animation:adIn .32s cubic-bezier(.2,.8,.2,1)}
+:root[data-theme="dark"] #admin{--ad-bg:#141417;--ad-card:#1E1F24;--ad-ink:#F2F2F5;--ad-sub:#A1A1AA;--ad-mute:#71717A;--ad-line:rgba(255,255,255,.08);--ad-field:#26272D;--ad-track:rgba(255,255,255,.07);--ad-shadow:none;color-scheme:dark}
+@keyframes adIn{from{opacity:0;transform:translateX(24px)}}
 #admin[hidden]{display:none}
+#admin *{box-sizing:border-box}
 #admin label:focus-within{outline:0}
-#admin .ad-head{display:flex;align-items:center;gap:12px;padding:16px 16px 14px 18px;border-bottom:1px solid rgba(16,17,20,.1)}
-#admin .ad-head>svg{width:34px;height:34px;border-radius:9px;flex:none}
-#admin .ad-title{min-width:0;display:flex;flex-direction:column;gap:2px}
-#admin .ad-title b{font-size:15px;font-weight:700}
-#admin .ad-sub{font:11px/1.2 var(--mono);opacity:.55;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#admin .ad-x{margin-left:auto;width:32px;height:32px;border:0;border-radius:999px;background:transparent;cursor:pointer;font-size:14px;color:#101114}
-#admin .ad-x:hover{background:rgba(16,17,20,.08)}
-#admin .ad-tabs{display:flex;gap:4px;padding:10px 14px;border-bottom:1px solid rgba(16,17,20,.1);background:#fff}
+#admin .ad-grab{display:none}
+#admin .ad-head{display:flex;align-items:center;gap:12px;padding:18px 16px 14px 20px}
+#admin .ad-head>svg{width:36px;height:36px;border-radius:10px;flex:none}
+#admin .ad-title{min-width:0;display:flex;flex-direction:column;gap:1px}
+#admin .ad-title b{font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--ad-ink)}
+#admin .ad-sub{font-size:12.5px;color:var(--ad-sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#admin .ad-x{margin-left:auto;width:32px;height:32px;border:0;border-radius:999px;background:var(--ad-track);cursor:pointer;display:grid;place-items:center;color:var(--ad-ink);flex:none}
+#admin .ad-x svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+#admin .ad-x:hover{background:var(--ad-line)}
+/* segmented tabs */
+#admin .ad-tabs{display:flex;gap:2px;margin:0 16px 6px;padding:3px;border-radius:12px;background:var(--ad-track)}
 #admin .ad-tabs[hidden]{display:none}
-#admin .ad-tabs button{flex:1;height:32px;border:0;border-radius:999px;background:transparent;color:#5a5a60;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-#admin .ad-tabs button:hover{background:rgba(16,17,20,.06);color:#101114}
-#admin .ad-tabs button[aria-pressed="true"]{background:#0a0a0c;color:#fff}
-#admin .ad-body{flex:1;min-height:0;overflow-y:auto;padding:18px}
-#admin h4,#admin .ad-h{margin:0 0 12px;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#5a5a60}
-#admin .ad-form{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
-#admin .ad-form h4:not(:first-child){margin-top:10px}
-#admin .ad-form label,#admin .ad-field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:#101114}
-#admin .ad-field small{font-weight:400;font-size:12px;color:#8A8A8F}
-#admin input:not([type=file]),#admin textarea,#admin select{width:100%;min-height:40px;padding:9px 12px;border:1px solid rgba(16,17,20,.16);border-radius:10px;font:14px/1.4 "DM Sans",system-ui,sans-serif;background:#fff;color:#101114;outline:none;resize:vertical}
-#admin input:focus,#admin textarea:focus,#admin select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,71,255,.12)}
+#admin .ad-tabs button{flex:1;height:34px;border:0;border-radius:9px;background:transparent;color:var(--ad-sub);font:600 12.5px/1 "DM Sans",system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s}
+#admin .ad-tabs button .ad-i{width:15px;height:15px}
+#admin .ad-tabs button:hover{color:var(--ad-ink)}
+#admin .ad-tabs button[aria-pressed="true"]{background:var(--ad-card);color:var(--ad-ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+#admin .ad-body{flex:1;min-height:0;overflow-y:auto;padding:10px 16px 0;scrollbar-width:thin}
+#admin .ad-i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+/* grouped sections */
+#admin .ad-sec{margin:0 0 18px}
+#admin .ad-sec h5{margin:0 0 7px 4px;font-size:12.5px;font-weight:600;color:var(--ad-sub)}
+#admin .ad-desc{margin:-3px 4px 8px;font-size:12.5px;color:var(--ad-mute)}
+#admin .ad-card{background:var(--ad-card);border-radius:14px;box-shadow:var(--ad-shadow);overflow:hidden}
+#admin .ad-row2{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;position:relative;cursor:text}
+#admin .ad-row2+.ad-row2::before,#admin .ad-lk+.ad-lk::before,#admin .ad-mrow+.ad-mrow::before{content:"";position:absolute;left:52px;right:0;top:0;height:1px;background:var(--ad-line)}
+#admin .ad-ic{width:28px;height:28px;border-radius:8px;background:rgba(0,71,255,.1);color:var(--blue);display:grid;place-items:center;flex:none;margin-top:3px}
+#admin .ad-ic .ad-i{width:16px;height:16px}
+#admin .ad-rc{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+#admin .ad-lb{font-size:12px;font-weight:600;color:var(--ad-sub)}
+#admin .ad-rc small{font-size:12px;color:var(--ad-mute);line-height:1.35}
+#admin input:not([type=file]),#admin textarea,#admin select{width:100%;min-height:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--ad-ink);font:15px/1.4 "DM Sans",system-ui,sans-serif;outline:none;resize:none;box-shadow:none}
+#admin input::placeholder,#admin textarea::placeholder{color:var(--ad-mute)}
+#admin textarea{min-height:42px}
+#admin .ad-row2:focus-within{background:rgba(0,71,255,.04)}
+#admin .ad-row2:focus-within .ad-lb{color:var(--blue)}
+#admin .ad-sel{position:relative;display:block}
+#admin .ad-sel select{appearance:none;-webkit-appearance:none;padding-right:22px;cursor:pointer}
+#admin .ad-sel::after{content:"";position:absolute;right:2px;top:50%;width:7px;height:7px;border-right:1.8px solid var(--ad-sub);border-bottom:1.8px solid var(--ad-sub);transform:translateY(-70%) rotate(45deg);pointer-events:none}
 #admin .ad-pw{position:relative;display:block}
-#admin .ad-pw input{padding-right:78px}
-#admin .ad-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);height:28px;padding:0 10px;border:0;border-radius:8px;background:rgba(16,17,20,.06);font:500 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:#101114}
-#admin .ad-msg{margin:0;min-height:1em;font-size:13px}
+#admin .ad-pw input{padding-right:36px}
+#admin .ad-eye{position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:var(--ad-mute);cursor:pointer;display:grid;place-items:center}
+#admin .ad-eye.on,#admin .ad-eye:hover{color:var(--blue)}
+/* link preview */
+#admin .ad-lk{display:flex;align-items:center;gap:12px;padding:10px 14px;position:relative;color:var(--ad-ink);text-decoration:none}
+#admin .ad-lk .ad-ic{margin:0}
+#admin .ad-lkk{width:62px;flex:none;font-weight:600;font-size:13.5px}
+#admin .ad-lku{flex:1;min-width:0;color:var(--ad-sub);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#admin .ad-lk>.ad-i{width:15px;height:15px;color:var(--ad-mute)}
+#admin .ad-lk:hover{background:rgba(0,71,255,.04)}#admin .ad-lk:hover>.ad-i{color:var(--blue)}
+/* sticky save bar */
+#admin .ad-foot{position:sticky;bottom:0;margin:6px -16px 0;padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--ad-bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ad-line)}
+#admin .ad-foot.static{position:static;background:none;border:0;padding:0 0 18px;margin:-8px 0 0;backdrop-filter:none}
+#admin .ad-state{font-size:12.5px;color:var(--ad-mute);display:flex;align-items:center;gap:6px}
+#admin .ad-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#22A06B}
+#admin .ad-state:empty{display:none}
+#admin .ad-state.dirty{color:var(--ad-ink)}#admin .ad-state.dirty::before{background:#F5A524}
+#admin .ad-foot .ad-btn{margin-left:auto}
+#admin .ad-msg{margin:0;font-size:13px;flex-basis:100%;order:3}
 #admin .ad-msg:empty{display:none}
-#admin .ad-msg.err{color:#C4232B}
-#admin .ad-msg.ok{color:#15803D}
-#admin .ad-link{align-self:center;border:0;background:none;color:var(--blue);font-size:13px;cursor:pointer;padding:4px}
+#admin .ad-msg.err{color:#E5484D}#admin .ad-msg.ok{color:#22A06B}
+/* buttons */
+#admin .ad-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 20px;border-radius:999px;border:0;background:var(--ad-ink);color:var(--ad-card);font:600 14px/1 "DM Sans",system-ui,sans-serif;cursor:pointer;transition:filter .15s,opacity .15s}
+#admin .ad-btn.primary{background:var(--blue);color:#fff}
+#admin .ad-btn:hover{filter:brightness(1.1)}
+#admin .ad-btn:disabled{opacity:.4;pointer-events:none}
+#admin .ad-btn.wide{width:100%;height:44px;font-size:15px}
+#admin .ad-link{display:block;margin:12px auto 20px;border:0;background:none;color:var(--blue);font:500 13.5px "DM Sans",system-ui,sans-serif;cursor:pointer}
 #admin .ad-link:hover{text-decoration:underline}
-#admin .ad-preview{background:#fff;border:1px solid rgba(16,17,20,.1);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:12px}
-#admin .ad-preview b{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8A8A8F;margin-bottom:2px}
-#admin .ad-preview div{display:grid;grid-template-columns:70px 1fr;gap:8px}
-#admin .ad-preview span{color:#5a5a60}
-#admin .ad-preview a{color:var(--blue);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#admin .ad-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-#admin .ad-row{display:grid;grid-template-columns:48px 1fr auto auto;gap:10px;align-items:center;padding:8px;background:#fff;border:1px solid rgba(16,17,20,.1);border-radius:12px}
-#admin .ad-row.busy{opacity:.5;pointer-events:none}
-#admin .ad-prev{width:48px;height:48px;border-radius:8px;overflow:hidden;background:#ECECEF;display:grid;place-items:center}
+/* login */
+#admin .ad-login{padding-top:6px}
+#admin .ad-login .ad-msg{margin:10px 4px}
+#admin .ad-login .ad-card{margin-bottom:14px}
+#admin .ad-hero{text-align:center;padding:14px 10px 22px}
+#admin .ad-hero svg{width:56px;height:56px;border-radius:15px;margin:0 auto 12px;display:block;box-shadow:0 10px 24px -8px rgba(0,71,255,.5)}
+#admin .ad-hero h3{margin:0;font-size:20px;letter-spacing:-.015em}
+#admin .ad-hero p{margin:4px 0 0;color:var(--ad-sub);font-size:13.5px}
+/* media list */
+#admin .ad-mrow{display:flex;align-items:center;gap:12px;padding:9px 12px;position:relative}
+#admin .ad-mrow::before{left:68px!important}
+#admin .ad-mrow.busy{opacity:.45;pointer-events:none}
+#admin .ad-prev{width:44px;height:44px;border-radius:10px;overflow:hidden;background:var(--ad-field);display:grid;place-items:center;flex:none;color:var(--blue)}
 #admin .ad-prev img{width:100%;height:100%;object-fit:cover;display:block}
-#admin .ad-ico{font-size:20px;color:var(--blue)}
-#admin .ad-meta b{display:block;font-weight:600;font-size:13px}
-#admin .ad-meta small{font:10px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;opacity:.55}
-#admin .ad-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;height:32px;padding:0 14px;border-radius:999px;border:0;background:#0a0a0c;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex-direction:row;gap:0}
-#admin .ad-btn:hover{background:var(--blue)}
-#admin .ad-btn.ghost{background:transparent;color:#101114;border:1px solid rgba(16,17,20,.18)}
-#admin .ad-btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
-#admin .ad-btn:disabled{opacity:.35;pointer-events:none}
-#admin .ad-btn.primary{height:42px;font-size:12px}
-#admin .ad-out{width:100%;background:transparent;color:#C4232B;border:1px solid rgba(196,35,43,.3)}
-#admin .ad-out:hover{background:#C4232B;color:#fff}
-#admin .ad-note{font-size:13px;color:#5a5a60;margin:0}
-#admin code{font:12px var(--mono);background:rgba(16,17,20,.06);padding:1px 5px;border-radius:4px}
+#admin .ad-meta{flex:1;min-width:0}
+#admin .ad-meta b{display:block;font-weight:600;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#admin .ad-meta small{font-size:12px;color:var(--ad-mute)}
+#admin .ad-meta small.on{color:var(--blue);font-weight:600}
+#admin .ad-icb{width:34px;height:34px;border-radius:999px;border:0;background:var(--ad-track);color:var(--ad-ink);display:grid;place-items:center;cursor:pointer;flex:none}
+#admin .ad-icb .ad-i{width:16px;height:16px}
+#admin .ad-icb:hover{background:var(--blue);color:#fff}
+#admin .ad-icb:disabled{opacity:.3;pointer-events:none}
+/* account */
+#admin .ad-me{display:flex;align-items:center;gap:12px;padding:14px}
+#admin .ad-av{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:16px;flex:none}
+#admin .ad-me b{display:block;font-size:14px}#admin .ad-me small{color:var(--ad-mute);font-size:12px}
+#admin .ad-out{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border:0;background:transparent;color:#E5484D;font:600 14px "DM Sans",system-ui,sans-serif;cursor:pointer}
+#admin .ad-out:hover{background:rgba(229,72,77,.08)}
+#admin .ad-empty{text-align:center;color:var(--ad-sub);padding:40px 16px}
+#admin .ad-empty .ad-i{width:28px;height:28px;margin:0 auto 10px;color:var(--ad-mute)}
+#admin .ad-spin{display:block;width:22px;height:22px;margin:0 auto 10px;border-radius:50%;border:2.5px solid var(--ad-line);border-top-color:var(--blue);animation:adSpin .8s linear infinite}
+@keyframes adSpin{to{transform:rotate(360deg)}}
+#admin code{font:12px var(--mono);background:var(--ad-track);padding:1px 5px;border-radius:4px}
 #toast{position:fixed;left:50%;top:22px;z-index:95;transform:translate(-50%,-8px);opacity:0;pointer-events:none;background:#0a0a0c;color:#fff;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:11px 16px;border-radius:999px;transition:opacity .2s ease,transform .2s ease}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:900px){#admin{top:auto;left:0;width:auto;height:82vh;border-left:0;border-top:1px solid rgba(16,17,20,.12);border-radius:18px 18px 0 0}}
+@media (max-width:640px){#admin{top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;height:88vh;height:88dvh;border-radius:22px 22px 0 0;animation-name:adUp}#admin .ad-grab{display:block;width:40px;height:5px;border-radius:3px;background:var(--ad-line);margin:8px auto 0}#admin .ad-head{padding-top:10px}#admin .ad-tabs button span{font-size:12px}#admin .ad-lkk{width:56px}}
+@keyframes adUp{from{opacity:0;transform:translateY(40px)}}
 @media (max-width:560px){
   .vo{bottom:128px;font-size:13px}
   #bar{gap:2px}
@@ -1766,31 +1825,66 @@ const LOGO_SVG = '<svg viewBox="0 0 4000 4000" aria-hidden="true"><use href="#lo
 
 /* ---------- admin panel ---------- */
 let adminTab = 'contact', adminOk = null;
+const IC = {
+  ig: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/>',
+  wa: '<path d="M20.5 11.8a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.3-4.3a8.5 8.5 0 1 1 15.7-4.4z"/><path d="M9 8.5c.2 2.7 3.7 6.3 6.5 6.5l1-1.4-1.9-1-1 .9c-1-.5-2-1.5-2.5-2.5l.9-1-1-1.9z"/>',
+  chat: '<path d="M20 12a8 8 0 0 1-11.8 7L4 20l1-4A8 8 0 1 1 20 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  btn: '<rect x="3" y="7" width="18" height="10" rx="5"/><path d="M8 12h8"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6"/>',
+  tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8" r="1.4"/>',
+  text: '<path d="M4 6h16M4 11h16M4 16h10"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="9.5" r="1.8"/><path d="m4 18 5.5-5.5 4 4 2.5-2.5L20 18"/>',
+  music: '<path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  upload: '<path d="M12 16V5M7 10l5-5 5 5M5 19h14"/>',
+  undo: '<path d="M9 7 4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 0 12h-2" transform="translate(0 -6)"/>',
+  out: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10"/>',
+  link: '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1"/>',
+  arrow: '<path d="M7 17 17 7M9 7h8v8"/>',
+  eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+};
+const ic = k => `<svg class="ad-i" viewBox="0 0 24 24" aria-hidden="true">${IC[k] || ''}</svg>`;
 function adminShell() {
   let d = $('#admin');
   if (d) return d;
   d = document.createElement('aside'); d.id = 'admin'; d.setAttribute('aria-label', 'Admin'); d.hidden = true;
-  d.innerHTML = `<div class="ad-head">${LOGO_SVG}<div class="ad-title"><b>Iluztar Admin</b><span class="ad-sub"></span></div><button class="ad-x" aria-label="Tutup">✕</button></div><nav class="ad-tabs" hidden></nav><div class="ad-body"></div>`;
+  d.innerHTML = `<div class="ad-grab" aria-hidden="true"></div>
+    <header class="ad-head">${LOGO_SVG}<div class="ad-title"><b>Iluztar Admin</b><span class="ad-sub"></span></div><button class="ad-x" aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <nav class="ad-tabs" hidden></nav><div class="ad-body"></div>`;
   document.body.appendChild(d);
   $('.ad-x', d).addEventListener('click', () => { d.hidden = true; });
   return d;
 }
-function setBody(d, html) { $('.ad-body', d).innerHTML = html; }
+function setBody(d, html) { const b = $('.ad-body', d); b.innerHTML = html; b.scrollTop = 0; }
+// one grouped-card row: icon · label · control (· hint)
+function row(name, label, value, o = {}) {
+  const ctl = o.type === 'textarea' ? `<textarea name="${name}" rows="${o.rows || 2}" placeholder="${esc(o.ph || '')}" ${o.attrs || ''}>${esc(value)}</textarea>`
+    : o.type === 'select' ? `<span class="ad-sel"><select name="${name}">${o.options.map(([v, l]) => `<option value="${v}" ${v === value ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></span>`
+    : `<input name="${name}" type="${o.type || 'text'}" value="${esc(value)}" placeholder="${esc(o.ph || '')}" ${o.attrs || ''}>`;
+  return `<label class="ad-row2">${o.icon ? `<span class="ad-ic">${ic(o.icon)}</span>` : ''}<span class="ad-rc"><span class="ad-lb">${esc(label)}</span>${ctl}${o.hint ? `<small>${o.hint}</small>` : ''}</span></label>`;
+}
+const section = (title, body, desc) => `<section class="ad-sec"><h5>${esc(title)}</h5>${desc ? `<p class="ad-desc">${desc}</p>` : ''}<div class="ad-card">${body}</div></section>`;
+const footer = label => `<div class="ad-foot"><span class="ad-state">Semua tersimpan</span><p class="ad-msg" role="alert"></p><button class="ad-btn primary" type="submit">${label || 'Simpan'}</button></div>`;
 function renderLogin(d, note, isError) {
   $('.ad-sub', d).textContent = 'Masuk untuk mengedit';
   $('.ad-tabs', d).hidden = true;
-  if (!SB_ON) return setBody(d, `<p class="ad-note">Supabase belum dikonfigurasi. Isi <code>url</code> dan <code>anonKey</code> di <code>config.js</code> (lihat README).</p>`);
+  if (!SB_ON) return setBody(d, `<div class="ad-empty">${ic('lock')}<p>Supabase belum dikonfigurasi.<br>Isi <code>url</code> dan <code>anonKey</code> di <code>config.js</code> (lihat README).</p></div>`);
   setBody(d, `
-    <form class="ad-form ad-login" novalidate>
-      <h4>Masuk</h4>
-      <label>Email<input type="email" name="email" autocomplete="username" required></label>
-      <label>Password<span class="ad-pw"><input type="password" name="password" autocomplete="current-password" required><button type="button" class="ad-eye" aria-label="Tampilkan password">Lihat</button></span></label>
-      <p class="ad-msg ${isError ? 'err' : ''}">${esc(note || '')}</p>
-      <button class="ad-btn primary" type="submit">Masuk</button>
+    <form class="ad-login" novalidate>
+      <div class="ad-hero">${LOGO_SVG}<h3>Masuk ke Admin</h3><p>Kelola kontak, profil, dan media di website Iluztar.</p></div>
+      <div class="ad-card">
+        ${row('email', 'Email', '', { type: 'email', icon: 'mail', ph: 'nama@domain.com', attrs: 'autocomplete="username" required' })}
+        <label class="ad-row2"><span class="ad-ic">${ic('lock')}</span><span class="ad-rc"><span class="ad-lb">Password</span><span class="ad-pw"><input type="password" name="password" autocomplete="current-password" placeholder="••••••••" required><button type="button" class="ad-eye" aria-label="Tampilkan password">${ic('eye')}</button></span></span></label>
+      </div>
+      <p class="ad-msg ${isError ? 'err' : ''}" role="alert">${esc(note || '')}</p>
+      <button class="ad-btn primary wide" type="submit">Masuk</button>
       <button class="ad-link" type="button" data-forgot>Lupa password?</button>
     </form>`);
   const f = $('.ad-login', d), msg = $('.ad-msg', f);
-  $('.ad-eye', f).addEventListener('click', e => { const i = f.password; i.type = i.type === 'password' ? 'text' : 'password'; e.target.textContent = i.type === 'password' ? 'Lihat' : 'Sembunyi'; });
+  $('.ad-eye', f).addEventListener('click', e => { const i = f.password; i.type = i.type === 'password' ? 'text' : 'password'; e.currentTarget.classList.toggle('on', i.type === 'text'); });
   $('[data-forgot]', f).addEventListener('click', async () => {
     const email = f.email.value.trim();
     if (!email) { msg.className = 'ad-msg err'; msg.textContent = 'Isi email dulu, lalu klik “Lupa password?” lagi.'; return f.email.focus(); }
@@ -1820,11 +1914,10 @@ function renderLogin(d, note, isError) {
 function renderNewPassword(d) {
   $('.ad-sub', d).textContent = 'Atur password baru';
   $('.ad-tabs', d).hidden = true;
-  setBody(d, `<form class="ad-form ad-newpw"><h4>Password baru</h4>
-    <label>Password baru<input type="password" name="p1" autocomplete="new-password" minlength="8" required></label>
-    <label>Ulangi<input type="password" name="p2" autocomplete="new-password" minlength="8" required></label>
-    <p class="ad-msg"></p><button class="ad-btn primary" type="submit">Simpan password</button></form>`);
-  const f = $('.ad-newpw', d);
+  setBody(d, `<form class="ad-form ad-newpw">
+    ${section('Password baru', row('p1', 'Password baru', '', { type: 'password', icon: 'lock', attrs: 'autocomplete="new-password" minlength="8" required' }) + row('p2', 'Ulangi password', '', { type: 'password', icon: 'lock', attrs: 'autocomplete="new-password" minlength="8" required' }), 'Minimal 8 karakter.')}
+    ${footer('Simpan password')}</form>`);
+  const f = $('.ad-newpw', d); $('.ad-state', f).textContent = '';
   f.addEventListener('submit', async e => {
     e.preventDefault();
     const msg = $('.ad-msg', f);
@@ -1834,7 +1927,7 @@ function renderNewPassword(d) {
     catch (err) { msg.className = 'ad-msg err'; msg.textContent = err.message || String(err); }
   });
 }
-const TABS = [['contact', 'Kontak'], ['profile', 'Profil'], ['media', 'Media'], ['account', 'Akun']];
+const TABS = [['contact', 'Kontak', 'chat'], ['profile', 'Profil', 'user'], ['media', 'Media', 'image'], ['account', 'Akun', 'lock']];
 async function renderAdmin(d) {
   const c = await sb();
   const { data: { session } } = await c.auth.getSession();
@@ -1851,7 +1944,7 @@ async function renderAdmin(d) {
   }
   $('.ad-sub', d).textContent = session.user.email;
   const nav = $('.ad-tabs', d); nav.hidden = false;
-  nav.innerHTML = TABS.map(([id, label]) => `<button data-tab="${id}" aria-pressed="${id === adminTab}">${label}</button>`).join('');
+  nav.innerHTML = TABS.map(([id, label, icon]) => `<button data-tab="${id}" aria-pressed="${id === adminTab}">${ic(icon)}<span>${label}</span></button>`).join('');
   $$('button', nav).forEach(b => b.addEventListener('click', () => { adminTab = b.dataset.tab; renderAdmin(d); }));
   ({ contact: renderContact, profile: renderProfile, media: renderMedia, account: renderAccount })[adminTab](d, c, session);
 }
@@ -1865,15 +1958,9 @@ async function saveSettings(c, patch) {
   for (const k of dels) { const { error } = await c.from('reel_slots').delete().eq('slot', k); if (error) throw error; }
   useSettings({ ...settings, ...Object.fromEntries(Object.entries(patch).map(([k, v]) => [k, (typeof v === 'string' ? v.trim() : v) || DEFAULTS[k]])) });
 }
-function field(name, label, value, o = {}) {
-  const input = o.type === 'textarea' ? `<textarea name="${name}" rows="${o.rows || 2}" placeholder="${esc(o.ph || '')}">${esc(value)}</textarea>`
-    : o.type === 'select' ? `<select name="${name}">${o.options.map(([v, l]) => `<option value="${v}" ${v === value ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`
-    : `<input name="${name}" type="${o.type || 'text'}" value="${esc(value)}" placeholder="${esc(o.ph || '')}" ${o.attrs || ''}>`;
-  return `<label class="ad-field">${esc(label)}${input}${o.hint ? `<small>${o.hint}</small>` : ''}</label>`;
-}
 function bindForm(d, c, sel, collect, after) {
-  const f = $(sel, d), btn = $('button[type=submit]', f), msg = $('.ad-msg', f);
-  const dirty = () => { btn.disabled = false; msg.textContent = ''; };
+  const f = $(sel, d), btn = $('button[type=submit]', f), msg = $('.ad-msg', f), st = $('.ad-state', f);
+  const dirty = () => { btn.disabled = false; msg.textContent = ''; st.textContent = 'Ada perubahan'; st.classList.add('dirty'); };
   f.addEventListener('input', dirty); f.addEventListener('change', dirty); btn.disabled = true;
   f.addEventListener('submit', async e => {
     e.preventDefault();
@@ -1887,26 +1974,27 @@ function renderContact(d, c) {
   const S = settings;
   const via = [['auto', 'Otomatis'], ['whatsapp', 'WhatsApp'], ['email', 'Email'], ['website', 'Website'], ['dm', 'DM Instagram']];
   setBody(d, `<form class="ad-form ad-contact">
-    <h4>Kontak & tautan</h4>
-    ${field('instagram', 'Instagram', S.instagram, { ph: 'iluztar', hint: 'Username tanpa @. Dipakai untuk Follow, profil, dan DM.' })}
-    ${field('whatsapp', 'WhatsApp', S.whatsapp, { type: 'tel', ph: '0812…  atau  62812…', hint: 'Nomor diawali 0 otomatis diubah ke 62.', attrs: 'inputmode="tel"' })}
-    ${field('whatsappText', 'Pesan awal WhatsApp', S.whatsappText, { type: 'textarea' })}
-    ${field('email', 'Email', S.email, { type: 'email', ph: 'nama@domain.com' })}
-    ${field('website', 'Website', S.website, { type: 'url', ph: 'https://iluztar.com' })}
-    ${field('maps', 'Alamat (Google Maps)', S.maps, { ph: 'Bandar Lampung, Indonesia', hint: 'Tujuan saat alamat di scene 1 diklik.' })}
-    <h4>Tujuan tombol</h4>
-    ${field('contactVia', 'Tombol “Contact” di profil', S.contactVia, { type: 'select', options: via, hint: 'Otomatis: WhatsApp → Email → Website → DM.' })}
-    ${field('orderVia', 'Tombol “Order”, folder & “Build it!”', S.orderVia, { type: 'select', options: via, hint: 'Otomatis: WhatsApp → DM Instagram.' })}
-    <div class="ad-preview"></div>
-    <p class="ad-msg"></p><button class="ad-btn primary" type="submit">Simpan</button>
+    ${section('Media sosial & chat',
+      row('instagram', 'Instagram', S.instagram, { icon: 'ig', ph: 'iluztar', hint: 'Username tanpa @ — dipakai untuk Follow, profil, dan DM.' }) +
+      row('whatsapp', 'WhatsApp', S.whatsapp, { icon: 'wa', type: 'tel', ph: '0812… atau 62812…', hint: 'Nomor diawali 0 otomatis diubah ke 62.', attrs: 'inputmode="tel"' }) +
+      row('whatsappText', 'Pesan awal WhatsApp', S.whatsappText, { icon: 'chat', type: 'textarea' }))}
+    ${section('Kontak lain',
+      row('email', 'Email', S.email, { icon: 'mail', type: 'email', ph: 'nama@domain.com' }) +
+      row('website', 'Website', S.website, { icon: 'globe', type: 'url', ph: 'https://iluztar.com' }) +
+      row('maps', 'Alamat (Google Maps)', S.maps, { icon: 'pin', ph: 'Bandar Lampung, Indonesia', hint: 'Dibuka saat alamat di scene 1 diklik.' }))}
+    ${section('Tujuan tombol',
+      row('contactVia', 'Tombol “Contact”', S.contactVia, { icon: 'btn', type: 'select', options: via, hint: 'Otomatis: WhatsApp → Email → Website → DM.' }) +
+      row('orderVia', 'Tombol “Order”, folder & “Build it!”', S.orderVia, { icon: 'btn', type: 'select', options: via, hint: 'Otomatis: WhatsApp → DM Instagram.' }))}
+    <section class="ad-sec"><h5>Pratinjau tautan</h5><div class="ad-card ad-preview"></div></section>
+    ${footer()}
   </form>`);
   const f = $('.ad-contact', d), pv = $('.ad-preview', f);
   const draft = () => ({ instagram: igHandle(f.instagram.value), whatsapp: f.whatsapp.value.trim() ? waNumber(f.whatsapp.value) : '', whatsappText: f.whatsappText.value, email: f.email.value, website: f.website.value.trim() ? siteUrl(f.website.value) : '', maps: f.maps.value, contactVia: f.contactVia.value, orderVia: f.orderVia.value });
   const preview = () => {
     const keep = settings; settings = { ...DEFAULTS, ...keep, ...draft() };
-    const rows = [['Follow', linkFor('ig')], ['Message', linkFor('dm')], ['Contact', linkFor('contact')], ['Order', linkFor('order')], ['Website', linkFor('web')], ['Alamat', linkFor('map')]];
+    const rows = [['Follow', 'ig', linkFor('ig')], ['Message', 'chat', linkFor('dm')], ['Contact', 'btn', linkFor('contact')], ['Order', 'btn', linkFor('order')], ['Website', 'globe', linkFor('web')], ['Alamat', 'pin', linkFor('map')]];
     settings = keep;
-    pv.innerHTML = '<b>Hasil tautan</b>' + rows.map(([k, u]) => `<div><span>${k}</span><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.length > 46 ? u.slice(0, 44) + '…' : u)}</a></div>`).join('');
+    pv.innerHTML = rows.map(([k, i, u]) => `<a class="ad-lk" href="${esc(u)}" target="_blank" rel="noopener"><span class="ad-ic">${ic(i)}</span><span class="ad-lkk">${k}</span><span class="ad-lku">${esc(u.replace(/^https?:\/\/(www\.)?/, '').replace(/^mailto:/, ''))}</span>${ic('arrow')}</a>`).join('');
   };
   f.addEventListener('input', preview); preview();
   bindForm(d, c, '.ad-contact', f => {
@@ -1921,32 +2009,33 @@ function renderContact(d, c) {
 function renderProfile(d, c) {
   const S = settings;
   setBody(d, `<form class="ad-form ad-profile">
-    <h4>Kartu profil (scene 8)</h4>
-    ${field('name', 'Nama', S.name, { attrs: 'maxlength="24"' })}
-    ${field('role', 'Keterangan', S.role, { attrs: 'maxlength="40"' })}
-    ${field('bio', 'Bio', S.bio, { type: 'textarea', attrs: 'maxlength="60"', hint: 'Maks. 60 karakter agar muat di kartu.' })}
-    <p class="ad-msg"></p><button class="ad-btn primary" type="submit">Simpan</button>
+    ${section('Kartu profil', row('name', 'Nama', S.name, { icon: 'user', attrs: 'maxlength="24"' }) +
+      row('role', 'Keterangan', S.role, { icon: 'tag', attrs: 'maxlength="40"' }) +
+      row('bio', 'Bio', S.bio, { icon: 'text', type: 'textarea', attrs: 'maxlength="60"', hint: 'Maks. 60 karakter agar muat di kartu.' }), 'Tampil di kartu Instagram pada scene terakhir.')}
+    ${footer()}
   </form>`);
   bindForm(d, c, '.ad-profile', f => ({ name: f.name.value, role: f.role.value, bio: f.bio.value.slice(0, 60) }));
 }
 function renderMedia(d, c) {
-  setBody(d, '<h4 class="ad-h">Gambar & audio</h4><div class="ad-list">' + SLOTS.map(([id, label, kind]) => {
+  const item = ([id, label, kind]) => {
     const cur = slotMap[id], isAudio = kind === 'audio';
-    const preview = isAudio ? `<span class="ad-ico">♪</span>` : `<img alt="" src="${esc(cur || DEFAULT_SRC[id] || '')}">`;
-    return `<div class="ad-row" data-id="${id}">
-      <div class="ad-prev">${preview}</div>
-      <div class="ad-meta"><b>${esc(label)}</b><small>${cur ? 'Diganti' : (isAudio ? 'Belum ada' : 'Bawaan')}</small></div>
-      <label class="ad-btn">Unggah<input type="file" accept="${isAudio ? 'audio/*' : 'image/*'}" hidden></label>
-      <button class="ad-btn ghost" ${cur ? '' : 'disabled'}>Reset</button>
+    const preview = isAudio ? ic('music') : `<img alt="" src="${esc(cur || DEFAULT_SRC[id] || '')}">`;
+    return `<div class="ad-mrow" data-id="${id}">
+      <div class="ad-prev ${isAudio ? 'aud' : ''}">${preview}</div>
+      <div class="ad-meta"><b>${esc(label)}</b><small class="${cur ? 'on' : ''}">${cur ? 'Diganti' : (isAudio ? 'Belum ada' : 'Bawaan')}</small></div>
+      <label class="ad-icb" title="Unggah">${ic('upload')}<input type="file" accept="${isAudio ? 'audio/*' : 'image/*'}" hidden></label>
+      <button class="ad-icb ghost" title="Kembalikan ke bawaan" ${cur ? '' : 'disabled'}>${ic('undo')}</button>
     </div>`;
-  }).join('') + '</div><p class="ad-note">Gambar maks. 8 MB, audio maks. 20 MB.</p>');
-  $$('.ad-row', d).forEach(row => {
-    const id = row.dataset.id, isAudio = id === 'AUDIO';
-    $('input', row).addEventListener('change', async e => {
+  };
+  setBody(d, `<section class="ad-sec"><h5>Audio</h5><div class="ad-card">${item(SLOTS[0])}</div></section>
+    <section class="ad-sec"><h5>Gambar</h5><p class="ad-desc">Gambar maks. 8 MB, audio maks. 20 MB. Perubahan langsung tampil.</p><div class="ad-card">${SLOTS.slice(1).map(item).join('')}</div></section>`);
+  $$('.ad-mrow', d).forEach(rowEl => {
+    const id = rowEl.dataset.id, isAudio = id === 'AUDIO';
+    $('input', rowEl).addEventListener('change', async e => {
       const file = e.target.files[0]; if (!file) return;
       const max = (isAudio ? 20 : 8) * 1024 * 1024;
       if (file.size > max) return toast(`File terlalu besar (maks. ${max / 1048576} MB)`);
-      row.classList.add('busy'); toast('Mengunggah…');
+      rowEl.classList.add('busy'); toast('Mengunggah…');
       try {
         const ext = (file.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '');
         const path = `slots/${id}-${Date.now()}.${ext}`;
@@ -1957,26 +2046,27 @@ function renderMedia(d, c) {
         if (error) throw error;
         useSlots({ ...slotMap, [id]: url });
         toast('Tersimpan'); renderAdmin(d);
-      } catch (err) { row.classList.remove('busy'); toast('Gagal: ' + (err.message || err)); }
+      } catch (err) { rowEl.classList.remove('busy'); toast('Gagal: ' + (err.message || err)); }
     });
-    $('.ad-btn.ghost', row).addEventListener('click', async () => {
-      row.classList.add('busy');
+    $('button.ad-icb', rowEl).addEventListener('click', async () => {
+      rowEl.classList.add('busy');
       try {
         const { error } = await c.from('reel_slots').delete().eq('slot', id);
         if (error) throw error;
         const m = { ...slotMap }; delete m[id]; useSlots(m);
         toast('Dikembalikan ke bawaan'); renderAdmin(d);
-      } catch (err) { row.classList.remove('busy'); toast('Gagal: ' + (err.message || err)); }
+      } catch (err) { rowEl.classList.remove('busy'); toast('Gagal: ' + (err.message || err)); }
     });
   });
 }
 function renderAccount(d, c, session) {
-  setBody(d, `<div class="ad-form"><h4>Akun</h4><p class="ad-note">Masuk sebagai <b>${esc(session.user.email)}</b></p></div>
-    <form class="ad-form ad-chpw"><h4>Ganti password</h4>
-      <label>Password baru<input type="password" name="p1" autocomplete="new-password" minlength="8"></label>
-      <label>Ulangi<input type="password" name="p2" autocomplete="new-password" minlength="8"></label>
-      <p class="ad-msg"></p><button class="ad-btn primary" type="submit">Ganti password</button></form>
-    <button class="ad-btn ad-out">Keluar</button>`);
+  const em = session.user.email;
+  setBody(d, `<section class="ad-sec"><h5>Akun</h5><div class="ad-card"><div class="ad-me"><span class="ad-av">${esc(em[0].toUpperCase())}</span><span><b>${esc(em)}</b><small>Admin</small></span></div></div></section>
+    <form class="ad-form ad-chpw">
+      ${section('Ganti password', row('p1', 'Password baru', '', { type: 'password', icon: 'lock', attrs: 'autocomplete="new-password" minlength="8"' }) + row('p2', 'Ulangi password', '', { type: 'password', icon: 'lock', attrs: 'autocomplete="new-password" minlength="8"' }), 'Minimal 8 karakter.')}
+      <div class="ad-foot static"><p class="ad-msg" role="alert"></p><button class="ad-btn primary" type="submit">Ganti password</button></div>
+    </form>
+    <section class="ad-sec"><div class="ad-card"><button class="ad-out">${ic('out')}<span>Keluar</span></button></div></section>`);
   const f = $('.ad-chpw', d);
   f.addEventListener('submit', async e => {
     e.preventDefault(); const msg = $('.ad-msg', f);
@@ -1991,7 +2081,7 @@ async function openAdmin() {
   const d = adminShell(); d.hidden = false;
   if (playingNow) toggle();
   if (!SB_ON) return renderLogin(d);
-  setBody(d, '<p class="ad-note">Memuat…</p>');
+  setBody(d, '<div class="ad-empty"><span class="ad-spin"></span><p>Memuat…</p></div>');
   try {
     if (/type=recovery/.test(location.hash)) { const c = await sb(); await c.auth.getSession(); return renderNewPassword(d); }
     await renderAdmin(d);

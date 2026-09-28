@@ -14,6 +14,9 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 > Harapannya, proyek ini bisa menjadi referensi untuk mengembangkan website dengan animasi yang dinamis. Caranya:
 > sebuah video motion graphic dijadikan bahan referensi, lalu dikonversi menjadi website interaktif dengan bantuan
 > **Claude AI (Opus 5.5)**.
+>
+> Video utama, yang menjadi referensi website ini sekaligus media promosi di media sosial dalam format video, dibuat
+> menggunakan **Alight Motion**.
 
 ---
 
@@ -46,10 +49,12 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | **Judul** | *Pengembangan Company Profile Digital Studio Kreatif ILUZTAR dengan Menggunakan Motion Graphic sebagai Media Promosi* |
 | **Tujuan** | Menjadi referensi pengembangan website dengan animasi dinamis |
 | **Metode** | Video motion graphic dipakai sebagai referensi, lalu dikonversi menjadi website interaktif |
-| **Alat bantu** | Claude AI (Opus 5.5) |
+| **Video utama** | Dibuat dengan **Alight Motion**. Dipakai sebagai referensi website ini dan sebagai media promosi di media sosial (format video) |
+| **Alat bantu** | Alight Motion (video motion graphic), Claude AI (Opus 5.5) (konversi ke website) |
 
 **Alur konversi video → website** yang dipakai di proyek ini:
 
+0. **Membuat video motion graphic di Alight Motion.** Video ini menjadi media promosi di media sosial sekaligus acuan website.
 1. **Analisis video referensi.** Video dipecah per frame untuk mencatat setiap shot: kapan mulai, arah gerak, dan ukuran objek.
 2. **Analisis audio.** Ketukan musik dideteksi (*spectral flux*) supaya gerak kamera melangkah tepat di beat (lihat `BEATS`).
 3. **Membangun ulang dengan HTML/CSS/GSAP.** Setiap shot ditulis sebagai timeline animasi, bukan video, sehingga tetap tajam di semua ukuran layar.
