@@ -257,7 +257,7 @@ Semua perubahan langsung terlihat oleh pengunjung. Kontak dan profil disimpan di
 
 **Cara kerja media:** file disimpan di Supabase Storage (bucket `reel`), dan pasangan *slot → URL* di tabel `reel_slots`.
 Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
-yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa **mengubah**.
+yang dipakai. Siapa pun bisa **membaca**, tapi hanya email di `reel_admins` yang bisa **mengubah**. Situs tidak punya form pendaftaran, dan akun yang login tapi bukan admin langsung dikeluarkan.
 
 **Setup (sekali saja):**
 
@@ -265,20 +265,52 @@ yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa *
 2. Buka **SQL Editor**, lalu jalankan:
 
    ```sql
+   -- data
    create table public.reel_slots (
      slot text primary key,
      url text not null,
      updated_at timestamptz default now()
    );
-   alter table public.reel_slots enable row level security;
-   create policy "public read"  on public.reel_slots for select using (true);
-   create policy "admin write"  on public.reel_slots for all to authenticated using (true) with check (true);
-
    insert into storage.buckets (id, name, public) values ('reel', 'reel', true);
-   create policy "admin upload" on storage.objects for insert to authenticated with check (bucket_id = 'reel');
-   create policy "admin update" on storage.objects for update to authenticated using (bucket_id = 'reel');
-   create policy "admin delete" on storage.objects for delete to authenticated using (bucket_id = 'reel');
    ```
+
+   Lalu jalankan juga blok **kunci admin** di bawah.
+
+   **Kunci admin.** Hanya email yang terdaftar di `reel_admins` yang boleh mengubah data atau mengunggah file.
+   Jadi walaupun ada akun lain yang sempat terbuat (misalnya lewat API pendaftaran Supabase), akun itu tidak bisa mengubah
+   apa pun. Ganti `admin@contoh.com` dengan email admin Anda:
+
+   ```sql
+   -- siapa saja admin
+   create table if not exists public.reel_admins (email text primary key);
+   alter table public.reel_admins enable row level security;   -- tanpa policy: tidak bisa dibaca/diubah dari situs
+   insert into public.reel_admins (email) values ('admin@contoh.com') on conflict do nothing;
+
+   create or replace function public.is_reel_admin() returns boolean
+     language sql stable security definer set search_path = public
+     as $$ select exists (select 1 from public.reel_admins where lower(email) = lower(auth.jwt() ->> 'email')) $$;
+   revoke all on function public.is_reel_admin() from public;
+   grant execute on function public.is_reel_admin() to anon, authenticated;
+
+   -- tabel data: semua orang boleh membaca, hanya admin yang boleh menulis
+   alter table public.reel_slots enable row level security;
+   drop policy if exists "public read"  on public.reel_slots;
+   drop policy if exists "admin write"  on public.reel_slots;
+   create policy "public read" on public.reel_slots for select using (true);
+   create policy "admin write" on public.reel_slots for all to authenticated
+     using (public.is_reel_admin()) with check (public.is_reel_admin());
+
+   -- file di bucket 'reel': hanya admin yang boleh mengunggah, mengganti, menghapus
+   drop policy if exists "admin upload" on storage.objects;
+   drop policy if exists "admin update" on storage.objects;
+   drop policy if exists "admin delete" on storage.objects;
+   create policy "admin upload" on storage.objects for insert to authenticated with check (bucket_id = 'reel' and public.is_reel_admin());
+   create policy "admin update" on storage.objects for update to authenticated using (bucket_id = 'reel' and public.is_reel_admin());
+   create policy "admin delete" on storage.objects for delete to authenticated using (bucket_id = 'reel' and public.is_reel_admin());
+   ```
+
+   Kalau database Anda sudah dibuat dengan SQL versi lama, cukup jalankan blok **kunci admin** ini. Blok ini aman
+   dijalankan ulang. Untuk menambah admin lain: `insert into public.reel_admins (email) values ('email@lain.com');`
 
 3. **Authentication → Sign In / Providers → Email:** matikan *Allow new users to sign up*, supaya tidak ada orang
    lain yang bisa membuat akun.
@@ -292,7 +324,7 @@ yang dipakai. Siapa pun bisa **membaca**, tapi hanya akun yang login yang bisa *
    };
    ```
 
-   Kedua nilai ini memang aman untuk publik. Yang melindungi data adalah *row-level security* di langkah 2.
+   Kedua nilai ini memang aman untuk publik. Yang melindungi data adalah *row-level security* dan daftar `reel_admins` di langkah 2.
 6. Buka situs. Tombol ikon orang akan muncul di bar bawah. Klik, login, lalu unggah file per slot
    (gambar maks. 8 MB, audio maks. 20 MB). Tombol **Reset** mengembalikan slot ke bawaan.
 
