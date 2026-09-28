@@ -1136,9 +1136,9 @@ function S1(tl) {
 
   // D — one artist, then the network: lines shoot out clockwise and the camera pulls back to all of them
   const d = $('#s1d'), net = $('.net', d);
-  show(tl, d, 5.8, 8.72, { in: 0 });
-  tl.fromTo(net, { scale: 2.05, y: 110, transformOrigin: '50% 50%' }, { y: 0, duration: 1.25, ease: E.soft }, 5.85);
-  tl.fromTo($('.center', d), { scale: .6, opacity: 0, svgOrigin: '800 450' }, { scale: 1, opacity: 1, duration: .25, ease: E.out }, 5.85);
+  show(tl, d, 5.62, 8.72, { in: 0 });
+  tl.fromTo(net, { scale: 2.05, y: 110, transformOrigin: '50% 50%' }, { y: 0, duration: 1.4, ease: E.soft }, 5.62);
+  tl.fromTo($('.center', d), { scale: .6, opacity: 0, svgOrigin: '800 450' }, { scale: 1, opacity: 1, duration: .3, ease: E.out }, 5.62);
   const nds = $$('.nd', d);
   $$('.lines line', d).forEach((l, i) => {
     const len = +l.dataset.len;
@@ -1209,7 +1209,7 @@ function S2(tl) {
 
   // D — "Plate.file" swings in from the left, papers peek out, then the camera pushes in
   const d = $('#s2d'), hz = $('.hz', d), pw = $('.pwrap', d); show(tl, d, 17.45, 19.95, { out: .1 });
-  tl.fromTo(hz, { scale: .78 }, { scale: 1.2, duration: .32, ease: E.out }, 18.7);
+  tl.fromTo(hz, { scale: .78 }, { scale: 1.2, duration: .6, ease: 'power2.inOut' }, 18.5);
   tl.to(hz, { scale: 1.28, duration: .8, ease: bE(19.02, .8) }, 19.02);
   tl.to(pw, { x: -260, y: 150, scale: 1.25, duration: .2, ease: E.in }, 19.8);
   tl.fromTo(pw, { x: -420, y: 80, rotation: -32, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: .32, ease: 'power1.inOut' }, 17.45);
@@ -1217,11 +1217,11 @@ function S2(tl) {
 }
 
 function S3(tl, end, cut) {
-  scene(tl, 's3', 19.95, end);
+  scene(tl, 's3', 19.88, end);
   // "we got you!" glides in from the right and keeps drifting
-  const a = $('#s3a'), say = $('.say', a); show(tl, a, 19.95, end, { in: 0, out: cut ? .4 : .3 });
-  tl.set($('.cur', a), { opacity: 1 }, 19.95);
-  tl.fromTo(say, { x: 230, opacity: 0 }, { x: 0, opacity: 1, duration: .3, ease: E.out }, 20.0);
+  const a = $('#s3a'), say = $('.say', a); show(tl, a, 19.88, end, { in: 0, out: cut ? .4 : .3 });
+  tl.set($('.cur', a), { opacity: 1 }, 19.88);
+  tl.fromTo(say, { x: 230, opacity: 0 }, { x: 0, opacity: 1, duration: .32, ease: E.out }, 19.9);
   tl.to(say, { x: -30, duration: end - 20.3, ease: bE(20.3, end - 20.3) }, 20.3);
   if (!cut) bg(tl, true, 21.15, .7);
 }
@@ -1303,7 +1303,7 @@ function S5(tl) {
   tl.fromTo($('.s5w', a), { scale: 1, y: 0 }, { scale: 1.05, y: 12, duration: 1, ease: bE(32.62, 1), immediateRender: false }, 32.62);
 
   // B — "we treat every" word by word, the papers slide in after it
-  const b = $('#s5b'); show(tl, b, 33.6, 35.1, { out: .2 });
+  const b = $('#s5b'); show(tl, b, 33.6, 35.74, { out: .16 });
   typeWords(tl, $('.say', b), 33.68, [0, .22, .95]);
 
   // C — the checklist card grows out of a dot, then the camera slowly pulls back as each line is ticked
@@ -1311,7 +1311,7 @@ function S5(tl) {
   tl.fromTo(card, { scale: .04, opacity: 0 }, { scale: 1.32, opacity: 1, duration: .26, ease: E.out }, 35.7);
   tl.to(card, { scale: 1.2, duration: .28, ease: 'power2.out' }, 35.96);
   tl.to(card, { scale: .84, duration: 3.1, ease: bE(36.3, 3.1, { beats: [36.52, 37.58, 37.98], w: [.5, .44, .06] }) }, 36.3);
-  tl.fromTo($('.dhead', card), { opacity: 0 }, { opacity: 1, duration: .15 }, 35.8);
+  tl.fromTo($('.dhead', card), { opacity: 0 }, { opacity: 1, duration: .15 }, 35.74);
   $$('.row', card).forEach((r, i) => {
     const t = [35.82, 36.36, 37.45][i];
     tl.fromTo(r, { opacity: 0 }, { opacity: .35, duration: .1, ease: 'none' }, t);
