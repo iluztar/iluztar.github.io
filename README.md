@@ -32,9 +32,9 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
   - **Mode Scroll** (default): animasi bergerak mengikuti scroll, dengan smooth scrolling dari Lenis.
   - **Mode Play**: diputar seperti video, layar penuh, dengan kontrol pemutar.
 - **Dua versi**: *Full* (±71 detik, 8 scene) dan *Cut* (±30 detik, versi ringkas untuk media sosial).
-- **Sinkron voice-over**: unggah file audio narasi, lalu animasi mengikuti waktu audionya.
+- **Sinkron voice-over** *(sementara disembunyikan)*: unggah file audio narasi, lalu animasi mengikuti waktu audionya. Untuk memunculkan lagi tombolnya, hapus atribut `hidden` pada `<label class="vofile">` di `index.html`.
 - **Tombol "Play scene"** untuk langsung memutar scene tertentu.
-- **Mode gelap / terang**: tombol bulan/matahari (atau tombol `T`). Pilihan disimpan di browser; tanpa pilihan, mengikuti pengaturan sistem. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
+- **Mode gelap / terang**: default terang. Tombol bulan/matahari (atau tombol `T`) mengganti tema, dan pilihannya disimpan di browser. Pergantian tema memakai *View Transitions* dengan sapuan vertikal (gelap turun dari atas, terang naik dari bawah).
 - **Stage responsif**: kanvas 1600×900 yang diskalakan otomatis ke ukuran layar mana pun.
 - **Satu file**: semua kode, gaya, dan gambar ada di `index.html`, jadi mudah di-hosting di mana saja.
 - **Statistik Instagram asli**: jumlah posts, followers, dan following di scene 8 diambil dari akun @iluztar dan diperbarui otomatis.
@@ -46,7 +46,6 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | Menonton sambil scroll | Buka halaman, lalu scroll ke bawah |
 | Putar sebagai video | Klik **Play** di bar bawah (pilih dulu *Full · 71s* atau *Cut · 30s*) |
 | Putar dari scene saat ini | Klik **▶ Play scene** di pojok kanan atas |
-| Tambah narasi | Klik **♪ Add voice-over**, lalu pilih file audio |
 
 **Pintasan keyboard (mode Play):**
 
@@ -98,6 +97,7 @@ Lalu buka http://localhost:8000.
 ```
 iluztar.github.io/
 ├── index.html        # seluruh reel: HTML scene, CSS, gambar (base64), dan JavaScript timeline
+├── favicon.svg, favicon-32.png, apple-touch-icon.png   # ikon tab & home screen (logo Iluztar)
 ├── data/
 │   └── instagram.json  # jumlah posts/followers/following (ditulis otomatis oleh GitHub Actions)
 ├── .github/workflows/
