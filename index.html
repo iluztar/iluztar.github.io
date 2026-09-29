@@ -419,6 +419,9 @@ body.scrollmode.sc-active #bar{opacity:0;pointer-events:none;transform:translate
 #lb.on img{transform:scale(1)}
 #lb button{position:absolute;top:18px;right:18px;width:36px;height:36px;border:0;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer}
 /* moving pieces get their own GPU layer while playing, so scaling/turning them never re-rasterises */
+/* the 3D cards (Instagram cover-flow, service cards) stay promoted: they turn in 3D with rounded, clipped
+   corners and never scale above 1x, so a fixed raster is sharp — and promoting them only mid-turn flashed a box */
+.playing .cf,.playing .svc{will-change:transform}
 /* no will-change on content: a layer promoted that way is rasterised once at its current size, so anything that
    later scales up (calendar 2.2x, checklist card from 0.04x, folders…) looked pixelated. Only the flat background
    wipes stay promoted. */
@@ -1404,7 +1407,10 @@ function S4(tl) {
   const slotR = k => k > 0 ? -26 * Math.min(k, 1.4) : 20 * Math.min(-k, 1.4);
   hooks.push(() => cards.forEach((c, i) => {
     const k = i - P.p;
-    gsap.set(c, { x: slotX(k) + X[i].dx, scale: slotS(k), rotationY: slotR(k) + X[i].ry, opacity: X[i].o, zIndex: 10 - Math.round(Math.abs(k) * 3), transformPerspective: 1600 });
+    // side cards are pushed back in depth instead of scaled down: same look, but each card is always
+    // rasterised at full size, so it stays sharp as it comes forward and can stay on its own GPU layer
+    const sc = slotS(k);
+    gsap.set(c, { x: (slotX(k) + X[i].dx) / sc, z: 1600 * (1 - 1 / sc), scale: 1, rotationY: slotR(k) + X[i].ry, opacity: X[i].o, zIndex: 10 - Math.round(Math.abs(k) * 3), transformPerspective: 1600 });
     gsap.set(c._dim || (c._dim = $('.cfd', c)), { autoAlpha: .22 * Math.min(Math.abs(k), 2) / 2 });
   }));
   X.forEach((x, i) => {
