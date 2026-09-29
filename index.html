@@ -1670,6 +1670,7 @@ function start(at = 0) {
   bodyC.add('playing'); bodyC.toggle('cut', mode === 'cut');
   fit();
   tl = build();
+  ensureAudio();
   $('#ctrl').hidden = false; uiHidden = false; wake();
   try { if (!document.fullscreenElement && root.requestFullscreen) root.requestFullscreen().catch(() => {}); } catch (e) {}
   playingNow = true; setPlayIcon(true);
@@ -1789,7 +1790,8 @@ addEventListener('keydown', e => {
 const SB = window.ILUZTAR_SUPABASE || {};
 const SB_ON = !!(SB.url && SB.anonKey);
 const SLOTS = [
-  ['AUDIO', 'Audio track', 'audio'],
+  ['AUDIO', 'Audio · Full (71 detik)', 'audio'],
+  ['AUDIO_CUT', 'Audio · Cut (30 detik)', 'audio'],
   ['TEX', 'Tekstur “This is Iluztar”'],
   ['ART0', 'Galeri artwork 1'], ['ART1', 'Galeri artwork 2'], ['ART2', 'Galeri artwork 3'],
   ['ART3', 'Galeri artwork 4'], ['ART4', 'Galeri artwork 5'], ['ART5', 'Galeri artwork 6'],
@@ -1804,6 +1806,15 @@ function applySlots(rootEl) {
     const want = slotMap[img.dataset.slot] || DEFAULT_SRC[img.dataset.slot];
     if (want && img.getAttribute('src') !== want) { img.setAttribute('src', want); try { img.decode().catch(() => {}); } catch (e) {} }
   });
+}
+// each cut has its own soundtrack: Full plays AUDIO, Cut plays AUDIO_CUT (silent until one is uploaded)
+let audioKey = null;
+const trackKey = () => mode === 'cut' ? 'AUDIO_CUT' : 'AUDIO';
+function ensureAudio() {
+  if (audioURL) return;                                   // a local file picked by hand wins
+  const key = trackKey(), url = slotMap[key] || null;
+  if (audioKey === key && (audio ? audio.src === url : !url)) return;
+  setAudio(url); audioKey = key;
 }
 function setAudio(url, label) {
   if (audio) audio.pause();
@@ -1822,7 +1833,7 @@ function useSettings(next) { settings = next; refreshPristine(); applySettings(f
 function useSlots(map) {
   slotMap = map;
   refreshPristine(); applySlots(film); applySettings(film);
-  if (!playingNow || !audio) setAudio(slotMap.AUDIO || null);
+  if (!playingNow) { audioKey = null; ensureAudio(); }
 }
 // new-style publishable keys (sb_publishable_…) aren't JWTs, so they go in apikey only; legacy anon JWTs also need Authorization
 const sbHeaders = () => SB.anonKey.startsWith('sb_') ? { apikey: SB.anonKey } : { apikey: SB.anonKey, Authorization: 'Bearer ' + SB.anonKey };
@@ -2188,10 +2199,11 @@ function renderMedia(d, c) {
       <button class="ad-icb ghost" title="Kembalikan ke bawaan" ${cur ? '' : 'disabled'}>${ic('undo')}</button>
     </div>`;
   };
-  setBody(d, `<section class="ad-sec"><h5>Audio</h5><div class="ad-card">${item(SLOTS[0])}</div></section>
-    <section class="ad-sec"><h5>Gambar</h5><p class="ad-desc">Gambar maks. 8 MB, audio maks. 20 MB. Perubahan langsung tampil.</p><div class="ad-card">${SLOTS.slice(1).map(item).join('')}</div></section>`);
+  const auds = SLOTS.filter(x => x[2] === 'audio'), imgs = SLOTS.filter(x => x[2] !== 'audio');
+  setBody(d, `<section class="ad-sec"><h5>Audio</h5><p class="ad-desc">Satu track per versi: Full memutar versi lengkap, Cut memutar versi Cut. Maks. 20 MB.</p><div class="ad-card">${auds.map(item).join('')}</div></section>
+    <section class="ad-sec"><h5>Gambar</h5><p class="ad-desc">Gambar maks. 8 MB. Perubahan langsung tampil.</p><div class="ad-card">${imgs.map(item).join('')}</div></section>`);
   $$('.ad-mrow', d).forEach(rowEl => {
-    const id = rowEl.dataset.id, isAudio = id === 'AUDIO';
+    const id = rowEl.dataset.id, isAudio = id.startsWith('AUDIO');
     $('input', rowEl).addEventListener('change', async e => {
       const file = e.target.files[0]; if (!file) return;
       const max = (isAudio ? 20 : 8) * 1024 * 1024;
@@ -2300,6 +2312,7 @@ enterScroll(0, true);
 // decode every picture up front so none is decoded mid-animation (that cost a dropped frame)
 const predecode = () => $$('#film img').forEach(i => { try { i.decode && i.decode().catch(() => {}); } catch (e) {} });
 (window.requestIdleCallback || setTimeout)(predecode);
+window.__audioSrc = () => audio ? audio.src : 'none';
 window.__reel = { time: () => tl && tl.time(), seek: t => { if (tl) { playingNow = false; tl.pause(); tl.time(t); runHooks(); } }, theme: t => setTheme(t, false) };
 document.addEventListener('fullscreenchange', () => { fit(); });
 })();
