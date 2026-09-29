@@ -213,10 +213,16 @@ body:not(.playing) .cf{opacity:1}
 .tile.bp{left:480px;z-index:2;--tb:#0034C4;--tf:linear-gradient(180deg,#3A70FF 0%,#0047FF 60%)}
 .tile.st{left:820px;z-index:1;--tb:#141414;--tf:linear-gradient(180deg,#3C3C3C 0%,#262626 60%)}
 /* a folder pocket: back panel with a tab, papers tucked in, front pocket over them */
-.tile .back{position:absolute;inset:0;border-radius:34px;background:var(--tb)}
-.tile .back::before{content:"";position:absolute;left:0;top:-16px;width:130px;height:44px;border-radius:20px 20px 0 0;background:var(--tb)}
-.tile .pp{position:absolute;top:-4px;width:128px;height:96px;border-radius:16px;background:#F5F5F6;box-shadow:0 6px 14px rgba(0,0,0,.18);z-index:1}
-.tile .front{position:absolute;left:0;right:0;bottom:0;top:86px;border-radius:30px 30px 34px 34px;background:var(--tf);z-index:2;overflow:hidden;padding:0 28px 24px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 -8px 18px -6px rgba(0,0,0,.25)}
+.tile .back{position:absolute;inset:0;border-radius:30px;background:var(--tb);box-shadow:0 30px 50px -24px rgba(0,20,90,.45)}
+.tile .back::before{content:"";position:absolute;left:0;top:-18px;width:124px;height:46px;border-radius:18px 18px 0 0;background:var(--tb)}
+/* papers sit inside the folder: they start below its top edge and only their heads peek out above the pocket */
+.tile .pp{position:absolute;top:24px;width:116px;height:120px;border-radius:12px;z-index:1;
+  background:linear-gradient(var(--pa) 0 0) 14px 16px/42% 8px no-repeat,linear-gradient(#E3E7EF 0 0) 14px 32px/64% 6px no-repeat,repeating-linear-gradient(#EDF0F5 0 5px,transparent 5px 13px) 14px 48px/calc(100% - 28px) 52px no-repeat,#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 8px 18px -6px rgba(0,0,0,.35)}
+.tile.bp .pp{--pa:#0047FF}
+.tile.st .pp{--pa:#262626}
+.tile .front{position:absolute;left:0;right:0;bottom:0;top:96px;border-radius:24px 24px 30px 30px;background:var(--tf);z-index:2;overflow:hidden;padding:0 28px 24px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 -10px 22px -8px rgba(0,0,0,.32)}
+.tile .front::before{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(rgba(255,255,255,.12),transparent);pointer-events:none}
 .tile .tt{font-size:30px;font-weight:700;position:relative;z-index:1}
 .tile .ts{font-size:17px;opacity:.72;margin-top:4px;position:relative;z-index:1}
 .tile .wm{position:absolute;right:-26px;bottom:-26px;width:150px;opacity:.1}
@@ -715,8 +721,8 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
     <div class="layer hero" id="s5a">
       <div class="s5w">
         <div class="sel" id="sel"><i></i><i></i><i></i><i></i></div>
-        <div class="tile st" id="st" data-act="link" data-link="order"><i class="back"></i><span class="pp" style="left:86px;transform:rotate(5deg)"></span><div class="front"><div class="tt">Single Task</div><div class="ts">This is the Single Task</div><svg class="wm" viewBox="0 0 100 100"><use href="#markw"/></svg></div></div>
-        <div class="tile bp" id="bp" data-act="link" data-link="order"><i class="back"></i><span class="pp" style="left:30px;transform:rotate(-12deg)"></span><span class="pp" style="left:140px;transform:rotate(7deg)"></span><div class="front"><div class="tt">Big Project</div><div class="ts">Many files are inside the folder</div><svg class="wm" viewBox="0 0 100 100"><use href="#markw"/></svg></div></div>
+        <div class="tile st" id="st" data-act="link" data-link="order"><i class="back"></i><span class="pp" style="left:92px;transform:rotate(4deg)"></span><div class="front"><div class="tt">Single Task</div><div class="ts">This is the Single Task</div><svg class="wm" viewBox="0 0 100 100"><use href="#markw"/></svg></div></div>
+        <div class="tile bp" id="bp" data-act="link" data-link="order"><i class="back"></i><span class="pp" style="left:34px;transform:rotate(-6deg)"></span><span class="pp" style="left:148px;transform:rotate(5deg)"></span><div class="front"><div class="tt">Big Project</div><div class="ts">Many files are inside the folder</div><svg class="wm" viewBox="0 0 100 100"><use href="#markw"/></svg></div></div>
       </div>
     </div>
     <div class="layer" id="s5b">
