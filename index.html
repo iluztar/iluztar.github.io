@@ -119,6 +119,8 @@ body:not(.playing) .hero{visibility:visible}
 .loc .pin svg{height:100%;width:auto;display:block}
 .pill{height:78px;width:270px;margin-left:16px;border-radius:39px;background:var(--blue);color:#fff;font-size:48px;font-weight:500;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}
 .pill .pt{white-space:nowrap}
+/* the Indonesia pill, lifted out of the line: it rounds into a circle, hops and lands as the network's centre */
+.blob{position:absolute;left:800px;top:450px;width:0;height:0;background:var(--blue);opacity:0;pointer-events:none}
 .net{position:absolute;inset:0;width:1600px;height:900px;overflow:visible}
 .net .ln{stroke:#4D72FF;stroke-width:1.6;opacity:.8}
 .net .nbg{fill:var(--surface);stroke:var(--border);stroke-width:1.5}
@@ -638,6 +640,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
     </div>
     <div class="layer" id="s1c">
       <div class="loc" data-act="link" data-link="map" title="Buka di Google Maps"><span class="pin"><svg viewBox="0 0 20 26"><use href="#pin"/></svg></span><span class="lt">Bandar Lampung</span><span class="comma">,</span><span class="pill"><span class="pt">Indonesia</span></span></div>
+      <i class="blob" aria-hidden="true"></i>
     </div>
     <div class="layer" id="s1d">
       <svg class="net" viewBox="0 0 1600 900" aria-hidden="true"><g class="lines"></g><g class="nodes"></g>
@@ -1239,20 +1242,42 @@ function S1(tl) {
   tl.fromTo(b, { y: 0 }, { y: -34, duration: 1.35, ease: bE(2.2, 1.35), immediateRender: false }, 2.2);
 
   // C — Bandar Lampung, then the Indonesia pill opens beside it (the line re-centres as it grows)
-  const c = $('#s1c'); show(tl, c, 3.55, 5.66, { in: .12, out: 0 });
+  const c = $('#s1c'); show(tl, c, 3.55, 6.5, { in: .12, out: 0 });
   const pill = $('.pill', c);
   tl.fromTo($('.loc', c), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .35, ease: E.out }, 3.55);
   tl.fromTo(pill, { width: 0, marginLeft: 0 }, { width: 270, marginLeft: 16, duration: .35, ease: E.out }, 4.72);
   tl.fromTo($('.comma', c), { opacity: 0 }, { opacity: 1, duration: .15 }, 4.7);
   tl.fromTo($('.pt', c), { opacity: 0 }, { opacity: 1, duration: .2 }, 4.85);
-  tl.to([$('.pin', c), $('.lt', c), $('.comma', c)], { opacity: 0, duration: .1 }, 5.52);
-  tl.to(pill, { opacity: 0, duration: .1 }, 5.64);
+  tl.to([$('.pin', c), $('.lt', c), $('.comma', c)], { opacity: 0, duration: .12 }, 5.5);
+  tl.to($('.pt', c), { opacity: 0, duration: .1 }, 5.5);
+  // the pill leaves the line: a blob takes its exact place, slides to the centre and rounds into the
+  // network's centre circle, hops, drops and bounces — and where it lands the next scene begins
+  const blob = $('.blob', c), d1 = $('#s1d');
+  const sc = el => parseFloat(getComputedStyle(el).scale) || 1;
+  const K = () => sc(d1) / sc(c);                       // centre circle size/offset in this layer's units
+  const DIA = () => 88 * 2.05 * K(), DROP = () => 110 * K();
+  const unit = () => c.getBoundingClientRect().width / 1600;
+  const pc = () => { const r = pill.getBoundingClientRect(), l = c.getBoundingClientRect(); return { x: (r.left + r.width / 2 - l.left - l.width / 2) / unit(), y: (r.top + r.height / 2 - l.top - l.height / 2) / unit() }; };
+  gsap.set(blob, { xPercent: -50, yPercent: -50 });
+  tl.set(pill, { opacity: 0 }, 5.6);
+  tl.fromTo(blob, { x: () => pc().x, y: () => pc().y, width: 270, height: 78, borderRadius: 39, opacity: 1 },
+    { x: 0, y: 0, width: DIA, height: DIA, borderRadius: () => DIA() / 2, duration: .26, ease: E.inOut, immediateRender: false }, 5.6);
+  tl.to(blob, { y: -120, duration: .2, ease: 'power2.out' }, 5.86);
+  tl.to(blob, { y: DROP, duration: .2, ease: 'power2.in' }, 6.06);
+  tl.to(blob, { scaleX: 1.12, scaleY: .86, duration: .06, ease: 'power1.out' }, 6.26);
+  tl.to(blob, { scaleX: 1, scaleY: 1, duration: .1, ease: 'power1.out' }, 6.32);
+  tl.to(blob, { y: () => DROP() - 26, duration: .1, ease: 'power2.out' }, 6.3);
+  tl.to(blob, { y: DROP, duration: .1, ease: 'power2.in' }, 6.4);
+  tl.set(blob, { opacity: 0 }, 6.5);
 
   // D — one artist, then the network: lines shoot out clockwise and the camera pulls back to all of them
   const d = $('#s1d'), net = $('.net', d);
-  show(tl, d, 5.62, 8.72, { in: 0 });
-  tl.fromTo(net, { scale: 2.05, y: 110, transformOrigin: '50% 50%' }, { y: 0, duration: 1.4, ease: E.soft }, 5.62);
-  tl.fromTo($('.center', d), { scale: .6, opacity: 0, svgOrigin: '800 450' }, { scale: 1, opacity: 1, duration: .3, ease: E.out }, 5.62);
+  show(tl, d, 6.5, 8.72, { in: 0 });
+  tl.set(net, { scale: 2.05, y: 110, transformOrigin: '50% 50%' }, 6.5);
+  // the landed circle is the centre node: the mark pops out and the white shoulder rises into it
+  tl.fromTo($('.center use', d), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: .3, ease: 'back.out(2)' }, 6.5);
+  tl.fromTo($('.center ellipse', d), { y: 46 }, { y: 0, duration: .32, ease: E.out }, 6.54);
+  tl.to(net, { y: 0, duration: .9, ease: E.soft }, 6.6);
   const nds = $$('.nd', d);
   $$('.lines line', d).forEach((l, i) => {
     const len = +l.dataset.len;
