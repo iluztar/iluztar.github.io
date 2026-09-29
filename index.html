@@ -243,7 +243,11 @@ body:not(.playing) .cf{opacity:1}
 .wrow i.b{background:var(--blue);box-shadow:0 0 0 2px var(--blue) inset}
 .wrow em{font-style:normal;color:#8A8A8F;font-size:24px;margin-left:-12px}
 .tog{width:640px;height:128px;border-radius:64px;background:#262626;display:flex;align-items:center;padding:0 14px;gap:28px;color:#fff;font-size:50px;font-weight:500;overflow:hidden;white-space:nowrap}
-.knob{width:100px;height:100px;border-radius:50%;background:#fff;flex:none}
+.knob{width:100px;height:100px;border-radius:50%;background:#fff;flex:none;position:relative;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.tog{position:relative}
+/* swipe trail: grows behind the knob as it slides right until the whole toggle is white */
+.tfill{position:absolute;left:14px;top:14px;width:100px;height:100px;border-radius:50px;background:#F7F7F8;z-index:1;opacity:0}
+.tlabel{position:relative;z-index:0}
 .wpill{position:relative;width:270px;height:50px;border-radius:25px;background:#F7F7F8;overflow:hidden;box-shadow:0 1px 2px rgba(0,20,90,.08),0 18px 36px -12px rgba(0,20,90,.28),0 50px 90px -30px rgba(0,20,90,.35)}
 .wpill .wlab{pointer-events:none;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:500;color:#1F1F21;white-space:nowrap}
 .wfc{position:absolute;left:0;top:0;width:1130px;height:625px}
@@ -763,7 +767,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
         <div class="wrow"><i></i>Sketch<em>.png</em></div><div class="wrow"><i class="b"></i>Draft<em>.psd</em></div><div class="wrow"><i></i>Lineart<em>.clip</em></div><div class="wrow"><i class="b"></i>Idea<em>.jpg</em></div><div class="wrow"><i></i>Color<em>.psd</em></div><div class="wrow"><i class="b"></i>Render<em>.psd</em></div><div class="wrow"><i></i>Final<em>.png</em></div>
       </div>
     </div>
-    <div class="layer" id="s6c"><div class="tog"><span class="knob"></span><span class="tlabel">Refine</span></div></div>
+    <div class="layer" id="s6c"><div class="tog"><span class="tfill"></span><span class="knob"></span><span class="tlabel">Refine</span></div></div>
     <div class="layer" id="s6d">
       <div class="wpill" id="wpill">
         <div class="wfc">
@@ -1475,9 +1479,17 @@ function S6(tl) {
   tl.fromTo(knob, { backgroundColor: '#B9C8FF' }, { backgroundColor: '#FFFFFF', duration: .25 }, 44.5);
   tl.fromTo(lab, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: .25, ease: E.out }, 44.55);
   tl.to(tog, { scale: 1.03, duration: .8, ease: bE(44.8, .8) }, 44.8);
-  // …then collapses into the small white request pill
-  tl.to([knob, lab], { opacity: 0, duration: .12 }, 45.58);
-  tl.to(tog, { width: 270, height: 50, borderRadius: 25, padding: 0, backgroundColor: '#F7F7F8', scale: 1, duration: .22, ease: E.inOut }, 45.6);
+  // swipe: the knob slides to the right end, a white trail fills in behind it and covers the label,
+  // leaving a fully white toggle — the base the request pill grows out of
+  const tf = $('.tfill', c);
+  tl.set(tf, { opacity: 1 }, 45.02);
+  tl.fromTo(knob, { x: 0 }, { x: 512, duration: .36, ease: 'power3.inOut', immediateRender: false }, 45.02);
+  tl.fromTo(tf, { width: 100 }, { width: 612, duration: .36, ease: 'power3.inOut', immediateRender: false }, 45.02);
+  tl.to(knob, { boxShadow: '0 0 0 rgba(0,0,0,0)', duration: .12 }, 45.3);
+  tl.to(tog, { backgroundColor: '#F7F7F8', duration: .14, ease: 'none' }, 45.26);
+  tl.set([tf, knob, lab], { opacity: 0 }, 45.4);
+  // …then the white toggle collapses into the small white request pill
+  tl.to(tog, { width: 270, height: 50, borderRadius: 25, padding: 0, scale: 1, duration: .22, ease: E.inOut }, 45.6);
 
   // D — "I want a Website!" grows into the website itself
   const d = $('#s6d'), wp = $('#wpill'), lbl = $('.wlab', wp), kids = [...$('.wfc', wp).children];
