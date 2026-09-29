@@ -577,10 +577,15 @@ body.playing.scrollmode{overflow:visible}
 #sgo:hover{background:var(--blue);color:#fff}
 #sprog{position:fixed;left:0;right:0;top:0;height:3px;z-index:70;pointer-events:none;mix-blend-mode:difference}
 #sprog i{display:block;height:100%;width:0;background:#fff}
-#scue{position:fixed;right:22px;bottom:30px;z-index:50;display:flex;gap:7px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--muted);transition:opacity .4s}
-#scue svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;animation:scueDown 1.4s ease-in-out infinite}
-@keyframes scueDown{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-body.scrolled #scue{opacity:0}
+/* scroll cue: a dark capsule like the scene chip — mouse with a rolling wheel, label, bobbing chevron */
+#scue{position:fixed;right:18px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:10px;align-items:center;height:38px;padding:0 14px 0 8px;border-radius:999px;background:var(--ov);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;box-shadow:0 8px 24px -10px rgba(0,0,0,.45);transition:opacity .4s,transform .4s cubic-bezier(.2,.8,.2,1)}
+#scue .sm{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center}
+#scue .sm i{position:relative;width:10px;height:15px;border-radius:5px;box-shadow:inset 0 0 0 1.5px #fff}
+#scue .sm i::after{content:"";position:absolute;left:50%;top:3px;width:2px;height:3.5px;margin-left:-1px;border-radius:1px;background:var(--blue-2,#6F93FF);animation:scueWheel 1.6s cubic-bezier(.5,0,.3,1) infinite}
+#scue .sa{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.6;animation:scueDown 1.6s ease-in-out infinite}
+@keyframes scueWheel{0%{transform:translateY(0);opacity:0}20%{opacity:1}70%{transform:translateY(6px);opacity:0}100%{opacity:0}}
+@keyframes scueDown{0%,100%{transform:translateY(-1px)}50%{transform:translateY(2px)}}
+body.scrolled #scue{opacity:0;transform:translateY(8px);pointer-events:none}
 body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sprog,body:not(.scrollmode) #scue{display:none}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
@@ -1026,7 +1031,7 @@ function ensureChrome() {
   const go = document.createElement('button'); go.id = 'sgo'; go.textContent = '▶ Play scene';
   const pr = document.createElement('div'); pr.id = 'sprog'; pr.innerHTML = '<i></i>';
   const cue = document.createElement('div'); cue.id = 'scue';
-  cue.innerHTML = 'Scroll<svg viewBox="0 0 16 16"><path d="M8 2v11M4 9l4 4 4-4"/></svg>';
+  cue.innerHTML = '<span class="sm"><i></i></span><span class="st">Scroll to explore</span><svg class="sa" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>';
   document.body.append(sspace, tag, go, pr, cue);
   go.addEventListener('click', () => { setMode('full'); const i = sceneIdx(); window.__lastScene = 's' + (i + 1); start(SCENE_T[i]); });
 }
