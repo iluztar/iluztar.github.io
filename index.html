@@ -183,7 +183,7 @@ body:not(.playing) .intext{display:none!important}
 .svc .pb{flex:none;height:40px;padding:0 20px;border-radius:20px;background:var(--blue);color:#fff;font-size:17px;font-weight:600;display:flex;align-items:center;text-decoration:none}
 #fc{z-index:2}#ph{z-index:1}
 .cflow{position:absolute;inset:0}
-.cf{position:absolute;left:620px;top:170px;width:360px;height:560px;border-radius:28px;background:#fff;color:#1F1F21;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,20,90,.08),0 18px 36px -12px rgba(0,20,90,.28),0 50px 90px -30px rgba(0,20,90,.35);opacity:0}
+.cf{position:absolute;left:620px;top:170px;width:360px;height:560px;border-radius:28px;backface-visibility:hidden;isolation:isolate;background:#fff;color:#1F1F21;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,20,90,.08),0 18px 36px -12px rgba(0,20,90,.28),0 50px 90px -30px rgba(0,20,90,.35);opacity:0}
 /* instagram-style post */
 .ig-h{display:flex;align-items:center;gap:10px;padding:13px 16px;flex:none}
 .ig-av{width:40px;height:40px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#0047FF,#8FA8FF);flex:none}
@@ -200,7 +200,7 @@ body:not(.playing) .intext{display:none!important}
 .ig-l{padding:0 16px;font-size:16px;font-weight:700;flex:none;font-variant-numeric:tabular-nums}
 .ig-c{padding:4px 16px 16px;font-size:16px;line-height:1.35;display:flex;flex-wrap:wrap;align-items:center;align-content:flex-start;height:62px;flex:none}
 .ig-c .nm{font-weight:700;margin-right:.35em}
-.cf .cfd{position:absolute;inset:0;z-index:5;background:#000A2E;opacity:0;pointer-events:none;border-radius:inherit;will-change:opacity}
+.cf .cfd{position:absolute;inset:0;z-index:5;background:#000A2E;opacity:0;pointer-events:none;border-radius:inherit;visibility:hidden}
 body:not(.playing) .cf{opacity:1}
 .blue .say{color:#fff}
 
@@ -399,6 +399,20 @@ body.scrollmode.sc-active #bar{opacity:0;pointer-events:none;transform:translate
 :root[data-theme="dark"] #admin{--ad-bg:#141417;--ad-card:#1E1F24;--ad-ink:#F2F2F5;--ad-sub:#A1A1AA;--ad-mute:#71717A;--ad-line:rgba(255,255,255,.08);--ad-field:#26272D;--ad-track:rgba(255,255,255,.07);--ad-shadow:none;color-scheme:dark}
 @keyframes adIn{from{opacity:0;transform:translateX(24px)}}
 #admin[hidden]{display:none}
+/* page is frozen under the panel: dim scrim takes every tap/scroll, the page can't scroll or show its player */
+#adScrim{position:fixed;inset:0;z-index:89;background:rgba(10,10,14,.32);touch-action:none;overscroll-behavior:contain;animation:adFade .25s ease;transition:opacity .24s ease}
+#adScrim[hidden]{display:none}
+#adScrim.out{opacity:0}
+@keyframes adFade{from{opacity:0}}
+html:has(body.ad-open),body.ad-open{overflow:hidden!important;overscroll-behavior:none}
+body.ad-open #ctrl,body.ad-open #hint{opacity:0!important;pointer-events:none!important}
+#admin .ad-body{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#admin .ad-grab,#admin .ad-head{touch-action:none}
+#admin.ad-lv .ad-head>svg,#admin.ad-lv .ad-title{display:none}
+#admin.ad-lv .ad-head{padding-bottom:0}
+/* phones: mobile browsers may paint the film's 3D/GPU layers over a fixed sheet (blank panel); the sheet
+   covers the screen anyway, so the film is taken out of painting while it is open */
+@media (max-width:640px){body.ad-open #film,body.ad-open #bar,body.ad-open #ctrl,body.ad-open #sprog{visibility:hidden}#admin{transform:translateZ(0)}}
 #admin *{box-sizing:border-box}
 #admin label:focus-within{outline:0}
 #admin .ad-grab{display:none}
@@ -1295,7 +1309,8 @@ function S4(tl) {
   const a = $('#s4a'), fc = $('#fc'), ph = $('#ph'), hz = $('.hz', a);
   show(tl, a, 21.62, 26.05, { in: 0, out: 0 });
   gsap.set(hz, { scale: 1.2 });
-  tl.fromTo(fc, { x: -560, y: -30, rotationY: 65, opacity: 0, transformPerspective: 1400 }, { x: 0, y: 0, rotationY: 0, opacity: 1, duration: .4, ease: E.out }, 21.85);
+  tl.fromTo(fc, { x: -560, y: -30, rotationY: 65, transformPerspective: 1400 }, { x: 0, y: 0, rotationY: 0, duration: .4, ease: E.out }, 21.85);
+  tl.fromTo(fc, { opacity: 0 }, { opacity: 1, duration: .001, ease: 'none' }, 21.85);
   cardFill(tl, fc, 22.05);
   tl.to(fc, { y: 14, scale: .97, duration: 1.7, ease: bE(22.25, 1.7) }, 22.25);
   tl.to(fc, { x: -100, y: 0, rotation: -14, scale: .72, duration: .3, ease: E.inOut }, 23.92);
@@ -1321,11 +1336,12 @@ function S4(tl) {
   hooks.push(() => cards.forEach((c, i) => {
     const k = i - P.p;
     gsap.set(c, { x: slotX(k) + X[i].dx, scale: slotS(k), rotationY: slotR(k) + X[i].ry, opacity: X[i].o, zIndex: 10 - Math.round(Math.abs(k) * 3), transformPerspective: 1600 });
-    gsap.set(c._dim || (c._dim = $('.cfd', c)), { opacity: .22 * Math.min(Math.abs(k), 2) / 2 });
+    gsap.set(c._dim || (c._dim = $('.cfd', c)), { autoAlpha: .22 * Math.min(Math.abs(k), 2) / 2 });
   }));
   X.forEach((x, i) => {
     tl.fromTo(x, { ry: i ? -80 : -90, dx: [0, 220, 260][i] }, { ry: 0, dx: 0, duration: i ? .45 : .6, ease: E.out }, 26.02 + i * .15);
-    tl.fromTo(x, { o: 0 }, { o: 1, duration: .08, ease: 'none' }, 26.02 + i * .15);
+    // appear fully opaque while still edge-on — a half-transparent card flashed as a pale box
+    tl.fromTo(x, { o: 0 }, { o: 1, duration: .001, ease: 'none', immediateRender: false }, 26.02 + i * .15);
   });
   tl.fromTo(P, { p: 0 }, { p: 1, duration: .38, ease: E.inOut, immediateRender: false }, 27.0);
   tl.to(P, { p: 2, duration: .38, ease: E.inOut }, 28.1);
@@ -1668,6 +1684,7 @@ $('#ctrl').addEventListener('pointerleave', () => { overCtrl = false; });
 addEventListener('pointermove', wake);
 addEventListener('pointerdown', wake);
 addEventListener('keydown', e => {
+  if (bodyC.contains('ad-open')) { if (e.key === 'Escape') closeAdmin(); return; } // keys belong to the admin panel
   if (e.target.closest && e.target.closest('input, textarea')) return;
   if (e.key === 't' || e.key === 'T') { toggleTheme(); return; }
   if (!tl || scrollMode) return;
@@ -1699,7 +1716,7 @@ let slotMap = {};
 function applySlots(rootEl) {
   $$('img[data-slot]', rootEl).forEach(img => {
     const want = slotMap[img.dataset.slot] || DEFAULT_SRC[img.dataset.slot];
-    if (want && img.getAttribute('src') !== want) img.setAttribute('src', want);
+    if (want && img.getAttribute('src') !== want) { img.setAttribute('src', want); try { img.decode().catch(() => {}); } catch (e) {} }
   });
 }
 function setAudio(url, label) {
@@ -1857,15 +1874,64 @@ const ic = k => `<svg class="ad-i" viewBox="0 0 24 24" aria-hidden="true">${IC[k
 function adminShell() {
   let d = $('#admin');
   if (d) return d;
-  d = document.createElement('aside'); d.id = 'admin'; d.setAttribute('aria-label', 'Admin'); d.hidden = true;
+  // the scrim sits between page and panel: it dims the page and swallows every tap/scroll meant for it
+  const scrim = document.createElement('div'); scrim.id = 'adScrim'; scrim.hidden = true;
+  scrim.addEventListener('click', closeAdmin);
+  d = document.createElement('aside'); d.id = 'admin'; d.setAttribute('aria-label', 'Admin'); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.hidden = true;
+  d.setAttribute('data-lenis-prevent', ''); // let the panel scroll natively instead of the page's smooth scroll
   d.innerHTML = `<div class="ad-grab" aria-hidden="true"></div>
     <header class="ad-head">${LOGO_SVG}<div class="ad-title"><b>Iluztar Admin</b><span class="ad-sub"></span></div><button class="ad-x" aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
     <nav class="ad-tabs" hidden></nav><div class="ad-body"></div>`;
-  document.body.appendChild(d);
-  $('.ad-x', d).addEventListener('click', () => { d.hidden = true; });
+  document.body.append(scrim, d);
+  $('.ad-x', d).addEventListener('click', closeAdmin);
+  swipeToClose(d);
   return d;
 }
-function setBody(d, html) { const b = $('.ad-body', d); b.innerHTML = html; b.scrollTop = 0; }
+// phones: drag the sheet down by its handle/header (or from the top of its content) to close it
+function swipeToClose(d) {
+  let y0 = null, dy = 0, t0 = 0, fromBody = false;
+  const sheet = () => matchMedia('(max-width:640px)').matches;
+  d.addEventListener('touchstart', e => {
+    if (!sheet() || e.touches.length > 1) return;
+    const inHead = e.target.closest('.ad-grab, .ad-head'), body = $('.ad-body', d);
+    fromBody = !inHead && body.contains(e.target) && body.scrollTop <= 0 && !e.target.closest('input, textarea, select');
+    if (!inHead && !fromBody) return;
+    y0 = e.touches[0].clientY; dy = 0; t0 = performance.now(); d.style.transition = 'none';
+  }, { passive: true });
+  d.addEventListener('touchmove', e => {
+    if (y0 === null) return;
+    dy = e.touches[0].clientY - y0;
+    if (fromBody && dy < 0) { y0 = null; d.style.transform = ''; return; } // scrolling the content up, not a swipe
+    if (dy > 0) { e.preventDefault(); d.style.transform = `translateY(${dy}px)`; $('#adScrim').style.opacity = Math.max(0, 1 - dy / d.offsetHeight); }
+  }, { passive: false });
+  const end = () => {
+    if (y0 === null) return; y0 = null;
+    const fast = dy / Math.max(1, performance.now() - t0) > .6;
+    d.style.transition = 'transform .24s cubic-bezier(.2,.8,.2,1)'; $('#adScrim').style.opacity = '';
+    if (dy > d.offsetHeight * .25 || (fast && dy > 40)) closeAdmin(); else d.style.transform = '';
+  };
+  d.addEventListener('touchend', end); d.addEventListener('touchcancel', end);
+}
+// while the panel is open the page underneath is frozen: no scrolling, scrubbing or shortcuts
+let adPrevFocus = null;
+function lockPage(on) {
+  bodyC.toggle('ad-open', on);
+  if (scrollLenis) on ? scrollLenis.stop() : scrollLenis.start();
+  $('#adScrim').hidden = !on;
+}
+function closeAdmin() {
+  const d = $('#admin'); if (!d || d.hidden || d.classList.contains('closing')) return;
+  const sheet = matchMedia('(max-width:640px)').matches;
+  d.classList.add('closing'); d.style.transition = 'transform .24s cubic-bezier(.4,0,1,1), opacity .24s';
+  d.style.transform = sheet ? 'translateY(100%)' : 'translateX(24px)'; if (!sheet) d.style.opacity = '0';
+  $('#adScrim').classList.add('out');
+  setTimeout(() => {
+    d.hidden = true; d.classList.remove('closing'); d.style.transition = d.style.transform = d.style.opacity = '';
+    $('#adScrim').classList.remove('out'); lockPage(false);
+    if (adPrevFocus && adPrevFocus.focus) adPrevFocus.focus({ preventScroll: true });
+  }, 240);
+}
+function setBody(d, html) { d.classList.remove('ad-lv'); const b = $('.ad-body', d); b.innerHTML = html; b.scrollTop = 0; }
 // one grouped-card row: icon · label · control (· hint)
 function row(name, label, value, o = {}) {
   const ctl = o.type === 'textarea' ? `<textarea name="${name}" rows="${o.rows || 2}" placeholder="${esc(o.ph || '')}" ${o.attrs || ''}>${esc(value)}</textarea>`
@@ -1890,6 +1956,7 @@ function renderLogin(d, note, isError) {
       <button class="ad-btn primary wide" type="submit">Masuk</button>
       <button class="ad-link" type="button" data-forgot>Lupa password?</button>
     </form>`);
+  d.classList.add('ad-lv'); // the login card carries its own logo + title; the header keeps just the close button
   const f = $('.ad-login', d), msg = $('.ad-msg', f);
   $('.ad-eye', f).addEventListener('click', e => { const i = f.password; i.type = i.type === 'password' ? 'text' : 'password'; e.currentTarget.classList.toggle('on', i.type === 'text'); });
   $('[data-forgot]', f).addEventListener('click', async () => {
@@ -1916,7 +1983,8 @@ function renderLogin(d, note, isError) {
       renderLogin(d, m, true); $('.ad-login input[type=email]', d).value = f.email.value;
     }
   });
-  f.email.focus();
+  // on touch screens an auto-focus pops the keyboard and shoves the sheet out of view — let them tap
+  if (!matchMedia('(pointer:coarse)').matches) f.email.focus({ preventScroll: true });
 }
 function renderNewPassword(d) {
   $('.ad-sub', d).textContent = 'Atur password baru';
@@ -2085,7 +2153,9 @@ function renderAccount(d, c, session) {
   $('.ad-out', d).addEventListener('click', async () => { await c.auth.signOut(); adminTab = 'contact'; adminOk = null; renderLogin(d, 'Anda sudah keluar.'); });
 }
 async function openAdmin() {
-  const d = adminShell(); d.hidden = false;
+  const d = adminShell();
+  if (d.hidden) adPrevFocus = document.activeElement;
+  d.hidden = false; lockPage(true);
   if (playingNow) toggle();
   if (!SB_ON) return renderLogin(d);
   setBody(d, '<div class="ad-empty"><span class="ad-spin"></span><p>Memuat…</p></div>');
@@ -2141,6 +2211,9 @@ addEventListener('keydown', e => { const li = e.target.closest && e.target.close
 addEventListener('keydown', e => { if (e.key === 'Escape' && closeLightbox()) { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
 
 enterScroll(0, true);
+// decode every picture up front so none is decoded mid-animation (that cost a dropped frame)
+const predecode = () => $$('#film img').forEach(i => { try { i.decode && i.decode().catch(() => {}); } catch (e) {} });
+(window.requestIdleCallback || setTimeout)(predecode);
 window.__reel = { time: () => tl && tl.time(), seek: t => { if (tl) { playingNow = false; tl.pause(); tl.time(t); runHooks(); } }, theme: t => setTheme(t, false) };
 document.addEventListener('fullscreenchange', () => { fit(); });
 })();
