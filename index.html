@@ -269,6 +269,7 @@ body:not(.playing) .cf{opacity:1}
 #r1{top:200px}#r2{top:332px}
 .chat8 .bub.gray{right:auto;left:60px;top:530px;margin:0}
 .inbar8{top:714px;height:120px;border-radius:60px;padding:0 16px 0 50px}
+.inbar8{font-size:40px}
 .inbar8 .send{width:84px;height:84px}.inbar8 .send svg{width:40px}
 .prof{position:absolute;left:165px;top:105px;width:1270px;height:690px;border-radius:64px;background:var(--surface);border:2px solid var(--border);padding:64px 76px;overflow:hidden;box-shadow:0 1px 2px rgba(20,20,40,.06),0 14px 30px -10px var(--shadow),0 40px 70px -30px var(--shadow)}
 .ptop{display:flex;gap:48px;align-items:center}
@@ -621,7 +622,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
           <div class="bub" id="b3">Can handle?</div>
           <div class="bub gray" id="b4">Yeah :(</div>
         </div>
-        <div class="inbar"><div class="intext type tw" id="i2">Growing faster than you–</div><div class="intext type tw" id="i3">Can handle?</div><span class="send"><svg viewBox="0 0 24 24"><use href="#up"/></svg></span></div>
+        <div class="inbar"><div class="intext type tw" id="i1">Got a project that's–</div><div class="intext type tw" id="i2">Growing faster than you–</div><div class="intext type tw" id="i3">Can handle?</div><span class="send"><svg viewBox="0 0 24 24"><use href="#up"/></svg></span></div>
       </div>
     </div>
     <div class="layer" id="s2b">
@@ -775,7 +776,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
         <div class="bub" id="r1">Ready to bring your</div>
         <div class="bub" id="r2">next project to life?</div>
         <div class="bub gray" id="r3">Yeah!</div>
-        <div class="inbar inbar8" id="in8"><span class="send"><svg viewBox="0 0 24 24"><use href="#up"/></svg></span></div>
+        <div class="inbar inbar8" id="in8"><div class="intext type tw" id="j1">Ready to bring your</div><div class="intext type tw" id="j2">next project to life?</div><span class="send"><svg viewBox="0 0 24 24"><use href="#up"/></svg></span></div>
       </div>
     </div>
     <div class="layer hero" id="s8b">
@@ -1240,8 +1241,8 @@ function S2(tl) {
     tl.set(sel, { display: 'block' }, t);
     tl.fromTo(sel, { scale: .08, opacity: 0, transformOrigin: origin }, { scale: 1, opacity: 1, duration: .26, ease: E.out, immediateRender: false }, t);
   };
-  pop('#b1', 11.0);
-  [['#i2', '#b2', 11.35, 12.0], ['#i3', '#b3', 12.55, 13.1]].forEach(([i, b, t, send]) => {
+  // every message is typed in the input bar first, then sent as a bubble
+  [['#i1', '#b1', 10.84, 11.3], ['#i2', '#b2', 11.4, 12.0], ['#i3', '#b3', 12.55, 13.1]].forEach(([i, b, t, send]) => {
     typeChars(tl, $(i), t, send - t - .1);
     tl.set($(i), { display: 'none' }, send);
     pop(b, send);
@@ -1490,9 +1491,15 @@ function S8(tl, T) {
   if (T.a != null) {
     // A — the closing chat, bigger this time
     const a = $('#s8a'); show(tl, a, T.a, T.b + .3, { in: 0, out: .2 });
-    const slide = (sel, t) => { tl.set(sel, { display: 'block' }, t); tl.fromTo(sel, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: .3, ease: 'power2.out', immediateRender: false }, t); };
-    slide('#r1', T.a); slide('#r2', T.a + .62);
-    tl.fromTo('#in8', { y: 180, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: E.out }, T.a + .88);
+    // the input bar rises, each line is typed and then sent as a bubble (as in the opening chat)
+    tl.fromTo('#in8', { y: 180, opacity: 0 }, { y: 0, opacity: 1, duration: .32, ease: E.out }, T.a);
+    [['#j1', '#r1', T.a + .12, T.a + .8], ['#j2', '#r2', T.a + .9, T.a + 1.7]].forEach(([i, b, t, send]) => {
+      typeChars(tl, $(i), t, send - t - .1);
+      tl.set($(i), { display: 'none' }, send);
+      tl.set(b, { display: 'block' }, send);
+      tl.fromTo(b, { scale: .08, opacity: 0, transformOrigin: '100% 100%' }, { scale: 1, opacity: 1, duration: .26, ease: E.out, immediateRender: false }, send);
+      tl.fromTo('#in8 .send', { scale: .85 }, { scale: 1, duration: .25, ease: E.out, immediateRender: false }, send);
+    });
     tl.set('#r3', { display: 'block' }, T.a + 2.22);
     tl.fromTo('#r3', { scale: .2, opacity: 0, transformOrigin: '0% 100%' }, { scale: 1, opacity: 1, duration: .3, ease: 'power2.out', immediateRender: false }, T.a + 2.22);
     tl.set('#in8', { opacity: 0 }, T.b);
