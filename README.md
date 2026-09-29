@@ -264,6 +264,15 @@ Semua perubahan langsung terlihat oleh pengunjung. Kontak dan profil disimpan di
 Halaman membaca tabel itu saat dibuka. Kalau sebuah slot kosong atau Supabase belum dikonfigurasi, gambar bawaan
 yang dipakai. Siapa pun bisa **membaca**, tapi hanya email di `reel_admins` yang bisa **mengubah**. Situs tidak punya form pendaftaran, dan akun yang login tapi bukan admin langsung dikeluarkan.
 
+**Audio per versi:** ada dua slot audio, karena tiap versi punya durasi dan musik sendiri.
+
+| Slot | Dipakai saat | Durasi |
+|---|---|---|
+| `AUDIO` | Play dengan mode **Full** | 71 detik |
+| `AUDIO_CUT` | Play dengan mode **Cut** | 30 detik |
+
+Kalau slot versi yang diputar masih kosong, versi itu berjalan tanpa suara mengikuti jam animasi.
+
 **Setup (sekali saja):**
 
 1. Buat project di [supabase.com](https://supabase.com).
