@@ -293,19 +293,25 @@ body:not(.playing) .cf{opacity:1}
 #r1{top:412px}#r2{top:486px}
 .chat8 .bub.gray{right:auto;left:0;top:570px;margin:0}
 .prof{position:absolute;left:165px;top:105px;width:1270px;height:690px;border-radius:64px;background:var(--surface);border:2px solid var(--border);padding:64px 76px;overflow:hidden;box-shadow:0 1px 2px rgba(20,20,40,.06),0 14px 30px -10px var(--shadow),0 40px 70px -30px var(--shadow)}
-.ptop{display:flex;gap:48px;align-items:center}
-.pav{width:230px;height:230px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.6),0 10px 30px -8px rgba(20,20,60,.25);flex:none}
+.ptop{display:flex;gap:40px;align-items:center}
+.pav{width:200px;height:200px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.6),0 10px 30px -8px rgba(20,20,60,.25);flex:none}
 .pav svg{width:100%;height:100%;display:block}
-.pname{font-size:62px;font-weight:700;letter-spacing:-.01em}
-.pstats{display:flex;gap:72px;margin-top:14px;font-size:48px;line-height:1}
-.pstats small{display:block;font-size:40px;margin-top:4px}
+.pname{font-size:56px;font-weight:700;letter-spacing:-.01em}
+.pstats{display:flex;gap:44px;margin-top:12px;font-size:44px;line-height:1}
+.pstats small{display:block;font-size:30px;margin-top:6px;color:var(--muted)}
 .pbio{margin-top:36px}
-.pbio .r{font-size:38px;color:var(--muted)}
-.pbio .b{font-size:44px}
+.pbio .r{font-size:32px;color:var(--muted)}
+.pbio .b{font-size:40px;max-width:640px}
 .pbtns{display:flex;gap:24px;margin-top:34px}
-.pbtns a{padding:18px 52px;border-radius:18px;background:var(--surface-2);font-size:38px;color:inherit;text-decoration:none}
+.pbtns a{padding:16px 38px;border-radius:18px;background:var(--surface-2);font-size:32px;color:inherit;text-decoration:none}
 .pbtns a.f{background:var(--blue);color:#fff}
 .pname a{color:inherit;text-decoration:none}
+#prof{display:flex;flex-direction:column;justify-content:center}
+#prof>.ptop,#prof>.pbio,#prof>.pbtns{max-width:760px}
+/* right column: the latest posts, like the grid under an Instagram profile */
+.pgrid{position:absolute;right:64px;top:64px;bottom:64px;width:372px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:12px}
+.pgrid i{border-radius:18px;overflow:hidden;background:var(--surface-2);cursor:zoom-in}
+.pgrid img{width:100%;height:100%;object-fit:cover;display:block}
 .endlogo svg.lg{width:64px;display:block;overflow:visible}
 /* end card sits on the grid: stage centre is the centre of a 64px cell, so the mark fills that cell and the
    link icon fills the cell two columns to the left, with the text starting just past the next grid line */
@@ -392,9 +398,9 @@ body.scrollmode.sc-active #bar{opacity:0;pointer-events:none;transform:translate
 .portrait #s6d{scale:.8}
 .portrait #s8a .chat8{scale:1.25}
 .portrait #s8b{scale:.8}
+.portrait #s7a{scale:.68}
 .portrait #s2a .chat{scale:1.25}
 .portrait .say.sm{font-size:46px}
-.portrait #s7a{translate:-160px 0}
 /* interactive film: anything with data-act can be clicked, in the scroll view and while playing */
 #film [data-act],#film a[data-act]{cursor:pointer;pointer-events:auto}
 .playing.ui-idle #film [data-act]{cursor:pointer!important}
@@ -829,6 +835,7 @@ body:not(.scrollmode) #stag,body:not(.scrollmode) #sgo,body:not(.scrollmode) #sp
           <div class="pi"><div class="pname"><a data-act="link" data-link="ig" data-text="name" href="#">ILUZTAR</a></div>
             <div class="pstats"><div><span class="ig-num" data-k="posts" data-v="56">56</span><small>posts</small></div><div><span class="ig-num" data-k="followers" data-v="1397">1397</span><small>followers</small></div><div><span class="ig-num" data-k="following" data-v="1032">1032</span><small>following</small></div></div></div></div>
         <div class="pbio"><div class="r" data-text="role">Artist</div><div class="b" data-text="bio">Let's shine together through art</div></div>
+        <div class="pgrid" aria-label="Recent posts"><i data-act="zoom"><img data-slot="ART0" alt=""></i><i data-act="zoom"><img data-slot="ART1" alt=""></i><i data-act="zoom"><img data-slot="ART2" alt=""></i><i data-act="zoom"><img data-slot="ART3" alt=""></i><i data-act="zoom"><img data-slot="ART4" alt=""></i><i data-act="zoom"><img data-slot="ART5" alt=""></i></div>
         <div class="pbtns"><a class="f" data-act="link" data-link="ig" href="#">Follow</a><a data-act="link" data-link="dm" href="#">Message</a><a data-act="link" data-link="contact" data-text="contactLabel" href="#">Contact</a></div>
       </div>
     </div>
@@ -953,7 +960,7 @@ $$('.tw').forEach(el => {
 // images that appear more than once are embedded once and copied here
 $$('#s1b .art[data-img] img').forEach(img => { img.src = $$('#s1b .art:not([data-img]) img')[+img.parentNode.dataset.img].src; });
 $$('#s2c .sheet img').forEach((img, i, all) => { if (i) img.src = all[0].src; });
-$$('#wpill img[data-slot]').forEach(img => { img.src = $('#s1b .art:not(.far) img[data-slot="' + img.dataset.slot + '"]').src; });
+$$('#wpill img[data-slot], #prof img[data-slot]').forEach(img => { img.src = $('#s1b .art:not(.far) img[data-slot="' + img.dataset.slot + '"]').src; });
 // "You keep the": letters that get typed in place (visibility, so the line's layout never shifts)
 $$('#s6line > .w').slice(0, 3).forEach(w => { w.innerHTML = [...w.textContent].map(c => `<span class="tc">${c}</span>`).join(''); });
 // calendar: a stack of pages (2026 → 2025 → 2024 → "Since 2023!"); every page but the last is split into
@@ -1051,7 +1058,6 @@ function enterScroll(at = 0, intro = false) {
   bodyC.add('playing', 'scrollmode'); bodyC.remove('cut', 'scrolled', 'sc-active');
   fit();
   tl = build(); mode = m;
-  gsap.ticker.add(runHooks);
   $('#ctrl').hidden = true;
   const dur = tl.duration();
   sspace.style.height = (innerHeight + (dur - T0) * PX_PER_SEC) + 'px';
@@ -1516,6 +1522,7 @@ function S7(tl) {
   typeChars(tl, say, 49.45, 2.25, { icon: (it, t) => tl.fromTo(it, { rotationY: 90, opacity: 0 }, { rotationY: 0, opacity: 1, duration: .32, ease: E.out, immediateRender: false }, t) });
   // B — the line shrinks aside and a wavy arrow draws out of its last word; the camera follows it,
   //     the wave straightens, and "Your Ownership" arrives at its tip
+  const OWN_W = -1964; // camera x that puts the arrow tip 40px before the centred "Your Ownership"
   const STRAIGHT = 'M620,450 C900,450 1100,450 1250,450 C1450,450 1550,450 1680,450 C1790,450 1840,450 1900,450 C1950,450 1980,450 2020,450';
   const A = { d: 0 };
   tl.to(w, { scale: .58, x: -350, duration: .4, ease: E.inOut }, 52.0);
@@ -1524,9 +1531,10 @@ function S7(tl) {
   tl.to(w, { scale: 1.3, x: -1080, duration: .7, ease: E.inOut }, 53.6);
   tl.to(wave, { attr: { d: STRAIGHT }, duration: .7, ease: E.inOut }, 54.3);
   tl.to(w, { x: -1300, duration: .7, ease: bE(54.3, .7) }, 54.3);
-  tl.to(w, { x: -1700, duration: .6, ease: E.inOut }, 55.0);
-  tl.to(w, { x: -1800, duration: 2.5, ease: bE(55.6, 2.5) }, 55.6);
-  tl.to(w, { x: -2500, duration: .45, ease: E.in }, 58.1);
+  // the camera follows the arrow to its final spot first; "Your Ownership" then slides in, stops centred on
+  // screen just past the tip, and the two drift together — the arrow never pulls back
+  tl.to(w, { x: OWN_W, duration: .65, ease: E.inOut }, 54.95);
+  tl.to(w, { x: OWN_W - 14, duration: 2.0, ease: bE(56.1, 2.0) }, 56.1);
   hooks.push(() => {
     const L = wave.getTotalLength(), e = L * A.d;
     wave.style.visibility = e > 1.5 ? 'visible' : 'hidden';
@@ -1535,9 +1543,9 @@ function S7(tl) {
     const p = wave.getPointAtLength(e), q = wave.getPointAtLength(Math.max(e - 12, 0));
     head.setAttribute('transform', `translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) rotate(${(Math.atan2(p.y - q.y, p.x - q.x) * 180 / Math.PI).toFixed(2)})`);
   });
-  tl.fromTo(own, { x: 1200, opacity: 1 }, { x: 330, duration: .5, ease: E.out }, 55.6);
+  tl.fromTo(own, { x: 1200, opacity: 1 }, { x: 0, duration: .5, ease: E.out }, 55.6);
   tl.fromTo($('.ow2', own), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .35, ease: E.out, immediateRender: false }, 55.95);
-  tl.to(own, { x: 300, duration: 2.0, ease: bE(56.1, 2.0) }, 56.1);
+  tl.to(own, { x: -14, duration: 2.0, ease: bE(56.1, 2.0) }, 56.1);
   tl.to(own, { opacity: 0, duration: .2 }, 58.15);
   tl.to([wave, head], { opacity: 0, duration: .2 }, 58.15);
 }
@@ -1566,6 +1574,7 @@ function S8(tl, T) {
   tl.fromTo(prof, { left: 460, width: 680, top: 650, height: 72, borderRadius: 36, opacity: T.a != null ? 1 : 0 }, { left: 165, width: 1270, top: 105, height: 690, borderRadius: 64, opacity: 1, duration: .3, ease: E.out }, T.b);
   tl.fromTo('#prof .pav', { opacity: 0, scale: .85 }, { opacity: 1, scale: 1, duration: .25, ease: E.out }, T.b + .2);
   tl.fromTo($$('#prof .pname, #prof .pstats > div, #prof .pbio'), { opacity: 0 }, { opacity: 1, duration: .15, stagger: .1 }, T.b + .3);
+  tl.fromTo($$('#prof .pgrid i'), { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .25, stagger: .05, ease: E.out }, T.b + .45);
   tl.fromTo($$('#prof .pbtns span'), { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: .22, stagger: .1, ease: E.out }, T.b + 1.1);
   tl.to(prof, { scale: .6, duration: .4, ease: 'power2.inOut' }, T.b + 1.35);
   tl.to(prof, { scale: .52, duration: Math.max(.4, T.c - T.b - 1.75), ease: bE(T.b + 1.75, Math.max(.4, T.c - T.b - 1.75)) }, T.b + 1.75);
@@ -1610,6 +1619,7 @@ function build() {
 /* ---------- player ---------- */
 const bodyC = document.body.classList;
 function tick() {
+  runHooks(); // hooks run after every render of the timeline, so derived shapes (arrow head) never lag a frame
   const d = tl.duration(), c = tl.time();
   $('#prog i').style.width = (c / d * 100) + '%';
   const m = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
@@ -1624,7 +1634,6 @@ function start(at = 0) {
   bodyC.add('playing'); bodyC.toggle('cut', mode === 'cut');
   fit();
   tl = build();
-  gsap.ticker.add(runHooks);
   $('#ctrl').hidden = false; uiHidden = false; wake();
   try { if (!document.fullscreenElement && root.requestFullscreen) root.requestFullscreen().catch(() => {}); } catch (e) {}
   playingNow = true; setPlayIcon(true);
