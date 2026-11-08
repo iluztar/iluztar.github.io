@@ -79,7 +79,7 @@ Reel ini adalah halaman web berisi animasi berdurasi ±71 detik. Semua gerakanny
 | [`skripsi/skrip-pengujian/`](skripsi/skrip-pengujian) | Skrip Playwright untuk uji fungsional, performa, perbandingan situs, dan pengambilan *frame* video | Bab III, subbab 3.3.6 |
 | [`MOTION_PLAN.md`](MOTION_PLAN.md) | Tinjauan visual dan rencana perbaikan iterasi pertama | Tabel 4.8, iterasi 1 |
 
-Musik latar dan efek suara **tidak** disertakan: sebagian berasal dari pustaka pihak ketiga (Pixabay, MusicGPT, pustaka Alight Motion) yang lisensinya tidak mengizinkan penyebaran ulang sebagai berkas lepas. Video ekspor 1080p (±130 MB) juga tidak disertakan karena melebihi batas 100 MB per berkas di GitHub.
+Musik latar dan efek suara **tidak** disertakan: sebagian berasal dari pustaka pihak ketiga (Pixabay, MusicGPT, pustaka Alight Motion) yang lisensinya tidak mengizinkan penyebaran ulang sebagai berkas lepas. Ekspor asli video *explainer* dari Alight Motion (2560×1440, 71,4 detik, ±68 MB) juga tidak disertakan agar repositori tetap ringan; salinan 540p di `aset/video/` sudah cukup untuk melihat dan membandingkan gerakannya.
 
 ## Mengapa Animasi Kode, Bukan Video Tertanam
 
