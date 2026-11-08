@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halaman dipindah · ILUZTAR</title>
+<meta name="robots" content="noindex">
+<script>
+/* Motion Reel dulu ada di akar situs ini. Sejak 8 Nov 2026 pindah ke /motion/.
+   Alamat lama (/skripsi/…, /aset/…, /?intro=1, MOTION_PLAN.md) diteruskan ke tempat barunya. */
+(function () {
+  var p = location.pathname, lama = /^\/(skripsi|aset)(\/|$)|^\/MOTION_PLAN\.md$/;
+  if (lama.test(p)) location.replace('/motion' + p + location.search + location.hash);
+})();
+</script>
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f5f7;color:#101114;font:16px/1.5 system-ui,sans-serif;padding:20px}
+@media (prefers-color-scheme:dark){body{background:#101114;color:#f2f3f5}}
+a{color:#0042f8;font-weight:600}
+</style>
+</head>
+<body>
+<p>Halaman tidak ditemukan. <a href="/">Lihat semua proyek ILUZTAR</a></p>
+</body>
+</html>
