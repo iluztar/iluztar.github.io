@@ -1,0 +1,118 @@
+{
+  "desktop": {
+    "rata_rata": {
+      "fcp_ms": 973,
+      "lcp_ms": 973,
+      "cls": 0.003,
+      "tbt_ms": 366,
+      "dcl_ms": 1365,
+      "load_ms": 1368,
+      "transfer_kb": 527
+    },
+    "per_percobaan": [
+      {
+        "fcp_ms": 1256,
+        "lcp_ms": 1256,
+        "cls": 0.003,
+        "tbt_ms": 448,
+        "dcl_ms": 1380,
+        "load_ms": 1383,
+        "transfer_kb": 528
+      },
+      {
+        "fcp_ms": 920,
+        "lcp_ms": 920,
+        "cls": 0.003,
+        "tbt_ms": 368,
+        "dcl_ms": 1445,
+        "load_ms": 1447,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 1060,
+        "lcp_ms": 1060,
+        "cls": 0.003,
+        "tbt_ms": 443,
+        "dcl_ms": 1585,
+        "load_ms": 1588,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 804,
+        "lcp_ms": 804,
+        "cls": 0.003,
+        "tbt_ms": 332,
+        "dcl_ms": 1229,
+        "load_ms": 1231,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 824,
+        "lcp_ms": 824,
+        "cls": 0.003,
+        "tbt_ms": 240,
+        "dcl_ms": 1186,
+        "load_ms": 1192,
+        "transfer_kb": 527
+      }
+    ]
+  },
+  "hp": {
+    "rata_rata": {
+      "fcp_ms": 1614,
+      "lcp_ms": 1614,
+      "cls": 0.002,
+      "tbt_ms": 913,
+      "dcl_ms": 2655,
+      "load_ms": 2659,
+      "transfer_kb": 527
+    },
+    "per_percobaan": [
+      {
+        "fcp_ms": 1484,
+        "lcp_ms": 1484,
+        "cls": 0.001,
+        "tbt_ms": 893,
+        "dcl_ms": 2461,
+        "load_ms": 2463,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 1572,
+        "lcp_ms": 1572,
+        "cls": 0.004,
+        "tbt_ms": 1067,
+        "dcl_ms": 2830,
+        "load_ms": 2832,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 1676,
+        "lcp_ms": 1676,
+        "cls": 0.001,
+        "tbt_ms": 828,
+        "dcl_ms": 2701,
+        "load_ms": 2707,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 1380,
+        "lcp_ms": 1380,
+        "cls": 0.001,
+        "tbt_ms": 518,
+        "dcl_ms": 1909,
+        "load_ms": 1913,
+        "transfer_kb": 527
+      },
+      {
+        "fcp_ms": 1960,
+        "lcp_ms": 1960,
+        "cls": 0.001,
+        "tbt_ms": 1258,
+        "dcl_ms": 3372,
+        "load_ms": 3381,
+        "transfer_kb": 527
+      }
+    ]
+  }
+}

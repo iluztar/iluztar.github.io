@@ -1,0 +1,52 @@
+{
+  "lama": {
+    "url": "http://localhost/iluztar/hostinger/",
+    "seo": {
+      "title": "ILUZTAR - Creative Studio",
+      "meta_description": "63 karakter",
+      "canonical": false,
+      "hreflang": 3,
+      "open_graph": 3,
+      "twitter_card": true,
+      "json_ld": "Organization",
+      "h1": 1,
+      "lang": "en",
+      "kata_tanpa_js": 462,
+      "img_tanpa_alt": 0,
+      "x_robots_tag": "-"
+    },
+    "performa": {
+      "lcp_ms": 996,
+      "load_ms": 393,
+      "transfer_kb": 377,
+      "elemen_video": 0,
+      "iframe_video": 0,
+      "respons_video": 0
+    }
+  },
+  "baru": {
+    "url": "http://localhost/iluztar/hostinger/dev/iluztar-personal/public_html/",
+    "seo": {
+      "title": "ILUZTAR - Creative Studio",
+      "meta_description": "103 karakter",
+      "canonical": true,
+      "hreflang": 3,
+      "open_graph": 8,
+      "twitter_card": true,
+      "json_ld": "ProfilePage",
+      "h1": 1,
+      "lang": "en",
+      "kata_tanpa_js": 1096,
+      "img_tanpa_alt": 1,
+      "x_robots_tag": "noindex, nofollow"
+    },
+    "performa": {
+      "lcp_ms": 944,
+      "load_ms": 1055,
+      "transfer_kb": 1857,
+      "elemen_video": 0,
+      "iframe_video": 0,
+      "respons_video": 0
+    }
+  }
+}

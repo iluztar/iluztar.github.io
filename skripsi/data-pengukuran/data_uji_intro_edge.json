@@ -1,0 +1,21 @@
+{
+  "alur_penuh": {
+    "reel_siap_detik": 3.2,
+    "tertutup_otomatis_detik": 34.8,
+    "sessionStorage": "1",
+    "halaman_bisa_digulir": true,
+    "kunjungan_ulang_tanpa_intro": true,
+    "galat": []
+  },
+  "lewati": {
+    "fokus_awal": "ilz-intro__lewati",
+    "tertutup_ms": 819,
+    "galat": []
+  },
+  "esc": "tertutup",
+  "reduced_motion_tanpa_intro": true,
+  "intro_0_tanpa_intro": true,
+  "hp": {
+    "galat": []
+  }
+}
