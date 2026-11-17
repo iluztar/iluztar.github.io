@@ -1,0 +1,41 @@
+
+@media (hover: hover) and (pointer: fine) {
+  body.ilz-cursor-active,
+  body.ilz-cursor-active * {
+    cursor: none !important;
+  }
+
+  #ilz-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    transform: translate(-1000px, -1000px);
+    opacity: 1;
+    transition: opacity .2s ease;
+  }
+
+  #ilz-cursor.ilz-cursor-hidden { opacity: 0; }
+  #ilz-cursor svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transition: opacity .25s ease, transform .25s cubic-bezier(.16,1,.3,1);
+  }
+
+  #ilz-cursor .shapeA,
+  #ilz-cursor .shapeB {
+    transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .3s ease, fill .18s ease;
+    fill: var(--cursor-fill, #0042f8);
+  }
+
+  #ilz-cursor .shapeA { transform: translate(0, 0); opacity: 1; }
+  #ilz-cursor .shapeB { transform: translate(0, 0); opacity: 0; }
+
+  #ilz-cursor.is-dragging .shapeA { transform: translate(-95px, -92px); opacity: 1; }
+  #ilz-cursor.is-dragging .shapeB { transform: translate(95px, 92px);  opacity: 1; }
+}

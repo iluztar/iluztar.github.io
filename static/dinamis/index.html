@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0042f8] text-base antialiased text-neutral-100">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ILUZTAR - Creative Studio</title>
+<meta name="description" content="Anime Illustration, Graphic Branding, Photo Manipulation Studio">
+<meta property="og:title" content="ILUZTAR - Creative Studio">
+<meta property="og:description" content="Anime Illustration, Graphic Branding, Photo Manipulation Studio">
+<meta property="og:image" content="./logo/iluztar-logo-horizontal-bg-fff.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="./logo/favicon.svg">
+<link rel="icon" href="./logo/favicon.ico">
+<link rel="apple-touch-icon" href="./logo/apple-touch-icon.png">
+<link rel="stylesheet" href="./css/tailwind.css">
+<link rel="stylesheet" href="./css/custom.css">
+<link rel="preload" href="./cursor/cursor.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="./cursor/cursor.css"></noscript>
+<script src="./cursor/cursor.js" defer></script>
+<script>window.ILUZTAR_API_BASE = "https:\/\/iluztar.com\/api\/";</script>
+<script>window.ILUZTAR_WA_B64 = "ODYyOTY2NjgxNTgyNg==";</script>
+</head>
+<body class="flex min-h-full flex-col">
+<div id="loader" role="status" aria-live="polite" aria-label="Loading">
+  <svg viewBox="713.96 713.96 2572.08 2572.08" class="loader-logo" fill="none" aria-hidden="true"><path d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12" fill="#0a0a0a"></path></svg>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+  <div class="loader-percent" id="loaderPercent">0%</div>
+  <div class="loader-dots"><span></span><span></span><span></span></div>
+</div>
+<script>
+(function () {
+  var loader = document.getElementById('loader');
+  if (!loader) return;
+  var skip = false;
+  try {
+    if (sessionStorage.getItem('iluztar-loaded')) skip = true;
+    else sessionStorage.setItem('iluztar-loaded', '1');
+  } catch (e) {}
+  if (skip) { loader.style.display = 'none'; return; }
+
+  var bar = document.getElementById('loaderBar');
+  var pct = document.getElementById('loaderPercent');
+  var signals = [
+    (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve(),
+    new Promise(function (resolve) {
+      if (document.readyState === 'complete') resolve();
+      else window.addEventListener('load', resolve, { once: true });
+    })
+  ];
+  var total = signals.length, done = 0, target = 0, shown = 0;
+  function setDisplay(v) {
+    shown = v;
+    if (bar) bar.style.width = shown + '%';
+    if (pct) pct.textContent = Math.round(shown) + '%';
+  }
+  signals.forEach(function (sig) {
+    sig.then(function () { done++; target = (done / total) * 100; });
+  });
+  function tick() {
+    if (shown < target) {
+      setDisplay(Math.min(target, shown + Math.max(0.6, (target - shown) * 0.12)));
+    }
+    if (done >= total && shown >= 100) {
+      setTimeout(function () {
+        loader.classList.add('is-hidden');
+        setTimeout(function () { loader.style.display = 'none'; }, 700);
+      }, 200);
+      return;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+<div id="announcement-bar" class="relative z-[70] bg-[#0042f8] text-white">
+      <div id="announcement-content" class="flex items-center justify-center gap-x-2 px-10 py-2 text-center text-sm font-bold">
+        <span id="announcement-clock" class="hidden font-mono tabular-nums sm:inline-block"></span>
+        <span id="announcement-message" class="inline-flex items-center"><span class="mx-2.5 hidden h-3.5 w-px flex-none bg-white/50 sm:inline-block" aria-hidden="true"></span><a href="#" data-arsip="halaman lain tidak diarsipkan" class="no-underline hover:opacity-80">Commission slots are open!</a></span>
+      </div>
+      <button type="button" id="announcement-toggle" aria-label="Hide or show the announcement bar" aria-expanded="true" class="flex w-full items-center justify-center py-1 transition hover:bg-white/10">
+        <svg id="announcement-chevron" viewBox="0 0 20 20" class="h-4 w-4 fill-current transition-transform duration-200"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+      </button>
+    </div>
+    <script>
+    (function () {
+      var clockEl = document.getElementById("announcement-clock");
+      function updateClock() {
+        var d = new Date();
+        var dateFmt = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Jakarta", day: "numeric", month: "short" });
+        var timeFmt = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Jakarta", hour: "numeric", minute: "2-digit", hour12: true });
+        clockEl.textContent = dateFmt.format(d) + " · " + timeFmt.format(d);
+      }
+      updateClock();
+      setInterval(updateClock, 30000);
+
+      var bar = document.getElementById("announcement-bar");
+      var content = document.getElementById("announcement-content");
+      var toggle = document.getElementById("announcement-toggle");
+      var chevron = document.getElementById("announcement-chevron");
+      var COLLAPSE_KEY = "iluztar-announcement-collapsed";
+
+      function setCollapsed(collapsed) {
+        content.classList.toggle("hidden", collapsed);
+        // Expanded -> chevron points up ("click to tuck this away"); collapsed
+        // -> points down in its natural orientation ("click to bring it down").
+        chevron.style.transform = collapsed ? "" : "rotate(180deg)";
+        toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        try { localStorage.setItem(COLLAPSE_KEY, collapsed ? "1" : "0"); } catch (e) {}
+      }
+      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
+      toggle.addEventListener("click", function () {
+        setCollapsed(!content.classList.contains("hidden"));
+      });
+    })();
+    </script><header class="relative">
+    <div id="nav-closed-header" class="absolute left-0 right-0 top-2 z-40 pt-14">
+      
+    <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="max-w-2xl mx-auto lg:max-w-none">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="./" aria-label="Home"><h2 class="cursor-pointer flex items-center gap-x-2 whitespace-nowrap font-display text-lg font-semibold duration-300 sm:gap-x-3.5 sm:text-2xl text-black hover:text-[#0042f8] ">
+      <svg viewBox="713.96 713.96 2572.08 2572.08" class="h-5 w-5 flex-none sm:h-6 sm:w-6 fill-[#0042f8]" aria-hidden="true"><path d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"></path></svg>
+      <span class="relative">iluztar Studio<sup class="ml-0.5 align-super font-mono text-[0.35em] font-normal leading-none tracking-normal">TM</sup></span>
+    </h2></a>
+        </div>
+        <div class="flex items-center gap-x-3 sm:gap-x-8">
+          <div class="hidden items-center gap-x-8 sm:flex">
+            <button type="button" class="search-open-btn group -m-2.5 rounded-full p-2.5 transition hover:bg-neutral-950/10" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+      <svg viewBox="0 0 20 20" class="h-6 w-6 fill-neutral-950"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>
+    </button>
+            <div class="lang-switcher relative flex items-center">
+      <button type="button" class="lang-toggle-btn flex items-center gap-x-1.5 rounded-full py-2 pl-2 pr-3 text-sm font-semibold transition hover:bg-neutral-950/10 text-neutral-950" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 flex-none fill-none stroke-neutral-950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m5 8 6 6"></path>
+          <path d="m4 14 6-6 2-3"></path>
+          <path d="M2 5h12"></path>
+          <path d="M7 2h1"></path>
+          <path d="m22 22-5-10-5 10"></path>
+          <path d="M14 18h6"></path>
+        </svg>
+        <span>English</span>
+        <svg viewBox="0 0 24 24" class="h-4 w-4 flex-none fill-none stroke-neutral-950 opacity-50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="lang-dropdown absolute right-0 top-full z-20 mt-2 w-full min-w-max rounded-2xl border p-1.5 border-neutral-950/10 bg-white shadow-lg" role="menu">
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-neutral-950 hover:bg-neutral-100">English</a>
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-neutral-400 hover:text-neutral-950 hover:bg-neutral-100">Indonesia</a>
+      </div>
+    </div>
+          </div>
+          <button type="button" class="contact-open-btn inline-flex whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition sm:px-4 sm:text-sm bg-[#0042f8] text-white hover:bg-[#0035c6]" aria-haspopup="dialog"><span>Contact us</span></button>
+          <button type="button" id="nav-open-btn" aria-expanded="false" aria-controls="nav-panel" aria-label="Toggle navigation" class="group -m-2.5 rounded-full p-2.5 transition hover:bg-neutral-950/10">
+            <svg viewBox="0 0 20 20" class="h-6 w-6 fill-neutral-950 group-hover:fill-neutral-700"><path fill-rule="evenodd" d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div></div>    </div>
+    <div id="nav-panel" class="nav-panel relative z-50 overflow-hidden bg-[#0042f8] pt-2" aria-hidden="true" inert>
+      <div class="bg-neutral-800">
+        <div class="bg-neutral-950 pb-16 pt-14">
+          
+    <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="max-w-2xl mx-auto lg:max-w-none">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="./" aria-label="Home"><h2 class="cursor-pointer flex items-center gap-x-2 whitespace-nowrap font-display text-lg font-semibold duration-300 sm:gap-x-3.5 sm:text-2xl text-white hover:text-blue-200 ">
+      <svg viewBox="713.96 713.96 2572.08 2572.08" class="h-5 w-5 flex-none sm:h-6 sm:w-6 fill-white" aria-hidden="true"><path d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"></path></svg>
+      <span class="relative">iluztar Studio<sup class="ml-0.5 align-super font-mono text-[0.35em] font-normal leading-none tracking-normal">TM</sup></span>
+    </h2></a>
+        </div>
+        <div class="flex items-center gap-x-3 sm:gap-x-8">
+          <div class="hidden items-center gap-x-8 sm:flex">
+            <button type="button" class="search-open-btn group -m-2.5 rounded-full p-2.5 transition hover:bg-white/10" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+      <svg viewBox="0 0 20 20" class="h-6 w-6 fill-white"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>
+    </button>
+            <div class="lang-switcher relative flex items-center">
+      <button type="button" class="lang-toggle-btn flex items-center gap-x-1.5 rounded-full py-2 pl-2 pr-3 text-sm font-semibold transition hover:bg-white/10 text-white" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 flex-none fill-none stroke-white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m5 8 6 6"></path>
+          <path d="m4 14 6-6 2-3"></path>
+          <path d="M2 5h12"></path>
+          <path d="M7 2h1"></path>
+          <path d="m22 22-5-10-5 10"></path>
+          <path d="M14 18h6"></path>
+        </svg>
+        <span>English</span>
+        <svg viewBox="0 0 24 24" class="h-4 w-4 flex-none fill-none stroke-white opacity-50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="lang-dropdown absolute right-0 top-full z-20 mt-2 w-full min-w-max rounded-2xl border p-1.5 border-white/10 bg-[#001f6e] shadow-lg" role="menu">
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-white hover:bg-white/10">English</a>
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-neutral-400 hover:text-white hover:bg-white/10">Indonesia</a>
+      </div>
+    </div>
+          </div>
+          <button type="button" class="contact-open-btn inline-flex whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition sm:px-4 sm:text-sm bg-white text-[#0042f8] hover:bg-neutral-200" aria-haspopup="dialog"><span>Contact us</span></button>
+          <button type="button" id="nav-close-btn" aria-expanded="false" aria-controls="nav-panel" aria-label="Toggle navigation" class="group -m-2.5 rounded-full p-2.5 transition hover:bg-white/10">
+            <svg viewBox="0 0 512 512" class="h-6 w-6 fill-white group-hover:fill-neutral-200"><path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div></div>        </div>
+        <nav class="mt-px border-t border-neutral-800 font-display text-xl font-medium tracking-tight text-white sm:text-5xl">
+                  <div class="sm:bg-neutral-950">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="max-w-2xl mx-auto lg:max-w-none">
+              <div class="grid grid-cols-2">
+                              <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group relative isolate bg-neutral-950 px-3 py-6 odd:pr-3 even:border-l even:border-neutral-800 even:pl-3 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:pl-16">
+                  Gallery                  <span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+                </a>
+                              <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group relative isolate bg-neutral-950 px-3 py-6 odd:pr-3 even:border-l even:border-neutral-800 even:pl-3 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:pl-16">
+                  About Us                  <span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+                </a>
+                            </div>
+            </div></div>
+          </div>
+                  <div class="sm:bg-neutral-950 border-t border-neutral-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="max-w-2xl mx-auto lg:max-w-none">
+              <div class="grid grid-cols-2">
+                              <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group relative isolate bg-neutral-950 px-3 py-6 odd:pr-3 even:border-l even:border-neutral-800 even:pl-3 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:pl-16">
+                  Workflow                  <span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+                </a>
+                              <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group relative isolate bg-neutral-950 px-3 py-6 odd:pr-3 even:border-l even:border-neutral-800 even:pl-3 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:pl-16">
+                  Blog                  <span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+                </a>
+                            </div>
+            </div></div>
+          </div>
+                </nav>
+        <div class="relative bg-neutral-950 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-neutral-800">
+          <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="max-w-2xl mx-auto lg:max-w-none">
+            <div class="grid grid-cols-1 gap-y-10 pb-10 pt-10 sm:grid-cols-2 sm:pb-16 sm:pt-16">
+              <div>
+                <!-- Mobile: "Our offices" and "Preferences" as two aligned
+                     headings side by side (Remote-friendly is dropped here —
+                     Preferences takes its place — and shown normally at sm:+
+                     below, where the icon row already covers language/search). -->
+                                <div class="grid grid-cols-2 gap-8 sm:hidden">
+                  <div>
+                    <h2 class="font-display text-base font-semibold text-white">Our offices</h2>
+                    <address class="mt-6 text-sm not-italic text-neutral-300"><strong class="text-white">Indonesia</strong><br>at Way Halim<br>Bandar Lampung City</address>
+                  </div>
+                  <div>
+                    <h2 class="font-display text-base font-semibold text-white">Preferences</h2>
+                    <div class="mt-6 flex flex-col items-start gap-y-2">
+                      <button type="button" class="search-open-btn flex items-center gap-x-1.5 rounded-full py-2 pl-2 pr-3 text-sm font-semibold transition hover:bg-white/10 text-white" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+          <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-white"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>
+          <span>Search</span>
+        </button>                      <div class="lang-switcher relative flex items-center">
+      <button type="button" class="lang-toggle-btn flex items-center gap-x-1.5 rounded-full py-2 pl-2 pr-3 text-sm font-semibold transition hover:bg-white/10 text-white" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 flex-none fill-none stroke-white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m5 8 6 6"></path>
+          <path d="m4 14 6-6 2-3"></path>
+          <path d="M2 5h12"></path>
+          <path d="M7 2h1"></path>
+          <path d="m22 22-5-10-5 10"></path>
+          <path d="M14 18h6"></path>
+        </svg>
+        <span>English</span>
+        <svg viewBox="0 0 24 24" class="h-4 w-4 flex-none fill-none stroke-white opacity-50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="lang-dropdown absolute right-0 top-full z-20 mt-2 w-full min-w-max rounded-2xl border p-1.5 border-white/10 bg-[#001f6e] shadow-lg" role="menu">
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-white hover:bg-white/10">English</a>
+        <a href="#" role="menuitem" class="block rounded-xl px-3 py-2 text-sm font-semibold transition text-neutral-400 hover:text-white hover:bg-white/10">Indonesia</a>
+      </div>
+    </div>                    </div>
+                  </div>
+                </div>
+                <div class="hidden sm:block">
+                  <h2 class="font-display text-base font-semibold text-white">Our offices</h2>
+                  <ul role="list" class="mt-6 grid grid-cols-2 gap-8">
+        <li><address class="text-sm not-italic text-neutral-300"><strong class="text-white">Indonesia</strong><br>at Way Halim<br>Bandar Lampung City</address></li>
+        <li><address class="text-sm not-italic text-neutral-300"><strong class="text-white">Remote-friendly</strong><br>GMT+7<br><a href="https://instagram.com/iluztar" target="_blank" rel="noopener noreferrer" class="transition hover:text-white">Instagram @iluztar</a></address></li>
+    </ul>                </div>
+              </div>
+              <div class="sm:border-l sm:border-transparent sm:pl-16">
+                <h2 class="font-display text-base font-semibold text-white">Follow us</h2>
+                <ul role="list" class="mt-6 flex gap-x-10 text-white">
+                                  <li><a href="https://instagram.com/iluztar" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="transition hover:text-neutral-200"><svg viewBox="0 0 16 16" class="h-6 w-6 fill-current"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a></li>
+                                  <li><a href="https://www.facebook.com/iluztar" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="transition hover:text-neutral-200"><svg viewBox="0 0 16 16" class="h-6 w-6 fill-current"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951Z"/></svg></a></li>
+                                  <li><a href="https://x.com/iluztar" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="transition hover:text-neutral-200"><svg viewBox="0 0 16 16" class="h-6 w-6 fill-current"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15Z"/></svg></a></li>
+                                  <li><a href="https://youtube.com/@iluztar" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="transition hover:text-neutral-200"><svg viewBox="0 0 16 16" class="h-6 w-6 fill-current"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193Zm-.842 3.65v4.002l3.5-2.001-3.5-2.001Z"/></svg></a></li>
+                                </ul>
+              </div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+</header>
+<div id="search-overlay" class="fixed inset-0 z-[60] hidden items-center justify-center overflow-y-auto bg-neutral-950/70 p-6" aria-hidden="true">
+  <div class="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+    <div class="flex items-center gap-x-4 border-b border-neutral-950/10 px-6 py-5">
+      <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-400"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>
+      <input type="text" id="search-input" autocomplete="off" placeholder="Search posts and work…" class="flex-1 border-0 bg-transparent p-0 text-lg text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-0">
+      <button type="button" id="search-clear-btn" aria-label="Clear search" class="hidden -m-2 flex-none rounded-full p-2 transition hover:bg-neutral-950/10">
+        <svg viewBox="0 0 20 20" class="h-5 w-5 fill-neutral-400"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+      </button>
+      <button type="button" id="search-close-btn" aria-label="Close search (Esc)" class="-m-2 flex-none rounded-full p-2 transition hover:bg-neutral-950/10">
+        <svg viewBox="0 0 20 20" class="h-5 w-5 fill-neutral-950"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      </button>
+    </div>
+    <div id="search-meta" class="px-6 py-4 text-sm text-neutral-500">Type at least 2 characters to search.</div>
+    <ul id="search-results" role="list" class="max-h-[24rem] space-y-1 overflow-y-auto p-2 pb-4"></ul>
+    <div id="search-empty" class="hidden px-6 py-10 text-center text-sm text-neutral-500">No results found.</div>
+  </div>
+</div>
+<div id="contact-overlay" class="fixed inset-0 z-[60] hidden items-center justify-center overflow-y-auto bg-neutral-950/70 p-6" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="w-full max-w-sm overflow-hidden rounded-2xl bg-white shadow-2xl">
+    <div class="flex items-center justify-between border-b border-neutral-950/10 px-6 py-5">
+      <h2 class="font-display text-base font-semibold text-neutral-950">How can we help?</h2>
+      <button type="button" id="contact-close-btn" aria-label="Close (Esc)" class="-m-2 flex-none rounded-full p-2 transition hover:bg-neutral-950/10">
+        <svg viewBox="0 0 20 20" class="h-5 w-5 fill-neutral-950"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      </button>
+    </div>
+
+    <div id="contact-choice-view" class="space-y-2 p-4">
+            <button type="button" id="contact-choose-wa" class="flex w-full items-center gap-x-3 rounded-2xl border border-neutral-950/10 p-3 text-left transition hover:border-neutral-950/20 hover:bg-neutral-50">
+        <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[#0042f8]/10">
+          <svg viewBox="0 0 16 16" class="h-5 w-5 flex-none fill-[#0042f8]" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.588-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"></path></svg>
+        </span>
+        <span>
+          <span class="block text-sm font-semibold text-neutral-950">WhatsApp</span>
+          <span class="block text-xs text-neutral-500">Chat with us directly</span>
+        </span>
+      </button>
+            <a href="#" data-arsip="halaman lain tidak diarsipkan" class="flex w-full items-center gap-x-3 rounded-2xl border border-neutral-950/10 p-3 text-left transition hover:border-neutral-950/20 hover:bg-neutral-50">
+        <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-neutral-950/5">
+          <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-950" aria-hidden="true"><path d="M3 4a2 2 0 00-2 2v.01L10 12l9-5.99V6a2 2 0 00-2-2H3z"></path><path d="M18 8.24 10 13.5.16 8.26 0 8.15V14a2 2 0 002 2h16a2 2 0 002-2V8.15z"></path></svg>
+        </span>
+        <span>
+          <span class="block text-sm font-semibold text-neutral-950">Email</span>
+          <span class="block text-xs text-neutral-500">Fill out the contact form</span>
+        </span>
+      </a>
+    </div>
+
+        <div id="contact-wa-view" class="hidden p-4">
+      <button type="button" id="contact-wa-back" class="-ml-1 mb-3 inline-flex items-center gap-x-1 rounded-full px-2 py-1 text-xs font-semibold text-neutral-500 transition hover:bg-neutral-950/5 hover:text-neutral-950">
+        <svg viewBox="0 0 20 20" class="h-3.5 w-3.5 fill-current"><path fill-rule="evenodd" d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+        Back      </button>
+      <p class="text-sm text-neutral-600">Write your message below — we&#039;ll open WhatsApp with it ready to send.</p>
+      <textarea id="wa-message" rows="3" class="mt-3 w-full rounded-2xl border border-neutral-300 bg-transparent p-3 text-sm text-neutral-950 placeholder:text-neutral-500 focus:border-neutral-950 focus:outline-none focus:ring-4 focus:ring-neutral-950/5">Hi ILUZTAR! I want to ask about </textarea>
+      <!-- honeypot: real visitors never see or fill this; bots that auto-fill every field do -->
+      <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0" aria-hidden="true">
+        <label>Leave this field empty<input type="text" id="wa-honeypot" name="wa_hp" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <p id="wa-throttle-warning" class="mt-2 hidden text-xs font-semibold text-red-600">Please wait a few seconds before sending another message.</p>
+      <a href="#" id="wa-send" target="_blank" rel="noopener" class="mt-3 flex items-center justify-center gap-x-2 rounded-full bg-[#0042f8] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0035c6]">
+        Start Chat      </a>
+    </div>
+      </div>
+</div>
+<div class="relative flex flex-auto overflow-hidden bg-white pt-14 rounded-t-4xl">
+  <div class="relative isolate flex w-full flex-col pt-9">
+    <main class="w-full flex-auto">
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Organization","name":"ILUZTAR - Creative Studio","url":"https:\/\/iluztar.com\/","logo":"https:\/\/iluztar.com\/logo\/android-chrome-512x512.png","email":"iluztar.studio@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Bandar Lampung, Indonesia"},"sameAs":["https:\/\/instagram.com\/iluztar","https:\/\/www.facebook.com\/iluztar","https:\/\/x.com\/iluztar","https:\/\/youtube.com\/@iluztar"]}</script><div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in max-w-3xl">
+  <h1 class="font-display text-4xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-6xl">An Illustration That Shines Like a Star.</h1>
+  <p class="mt-6 text-xl text-neutral-600">Custom anime illustration, branding &amp; photo editing — made to fit your vision.</p>
+</div></div></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32 lg:mt-40"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in showreel-panel aspect-video overflow-hidden rounded-2xl bg-neutral-950 sm:rounded-4xl"><button type="button" class="showreel-facade group relative flex h-full w-full items-center justify-center overflow-hidden bg-neutral-950" data-embed-src="https://www.youtube-nocookie.com/embed/saO7hR_vLSU?autoplay=1" data-embed-title="Studio showreel" aria-label="Play studio showreel">
+      <svg viewBox="713.96 713.96 2572.08 2572.08" class="pointer-events-none absolute inset-0 m-auto fill-white/10" style="width:85%;height:85%" aria-hidden="true"><path d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"></path></svg><span class="showreel-play-btn pointer-events-none relative z-10 flex h-16 w-16 flex-none items-center justify-center rounded-full bg-[#0042f8] shadow-lg transition group-hover:scale-105 sm:h-20 sm:w-20">
+  <svg viewBox="0 0 24 24" class="ml-0.5 h-7 w-7 fill-white sm:h-8 sm:w-8"><path d="M8 5v14l11-7z"></path></svg>
+</span>
+    </button></div></div></div><script src="./js/showreel.js" defer></script>
+
+<div class="mt-24 sm:mt-32 lg:mt-40">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 "><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in max-w-2xl">
+          <h2><span class="mb-6 block font-display text-base font-semibold text-neutral-950">Selected Works</span><span class="sr-only"> - </span>
+            <span class="block font-display tracking-tight [text-wrap:balance] text-4xl font-medium sm:text-5xl text-neutral-950">Recent work.</span>
+          </h2>
+          <div class="mt-6 text-xl text-neutral-600"><p>A few recent pieces from the portfolio.</p></div></div></div></div>  <div class="max-w-7xl mx-auto px-6 lg:px-8 "><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in-stagger fade-in-stagger--faster ">
+    <ul role="list" class="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3"><li><div class="fade-in ">
+          <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group block">
+            <div class="aspect-video overflow-hidden rounded-2xl bg-neutral-100">
+              <img src="./uploads/portfolio/ae455a8cc8d4e22f1d2a8141_1774793923_thumb.webp" alt="Library Illustration" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <p class="mt-3 text-sm font-semibold text-neutral-950">Library Illustration</p>
+            <p class="text-sm text-neutral-500">Illustration · Anime Style · 2024</p>
+          </a>
+        </div></li><li><div class="fade-in ">
+          <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group block">
+            <div class="aspect-video overflow-hidden rounded-2xl bg-neutral-100">
+              <img src="./uploads/portfolio/b85bb8d0a41270787283dd23_1774873390_thumb.webp" alt="Character Illustration" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <p class="mt-3 text-sm font-semibold text-neutral-950">Character Illustration</p>
+            <p class="text-sm text-neutral-500">Character Design · 2026</p>
+          </a>
+        </div></li><li><div class="fade-in ">
+          <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group block">
+            <div class="aspect-video overflow-hidden rounded-2xl bg-neutral-100">
+              <img src="./uploads/portfolio/fce037eeb20b23b1aa896f43_1774873308_thumb.webp" alt="VFX Game Character" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <p class="mt-3 text-sm font-semibold text-neutral-950">VFX Game Character</p>
+            <p class="text-sm text-neutral-500">Character · Game Art · 2024</p>
+          </a>
+        </div></li><li><div class="fade-in ">
+          <a href="#" data-arsip="halaman lain tidak diarsipkan" class="group block">
+            <div class="aspect-video overflow-hidden rounded-2xl bg-neutral-100">
+              <img src="./uploads/portfolio/ac971a3186a732aeabe3eb1f_1785468391_thumb.webp" alt="Candle Night (feat. RUUL)" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </div>
+            <p class="mt-3 text-sm font-semibold text-neutral-950">Candle Night (feat. RUUL)</p>
+            <p class="text-sm text-neutral-500">Album Artwork · Collaboration</p>
+          </a>
+        </div></li></ul></div></div></div>  <div class="max-w-7xl mx-auto px-6 lg:px-8 "><div class="max-w-2xl mx-auto lg:max-w-none"><div class="mt-10"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center gap-x-1.5 text-sm font-semibold text-neutral-950 transition hover:text-neutral-700">View all work <svg viewBox="0 0 11 11" fill="none" class="inline-block flex-none h-3 w-3" aria-hidden="true"><path d="M2 9L9 2M9 2H3M9 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></div></div></div>
+
+<div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32 lg:mt-40"><div class="max-w-2xl mx-auto lg:max-w-none"><div id="testimonial-trust-panel" class="rounded-4xl bg-neutral-950 px-6 py-20 sm:py-32 md:px-12"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:flex-nowrap sm:justify-start">
+  <h2 class="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">Trusted by the artists and clients we&#039;ve worked with</h2>
+  <div class="h-px flex-auto bg-neutral-800"></div>
+  <button type="button" id="testimonial-add-btn" class="inline-flex flex-none items-center gap-x-1.5 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200">
+    <svg viewBox="0 0 20 20" class="h-4 w-4 flex-none fill-current" aria-hidden="true"><path d="M10 4a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V5a1 1 0 011-1z"></path></svg>
+    Share your experience
+  </button>
+</div></div><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in-stagger fade-in-stagger--faster ">
+  <ul role="list" class="mt-10 grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-8 sm:gap-y-6 lg:grid-cols-4" id="testimonial-picker"><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://www.facebook.com/amrozi.amrozi.5473" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@amrozi on Facebook"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951Z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3 is-active" data-quote="Pelayanan super! kualitas dari illuztar tidak bisa diragukan, recommended!" data-name="Initial J" data-role="Freelancer · @amrozi" data-avatar="./uploads/avatars/f91939c1e4abbb7fa88e7d39_1783700798_thumb.webp" data-initial="I" data-social-link="https://www.facebook.com/amrozi.amrozi.5473" aria-pressed="true"><img src="./uploads/avatars/f91939c1e4abbb7fa88e7d39_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@amrozi</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://instagram.com/arikooo_" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@arikooo_ on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Good service, recommended. 👍🏽👍🏽" data-name="Ariko" data-role="Childrenbook illustrator · @arikooo_" data-avatar="./uploads/avatars/e452515dcfd7e01d8d724daf_1783700798.webp" data-initial="A" data-social-link="https://instagram.com/arikooo_" aria-pressed="false"><img src="./uploads/avatars/e452515dcfd7e01d8d724daf_1783700798.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@arikooo_</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://instagram.com/uswah_one17" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@uswah_one17 on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Desain bagus sesuai ide sampai detailingnya." data-name="Idda" data-role="Student · @uswah_one17" data-avatar="./uploads/avatars/4b229c82ff132eac9c9f53d1_1783700798_thumb.webp" data-initial="I" data-social-link="https://instagram.com/uswah_one17" aria-pressed="false"><img src="./uploads/avatars/4b229c82ff132eac9c9f53d1_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@uswah_one17</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://instagram.com/artof_z99" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@artof_z99 on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Respon cepat dan profesional. Kami telah berkolaborasi dalam lebih dari 15 project dengan 40+ karakter yang diwarnai oleh Iluztar." data-name="Artofz" data-role="Fulltime Illustrator · @artof_z99" data-avatar="./uploads/avatars/5a0bed2ebbf0d5d4b9ab5a05_1783700798_thumb.webp" data-initial="A" data-social-link="https://instagram.com/artof_z99" aria-pressed="false"><img src="./uploads/avatars/5a0bed2ebbf0d5d4b9ab5a05_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@artof_z99</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://www.facebook.com/HaoMonK2" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@haomon_koo on Facebook"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951Z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Kemampuan Iluztar dalam mengerjakan Commission Photobash Background dan Desain Karakter sangatlah Professional. Illuztar mampu menyelesaikan tepat waktu dan sesuai ekspetasi aku." data-name="Haomon Koo" data-role="Freelance Illustrator · @haomon_koo" data-avatar="./uploads/avatars/99a8faa92d351d2c8f3ec57d_1783700798_thumb.webp" data-initial="H" data-social-link="https://www.facebook.com/HaoMonK2" aria-pressed="false"><img src="./uploads/avatars/99a8faa92d351d2c8f3ec57d_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@haomon_koo</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://instagram.com/educa.umm" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@educa_umm on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Pelayanan Iluztar Studio memuaskan! Proses diskusi konsep hingga final logo @educa.umm berjalan lancar. Tim responsif, profesional, dan detail. Hasilnya mewakili identitas akun saya dengan baik." data-name="Duca" data-role="Teacher · @educa_umm" data-avatar="./uploads/avatars/cd52cdddeecc12e1507da62f_1783700798_thumb.webp" data-initial="D" data-social-link="https://instagram.com/educa.umm" aria-pressed="false"><img src="./uploads/avatars/cd52cdddeecc12e1507da62f_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@educa_umm</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://instagram.com/sanivi__" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@sanivi__ on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Fast response, professional attitude, and outstanding illustration quality. The final result exceeded my expectations. Highly recommended." data-name="Sani" data-role="Illustrator · @sanivi__" data-avatar="./uploads/avatars/0340810d0c4f98f57ba0b539_1783700798_thumb.webp" data-initial="S" data-social-link="https://instagram.com/sanivi__" aria-pressed="false"><img src="./uploads/avatars/0340810d0c4f98f57ba0b539_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@sanivi__</span></button></div></div></li><li><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://www.youtube.com/@urpieepiee" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@urpieepiee on Youtube"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193Zm-.842 3.65v4.002l3.5-2.001-3.5-2.001Z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="I asked an artist to continue a sketch that was originally done by someone else and the results blew me away! 🎨✨ Each revision added more life and detail, turning a simple sketch into a polished piece full of personality. The process was smooth, fun, and collaborative. Honestly, watching the artwork evolve was just as exciting as seeing the final masterpiece. Couldn&#039;t be happier with how it turned out!" data-name="Vivi" data-role="Freelancer · @urpieepiee" data-avatar="./uploads/avatars/e7f9814aebabaf3ad0c3f5be_1783700798_thumb.webp" data-initial="V" data-social-link="https://www.youtube.com/@urpieepiee" aria-pressed="false"><img src="./uploads/avatars/e7f9814aebabaf3ad0c3f5be_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@urpieepiee</span></button></div></div></li><li class="hidden" data-testimonial-extra><div class="flex items-center gap-x-1.5 sm:gap-x-2"><a href="https://www.instagram.com/mueltr3" target="_blank" rel="noopener noreferrer" class="flex-none text-neutral-500 transition hover:text-white" aria-label="@mueltr3 on Instagram"><svg viewBox="0 0 16 16" class="h-3.5 w-3.5 sm:h-4 sm:w-4"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a><div class="fade-in min-w-0 flex-1"><button type="button" class="testimonial-trigger flex w-full min-w-0 items-center gap-x-2 rounded-full py-1 text-left sm:gap-x-3" data-quote="Iluztar sangat komunikatif sebagai rekan kerja dan punya pemahaman kuat soal fundamental visual. Arahan dan masukannya baik untuk ilustrasi karakter, background dan logo yang pernah saya kerjakan sangat membantu dan relevan." data-name="MuEltre" data-role="Beginner Illustrator &amp; Designer · @mueltr3" data-avatar="./uploads/avatars/ff64e46bf511b0ceb224bd7d_1783700798_thumb.webp" data-initial="M" data-social-link="https://www.instagram.com/mueltr3" aria-pressed="false"><img src="./uploads/avatars/ff64e46bf511b0ceb224bd7d_1783700798_thumb.webp" alt="" class="testimonial-trigger-avatar h-7 w-7 flex-none rounded-full object-cover sm:h-10 sm:w-10"><span class="testimonial-trigger-name truncate font-display text-sm font-semibold sm:text-lg lg:text-xl" style="white-space:nowrap">@mueltr3</span></button></div></div></li></ul></div></div><div id="testimonial-show-more-wrap" class="mt-10"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in ">
+      <button type="button" id="testimonial-show-more" class="inline-flex items-center gap-x-1.5 text-sm font-semibold text-white transition hover:text-neutral-300">Show more <svg viewBox="0 0 11 11" fill="none" class="inline-block flex-none h-3 w-3" aria-hidden="true"><path d="M2 9L9 2M9 2H3M9 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    </div></div></div></div></div></div>
+<div class="relative isolate mt-24 bg-neutral-50 py-16 sm:mt-32 sm:py-28 lg:mt-40 md:py-32">
+  <svg aria-hidden="true" class="absolute inset-0 -z-10 h-full w-full fill-neutral-100 stroke-neutral-950/5 [mask-image:linear-gradient(to_bottom_left,white_50%,transparent_60%)]">
+      <rect width="100%" height="100%" fill="url(#gp0)" stroke-width="0"></rect>
+      <svg x="50%" y="-256" stroke-width="0" class="overflow-visible"><path transform="translate(64 160)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path><path transform="translate(128 320)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path><path transform="translate(288 480)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path><path transform="translate(512 320)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path><path transform="translate(544 640)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path><path transform="translate(320 800)" d="M45.119 4.5a11.5 11.5 0 0 0-11.277 9.245l-25.6 128C6.82 148.861 12.262 155.5 19.52 155.5h63.366a11.5 11.5 0 0 0 11.277-9.245l25.6-128c1.423-7.116-4.02-13.755-11.277-13.755H45.119Z"></path></svg>
+      <defs><pattern id="gp0" width="96" height="480" x="50%" patternUnits="userSpaceOnUse" patternTransform="translate(0 -256)" fill="none"><path d="M128 0 98.572 147.138A16 16 0 0 1 82.883 160H13.117a16 16 0 0 0-15.69 12.862l-26.855 134.276A16 16 0 0 1-45.117 320H-116M64-160 34.572-12.862A16 16 0 0 1 18.883 0h-69.766a16 16 0 0 0-15.69 12.862l-26.855 134.276A16 16 0 0 1-109.117 160H-180M192 160l-29.428 147.138A15.999 15.999 0 0 1 146.883 320H77.117a16 16 0 0 0-15.69 12.862L34.573 467.138A16 16 0 0 1 18.883 480H-52M-136 480h58.883a16 16 0 0 0 15.69-12.862l26.855-134.276A16 16 0 0 1-18.883 320h69.766a16 16 0 0 0 15.69-12.862l26.855-134.276A16 16 0 0 1 109.117 160H192M-72 640h58.883a16 16 0 0 0 15.69-12.862l26.855-134.276A16 16 0 0 1 45.117 480h69.766a15.999 15.999 0 0 0 15.689-12.862l26.856-134.276A15.999 15.999 0 0 1 173.117 320H256M-200 320h58.883a15.999 15.999 0 0 0 15.689-12.862l26.856-134.276A16 16 0 0 1-82.883 160h69.766a16 16 0 0 0 15.69-12.862L29.427 12.862A16 16 0 0 1 45.117 0H128"></path></pattern></defs>
+    </svg>  <div class="max-w-7xl mx-auto px-6 lg:px-8 "><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in ">
+    <figure class="mx-auto max-w-4xl transition-opacity duration-200" id="testimonial-figure">
+      <blockquote class="relative font-display text-xl font-medium tracking-tight text-neutral-950 sm:text-3xl md:text-4xl">
+        <p id="testimonial-quote">&ldquo;Pelayanan super! kualitas dari illuztar tidak bisa diragukan, recommended!&rdquo;</p>
+      </blockquote>
+      <figcaption class="mt-10">
+        <a href="https://www.facebook.com/amrozi.amrozi.5473" target="_blank" rel="noopener noreferrer" id="testimonial-social-link" class="group -m-2 flex items-center gap-x-4 rounded-2xl p-2 transition hover:bg-neutral-950/5" aria-label="Visit profile">
+          <span id="testimonial-avatar-wrap"><img src="./uploads/avatars/f91939c1e4abbb7fa88e7d39_1783700798_thumb.webp" alt="Initial J" class="h-12 w-12 rounded-full object-cover"></span>
+          <div>
+            <div class="flex items-center gap-x-1.5">
+              <div class="font-display text-base font-semibold text-neutral-950" id="testimonial-name">Initial J</div>
+              <span class="flex-none text-neutral-400 transition" id="testimonial-social-arrow"><svg viewBox="0 0 11 11" fill="none" class="inline-block flex-none h-3.5 w-3.5" aria-hidden="true"><path d="M2 9L9 2M9 2H3M9 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            </div>
+            <div class="text-sm text-neutral-600" id="testimonial-role">Freelancer · @amrozi</div>
+          </div>
+        </a>
+      </figcaption>
+    </figure>
+  </div></div></div></div>
+
+<div id="testimonial-overlay" class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-neutral-950/70 p-4" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="w-full overflow-hidden rounded-2xl bg-white shadow-2xl" style="max-width:34rem">
+    <div id="testimonial-form-view">
+      <div class="flex items-center justify-between border-b border-neutral-950/10" style="padding:1.5rem 2rem">
+        <h2 class="font-display text-base font-semibold text-neutral-950">Share your experience</h2>
+        <button type="button" id="testimonial-close-btn" aria-label="Close" class="-m-2 flex-none rounded-full p-2 transition hover:bg-neutral-950/10">
+          <svg viewBox="0 0 20 20" class="h-5 w-5 fill-neutral-950"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+      <form id="testimonial-form" style="padding:1.5rem 2rem 2rem 2rem" novalidate>
+        <div class="hidden" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <div class="isolate -space-y-px rounded-2xl bg-white">
+          <div class="group relative z-0 transition-all focus-within:z-10">
+            <input id="ts-name" name="name" type="text" maxlength="100" required placeholder=" " autocomplete="name" class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5" style="border-radius:1rem 1rem 0 0">
+            <label for="ts-name" class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950">Your name</label>
+          </div>
+          <div class="group relative z-0 transition-all focus-within:z-10">
+            <textarea id="ts-quote" name="quote" rows="7" maxlength="600" required placeholder=" " class="peer block w-full resize-none border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5" style="border-radius:0 0 1rem 1rem"></textarea>
+            <label for="ts-quote" class="pointer-events-none absolute left-6 top-6 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950">Your testimonial</label>
+          </div>
+        </div>
+
+        <label for="ts-avatar" class="mt-6 block text-sm font-semibold text-neutral-950">Photo (optional)</label>
+        <input id="ts-avatar" name="avatar" type="file" accept="image/jpeg,image/png,image/webp" class="mt-3 block w-full rounded-2xl border border-neutral-300 bg-transparent px-6 py-4 text-sm text-neutral-600 focus:border-neutral-950 focus:outline-none focus:ring-4 focus:ring-neutral-950/5">
+
+        <label for="ts-platform" class="mt-6 block text-sm font-semibold text-neutral-950">Social media</label>
+        <div class="mt-3 flex gap-3">
+          <select id="ts-platform" name="platform" required class="block w-2/5 flex-none rounded-2xl border border-neutral-300 bg-transparent px-6 py-4 text-sm text-neutral-950 focus:border-neutral-950 focus:outline-none focus:ring-4 focus:ring-neutral-950/5">
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="twitter">Twitter/X</option>
+          </select>
+          <input id="ts-username" name="username" type="text" maxlength="60" required placeholder="username" class="block w-full rounded-2xl border border-neutral-300 bg-transparent px-6 py-4 text-sm text-neutral-950 placeholder:text-neutral-400 focus:border-neutral-950 focus:outline-none focus:ring-4 focus:ring-neutral-950/5">
+        </div>
+
+        <p class="mt-6 hidden text-sm font-semibold text-red-600" data-testimonial-error></p>
+        <p class="mt-6 text-xs text-neutral-500">Submitted testimonials are reviewed by the studio before they appear publicly.</p>
+
+        <button type="submit" class="mt-8 flex w-full items-center justify-center rounded-full bg-neutral-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800">Submit</button>
+      </form>
+    </div>
+    <div id="testimonial-success-view" class="hidden text-center" style="padding:2.5rem 2rem">
+      <h2 class="font-display text-base font-semibold text-neutral-950">Thank you!</h2>
+      <p class="mt-2 text-sm text-neutral-600">Your testimonial will appear on the site after the studio reviews it.</p>
+      <button type="button" id="testimonial-success-close-btn" class="mt-6 inline-flex items-center justify-center rounded-full bg-neutral-950 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-neutral-800">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="./js/testimonials.js" defer></script>
+
+<div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32 lg:mt-40"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in max-w-2xl">
+          <h2><span class="mb-6 block font-display text-base font-semibold text-neutral-950">Services</span><span class="sr-only"> - </span>
+            <span class="block font-display tracking-tight [text-wrap:balance] text-4xl font-medium sm:text-5xl text-neutral-950">What we create.</span>
+          </h2>
+          <div class="mt-6 text-xl text-neutral-600"><p>From a single character sheet to a full brand identity — every piece is hand-crafted with intention.</p></div></div></div></div><div class="max-w-7xl mx-auto px-6 lg:px-8 mt-16"><div class="max-w-2xl mx-auto lg:max-w-none">
+  <div class="lg:flex lg:items-center lg:justify-end">
+    <div class="flex justify-center lg:w-1/2 lg:justify-end lg:pr-12">
+      <div class="fade-in logo-showcase w-full max-w-xs flex-none sm:max-w-[28rem] lg:w-[34rem] lg:max-w-none"><div class="justify-center lg:justify-end relative flex aspect-square w-full grayscale">
+      <svg viewBox="713.96 713.96 2572.08 2572.08" fill="none" class="h-full w-full">
+        <g clip-path="url(#lm1-clip)" class="group">
+          <g class="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
+            <foreignObject x="713.96" y="713.96" width="2572.08" height="2572.08">
+              <img alt="" src="./uploads/portfolio/ae455a8cc8d4e22f1d2a8141_1774793923_thumb.webp" class="h-full w-full bg-neutral-100 object-cover">
+            </foreignObject>
+          </g>
+          <use href="#lm1-shape" stroke-width="8" class="stroke-neutral-950/10"></use>
+        </g>
+        <defs><clipPath id="lm1-clip"><path id="lm1-shape" d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"></path></clipPath></defs>
+      </svg>
+    </div></div>
+    </div>
+    <div class="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-[33rem] lg:pl-4"><div class="fade-in-stagger "><ul role="list" class="divide-y divide-neutral-950/10 border-t border-neutral-950/10"><li><div class="fade-in ">
+      <details class="group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-x-4 py-6 font-display text-xl font-semibold text-neutral-950 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span>Anime Illustration</span>
+          <span class="flex flex-none items-center gap-x-4">
+            <span class="text-sm font-medium text-neutral-500">From $8</span>
+            <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-400 transition-transform duration-200 group-open:rotate-180"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+          </span>
+        </summary>
+        <div class="pb-6 pr-10">
+          <p class="text-base text-neutral-600">Full-body illustrations and original character designs, drawn exactly as you imagined — clean anime style.</p>
+          <ul role="list" class="mt-6 flex flex-wrap gap-3"><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Character Design</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Scene Illustration</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Fan Art</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Original IP</li></ul>
+        </div>
+      </details>
+    </div></li><li><div class="fade-in ">
+      <details class="group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-x-4 py-6 font-display text-xl font-semibold text-neutral-950 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span>Graphic Branding</span>
+          <span class="flex flex-none items-center gap-x-4">
+            <span class="text-sm font-medium text-neutral-500">From $17</span>
+            <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-400 transition-transform duration-200 group-open:rotate-180"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+          </span>
+        </summary>
+        <div class="pb-6 pr-10">
+          <p class="text-base text-neutral-600">Brand identity systems, logo design, and visual assets for creators, small businesses, and VTubers.</p>
+          <ul role="list" class="mt-6 flex flex-wrap gap-3"><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Logo Design</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Visual Identity</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Brand Kit</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Social Assets</li></ul>
+        </div>
+      </details>
+    </div></li><li><div class="fade-in ">
+      <details class="group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-x-4 py-6 font-display text-xl font-semibold text-neutral-950 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span>Photo Manipulation</span>
+          <span class="flex flex-none items-center gap-x-4">
+            <span class="text-sm font-medium text-neutral-500">From $6</span>
+            <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-400 transition-transform duration-200 group-open:rotate-180"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+          </span>
+        </summary>
+        <div class="pb-6 pr-10">
+          <p class="text-base text-neutral-600">Professional photo editing, compositing, and creative retouching — intentional, never over-edited.</p>
+          <ul role="list" class="mt-6 flex flex-wrap gap-3"><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Photo Editing</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Compositing</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Retouch</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Color Grading</li></ul>
+        </div>
+      </details>
+    </div></li><li><div class="fade-in ">
+      <details class="group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-x-4 py-6 font-display text-xl font-semibold text-neutral-950 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span>Creative Support</span>
+          <span class="flex flex-none items-center gap-x-4">
+            <span class="text-sm font-medium text-neutral-500">Custom</span>
+            <svg viewBox="0 0 20 20" class="h-5 w-5 flex-none fill-neutral-400 transition-transform duration-200 group-open:rotate-180"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+          </span>
+        </summary>
+        <div class="pb-6 pr-10">
+          <p class="text-base text-neutral-600">Custom creative assets for streamers, content creators, and digital platforms — sized and delivered exactly as you need.</p>
+          <ul role="list" class="mt-6 flex flex-wrap gap-3"><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Emotes &amp; Badges</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Stream Assets</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Thumbnails</li><li class="rounded-full bg-neutral-100 px-3 py-1.5 text-xs font-semibold text-neutral-600">Sticker Packs</li></ul>
+        </div>
+      </details>
+    </div></li></ul></div></div>
+  </div>
+</div></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32 "><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in ">
+      <h2 class="font-display text-base font-semibold text-neutral-950">Comments <span id="comments-count-badge" class="font-normal text-neutral-400"></span></h2>
+      <p id="comments-empty" class="text-sm text-neutral-500">Be the first to leave a comment.</p><ul id="comments-list" role="list" class="mt-6 space-y-4" data-page-type="home" data-page-id="" data-reply-pending-msg="Thanks! Your reply will appear after admin review." data-like-label="Like this comment" data-reply-label="Reply" data-name-label="Name" data-message-label="Reply" data-post-reply-label="Post reply"></ul>
+        <form id="comment-form" class="mt-10" data-page-type="home" data-page-id="">
+          <div class="hidden" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="isolate -space-y-px rounded-2xl bg-white/50">
+            <div class="group relative z-0 transition-all focus-within:z-10">
+              <input id="comment-name" name="name" type="text" maxlength="80" required placeholder=" " autocomplete="name" class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5" style="border-radius:1rem 1rem 0 0">
+              <label for="comment-name" class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950">Name</label>
+            </div>
+            <div class="group relative z-0 transition-all focus-within:z-10">
+              <textarea id="comment-message" name="message" rows="4" maxlength="1000" required placeholder=" " class="peer block w-full resize-none border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5" style="border-radius:0 0 1rem 1rem"></textarea>
+              <label for="comment-message" class="pointer-events-none absolute left-6 top-6 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950">Message</label>
+            </div>
+          </div>
+          <p class="mt-4 hidden text-sm font-semibold text-red-600" data-comment-error></p>
+          <p class="mt-4 hidden text-sm text-neutral-600" data-comment-pending>Thanks! Your comment will appear after admin review.</p>
+          <button type="submit" class="mt-6 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800"><span>Post comment</span></button>
+        </form>
+    </div></div></div>
+<div class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 sm:mt-32 lg:mt-40"><div class="max-w-2xl mx-auto lg:max-w-none"><div class="fade-in contact-cta-panel rounded-4xl bg-neutral-950 px-6 py-20 sm:py-32 md:px-12">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-display text-3xl font-medium text-white [text-wrap:balance] sm:text-4xl">Have a project in mind?</h2>
+            <p class="mt-4 max-w-xl text-neutral-300">Free consultation before any commission — tell us what you need and we&#039;ll confirm scope, timeline, and price.</p>
+            <div class="mt-6 flex"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-white text-neutral-950 hover:bg-neutral-200"><span>Say Hello</span></a></div>
+            <div class="mt-10 border-t border-white/10 pt-10">
+              <h3 class="font-display text-base font-semibold text-white">Our offices</h3>
+              <ul role="list" class="mt-6 grid grid-cols-2 gap-8">
+        <li><address class="text-sm not-italic text-neutral-300"><strong class="text-white">Indonesia</strong><br>at Way Halim<br>Bandar Lampung City</address></li>
+        <li><address class="text-sm not-italic text-neutral-300"><strong class="text-white">Remote-friendly</strong><br>GMT+7<br><a href="https://instagram.com/iluztar" target="_blank" rel="noopener noreferrer" class="transition hover:text-white">Instagram @iluztar</a></address></li>
+    </ul>
+            </div>
+          </div>
+        </div></div></div>
+    </main>
+    <footer class="max-w-7xl mx-auto px-6 lg:px-8 mt-24 w-full sm:mt-32 lg:mt-40"><div class="max-w-2xl mx-auto lg:max-w-none">
+      <div class="fade-in">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2 lg:gap-y-16">
+          <nav><ul role="list" class="grid grid-cols-2 gap-x-6 gap-y-10 text-center sm:grid-cols-4 sm:gap-8 lg:gap-x-12 lg:text-left">
+                      <li>
+              <div class="font-display text-sm font-semibold tracking-wider text-neutral-950">Explore</div>
+              <ul role="list" class="mt-4 flex flex-col items-center gap-y-2 text-sm text-neutral-700 sm:block sm:gap-0 lg:items-start">
+                              <li class="sm:mt-4"><a href="./" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Home                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Gallery                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Workflow                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Blog                                </a></li>
+                            </ul>
+            </li>
+                      <li>
+              <div class="font-display text-sm font-semibold tracking-wider text-neutral-950">Studio</div>
+              <ul role="list" class="mt-4 flex flex-col items-center gap-y-2 text-sm text-neutral-700 sm:block sm:gap-0 lg:items-start">
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  About                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Contact                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Privacy Policy                                </a></li>
+                              <li class="sm:mt-4"><a href="#" data-arsip="halaman lain tidak diarsipkan" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Terms                                </a></li>
+                            </ul>
+            </li>
+                      <li>
+              <div class="font-display text-sm font-semibold tracking-wider text-neutral-950">Connect</div>
+              <ul role="list" class="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-neutral-700 sm:block sm:gap-0 lg:justify-start">
+                              <li class="sm:mt-4"><a href="https://instagram.com/iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950" aria-label="Instagram" title="Instagram">
+                                  <span class="sm:hidden"><svg viewBox="0 0 16 16" class="h-5 w-5 fill-current"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></span>
+                  <span class="hidden sm:inline">Instagram</span>
+                                </a></li>
+                              <li class="sm:mt-4"><a href="https://www.facebook.com/iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950" aria-label="Facebook" title="Facebook">
+                                  <span class="sm:hidden"><svg viewBox="0 0 16 16" class="h-5 w-5 fill-current"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951Z"/></svg></span>
+                  <span class="hidden sm:inline">Facebook</span>
+                                </a></li>
+                              <li class="sm:mt-4"><a href="https://x.com/iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950" aria-label="Twitter" title="Twitter">
+                                  <span class="sm:hidden"><svg viewBox="0 0 16 16" class="h-5 w-5 fill-current"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15Z"/></svg></span>
+                  <span class="hidden sm:inline">Twitter</span>
+                                </a></li>
+                              <li class="sm:mt-4"><a href="https://youtube.com/@iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950" aria-label="YouTube" title="YouTube">
+                                  <span class="sm:hidden"><svg viewBox="0 0 16 16" class="h-5 w-5 fill-current"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193Zm-.842 3.65v4.002l3.5-2.001-3.5-2.001Z"/></svg></span>
+                  <span class="hidden sm:inline">YouTube</span>
+                                </a></li>
+                            </ul>
+            </li>
+                      <li>
+              <div class="font-display text-sm font-semibold tracking-wider text-neutral-950">Donate</div>
+              <ul role="list" class="mt-4 flex flex-col items-center gap-y-2 text-sm text-neutral-700 sm:block sm:gap-0 lg:items-start">
+                              <li class="sm:mt-4"><a href="https://sociabuzz.com/iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  SociaBuzz                                </a></li>
+                              <li class="sm:mt-4"><a href="https://saweria.co/iluztar" class="inline-flex items-center text-neutral-700 transition hover:text-neutral-950">
+                                  Saweria                                </a></li>
+                            </ul>
+            </li>
+                    </ul></nav>
+          <div class="flex justify-center lg:justify-end">
+            <div class="max-w-sm text-center lg:text-left" id="newsletter-form-wrap">
+            <form novalidate id="newsletter-form">
+              <input type="text" name="website" id="nf-website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+              <h2 class="font-display text-sm font-semibold tracking-wider text-neutral-950">Follow the studio</h2>
+              <p class="mt-4 text-sm text-neutral-700">New work, process breakdowns, and commission slot openings — posted on Instagram first.</p>
+              <div class="relative mt-6">
+                <input type="email" name="email" required placeholder="Email address" autocomplete="email" aria-label="Email address" class="block w-full rounded-2xl border border-neutral-300 bg-transparent py-4 pl-6 pr-20 text-base/6 text-neutral-950 ring-4 ring-transparent transition placeholder:text-neutral-500 focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5">
+                <div class="absolute inset-y-1 right-1 flex justify-end">
+                  <button type="submit" aria-label="Submit" class="flex aspect-square h-full items-center justify-center rounded-xl bg-neutral-950 text-white transition hover:bg-neutral-800">
+                    <svg viewBox="0 0 16 6" aria-hidden="true" class="w-4"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16 3 10 .5v2H0v1h10v2L16 3Z"/></svg>
+                  </button>
+                </div>
+              </div>
+              <p class="mt-3 hidden text-sm font-semibold text-red-600" data-newsletter-error></p>
+            </form>
+            <p class="mt-3 hidden text-sm text-neutral-700" data-newsletter-success>Thanks for subscribing! We&#039;ll keep you posted.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mb-12 mt-16 flex flex-col items-center gap-y-4 border-t border-neutral-950/10 pt-12 text-center sm:mb-20 sm:mt-24 lg:flex-row lg:flex-wrap lg:items-end lg:justify-between lg:gap-x-6 lg:text-left">
+          <a href="./" aria-label="Home"><h2 class="cursor-pointer flex items-center gap-x-2 whitespace-nowrap font-display text-lg font-semibold duration-300 sm:gap-x-3.5 sm:text-2xl text-black hover:text-[#0042f8] h-8">
+      <svg viewBox="713.96 713.96 2572.08 2572.08" class="h-5 w-5 flex-none sm:h-6 sm:w-6 fill-[#0042f8]" aria-hidden="true"><path d="M2597.5 819.1 1269 1002.75c-66.87 10.92-129.84 43.94-177.63 91.88-47.95 47.92-80.35 111.08-91.28 177.99L815.13 2617.09c-13.315 142.852 89.42 228.213 180.21 319.27l685.02-687.55c84.49-100.39 95.23-253.01 30.27-366.29-135.4-178.02-281.19-349.01-420.85-524.12-39.29-42.36 26.61-104.55 66.19-63.67 181.89 140.81 351.8 298.85 541.11 428.97 112.87 56.32 259.08 39.22 354.05-44.48l684.98-684c-143.23-186.86-289.49-179.68-338.61-176.12m-1195 2361.8L2731 2997.25c66.87-10.92 129.84-43.94 177.63-91.88 47.95-47.92 80.35-111.08 91.28-177.99l184.96-1344.47c13.315-142.852-89.42-228.213-180.21-319.27l-685.02 687.55c-84.49 100.39-95.23 253.01-30.27 366.29 135.4 178.02 281.19 349.01 420.85 524.12 39.29 42.36-26.61 104.55-66.19 63.67-181.89-140.81-351.8-298.85-541.11-428.97-112.87-56.32-259.08-39.22-354.05 44.48l-684.98 684c143.23 186.86 289.49 179.68 338.61 176.12"></path></svg>
+      <span class="relative">iluztar Studio<sup class="ml-0.5 align-super font-mono text-[0.35em] font-normal leading-none tracking-normal">TM</sup></span>
+    </h2></a>
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-4">
+            <p class="text-sm text-neutral-700">&copy; ILUZTAR <span id="footer-year">2026</span> &mdash; Bandar Lampung, Indonesia.</p>
+            <button type="button" id="back-to-top" class="inline-flex items-center gap-x-1.5 text-xs font-semibold text-neutral-700 transition hover:text-neutral-950">
+              <svg viewBox="0 0 11 11" fill="none" class="inline-block flex-none h-3 w-3 -rotate-45" aria-hidden="true"><path d="M2 9L9 2M9 2H3M9 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>              Back to top            </button>
+          </div>
+        </div>
+      </div>
+    </div></footer>
+  </div>
+</div>
+<script>
+document.getElementById('back-to-top').addEventListener('click', function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+<script src="./js/nav.js" defer></script>
+<script src="./js/reveal.js" defer></script>
+<script src="./js/forms.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/contact.js" defer></script>
+<script src="./js/lang-switch.js" defer></script>
+<a href="https://iluztar.com/" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#111;color:#fff;font:600 12px/1.3 system-ui,sans-serif;padding:7px 11px;border-radius:999px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.3)">Arsip beranda lama Arsip beranda lama (sebelum 10 November 2026) &middot; versi terkini di iluztar.commiddot; sebelum 10 Nov 2026</a>
+</body>
+</html>
