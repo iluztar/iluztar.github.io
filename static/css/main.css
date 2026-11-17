@@ -1,0 +1,21 @@
+/* ============================================
+   main.css -- Entry Point
+   Import semua CSS module secara berurutan
+
+   Module Map:
+   01-base.css       -> Reset, CSS Variables, Body Defaults
+   02-layout.css     -> Container, Visual FX, Big Text, Keyframes
+   03-hud-nav.css    -> HUD, Buttons, Nav Menu, Alert Bar
+   04-hero.css       -> Hero Section, CTA Buttons
+   05-components.css -> Cards, Portfolio, Testimonials, FAQ, Footer, Swiper, Lang Toggle
+   06-scenes.css     -> Sticky Scroll Scenes (Services, Portfolio, Testimonials, FAQ, Contact)
+   07-preloader.css  -> Preloader Animation (harus terakhir, z-index tertinggi)
+   ============================================ */
+
+@import url('./01-base.css');
+@import url('./02-layout.css');
+@import url('./03-hero.css');
+@import url('./04-components.css');
+@import url('./05-scenes.css');
+@import url('./06-preloader.css');
+@import url('./07-sidebar.css');
