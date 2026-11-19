@@ -8,7 +8,7 @@ let _lenis = null;
 
 const uiStrings = {
     en: {
-        alertText:                 '>> <strong>CLOSE COMMISSION / COLLABORATION</strong> <<',
+        alertText:                 '>> <strong>OPEN COMMISSION / COLLABORATION</strong> <<',
         heroDescription:           '"Shine Through Art" - Creative studio for anime illustration, graphic branding, and collaborative partner for artists',
         heroCta: [
             { href: '#contact',   cls: 'cta-button primary', text: "Let's Talk" },
@@ -19,7 +19,7 @@ const uiStrings = {
         contactSectionHeader:      '05. CONTACT US'
     },
     id: {
-        alertText:                 '>> <strong>CLOSE COMMISSION / COLLABORATION</strong> <<',
+        alertText:                 '>> <strong>OPEN COMMISSION / COLLABORATION</strong> <<',
         heroDescription:           '"Shine Through Art" - Studio kreatif untuk anime illustration, graphic branding, dan collaborative partner untuk artist',
         heroCta: [
             { href: '#contact',   cls: 'cta-button primary', text: 'Butuh Bantuan?' },
@@ -131,7 +131,7 @@ export const core = {
         if (!sidebar) return;
 
         if (sbEmailLink) {
-            const addr = 'iluztar@proton.me';
+            const addr = 'studio@iluztar.com';
             sbEmailLink.href  = 'mailto:' + addr;
             sbEmailLink.title = addr;
         }
